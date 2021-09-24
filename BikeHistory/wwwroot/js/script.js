@@ -45,7 +45,7 @@ let app = Vue.createApp({
     },
     //needed for fetching username when page is refreshed
     created: async function() {
-        this.user = await getUsername();
+        //this.user = await getUsername();
     }
 });
 app.use(router);
