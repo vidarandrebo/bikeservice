@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAT310 Assignment 8</title>
+    <script src="/static/vue.js" type="text/javascript"></script>
+    <script src="/static/router.js" type="text/javascript"></script>
+    <script src="/static/mainsite.js" type="text/javascript"></script>
+    <script src="/static/settings.js" type="text/javascript"></script>
+    <script src="/static/register.js" type="text/javascript"></script>
+    <script src="/static/login.js" type="text/javascript"></script>
+    <script src="/static/menu.js" type="text/javascript"></script>
+    <script src="/static/bike.js" type="text/javascript"></script>
+    <script src="/static/script.js" type="text/javascript" defer></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+    <div id="app" class="app">
+        <header>
+            <menubar v-bind:user="user"></menubar>
+        </header>
+        <main>
+            <!--Changes depending on which component is active-->
+            <router-view v-bind:user="user"></router-view>
+        </main>
+        <div class="space"></div>
+        <footer>
+            <a href="https://github.com/vidarandrebo">https://github.com/vidarandrebo</a>
+        </footer>
+    </div>
+</body>
+</html>
