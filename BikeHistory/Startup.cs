@@ -27,6 +27,8 @@ namespace BikeHistory
         public void ConfigureServices(IServiceCollection services)
         {
 
+           //services.AddControllers()
+           //    .AddNewtonsoftJson(options => options.UseMemberCasing());
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -19,9 +19,25 @@ async function getUsername() {
             'Content-Type': 'application/json'
         }
     });
-    let result = await response.json()
+    let result = await response.json();
     let username = result["username"];
     return username;
+}
+
+async function postUser() {
+    let response = await fetch('/User', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( {
+                "id": 4,
+                "userName": "vidar",
+                "password": "123"
+        }),
+        
+    });
+    let result = await response;
 }
 
 
@@ -46,6 +62,7 @@ let app = Vue.createApp({
     //needed for fetching username when page is refreshed
     created: async function() {
         //this.user = await getUsername();
+        await postUser();
     }
 });
 app.use(router);
