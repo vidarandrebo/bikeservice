@@ -24,9 +24,9 @@ const Login = {
             this.error = null;
             let user = {
                 "username": this.username,
-                "passwd": this.passwd
+                "password": this.passwd
             };
-            let response = await fetch('/login', {
+            let response = await fetch('/Login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -34,13 +34,22 @@ const Login = {
                 body: JSON.stringify(user)
             });
             let result = await response.json();
-            if (result['login'] == "success") {
-                this.username = this.passwd = null;
-                this.$root.user = await getUsername();
-                router.push('/');
-            } else {
-                this.error = result['error'];
-            }
+            console.log(result["token"]);
+           //if (result['login'] == "success") {
+           //    this.username = this.passwd = null;
+           //    this.$root.user = await getUsername();
+           //    router.push('/');
+           //} else {
+           //    this.error = result['error'];
+           //}
+            let testlogin = await fetch('/Login', {
+                method: 'Get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + result["token"]
+                },
+                
+            });
         },
     }
 }
