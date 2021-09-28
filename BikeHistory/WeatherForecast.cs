@@ -2,9 +2,14 @@ using System;
 
 namespace BikeHistory
 {
-    public class WeatherForecast
+    public interface IWeatherForecast {
+        DateTime Date {get; set;}
+        int TemperatureC {get; set;}
+    }
+
+    public class WeatherForecast : IWeatherForecast
     {
-        public DateTime Date { get; set; }
+        public DateTime Date {get; set;}
 
         public int TemperatureC { get; set; }
 
