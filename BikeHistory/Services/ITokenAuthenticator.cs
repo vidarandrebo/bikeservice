@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+
 namespace BikeHistory.Services
 {
     public interface ITokenAuthenticator
@@ -15,10 +16,10 @@ namespace BikeHistory.Services
 
     public class TokenAuthenticator : ITokenAuthenticator {
         public string GenerateToken(int userId) {
-            var mySecret = "asdfghjhgfdsasdfhjhgfdsdfgh";
+            string mySecret = "asdfghjhgfdsasdfhjhgfdsdfgh";
             var mySecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(mySecret));
-            var myIssuer = "https://localhost:5001";
-            var myAudience = "https://localhost:5001";
+            string myIssuer = "https://localhost:5001";
+            string myAudience = "https://localhost:5001";
             
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor {
@@ -51,7 +52,7 @@ namespace BikeHistory.Services
                         IssuerSigningKey = mySecurityKey,
                         }, out SecurityToken validatedToken);
             }
-            catch {
+            catch(Exception) {
                 return false;
             }
             return true;
