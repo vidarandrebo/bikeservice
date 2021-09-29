@@ -35,21 +35,19 @@ const Register = {
             }
             let user = {
                 "username": this.username,
-                "passwd": this.passwd,
+                "password": this.passwd,
             };
-            let response = await fetch('/register', {
+            let response = await fetch('/Register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(user)
             });
-            let result = await response.json();
-            if (result['register'] == "success") {
+            console.log(response);
+            if (response.status == 201) {
                 this.username = this.passwd = this.repasswd = null;
                 router.push('/login');
-            } else {
-                this.error = result['error'];
             }
         },
     }
