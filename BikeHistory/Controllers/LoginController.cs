@@ -7,8 +7,7 @@ using System.Text;
 using BikeHistory.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using BikeHistory.Services;
 
 namespace BikeHistory.Controllers
 {
@@ -16,72 +15,31 @@ namespace BikeHistory.Controllers
     [Route("[controller]")]
     public class LoginController : Controller
     {
+        public LoginController(ITokenAuthenticator authenticator) {
+            _tokenAuthenticator = authenticator;
+        }
+        private ITokenAuthenticator _tokenAuthenticator;
+
         // GET
         [HttpGet]
-        [Authorize]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<string>> OnGet()
         {
             var currentUser = HttpContext.User;
-            DateTime TokenDate = new DateTime();
-            if (currentUser.HasClaim(c => c.Type == "Date"))
-            {
-                TokenDate = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == "Date").Value);
+            string authToken = Request.Headers["Authorization"].ToString();
+            if (_tokenAuthenticator.ValidateToken(authToken)) {
+                Console.WriteLine(_tokenAuthenticator.GetUserId(authToken));
+                return Ok("Custom Claims(date): ");
             }
-
-            return Ok("Custom Claims(date): " + TokenDate);
-        }
-
-        //[AllowAnonymous]
-        [HttpPost]
-        public IActionResult Login(LoginModel login)
-        {
-            var user = AuthenticateUser(login);
-            if (user != null)
-            {
-                var tokenString = GenerateJWT(user);
-                return Ok(new {token = tokenString});
-            } 
             return Unauthorized();
         }
-        
-        
 
-        private LoginModel AuthenticateUser(LoginModel loginData)
+        //POST
+        [HttpPost]
+        public IActionResult OnPost(LoginModel login)
         {
-            LoginModel user = null;
-            if (loginData.UserName == "vidar")
-            {
-                user = new LoginModel {UserName = "vidar"};
-            }
-
-            return user;
+            var tokenString = _tokenAuthenticator.GenerateToken(4);
+            return Ok(new { token = tokenString});
         }
 
-        private readonly IConfiguration _config;
-
-        public LoginController(IConfiguration config)
-        {
-            _config = config;
-        }
-
-        private string GenerateJWT(LoginModel userData)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtAuth:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, userData.UserName),
-                new Claim("Date", DateTime.Now.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var token = new JwtSecurityToken(_config["JwtAuth:Issuer"],
-                _config["JwtAuth:Issuer"],
-                claims,
-                expires: DateTime.Now.AddMinutes(120),
-                signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
     }
 }

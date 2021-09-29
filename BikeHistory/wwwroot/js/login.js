@@ -43,13 +43,14 @@ const Login = {
            //    this.error = result['error'];
            //}
             let testlogin = await fetch('/Login', {
-                method: 'Get',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + result["token"]
-                },
+                    'Authorization': result["token"] + "hei"
+                }
                 
             });
+            console.log(testlogin);
         },
     }
 }

@@ -9,10 +9,6 @@ namespace BikeHistory
         {
             CreateHostBuilder(args).Build().Run();
         }
-        public int test3() {
-            return int.Parse("1");
-        }
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

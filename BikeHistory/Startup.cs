@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using BikeHistory.Services;
 
 namespace BikeHistory
 {
@@ -33,21 +34,7 @@ namespace BikeHistory
            //services.AddControllers()
            //    .AddNewtonsoftJson(options => options.UseMemberCasing());
             services.AddControllers();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["JwtAuth:Issuer"],
-                        ValidAudience = Configuration["JwtAuth:Issuer"],
-                        IssuerSigningKey =
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtAuth:Key"]))
-                    };
-                });
+            services.AddScoped<ITokenAuthenticator, TokenAuthenticator>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BikeHistory", Version = "v1" });
@@ -69,8 +56,6 @@ namespace BikeHistory
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseAuthentication();
 
             app.UseStaticFiles();
 
