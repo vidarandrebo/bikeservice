@@ -37,7 +37,7 @@ namespace BikeHistory.Services
 
         public bool ValidateToken(string token) {
             var mySecret = "asdfghjhgfdsasdfhjhgfdsdfgh";
-            var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(mySecret));
+            var mySecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(mySecret));
             var myIssuer = "https://localhost:5001";
             var myAudience = "https://localhost:5001";
 
