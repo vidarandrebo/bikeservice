@@ -34,8 +34,8 @@ namespace BikeHistory
             {
                 options.UseSqlite($"Data Source={path}");
             });
-            services.AddScoped<ITokenAuthenticator, TokenAuthenticator>();
-            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<ITokenAuthenticator, TokenAuthenticator>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IBikeProvider, BikeProvider>();
             services.AddScoped<IUserProvider, UserProvider>();
             services.AddSwaggerGen(c =>
