@@ -11,7 +11,7 @@ namespace BikeHistory.Services
     {
         string GenerateToken(int userId);
         bool ValidateToken(string token);
-        string GetUserId(string token);
+        int GetUserId(string token);
     }
 
     public class TokenAuthenticator : ITokenAuthenticator {
@@ -57,12 +57,12 @@ namespace BikeHistory.Services
             }
             return true;
         }
-        public string GetUserId(string token) {
+        public int GetUserId(string token) {
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
             //var stringClaimValue = securityToken.Claims.First(claim => claim.Type == claimType).Value;
             var stringClaimValue = securityToken.Claims.First().Value;
-            return stringClaimValue;
+            return Convert.ToInt32(stringClaimValue);
         }
     }
 }

@@ -3,14 +3,16 @@ using System;
 using BikeHistory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BikeHistory.Migrations
 {
     [DbContext(typeof(BikeContext))]
-    partial class BikeContextModelSnapshot : ModelSnapshot
+    [Migration("20211001103646_LongInt")]
+    partial class LongInt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
