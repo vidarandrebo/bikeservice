@@ -133,4 +133,6 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
+#js
 node_modules
+main.js
