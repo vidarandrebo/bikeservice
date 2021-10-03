@@ -8,7 +8,8 @@ var featureFlags = new webpack.DefinePlugin({
 
 module.exports = {
     entry: './wwwroot/js/script.js',
-    mode: "development",
+    //mode: "development",
+    mode: "production",
     module: {
         rules: [
         // ... other rules
