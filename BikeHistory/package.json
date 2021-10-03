@@ -8,7 +8,7 @@
     "build": "webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vidar André Bø",
   "license": "ISC",
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.19",
