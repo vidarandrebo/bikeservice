@@ -1,18 +1,20 @@
-const Register = {
-    template: `
-            <div class="logregdiv">
-                <form id="register" method="POST" v-on:submit="registerUser">
-                    <p v-if="error">{{ error }}</p>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" v-model="username" required>
-                    <label for="passwd">Password</label>
-                    <input type="password" id="passwd" name="passwd" v-model="passwd" required>
-                    <label for="repasswd">Repeat password</label>
-                    <input type="password" id="repasswd" name="repasswd" v-model="repasswd" required>
-                    <input type="submit" value="Register">
-                </form>
-            </div>
-    `,
+<template>
+    <div class="logregdiv">
+        <form id="register" method="POST" v-on:submit="registerUser">
+            <p v-if="error">{{ error }}</p>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" v-model="username" required>
+            <label for="passwd">Password</label>
+            <input type="password" id="passwd" name="passwd" v-model="passwd" required>
+            <label for="repasswd">Repeat password</label>
+            <input type="password" id="repasswd" name="repasswd" v-model="repasswd" required>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</template>
+<script>
+export default {
+    name: 'Register',
     data: function() {
         return {
             username: null,
@@ -47,8 +49,9 @@ const Register = {
             console.log(response);
             if (response.status == 201) {
                 this.username = this.passwd = this.repasswd = null;
-                router.push('/login');
+                this.$router.push('/login');
             }
         },
     }
 }
+</script>

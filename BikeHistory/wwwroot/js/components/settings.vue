@@ -1,22 +1,23 @@
-const Settings = {
+<template>
+    <div class="settings" v-if="user">
+        <form id="changePasswd" method="POST" v-on:submit="changePasswd">
+            <p v-if="error">{{ error }}</p>
+            <label for="oldpasswd">Old Password</label>
+            <input type="password" name="oldpasswd" id="oldpasswd" v-model="oldPasswd" required>
+            <label for="newpasswd">New Password</label>
+            <input type="password" name="newpasswd" id="newpasswd" v-model="newPasswd" required>
+            <label for="renewpasswd">Repeat New Password</label>
+            <input type="password" name="renewpasswd" id="renewpasswd" v-model="renewPasswd" required>
+            <input type="submit" value="Change Password">
+        </form>
+    </div>
+    <div class="post" v-if="!user">
+        <p>Welcome to the settings page! Since you are not logged in, you have no settings to change!</p>
+    </div>
+</template>
+<script>
     props: ["user"],
-    template: `
-            <div class="settings" v-if="user">
-                <form id="changePasswd" method="POST" v-on:submit="changePasswd">
-                    <p v-if="error">{{ error }}</p>
-                    <label for="oldpasswd">Old Password</label>
-                    <input type="password" name="oldpasswd" id="oldpasswd" v-model="oldPasswd" required>
-                    <label for="newpasswd">New Password</label>
-                    <input type="password" name="newpasswd" id="newpasswd" v-model="newPasswd" required>
-                    <label for="renewpasswd">Repeat New Password</label>
-                    <input type="password" name="renewpasswd" id="renewpasswd" v-model="renewPasswd" required>
-                    <input type="submit" value="Change Password">
-                </form>
-            </div>
-            <div class="post" v-if="!user">
-                <p>Welcome to the settings page! Since you are not logged in, you have no settings to change!</p>
-            </div>
-    `,
+    name: 'Settings',
     data: function() {
         return {
             oldPasswd: null,
@@ -58,3 +59,4 @@ const Settings = {
         },
     }
 }
+</script>

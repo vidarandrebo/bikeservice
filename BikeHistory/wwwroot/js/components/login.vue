@@ -1,16 +1,18 @@
-const Login = {
-    template: `
-            <div class="logregdiv">
-                <form id="login" method="POST" v-on:submit="loginUser">
-                    <p v-if="error">{{ error }}</p>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" v-model="username" required>
-                    <label for="passwd">Password</label>
-                    <input type="password" id="passwd" name="passwd" v-model="passwd" required>
-                    <input type="submit" value="Login">
-                </form>
-            </div>
-    `,
+<template>
+    <div class="logregdiv">
+        <form id="login" method="POST" v-on:submit="loginUser">
+            <p v-if="error">{{ error }}</p>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" v-model="username" required>
+            <label for="passwd">Password</label>
+            <input type="password" id="passwd" name="passwd" v-model="passwd" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</template>
+<script>
+export default {
+    name: 'Login',
     data: function() {
         return {
             username: null,
@@ -54,3 +56,4 @@ const Login = {
         },
     }
 }
+</script>
