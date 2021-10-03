@@ -49,7 +49,7 @@ export default {
             console.log(response);
             if (response.status == 201) {
                 this.username = this.passwd = this.repasswd = null;
-                router.push('/login');
+                this.$router.push('/login');
             }
         },
     }

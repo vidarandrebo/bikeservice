@@ -13,4 +13,19 @@
 </template>
 
 <script>
+import Menubar from './components/menu.vue'
+import MainSite from './components/mainsite.vue'
+import Bike from './components/bike.vue'
+export default {
+  name: 'App',
+  components: {
+    Menubar,
+    MainSite,
+  },
+  data: function() {
+    return {
+        user: null,
+        }
+    },
+}
 </script>

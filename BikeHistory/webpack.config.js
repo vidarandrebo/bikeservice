@@ -1,5 +1,10 @@
 const path = require('path');
 const { VueLoaderPlugin } = require("vue-loader");
+var webpack = require('webpack');
+var featureFlags = new webpack.DefinePlugin({
+  __VUE_OPTIONS_API__: true,
+  __VUE_PROD_DEVTOOLS__: false
+});
 
 module.exports = {
     entry: './wwwroot/js/script.js',
@@ -15,7 +20,7 @@ module.exports = {
         },
         plugins: [
         // make sure to include the plugin!
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(), featureFlags
         ],
     resolve: {
         alias: {
@@ -27,3 +32,4 @@ module.exports = {
         path: path.resolve(__dirname, 'wwwroot/js/'),
   },
 };
+
