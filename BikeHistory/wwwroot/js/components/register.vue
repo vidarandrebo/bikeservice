@@ -14,6 +14,13 @@
 </template>
 <script lang="ts">
 
+interface IRegisterData {
+    username: string;
+    passwd: string;
+    repasswd: string;
+    error: string;
+}
+
 class RegisterData {
     username: string;
     passwd: string;
@@ -21,7 +28,7 @@ class RegisterData {
     error: string;
 }
 
-class User {
+interface User {
     username: string;
     password: string;
 }
@@ -31,7 +38,7 @@ export default defineComponent({
     name: 'Register',
     data: function() {
         return {
-            registerData : new RegisterData()
+            registerData : new RegisterData() as IRegisterData
         }
     },
     methods: {
@@ -46,9 +53,10 @@ export default defineComponent({
                 this.registerData.error = "Password should be 8 characters or longer!";
                 return;
             }
-            let user = new User();
-            user.username = this.registerData.username;
-            user.password = this.registerData.passwd;
+            let user : User = {
+                username : this.registerData.username,
+                password : this.registerData.passwd
+            }
 
             let response = await fetch('/Register', {
                 method: 'POST',
