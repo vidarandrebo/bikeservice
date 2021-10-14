@@ -1,5 +1,5 @@
 //the get* functions defined here are used in serveral different components and are therefore not just a mehthod within the component.
-async function getUsername() {
+async function getUsername():Promise<string> {
     let response = await fetch('/username', {
         method: 'GET',
         headers: {
@@ -29,7 +29,7 @@ async function postUser() {
 
 
 
-function pathString(path) {
+function pathString(path:string) {
     let pathList = ["global", "user", "login", "register", "settings"]
     for (let i = 0; i < pathList.length; i++) {
         if (path.includes(pathList[i])) {
