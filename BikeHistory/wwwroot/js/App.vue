@@ -12,11 +12,12 @@
     </footer>
 </template>
 
-<script>
-import Menubar from './components/menu.vue'
-import MainSite from './components/mainsite.vue'
-import Bike from './components/bike.vue'
-export default {
+<script lang="ts">
+import Menubar from './components/menu.vue';
+import MainSite from './components/mainsite.vue';
+import Bike from './components/bike.vue';
+import { defineComponent } from 'vue';
+export default defineComponent({
   name: 'App',
   components: {
     Menubar,
@@ -27,5 +28,5 @@ export default {
         user: null,
         }
     },
-}
+})
 </script>

@@ -14,8 +14,10 @@
         <router-link v-if="!user" to="/register"><i class="fa fa-user-plus fa-2x"></i></router-link>
     </div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import router from '../router'
+export default defineComponent({
     props: ["user"],
     name: 'Menubar',
     methods: {
@@ -33,5 +35,5 @@ export default {
             }
         }
     }
-}
+})
 </script>

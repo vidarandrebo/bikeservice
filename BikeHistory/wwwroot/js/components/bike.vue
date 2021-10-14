@@ -30,13 +30,14 @@
         </table>
     </div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
     name: 'Bike',
     data: function() {
         return {
-            manufacturer: null
+            manufacturer: "hei"
         }
     },
-}
+})
 </script>

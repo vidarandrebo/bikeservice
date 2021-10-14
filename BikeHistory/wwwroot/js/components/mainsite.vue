@@ -7,12 +7,13 @@
     </div>
     <bike v-bind:user="user"></bike>
 </template>
-<script>
+<script lang="ts">
 import Bike from './bike.vue'
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     components: {
         Bike,
   },
     props: ["user", "site"]
-}
+})
 </script>

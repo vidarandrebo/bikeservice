@@ -7,7 +7,7 @@ const featureFlags = new webpack.DefinePlugin({
 });
 
 module.exports = {
-    entry: './wwwroot/js/script.js',
+    entry: './wwwroot/js/script.ts',
     mode: "development",
     //mode: "production",
     module: {
@@ -15,6 +15,13 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /.ts$/,
+                loader: 'ts-loader',
+                options: {
+                    appendTsSuffixTo: [/.vue$/],
+                }
             }
         ]
     },
