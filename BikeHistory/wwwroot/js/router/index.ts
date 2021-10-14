@@ -1,10 +1,10 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router'
 import MainSite from '../components/mainsite.vue'
 import Login from '../components/login.vue'
 import Register from '../components/register.vue'
 import Bike from '../components/bike.vue'
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'MainSite',
