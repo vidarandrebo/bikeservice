@@ -1,45 +1,55 @@
 <template>
     <div class="logregdiv">
         <form id="register" method="POST" v-on:submit="registerUser">
-            <p v-if="error">{{ error }}</p>
+            <p v-if="registerData.error">{{ registerData.error }}</p>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" v-model="username" required>
+            <input type="text" id="username" name="username" v-model="registerData.username" required>
             <label for="passwd">Password</label>
-            <input type="password" id="passwd" name="passwd" v-model="passwd" required>
+            <input type="password" id="passwd" name="passwd" v-model="registerData.passwd" required>
             <label for="repasswd">Repeat password</label>
-            <input type="password" id="repasswd" name="repasswd" v-model="repasswd" required>
+            <input type="password" id="repasswd" name="repasswd" v-model="registerData.repasswd" required>
             <input type="submit" value="Register">
         </form>
     </div>
 </template>
 <script lang="ts">
+
+class RegisterData {
+    username: string;
+    passwd: string;
+    repasswd: string;
+    error: string;
+}
+
+class User {
+    username: string;
+    password: string;
+}
+
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'Register',
     data: function() {
         return {
-            username: null,
-            passwd: null,
-            repasswd: null,
-            error : null
+            registerData : new RegisterData()
         }
     },
     methods: {
         registerUser: async function() {
             event.preventDefault();
             this.error = null;
-            if (this.passwd !== this.repasswd) {
+            if (this.registerData.passwd !== this.registerData.repasswd) {
                 this.error = "Passwords do not match";
                 return;
             }
-            if (this.passwd.length < 8) {
-                this.error = "Password should be 8 characters or longer!";
+            if (this.registerData.passwd.length < 8) {
+                this.registerData.error = "Password should be 8 characters or longer!";
                 return;
             }
-            let user = {
-                "username": this.username,
-                "password": this.passwd,
-            };
+            let user = new User();
+            user.username = this.registerData.username;
+            user.password = this.registerData.passwd;
+
             let response = await fetch('/Register', {
                 method: 'POST',
                 headers: {
@@ -49,7 +59,7 @@ export default defineComponent({
             });
             console.log(response);
             if (response.status == 201) {
-                this.username = this.passwd = this.repasswd = null;
+                this.registerData = new RegisterData();
                 this.$router.push('/login');
             }
         },
