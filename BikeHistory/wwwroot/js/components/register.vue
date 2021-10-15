@@ -1,7 +1,7 @@
 <template>
     <div class="logregdiv">
         <form id="register" method="POST" v-on:submit="registerUser">
-            <p v-if="registerData.error">{{ registerData.error }}</p>
+            <p v-for="err in registerData.error">{{ err }}</p>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" v-model="registerData.username" required>
             <label for="passwd">Password</label>
@@ -14,60 +14,30 @@
 </template>
 <script lang="ts">
 
-interface IRegisterData {
-    username: string;
-    passwd: string;
-    repasswd: string;
-    error: string;
-}
-
-class RegisterData {
-    username: string;
-    passwd: string;
-    repasswd: string;
-    error: string;
-}
-
-interface User {
-    username: string;
-    password: string;
-}
-
+import * as Reg from '../register/register';
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'Register',
     data: function() {
         return {
-            registerData : new RegisterData() as IRegisterData
+            registerData : new Reg.RegisterData() as Reg.IRegisterData,
         }
     },
     methods: {
         registerUser: async function() {
             event.preventDefault();
-            this.error = null;
-            if (this.registerData.passwd !== this.registerData.repasswd) {
-                this.error = "Passwords do not match";
-                return;
+            this.registerData.passwordRequirementsCheck();
+            if (this.registerData.error.length > 0) {
+              return
             }
-            if (this.registerData.passwd.length < 8) {
-                this.registerData.error = "Password should be 8 characters or longer!";
-                return;
-            }
-            let user : User = {
-                username : this.registerData.username,
-                password : this.registerData.passwd
-            }
+            let user : Reg.IUser = new Reg.User();
+            user.userName = this.registerData.username;
+            user.password = this.registerData.passwd;
 
-            let response = await fetch('/Register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            });
-            console.log(response);
-            if (response.status == 201) {
-                this.registerData = new RegisterData();
+            let status = await user.registerUserRequest();
+            console.log(status);
+            if (status === 201) {
+                this.registerData = new Reg.RegisterData();
                 await this.$router.push('/login');
             }
         },

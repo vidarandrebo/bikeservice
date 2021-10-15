@@ -44,7 +44,7 @@ namespace BikeHistory.Controllers
                 UserName = login.UserName,
                 Password = login.Password
             };
-            Console.WriteLine(login.UserName);
+            Console.WriteLine($"{login.UserName} {login.Password} {login.Date}");
             await _provider.AddUser(user);
             return Created("/Register", login.UserName);
         }
