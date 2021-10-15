@@ -68,7 +68,7 @@ export default defineComponent({
             console.log(response);
             if (response.status == 201) {
                 this.registerData = new RegisterData();
-                this.$router.push('/login');
+                await this.$router.push('/login');
             }
         },
     }

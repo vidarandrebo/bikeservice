@@ -22,7 +22,7 @@ export default defineComponent({
         }
     },
     methods: {
-        loginUser: async function() {
+        loginUser: async function() : Promise<void> {
             event.preventDefault();
             this.error = null;
             let user = {
