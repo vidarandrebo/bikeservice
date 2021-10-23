@@ -2,39 +2,40 @@
     <div class="post">
         <table>
             <thead>
-                <tr>
-                    <th>
+            <tr>
+                <th>
                     Manufacturer
-                    </th>
-                    <th>
+                </th>
+                <th>
                     Partname
-                    </th>
-                    <th>
+                </th>
+                <th>
                     Km
-                    </th>
-                </tr>
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
+            <tr>
+                <td>
                     Trek
-                    </td>
-                    <td>
+                </td>
+                <td>
                     Madone 3.1
-                    </td>
-                    <td>
+                </td>
+                <td>
                     34500
-                    </td>
-                </tr>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
+
 export default defineComponent({
     name: 'Bike',
-    data: function() {
+    data: function () {
         return {
             manufacturer: "hei"
         }

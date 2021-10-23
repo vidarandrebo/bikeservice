@@ -14,6 +14,7 @@ html {
     min-height: 100%;
     margin: 0px;
 }
+
 body {
     height: 100%;
     margin: 0px;
@@ -51,7 +52,6 @@ header .router-link-active {
     padding-left: 2px;
     padding-right: 2px;
 }
-
 
 
 main {
@@ -92,15 +92,17 @@ footer a {
 .posttext {
     white-space: pre-wrap;
 }
-.postheader{
+
+.postheader {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.postfooter button, .postfooter p, .postheader button, .postheader p{
+.postfooter button, .postfooter p, .postheader button, .postheader p {
     display: inline;
 }
+
 .imgcontainer {
     display: flex;
     /*max-height: 1000px;*/
@@ -109,7 +111,7 @@ footer a {
     justify-content: space-between;
 }
 
-.postimg2 img , .postimg1 img{
+.postimg2 img, .postimg1 img {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -119,7 +121,7 @@ footer a {
     width: 100%;
 }
 
-.postimg1 a, .postimg2 a{
+.postimg1 a, .postimg2 a {
     width: 100%;
 }
 
@@ -152,7 +154,7 @@ textarea {
 
 .settings form, .logregdiv form {
     max-width: 300px;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -164,21 +166,23 @@ textarea {
 }
 
 
-@media only screen and (max-width: 1500px){
+@media only screen and (max-width: 1500px) {
     .new, .post {
         max-width: 700px;
     }
 }
-@media only screen and (max-width: 1200px){
+
+@media only screen and (max-width: 1200px) {
     .new, .post {
         max-width: 600px;
     }
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
     .menugroup_left {
         display: none;
     }
+
     footer a {
         font-size: 12px;
     }

@@ -1,220 +1,225 @@
 <template>
-  <header>
-    <menubar v-bind:user="user"></menubar>
-  </header>
-  <main>
-    <!--Changes depending on which component is active-->
-    <router-view v-bind:user="user"></router-view>
-  </main>
-  <div class="space"></div>
-  <footer>
-    <a href="https://github.com/vidarandrebo">https://github.com/vidarandrebo</a>
-  </footer>
+    <header>
+        <menubar v-bind:user="user"></menubar>
+    </header>
+    <main>
+        <!--Changes depending on which component is active-->
+        <router-view v-bind:user="user"></router-view>
+    </main>
+    <div class="space"></div>
+    <footer>
+        <a href="https://github.com/vidarandrebo">https://github.com/vidarandrebo</a>
+    </footer>
 </template>
 
 <script lang="ts">
 import Menubar from './components/menu.vue';
 import MainSite from './components/mainsite.vue';
 import Bike from './components/bike.vue';
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
+
 export default defineComponent({
-  name: 'App',
-  components: {
-    Menubar,
-    MainSite,
-  },
-  data: function() {
-    return {
-      user: null,
-    }
-  },
+    name: 'App',
+    components: {
+        Menubar,
+        MainSite,
+    },
+    data: function () {
+        return {
+            user: null,
+        }
+    },
 })
 </script>
 <style>
 
 header h3 {
-  display: inline;
+    display: inline;
 }
 
 html {
-  height: 100%;
-  /**background-image: url('/static/img/background.png');*/
-  background-size: cover;
+    height: 100%;
+    /**background-image: url('/static/img/background.png');*/
+    background-size: cover;
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  margin: 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0px;
 }
+
 body {
-  height: 100%;
-  margin: 0px;
+    height: 100%;
+    margin: 0px;
 }
 
 
 header {
-  height: 40px;
-  background-color: #00aa55;
-  color: white;
-  display: flex;
-  justify-content: space-between;
+    height: 40px;
+    background-color: #00aa55;
+    color: white;
+    display: flex;
+    justify-content: space-between;
 }
 
 header a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 header .router-link-active {
-  background-color: #00ccaa;
+    background-color: #00ccaa;
 }
 
 .menugroup {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .menugroup a {
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-  padding-top: auto;
-  padding-bottom: auto;
-  padding-left: 2px;
-  padding-right: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding-top: auto;
+    padding-bottom: auto;
+    padding-left: 2px;
+    padding-right: 2px;
 }
-
 
 
 main {
-  flex: 1;
+    flex: 1;
 }
 
 .space {
-  flex: 1;
+    flex: 1;
 }
 
 footer {
-  height: 60px;
-  background-color: #00aa55;
-  margin-bottom: 0px;
-  color: white;
-  display: flex;
-  align-items: center;
+    height: 60px;
+    background-color: #00aa55;
+    margin-bottom: 0px;
+    color: white;
+    display: flex;
+    align-items: center;
 }
 
 footer a {
-  color: white;
-  margin-left: auto;
-  margin-right: auto;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .new, .post {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 20px;
-  background-color: #ccc;
-  border-radius: 10px;
-  overflow: hidden;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .posttext {
-  white-space: pre-wrap;
-}
-.postheader{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+    white-space: pre-wrap;
 }
 
-.postfooter button, .postfooter p, .postheader button, .postheader p{
-  display: inline;
+.postheader {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
+
+.postfooter button, .postfooter p, .postheader button, .postheader p {
+    display: inline;
+}
+
 .imgcontainer {
-  display: flex;
-  /*max-height: 1000px;*/
-  flex-wrap: wrap-reverse;
-  width: 100%;
-  justify-content: space-between;
+    display: flex;
+    /*max-height: 1000px;*/
+    flex-wrap: wrap-reverse;
+    width: 100%;
+    justify-content: space-between;
 }
 
-.postimg2 img , .postimg1 img{
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+.postimg2 img, .postimg1 img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .postimg1 {
-  width: 100%;
+    width: 100%;
 }
 
-.postimg1 a, .postimg2 a{
-  width: 100%;
+.postimg1 a, .postimg2 a {
+    width: 100%;
 }
 
 .postimg2 {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  align-items: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
 }
 
 .newpost {
-  width: 100%;
-  display: column;
+    width: 100%;
+    display: column;
 }
 
 textarea {
-  width: 100%;
+    width: 100%;
 }
 
 .settings, .logregdiv {
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 460px;
-  background-color: #ccc;
-  border-radius: 10px;
-  padding: 20px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 460px;
+    background-color: #ccc;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .settings form, .logregdiv form {
-  max-width: 300px;
-  margin-left:auto;
-  margin-right: auto;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .settings input, .logregdiv input {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 
-@media only screen and (max-width: 1500px){
-  .new, .post {
-    max-width: 700px;
-  }
-}
-@media only screen and (max-width: 1200px){
-  .new, .post {
-    max-width: 600px;
-  }
+@media only screen and (max-width: 1500px) {
+    .new, .post {
+        max-width: 700px;
+    }
 }
 
-@media only screen and (max-width: 500px){
-  .menugroup_left {
-    display: none;
-  }
-  footer a {
-    font-size: 12px;
-  }
+@media only screen and (max-width: 1200px) {
+    .new, .post {
+        max-width: 600px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .menugroup_left {
+        display: none;
+    }
+
+    footer a {
+        font-size: 12px;
+    }
 }
 </style>

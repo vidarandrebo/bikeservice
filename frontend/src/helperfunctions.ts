@@ -1,4 +1,4 @@
-async function getUsername():Promise<string> {
+async function getUsername(): Promise<string> {
     let response = await fetch('/username', {
         method: 'GET',
         headers: {
@@ -11,9 +11,8 @@ async function getUsername():Promise<string> {
 }
 
 
-
-function pathString(path:string) {
-    let pathList : Array<string> = ["global", "user", "login", "register", "settings"]
+function pathString(path: string) {
+    let pathList: Array<string> = ["global", "user", "login", "register", "settings"]
     for (let i = 0; i < pathList.length; i++) {
         if (path.includes(pathList[i])) {
             return pathList[i];

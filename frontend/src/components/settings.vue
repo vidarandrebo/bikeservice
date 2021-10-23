@@ -16,47 +16,55 @@
     </div>
 </template>
 <script>
-    props: ["user"],
-    name: 'Settings',
-    data: function() {
-        return {
-            oldPasswd: null,
-            newPasswd: null,
-            renewPasswd: null,
-            error: null
-        }
-    },
-    methods: {
-        changePasswd: async function() {
-            event.preventDefault();
-            this.error = null;
-            if (this.newPasswd !== this.renewPasswd) {
-                this.error = "Passwords do not match";
-                return;
-            }
-            if (this.newPasswd.length < 8) {
-                this.error = "Password should be 8 characters or longer!";
-                return;
-            }
-            let passwords = {
-                "oldPasswd": this.oldPasswd,
-                "newPasswd": this.newPasswd
-            };
-            let response = await fetch('/passwd', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(passwords)
-            });
-            let result = await response.json();
-            if (result['change'] == "success") {
-                this.error = "Password changed!"
-                this.oldPasswd = this.renewPasswd = this.newPasswd = null;
-            } else {
-                this.error = result["error"];
-            }
-        },
+props: ["user"],
+    name
+:
+'Settings',
+    data
+:
+
+function () {
+    return {
+        oldPasswd: null,
+        newPasswd: null,
+        renewPasswd: null,
+        error: null
     }
+}
+
+,
+methods: {
+    changePasswd: async function () {
+        event.preventDefault();
+        this.error = null;
+        if (this.newPasswd !== this.renewPasswd) {
+            this.error = "Passwords do not match";
+            return;
+        }
+        if (this.newPasswd.length < 8) {
+            this.error = "Password should be 8 characters or longer!";
+            return;
+        }
+        let passwords = {
+            "oldPasswd": this.oldPasswd,
+            "newPasswd": this.newPasswd
+        };
+        let response = await fetch('/passwd', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(passwords)
+        });
+        let result = await response.json();
+        if (result['change'] == "success") {
+            this.error = "Password changed!"
+            this.oldPasswd = this.renewPasswd = this.newPasswd = null;
+        } else {
+            this.error = result["error"];
+        }
+    }
+,
+}
 }
 </script>

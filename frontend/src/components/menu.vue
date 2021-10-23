@@ -15,13 +15,14 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 import router from '../router'
+
 export default defineComponent({
     props: ["user"],
     name: 'Menubar',
     methods: {
-        logout: async function() {
+        logout: async function () {
             let response = await fetch('/logout', {
                 method: 'GET',
                 headers: {

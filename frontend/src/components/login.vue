@@ -11,10 +11,11 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
+
 export default defineComponent({
     name: 'Login',
-    data: function() {
+    data: function () {
         return {
             username: null,
             passwd: null,
@@ -22,7 +23,7 @@ export default defineComponent({
         }
     },
     methods: {
-        loginUser: async function() : Promise<void> {
+        loginUser: async function (): Promise<void> {
             event.preventDefault();
             this.error = null;
             let user = {
@@ -38,20 +39,20 @@ export default defineComponent({
             });
             let result = await response.json();
             console.log(result["token"]);
-           //if (result['login'] == "success") {
-           //    this.username = this.passwd = null;
-           //    this.$root.user = await getUsername();
-           //    router.push('/');
-           //} else {
-           //    this.error = result['error'];
-           //}
+            //if (result['login'] == "success") {
+            //    this.username = this.passwd = null;
+            //    this.$root.user = await getUsername();
+            //    router.push('/');
+            //} else {
+            //    this.error = result['error'];
+            //}
             let testlogin = await fetch('/Login', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': result["token"] + "hei"
                 }
-                
+
             });
             console.log(testlogin);
         },

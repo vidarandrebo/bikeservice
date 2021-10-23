@@ -3,7 +3,8 @@ export interface IRegisterData {
     passwd: string;
     repasswd: string;
     error: Array<string>;
-    passwordRequirementsCheck() : void;
+
+    passwordRequirementsCheck(): void;
 }
 
 export class RegisterData {
@@ -11,7 +12,8 @@ export class RegisterData {
     passwd: string;
     repasswd: string;
     error: Array<string>;
-    passwordRequirementsCheck() : void {
+
+    passwordRequirementsCheck(): void {
         this.error = new Array<string>();
         if (this.passwd !== this.repasswd) {
             this.error.push("Passwords do not match");
@@ -26,20 +28,22 @@ export interface IUser {
     userName: string;
     password: string;
     date: Date;
-    registerUserRequest() : Promise<number>;
+
+    registerUserRequest(): Promise<number>;
 }
+
 export class User {
     userName: string;
     password: string;
     date: Date;
 
-    async registerUserRequest() : Promise<number> {
+    async registerUserRequest(): Promise<number> {
         let response = await fetch('/Register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this)
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this)
         });
         console.log(JSON.stringify(this));
         return response.status;

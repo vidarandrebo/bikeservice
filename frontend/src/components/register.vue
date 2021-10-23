@@ -15,22 +15,23 @@
 <script lang="ts">
 
 import * as Reg from '../register/register';
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
+
 export default defineComponent({
     name: 'Register',
-    data: function() {
+    data: function () {
         return {
-            registerData : new Reg.RegisterData() as Reg.IRegisterData,
+            registerData: new Reg.RegisterData() as Reg.IRegisterData,
         }
     },
     methods: {
-        registerUser: async function() {
+        registerUser: async function () {
             event.preventDefault();
             this.registerData.passwordRequirementsCheck();
             if (this.registerData.error.length > 0) {
-              return
+                return
             }
-            let user : Reg.IUser = new Reg.User();
+            let user: Reg.IUser = new Reg.User();
             user.userName = this.registerData.username;
             user.password = this.registerData.passwd;
 
