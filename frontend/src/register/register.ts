@@ -32,6 +32,7 @@ export class User {
     userName: string;
     password: string;
     date: Date;
+
     async registerUserRequest() : Promise<number> {
         let response = await fetch('/Register', {
         method: 'POST',
