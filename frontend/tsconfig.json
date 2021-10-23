@@ -8,7 +8,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
+    "strict": true,
+    "allowJs": false,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [

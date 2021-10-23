@@ -15,7 +15,7 @@
     </div>
 </template>
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, getCurrentInstance} from 'vue';
 import router from '../router'
 
 export default defineComponent({
@@ -31,8 +31,8 @@ export default defineComponent({
             });
             let result = await response.json();
             if (result["logout"] == "success") {
-                this.$root.user = await getUsername();
-                router.push("/login");
+                this.$emit('fetchUsername', "rolf");
+                await router.push("/login");
             }
         }
     }

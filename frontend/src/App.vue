@@ -1,10 +1,10 @@
 <template>
     <header>
-        <menubar v-bind:user="user"></menubar>
+        <menubar v-bind:user="user" @fetchUsername="setUser"></menubar>
     </header>
     <main>
         <!--Changes depending on which component is active-->
-        <router-view v-bind:user="user"></router-view>
+        <router-view v-bind:user="user" @fetchUsername="setUser"></router-view>
     </main>
     <div class="space"></div>
     <footer>
@@ -26,9 +26,14 @@ export default defineComponent({
     },
     data: function () {
         return {
-            user: null,
+            user: null as any,
         }
     },
+    methods: {
+        setUser: function (name : string) : void {
+            this.user = name;
+        }
+    }
 })
 </script>
 <style>

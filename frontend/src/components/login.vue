@@ -1,6 +1,6 @@
 <template>
     <div class="logregdiv">
-        <form id="login" method="POST" v-on:submit="loginUser">
+        <form id="login" method="POST" v-on:submit.prevent="loginUser">
             <p v-if="error">{{ error }}</p>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" v-model="username" required>
@@ -24,12 +24,12 @@ export default defineComponent({
     },
     methods: {
         loginUser: async function (): Promise<void> {
-            event.preventDefault();
             this.error = null;
             let user = {
                 "username": this.username,
                 "password": this.passwd
             };
+
             let response = await fetch('/Login', {
                 method: 'POST',
                 headers: {
@@ -39,22 +39,15 @@ export default defineComponent({
             });
             let result = await response.json();
             console.log(result["token"]);
-            //if (result['login'] == "success") {
-            //    this.username = this.passwd = null;
-            //    this.$root.user = await getUsername();
-            //    router.push('/');
-            //} else {
-            //    this.error = result['error'];
-            //}
-            let testlogin = await fetch('/Login', {
+            let testLogin = await fetch('/Login', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': result["token"] + "hei"
                 }
-
             });
-            console.log(testlogin);
+            this.$emit('fetchUsername', 'rolf');
+            console.log(testLogin);
         },
     }
 })

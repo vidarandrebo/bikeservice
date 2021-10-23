@@ -1,6 +1,6 @@
 <template>
     <div class="logregdiv">
-        <form id="register" method="POST" v-on:submit="registerUser">
+        <form id="register" method="POST" v-on:submit.prevent="registerUser">
             <p v-for="err in registerData.error">{{ err }}</p>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" v-model="registerData.username" required>
@@ -26,17 +26,15 @@ export default defineComponent({
     },
     methods: {
         registerUser: async function () {
-            event.preventDefault();
             this.registerData.passwordRequirementsCheck();
             if (this.registerData.error.length > 0) {
                 return
             }
-            let user: Reg.IUser = new Reg.User();
-            user.userName = this.registerData.username;
-            user.password = this.registerData.passwd;
-
+            let user: Reg.IUser = new Reg.User(
+                this.registerData.username,
+                this.registerData.passwd
+            );
             let status = await user.registerUserRequest();
-            console.log(status);
             if (status === 201) {
                 this.registerData = new Reg.RegisterData();
                 await this.$router.push('/login');
