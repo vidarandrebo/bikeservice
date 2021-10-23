@@ -2,7 +2,7 @@
     <div class="logregdiv">
         <form id="login" method="POST" v-on:submit="loginUser">
             <p v-if="error">{{ error }}</p>
-            <label for="username">UserName</label>
+            <label for="username">Username</label>
             <input type="text" id="username" name="username" v-model="username" required>
             <label for="passwd">Password</label>
             <input type="password" id="passwd" name="passwd" v-model="passwd" required>
