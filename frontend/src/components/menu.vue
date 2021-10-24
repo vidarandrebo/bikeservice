@@ -21,6 +21,7 @@ import router from '../router'
 export default defineComponent({
     props: ["user"],
     name: 'Menubar',
+    emits: ['fetchUsername'],
     methods: {
         logout: async function () {
             let response = await fetch('/logout', {

@@ -24,6 +24,7 @@ export default defineComponent({
         Menubar,
         MainSite,
     },
+    emits: ['fetchUsername'],
     data: function () {
         return {
             user: null as any,

@@ -22,6 +22,7 @@ export default defineComponent({
             error: null
         }
     },
+    emits: ['fetchUsername'],
     methods: {
         loginUser: async function (): Promise<void> {
             this.error = null;

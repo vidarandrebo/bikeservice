@@ -14,6 +14,7 @@ import Bike from './bike.vue'
 import {defineComponent} from 'vue';
 
 export default defineComponent({
+    emits: ['fetchUsername'],
     components: {
         Bike,
     },
