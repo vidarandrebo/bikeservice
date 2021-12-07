@@ -1,0 +1,18 @@
+name: Frontend/Vue
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        working-directory: frontend
+        run: npm install
+      - name: build
+        working-directory: frontend
+        run: npm run build
