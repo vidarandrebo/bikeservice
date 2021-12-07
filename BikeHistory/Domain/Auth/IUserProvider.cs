@@ -4,10 +4,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using BikeHistory.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
+/*
 namespace BikeHistory.Services {
     public interface IUserProvider {
         Task AddUser(User user);
@@ -31,3 +31,4 @@ namespace BikeHistory.Services {
         }
     }
 }
+*/
