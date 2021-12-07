@@ -1,22 +1,8 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using BikeHistory.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace BikeHistory.Services {
-    public interface IPasswordHasher {
-        string Hash(string password);
-        bool CheckHash(string password, string hashedPassword);
-    }
-    public class PasswordHasher : IPasswordHasher{
-        public string Hash(string password) {
+namespace BikeHistory.Domain.Auth {
+    public static class PasswordHasher {
+        public static string Hash(string password) {
             byte[] salt;
             using (var rng = new RNGCryptoServiceProvider()) {
                 rng.GetBytes(salt = new byte[16]);
@@ -29,7 +15,7 @@ namespace BikeHistory.Services {
             return Convert.ToBase64String(hashBytes);
         }
 
-        public bool CheckHash(string password, string hashedPassword) {
+        public static bool CheckHash(string password, string hashedPassword) {
             byte[] savedHashBytes = Convert.FromBase64String(hashedPassword);
             byte[] salt = new byte[16];
             Array.Copy(savedHashBytes, 0, salt, 0, 16);

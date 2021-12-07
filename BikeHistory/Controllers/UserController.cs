@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BikeHistory.Models;
+﻿using BikeHistory.Domain.Auth;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace BikeHistory.Controllers
 {
@@ -19,6 +14,7 @@ namespace BikeHistory.Controllers
             _logger = logger;
         }
 
+/*
         [HttpGet]
         public User Get()
         {
@@ -28,12 +24,13 @@ namespace BikeHistory.Controllers
             user.Id = 4;
             return user;
         }
+        */
 
         [HttpPost]
         public ActionResult<User> Create(User user)
         {
             Console.WriteLine($"{user.Id}, {user.Password}, {user.UserName}");
-            return CreatedAtAction(nameof(Get), user);
+            return CreatedAtAction("User", user);
         }
     }
 }
