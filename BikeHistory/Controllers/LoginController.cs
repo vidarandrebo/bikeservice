@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using BikeHistory.Services;
 using BikeHistory.Domain.Auth;
 
 namespace BikeHistory.Controllers

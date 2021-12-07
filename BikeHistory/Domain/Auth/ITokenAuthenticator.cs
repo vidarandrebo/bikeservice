@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BikeHistory.Services
+namespace BikeHistory.Domain.Auth
 {
     public interface ITokenAuthenticator
     {
