@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BikeContext>(options =>
 {
-    options.UseSqlite($"Data Source={Path.Combine("Data", "game.db")}");
+    options.UseSqlite($"Data Source={Path.Combine("Data", "bike.db")}");
 });
 
 

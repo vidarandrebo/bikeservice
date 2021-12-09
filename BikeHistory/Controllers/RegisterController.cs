@@ -1,45 +1,30 @@
+using BikeHistory.Data;
+using BikeHistory.Domain.Auth;
 using Microsoft.AspNetCore.Mvc;
 
-/*
 namespace BikeHistory.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class RegisterController : Controller
     {
-        private IUserProvider _provider;
-        public RegisterController(ITokenAuthenticator authenticator, IUserProvider provider) {
-            _tokenAuthenticator = authenticator;
-            _provider = provider;
-        }
-        private ITokenAuthenticator _tokenAuthenticator;
-
-        // GET
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> OnGet()
+        BikeContext _db { get; set; }
+        public RegisterController(BikeContext db)
         {
-            var currentUser = HttpContext.User;
-            string authToken = Request.Headers["Authorization"].ToString();
-            if (_tokenAuthenticator.ValidateToken(authToken)) {
-                Console.WriteLine(_tokenAuthenticator.GetUserId(authToken));
-                return Ok("Custom Claims(date): ");
-            }
-            return Unauthorized("You are not supposed to be here");
+            _db = db;
         }
 
         //POST
         [HttpPost]
-        public async Task<IActionResult> OnPostAsync(LoginModel login)
+        public async Task<IActionResult> OnPostAsync(LogRegModel registerData)
         {
-            var user = new User{
-                UserName = login.UserName,
-                Password = login.Password
-            };
-            Console.WriteLine($"{login.UserName} {login.Password} {login.Date}");
-            await _provider.AddUser(user);
-            return Created("/Register", login.UserName);
+            var user = new User(
+                registerData.UserName,
+                PasswordHasher.Hash(registerData.Password)
+            );
+            await Register.RegisterUser(_db, user);
+            return Created(nameof(OnPostAsync), user.UserName);
         }
 
     }
 }
-*/
