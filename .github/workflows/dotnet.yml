@@ -24,10 +24,10 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Migrate
-      working-directory: Backend
+      working-directory: BikeHistory
       run: dotnet ef migrations add init
     - name: Update DB
-      working-directory: Backend
+      working-directory: BikeHistory
       run: dotnet ef database update
     - name: Test
       run: dotnet test --verbosity normal
