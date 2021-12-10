@@ -1,5 +1,3 @@
-using System;
-
 namespace BikeHistory.Domain.Auth
 {
     public class User

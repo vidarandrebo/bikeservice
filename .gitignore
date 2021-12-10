@@ -136,3 +136,8 @@ _NCrunch*
 
 #wwwroot
 wwwroot
+
+
+bike**
+
+**/Migrations/*.cs

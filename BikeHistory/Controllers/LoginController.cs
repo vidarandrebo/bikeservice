@@ -7,7 +7,8 @@ namespace BikeHistory.Controllers
     [Route("[controller]")]
     public class LoginController : Controller
     {
-        public LoginController(ITokenAuthenticator authenticator) {
+        public LoginController(ITokenAuthenticator authenticator)
+        {
             _tokenAuthenticator = authenticator;
         }
         private ITokenAuthenticator _tokenAuthenticator;
@@ -18,7 +19,8 @@ namespace BikeHistory.Controllers
         {
             var currentUser = HttpContext.User;
             string authToken = Request.Headers["Authorization"].ToString();
-            if (_tokenAuthenticator.ValidateToken(authToken)) {
+            if (_tokenAuthenticator.ValidateToken(authToken))
+            {
                 Console.WriteLine(_tokenAuthenticator.GetUserId(authToken));
                 return Ok("Custom Claims(date): ");
             }
@@ -27,10 +29,10 @@ namespace BikeHistory.Controllers
 
         //POST
         [HttpPost]
-        public IActionResult OnPost(LoginModel login)
+        public IActionResult OnPost(LogRegModel loginData)
         {
             var tokenString = _tokenAuthenticator.GenerateToken(4);
-            return Ok(new { token = tokenString});
+            return Ok(new { token = tokenString });
         }
 
     }

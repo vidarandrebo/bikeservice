@@ -19,7 +19,15 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Tool
+      run: dotnet tool install --global dotnet-ef
     - name: Build
       run: dotnet build --no-restore
+    - name: Migrate
+      working-directory: BikeHistory
+      run: dotnet ef migrations add init
+    - name: Update DB
+      working-directory: BikeHistory
+      run: dotnet ef database update
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --verbosity normal
