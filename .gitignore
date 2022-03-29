@@ -138,6 +138,6 @@ _NCrunch*
 wwwroot
 
 
-bike.db
+bike.db**
 
 **/Migrations/*.cs
