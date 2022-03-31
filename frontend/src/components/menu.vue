@@ -15,7 +15,7 @@
     </div>
 </template>
 <script lang="ts">
-import {defineComponent, getCurrentInstance} from 'vue';
+import {defineComponent} from 'vue';
 import router from '../router'
 
 export default defineComponent({

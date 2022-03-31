@@ -14,14 +14,15 @@
 </template>
 <script lang="ts">
 
-import * as Reg from '../register/register';
 import {defineComponent} from 'vue';
+import {IUser, User} from '@/models/auth/user';
+import {IRegisterData, RegisterData} from "@/models/auth/register";
 
 export default defineComponent({
     name: 'Register',
     data: function () {
         return {
-            registerData: new Reg.RegisterData() as Reg.IRegisterData,
+            registerData: new RegisterData() as IRegisterData,
         }
     },
     methods: {
@@ -30,13 +31,13 @@ export default defineComponent({
             if (this.registerData.error.length > 0) {
                 return
             }
-            let user: Reg.IUser = new Reg.User(
+            let user: IUser = new User(
                 this.registerData.username,
                 this.registerData.passwd
             );
-            let status = await user.registerUserRequest();
-            if (status === 201) {
-                this.registerData = new Reg.RegisterData();
+            let response = await user.registerUserRequest();
+            if (response.status == 201) {
+                this.registerData = new RegisterData();
                 await this.$router.push('/login');
             }
         },

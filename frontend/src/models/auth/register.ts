@@ -22,6 +22,7 @@ export class RegisterData {
             this.error.push("Password should be 8 characters or longer!");
         }
     }
+
     constructor() {
         this.username = "";
         this.passwd = "";
@@ -29,34 +30,4 @@ export class RegisterData {
         this.error = new Array<string>();
     }
 
-}
-
-export interface IUser {
-    userName: string;
-    password: string;
-    date: Date;
-
-    registerUserRequest(): Promise<number>;
-}
-
-export class User {
-    userName: string;
-    password: string;
-    date: Date;
-
-    async registerUserRequest(): Promise<number> {
-        let response = await fetch('/Register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this)
-        });
-        return response.status;
-    }
-    constructor(uname : string, passwd : string) {
-        this.userName = uname;
-        this.password = passwd;
-        this.date = new Date();
-    }
 }
