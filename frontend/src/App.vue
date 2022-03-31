@@ -15,7 +15,6 @@
 <script lang="ts">
 import Menubar from './components/menu.vue';
 import MainSite from './components/mainsite.vue';
-import Bike from './components/bike.vue';
 import {defineComponent} from 'vue';
 
 export default defineComponent({
@@ -31,7 +30,7 @@ export default defineComponent({
         }
     },
     methods: {
-        setUser: function (name : string) : void {
+        setUser: function (name: string): void {
             this.user = name;
         }
     }

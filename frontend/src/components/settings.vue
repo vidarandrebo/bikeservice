@@ -36,13 +36,13 @@ function () {
 methods: {
     changePasswd: async function () {
         event.preventDefault();
-        this.error = null;
+        this.errors = null;
         if (this.newPasswd !== this.renewPasswd) {
-            this.error = "Passwords do not match";
+            this.errors = "Passwords do not match";
             return;
         }
         if (this.newPasswd.length < 8) {
-            this.error = "Password should be 8 characters or longer!";
+            this.errors = "Password should be 8 characters or longer!";
             return;
         }
         let passwords = {
@@ -58,10 +58,10 @@ methods: {
         });
         let result = await response.json();
         if (result['change'] == "success") {
-            this.error = "Password changed!"
+            this.errors = "Password changed!"
             this.oldPasswd = this.renewPasswd = this.newPasswd = null;
         } else {
-            this.error = result["error"];
+            this.errors = result["error"];
         }
     }
 ,
