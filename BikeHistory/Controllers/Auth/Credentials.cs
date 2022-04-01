@@ -1,3 +1,3 @@
-namespace BikeHistory.Models.Auth;
+namespace BikeHistory.Controllers.Auth;
 
 public record Credentials(string UserName, string Password);

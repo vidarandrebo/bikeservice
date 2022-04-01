@@ -1,9 +1,9 @@
-export type fetchResponse<T> = {
+export type FetchResponse<T> = {
     body: T;
     status: number;
 }
 
-export async function get(route: string): Promise<fetchResponse<null>> {
+export async function get(route: string): Promise<FetchResponse<null>> {
     let response = await fetch(route, {
         method: "GET",
         headers: {
@@ -13,7 +13,7 @@ export async function get(route: string): Promise<fetchResponse<null>> {
     return {body: null, status: response.status};
 }
 
-export async function getWithBody<T>(route: string): Promise<fetchResponse<T>> {
+export async function getWithBody<T>(route: string): Promise<FetchResponse<T>> {
     let response = await fetch(route, {
         method: "GET",
         headers: {
@@ -24,7 +24,7 @@ export async function getWithBody<T>(route: string): Promise<fetchResponse<T>> {
     return {body: body, status: response.status};
 }
 
-export async function post<T>(route: string, data: T): Promise<fetchResponse<null>> {
+export async function post<T>(route: string, data: T): Promise<FetchResponse<null>> {
     let response = await fetch(route, {
         method: "POST",
         headers: {
@@ -35,7 +35,7 @@ export async function post<T>(route: string, data: T): Promise<fetchResponse<nul
     return {body: null, status: response.status};
 }
 
-export async function postWithBody<TIn, TOut>(route: string, data: TIn): Promise<fetchResponse<TOut>> {
+export async function postWithBody<TIn, TOut>(route: string, data: TIn): Promise<FetchResponse<TOut>> {
     let response = await fetch(route, {
         method: "POST",
         headers: {

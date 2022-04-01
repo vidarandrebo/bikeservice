@@ -1,4 +1,3 @@
-using BikeHistory.Models.Auth;
 using BikeHistory.Models.Auth.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,9 +29,9 @@ public class RegisterController : Controller
         var result = await _mediator.Send(new RegisterUser.Request(credentials));
         if (result.Success)
         {
-            return Created(nameof(RegisterUser), result);
+            return Created(nameof(RegisterUser), new AuthRouteResponse(credentials.UserName, result.Errors));
         }
 
-        return Unauthorized(result);
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, result.Errors));
     }
 }

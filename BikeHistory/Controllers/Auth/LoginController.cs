@@ -1,4 +1,3 @@
-using BikeHistory.Models.Auth;
 using BikeHistory.Models.Auth.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +19,13 @@ public class LoginController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        return Ok(HttpContext.GetUserName());
+        var userName = HttpContext.GetUserName();
+        if (userName is not null)
+        {
+            return Ok(new AuthRouteResponse(userName, Array.Empty<string>()));
+        }
+
+        return Unauthorized(new AuthRouteResponse("", new[] {"Not logged in"}));
     }
 
     // POST
@@ -30,9 +35,9 @@ public class LoginController : Controller
         var result = await _mediator.Send(new LoginUser.Request(credentials));
         if (result.Success)
         {
-            return Ok(result);
+            return Ok(new AuthRouteResponse(credentials.UserName, result.Errors));
         }
 
-        return Unauthorized(result);
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, result.Errors));
     }
 }

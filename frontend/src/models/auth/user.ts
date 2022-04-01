@@ -1,13 +1,13 @@
-import {fetchResponse, postWithBody} from "@/models/genericFetch";
-import {AuthResponse} from "@/models/auth/authResponse";
+import {FetchResponse, postWithBody} from "@/models/genericFetch";
+import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export interface IUser {
     userName: string;
     password: string;
 
-    registerUserRequest(): Promise<fetchResponse<AuthResponse>>;
+    registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
 
-    loginUserRequest(): Promise<fetchResponse<AuthResponse>>;
+    loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
 }
 
 export class User {
@@ -19,12 +19,12 @@ export class User {
         this.password = passwd;
     }
 
-    async registerUserRequest(): Promise<fetchResponse<AuthResponse>> {
-        return await postWithBody<IUser, AuthResponse>("/register", this);
+    async registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
+        return await postWithBody<IUser, AuthRouteResponse>("/register", this);
     }
 
-    async loginUserRequest(): Promise<fetchResponse<AuthResponse>> {
-        return await postWithBody<IUser, AuthResponse>("/login", this);
+    async loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
+        return await postWithBody<IUser, AuthRouteResponse>("/login", this);
     }
 
 

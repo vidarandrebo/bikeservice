@@ -1,3 +1,4 @@
+using BikeHistory.Controllers.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

@@ -26,7 +26,7 @@ export default defineComponent({
     emits: ['fetchUsername'],
     methods: {
         loginUser: async function (): Promise<void> {
-            let user : IUser = new User(
+            let user: IUser = new User(
                 this.loginData.username,
                 this.loginData.passwd
             );
@@ -38,7 +38,7 @@ export default defineComponent({
             }
 
 
-            this.$emit('fetchUsername', 'rolf');
+            this.$emit('fetchUsername', response.body.userName);
         },
     }
 })

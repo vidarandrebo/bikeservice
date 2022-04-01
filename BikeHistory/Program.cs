@@ -8,10 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHttpLogging(options =>
-{
-    options.LoggingFields = HttpLoggingFields.All;
-});
+builder.Services.AddHttpLogging(options => { options.LoggingFields = HttpLoggingFields.All; });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -22,6 +19,8 @@ builder.Services.AddDbContext<BikeContext>(options =>
 {
     options.UseSqlite($"Data Source={Path.Combine("Data", "bike.db")}");
 });
+
+
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<BikeContext>()
     .AddUserManager<UserManager<User>>();
@@ -36,6 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpLogging();
 
 app.UseHttpsRedirection();
