@@ -17,6 +17,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import router from '../router'
+import {get} from "@/models/genericFetch";
 
 export default defineComponent({
     props: ["user"],
@@ -24,15 +25,9 @@ export default defineComponent({
     emits: ['fetchUsername'],
     methods: {
         logout: async function () {
-            let response = await fetch('/logout', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            let result = await response.json();
-            if (result["logout"] == "success") {
-                this.$emit('fetchUsername', "rolf");
+            let response = await get("/logout");
+            if (response.status == 200) {
+                this.$emit('fetchUsername', "");
                 await router.push("/login");
             }
         }

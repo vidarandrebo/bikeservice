@@ -16,6 +16,8 @@
 import Menubar from './components/menu.vue';
 import MainSite from './components/mainsite.vue';
 import {defineComponent} from 'vue';
+import {getWithBody} from "@/models/genericFetch";
+import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export default defineComponent({
     name: 'App',
@@ -33,6 +35,10 @@ export default defineComponent({
         setUser: function (name: string): void {
             this.user = name;
         }
+    },
+    async created() {
+        let result = await getWithBody<AuthRouteResponse>("/login");
+        this.user = result.body.userName;
     }
 })
 </script>
