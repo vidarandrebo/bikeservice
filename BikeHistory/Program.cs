@@ -1,3 +1,4 @@
+using BikeHistory;
 using BikeHistory.Data;
 using BikeHistory.Models.Auth;
 using MediatR;
@@ -21,8 +22,15 @@ builder.Services.AddDbContext<BikeContext>(options =>
     options.UseSqlite($"Data Source={Path.Combine("Data", "bike.db")}");
 });
 */
+DotEnv.Load(".env");
+var dbConnectionString = $"User ID={Environment.GetEnvironmentVariable("DB_USER")};" +
+                         $"Password={Environment.GetEnvironmentVariable("DB_PASSWD")};" +
+                         $"Server={Environment.GetEnvironmentVariable("DB_SERVER")};" +
+                         $"Port={Environment.GetEnvironmentVariable("DB_PORT")};" +
+                         $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
+                         $"Integrated Security=true;Pooling=true;";
 builder.Services.AddDbContext<BikeContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+    options.UseNpgsql(dbConnectionString));
 
 
 builder.Services.AddIdentity<User, IdentityRole>()
