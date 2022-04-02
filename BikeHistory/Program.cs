@@ -15,10 +15,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(Program));
+/*
 builder.Services.AddDbContext<BikeContext>(options =>
 {
     options.UseSqlite($"Data Source={Path.Combine("Data", "bike.db")}");
 });
+*/
+builder.Services.AddDbContext<BikeContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
 
 builder.Services.AddIdentity<User, IdentityRole>()
@@ -26,7 +30,6 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddUserManager<UserManager<User>>();
 
 builder.Services.AddAuthentication();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
