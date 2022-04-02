@@ -141,3 +141,4 @@ wwwroot
 bike.db**
 
 **/Migrations/*.cs
+appsettings**.json
