@@ -39,6 +39,8 @@ export default defineComponent({
             if (response.status == 201) {
                 this.registerData = new RegisterData();
                 await this.$router.push('/login');
+            } else {
+                this.registerData.error = response.body.errors;
             }
         },
     }

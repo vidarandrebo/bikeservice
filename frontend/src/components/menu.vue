@@ -1,10 +1,10 @@
 <template>
     <div class="menugroup_left menugroup">
-        <h3>BikeHistory</h3>
+        <router-link to="/"><h3>BikeHistory</h3></router-link>
     </div>
     <div class="menugroup_middle menugroup">
-        <router-link to="/"><i class="fa fa-bicycle fa-2x"></i></router-link>
-        <router-link to="/global"><i class="fa fa-wrench fa-2x"></i></router-link>
+        <router-link to="/bikes"><i class="fa fa-bicycle fa-2x"></i></router-link>
+        <router-link to="/parts"><i class="fa fa-wrench fa-2x"></i></router-link>
     </div>
     <div class="menugroup_right menugroup">
         <p v-if="user" id="username">{{ user }}</p>
@@ -16,8 +16,8 @@
 </template>
 <script lang="ts">
 import {defineComponent} from 'vue';
-import router from '../router'
 import {get} from "@/models/genericFetch";
+import router from "@/router";
 
 export default defineComponent({
     props: ["user"],

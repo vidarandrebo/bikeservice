@@ -7,17 +7,13 @@
     <div class="post" v-if="user">
         <p>Welcome to the page! It seems you are able to log in</p>
     </div>
-    <bike v-bind:user="user"></bike>
 </template>
 <script lang="ts">
-import Bike from './bike.vue'
 import {defineComponent} from 'vue';
 
 export default defineComponent({
+    name: 'MainSite',
     emits: ['fetchUsername'],
-    components: {
-        Bike,
-    },
-    props: ["user", "site"]
+    props: ["user"]
 })
 </script>
