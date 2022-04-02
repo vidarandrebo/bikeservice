@@ -1,13 +1,13 @@
 <template>
     <div class="settings" v-if="user">
-        <form id="changePasswd" method="POST" v-on:submit="changePasswd">
-            <p v-if="error">{{ error }}</p>
+        <form id="changePasswd" method="POST" v-on:submit.prevent="changePasswd">
+            <p v-for="err in accountSettings.errors">{{ err }}</p>
             <label for="oldpasswd">Old Password</label>
-            <input type="password" name="oldpasswd" id="oldpasswd" v-model="oldPasswd" required>
+            <input type="password" name="oldpasswd" id="oldpasswd" v-model="accountSettings.oldPassword" required>
             <label for="newpasswd">New Password</label>
-            <input type="password" name="newpasswd" id="newpasswd" v-model="newPasswd" required>
+            <input type="password" name="newpasswd" id="newpasswd" v-model="accountSettings.newPassword" required>
             <label for="renewpasswd">Repeat New Password</label>
-            <input type="password" name="renewpasswd" id="renewpasswd" v-model="renewPasswd" required>
+            <input type="password" name="renewpasswd" id="renewpasswd" v-model="accountSettings.reNewPassword" required>
             <input type="submit" value="Change Password">
         </form>
     </div>
@@ -15,56 +15,24 @@
         <p>Welcome to the settings page! Since you are not logged in, you have no settings to change!</p>
     </div>
 </template>
-<script>
-props: ["user"],
-    name
-:
-'Settings',
-    data
-:
+<script lang="ts">
+import {AccountSettings, IAccountSettings} from "@/models/settings/accountSettings";
+import {defineComponent} from "vue";
 
-function () {
-    return {
-        oldPasswd: null,
-        newPasswd: null,
-        renewPasswd: null,
-        error: null
+export default defineComponent({
+    props: ["user"],
+    name: 'Settings',
+    emits: ['fetchUsername'],
+    data:
+        function () {
+            return {
+                accountSettings: new AccountSettings() as IAccountSettings,
+            }
+        },
+    methods: {
+        changePasswd: async function () {
+            console.log("not implemented")
+        },
     }
-}
-
-,
-methods: {
-    changePasswd: async function () {
-        event.preventDefault();
-        this.errors = null;
-        if (this.newPasswd !== this.renewPasswd) {
-            this.errors = "Passwords do not match";
-            return;
-        }
-        if (this.newPasswd.length < 8) {
-            this.errors = "Password should be 8 characters or longer!";
-            return;
-        }
-        let passwords = {
-            "oldPasswd": this.oldPasswd,
-            "newPasswd": this.newPasswd
-        };
-        let response = await fetch('/passwd', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(passwords)
-        });
-        let result = await response.json();
-        if (result['change'] == "success") {
-            this.errors = "Password changed!"
-            this.oldPasswd = this.renewPasswd = this.newPasswd = null;
-        } else {
-            this.errors = result["error"];
-        }
-    }
-,
-}
-}
+})
 </script>

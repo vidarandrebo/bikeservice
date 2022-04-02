@@ -1,7 +1,10 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router'
-import MainSite from '../components/mainsite.vue'
-import Login from '../components/login.vue'
-import Register from '../components/register.vue'
+import Settings from "@/components/settings.vue";
+import Bikes from "@/components/bikes.vue";
+import Parts from "@/components/parts.vue";
+import Register from "@/components/register.vue";
+import Login from "@/components/login.vue";
+import MainSite from "@/components/mainsite.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -10,9 +13,14 @@ const routes: Array<RouteRecordRaw> = [
         component: MainSite
     },
     {
-        path: '/global',
-        name: 'Global',
-        component: MainSite
+        path: '/bikes',
+        name: 'Bikes',
+        component: Bikes
+    },
+    {
+        path: '/parts',
+        name: 'Parts',
+        component: Parts
     },
     {
         path: '/register',
@@ -25,6 +33,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Login',
         props: true,
         component: Login
+    },
+    {
+        path: '/settings',
+        name: 'Settings',
+        props: true,
+        component: Settings
     },
     {
         path: '/auth',

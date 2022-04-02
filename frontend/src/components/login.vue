@@ -32,13 +32,13 @@ export default defineComponent({
             );
             let response = await user.loginUserRequest();
             if (response.status == 200) {
+                this.$emit('fetchUsername', response.body.userName);
                 router.push('/')
             } else {
                 this.loginData.errors = response.body.errors;
             }
 
 
-            this.$emit('fetchUsername', response.body.userName);
         },
     }
 })
