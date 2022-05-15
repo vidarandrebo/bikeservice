@@ -29,12 +29,17 @@
             </tbody>
         </table>
     </div>
+    <new-bike-form></new-bike-form>
 </template>
 <script lang="ts">
 import {defineComponent} from 'vue';
+import NewBikeForm from "@/components/newBikeForm.vue";
 
 export default defineComponent({
     name: 'Bikes',
+    components: {
+        NewBikeForm,
+    },
     data: function () {
         return {
             manufacturer: "hei"

@@ -1,16 +1,13 @@
 namespace BikeHistory.Models.Bike;
 
-public enum BikeType
+public class BikeType
 {
-    Misc,
-    Road,
-    TimeTrial,
-    CrossCountry,
-    Hybrid,
-    Cyclocross,
-    Gravel,
-    Enduro,
-    Downhill,
-    Trail,
-    Bmx
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+
+    public BikeType(string name)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+    }
 }

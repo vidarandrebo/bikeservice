@@ -1,14 +1,13 @@
 namespace BikeHistory.Models.Bike;
 
-public enum PartType
+public class PartType
 {
-    Misc,
-    FrontWheel,
-    RearWheel,
-    Frame,
-    SeatPost,
-    Chain,
-    ChainRing,
-    Cassette,
-    
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+
+    public PartType(string name)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+    }
 }
