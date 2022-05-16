@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace BikeHistory.Controllers.Auth;
+namespace BikeHistory.Controllers.AuthRoutes;
 
 public static class UserDataFromCookie
 {

@@ -1,3 +1,3 @@
-namespace BikeHistory.Controllers.Auth;
+namespace BikeHistory.Controllers.AuthRoutes;
 
 public record AuthRouteResponse(string UserName, string[] Errors);

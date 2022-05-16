@@ -1,9 +1,13 @@
 <template>
     <div class="logregdiv">
         <form id="newbike" method="POST" v-on:submit.prevent="addBike">
-            <input type="text" v-model="bikeData.manufacturer" required>
-            <input type="text" v-model="bikeData.model" required>
-            <input type="number" v-model="bikeData.mileage" required>
+            <label for="manufacturer">Manufacturer</label>
+            <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
+            <label for="model">Model</label>
+            <input type="text" id="model" v-model="bikeData.model" required>
+            <label for="mileage">Mileage</label>
+            <input type="number" id="mileage" v-model="bikeData.mileage" required>
+            <input type="submit" value="Add">
         </form>
     </div>
 </template>
@@ -20,8 +24,11 @@ export default defineComponent({
         }
     },
     methods: {
-        addBike: function () {
-            return
+        addBike: async function () {
+            let result = await this.bikeData.addBikeRequest();
+            if (result.status == 404) {
+                this.bikeData.clear();
+            }
         }
     }
 

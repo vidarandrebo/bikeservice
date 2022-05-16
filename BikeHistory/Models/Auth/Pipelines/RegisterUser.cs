@@ -1,4 +1,4 @@
-using BikeHistory.Controllers.Auth;
+using BikeHistory.Controllers.AuthRoutes;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -6,9 +6,9 @@ namespace BikeHistory.Models.Auth.Pipelines;
 
 public class RegisterUser
 {
-    public record Request(Credentials Credentials) : IRequest<AuthResponse>;
+    public record Request(Credentials Credentials) : IRequest<SuccessResponse>;
 
-    public class Handler : IRequestHandler<Request, AuthResponse>
+    public class Handler : IRequestHandler<Request, SuccessResponse>
     {
         private readonly UserManager<User> _userManager;
 
@@ -17,7 +17,7 @@ public class RegisterUser
             _userManager = userManager;
         }
 
-        public async Task<AuthResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var user = new User
             {
@@ -30,7 +30,7 @@ public class RegisterUser
                 errors.Add(err.Description);
             }
 
-            return new AuthResponse(registerResult.Succeeded, errors.ToArray());
+            return new SuccessResponse(registerResult.Succeeded, errors.ToArray());
         }
     }
 }

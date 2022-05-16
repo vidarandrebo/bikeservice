@@ -1,6 +1,6 @@
 ﻿using BikeHistory.Models;
 using BikeHistory.Models.Auth;
-using BikeHistory.Models.Bike;
+using BikeHistory.Models.Bikes;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

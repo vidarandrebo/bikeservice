@@ -1,15 +1,14 @@
-﻿namespace BikeHistory.Models.Bike;
+﻿namespace BikeHistory.Models.Bikes;
 
-public class Part
+public class Bike
 {
     public Guid Id { get; set; }
     public string Manufacturer { get; set; }
     public string Model { get; set; }
     public double Mileage { get; set; }
-    public PartType? PartType { get; set; }
-    public Bike? Bike { get; set; }
+    public BikeType? BikeType { get; set; }
 
-    public Part(string manufacturer, string model, double mileage)
+    public Bike(string manufacturer, string model, double mileage)
     {
         Id = Guid.NewGuid();
         Manufacturer = manufacturer;
