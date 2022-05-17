@@ -6,7 +6,7 @@ namespace BikeHistory.Models.Bikes.Pipelines;
 
 public class GetBikes
 {
-    public record Request() : IRequest<BikeResponse>;
+    public record Request(Guid UserId) : IRequest<BikeResponse>;
 
     public class Handler : IRequestHandler<Request, BikeResponse>
     {

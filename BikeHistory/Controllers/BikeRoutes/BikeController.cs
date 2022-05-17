@@ -1,4 +1,5 @@
-﻿using BikeHistory.Models.Bikes;
+﻿using BikeHistory.Controllers.AuthRoutes;
+using BikeHistory.Models.Bikes;
 using BikeHistory.Models.Bikes.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,16 @@ public class BikeController : Controller
     }
 
     [HttpGet]
-    public async Task<BikeResponse> GetBikes()
+    public async Task<ActionResult<BikeResponse>> GetBikes()
     {
-        var bikes = await _mediator.Send(new GetBikes.Request());
-        return bikes;
+        var userId = HttpContext.GetUserId();
+        if (userId != Guid.Empty)
+        {
+            var bikes = await _mediator.Send(new GetBikes.Request(userId));
+            return Ok(bikes);
+        }
+
+        return Unauthorized(new BikeResponse(Array.Empty<Bike>(), new[] {"Not logged in"}));
     }
 
     [HttpPost]
@@ -34,5 +41,4 @@ public class BikeController : Controller
 
         return BadRequest();
     }
-
 }
