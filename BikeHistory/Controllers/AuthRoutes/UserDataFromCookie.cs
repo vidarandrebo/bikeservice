@@ -11,13 +11,12 @@ public static class UserDataFromCookie
 
     public static Guid GetUserId(this HttpContext context)
     {
-
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId is not null)
         {
             return new Guid(userId);
         }
+
         return Guid.Empty;
     }
-    
 }

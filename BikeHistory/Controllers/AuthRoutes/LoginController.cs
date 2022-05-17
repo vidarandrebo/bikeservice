@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using BikeHistory.Models.Auth.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
