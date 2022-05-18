@@ -1,12 +1,12 @@
 <template>
-    <div class="menugroup_left menugroup">
+    <div class="menu-group">
         <router-link to="/"><h3>BikeHistory</h3></router-link>
     </div>
-    <div class="menugroup_middle menugroup">
+    <div class="menu-group">
         <router-link to="/bikes"><i class="fa fa-bicycle fa-2x"></i></router-link>
         <router-link to="/parts"><i class="fa fa-wrench fa-2x"></i></router-link>
     </div>
-    <div class="menugroup_right menugroup">
+    <div class="menu-group">
         <p v-if="user" id="username">{{ user }}</p>
         <router-link v-if="user" to="/settings"><i class="fa fa-cog fa-2x"></i></router-link>
         <a v-if="user" href="#" v-on:click="logout"><i class="fa fa-sign-out fa-2x"></i></a>
@@ -15,19 +15,23 @@
     </div>
 </template>
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import {get} from "@/models/genericFetch";
 import router from "@/router";
 
 export default defineComponent({
-    props: ["user"],
+    props: {
+        user: {
+            type: Object as PropType<string>,
+        }
+    },
     name: 'Menubar',
-    emits: ['fetchUsername'],
+    emits: ['updateUsername'],
     methods: {
         logout: async function () {
             let response = await get("/logout");
             if (response.status == 200) {
-                this.$emit('fetchUsername', "");
+                this.$emit('updateUsername', "");
                 await router.push("/login");
             }
         }

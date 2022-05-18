@@ -2,28 +2,27 @@ header h3 {
     display: inline;
 }
 
+/*sticky footer etc*/
 html {
     height: 100%;
-    /**background-image: url('/static/img/background.png');*/
-    background-size: cover;
 }
 
 .app {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    margin: 0px;
+    margin: 0;
 }
 
 body {
     height: 100%;
-    margin: 0px;
+    margin: 0;
 }
 
 
 header {
     height: 40px;
-    background-color: #00aa55;
+    background-color: #ff8c00;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -35,20 +34,18 @@ header a {
 }
 
 header .router-link-active {
-    background-color: #00ccaa;
+    background-color: #ff6c00;
 }
 
-.menugroup {
+.menu-group {
     display: flex;
     align-items: center;
 }
 
-.menugroup a {
+.menu-group a {
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 5px;
-    padding-top: auto;
-    padding-bottom: auto;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -64,8 +61,8 @@ main {
 
 footer {
     height: 60px;
-    background-color: #00aa55;
-    margin-bottom: 0px;
+    background-color: #ff8c00;
+    margin-bottom: 0;
     color: white;
     display: flex;
     align-items: center;
@@ -77,72 +74,34 @@ footer a {
     margin-right: auto;
 }
 
-.new, .post {
+/*centering of main content*/
+.content {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 20px;
-    background-color: #ccc;
-    border-radius: 10px;
     overflow: hidden;
 }
 
-.posttext {
-    white-space: pre-wrap;
+.bike-view {
+    background-color: beige;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
 }
 
-.postheader {
+.bike-view .bike-specs {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
-
-.postfooter button, .postfooter p, .postheader button, .postheader p {
+.bike-specs .spec {
+    margin-right: 1rem;
+}
+.spec p {
     display: inline;
+    margin-right: 1rem;
 }
 
-.imgcontainer {
-    display: flex;
-    /*max-height: 1000px;*/
-    flex-wrap: wrap-reverse;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.postimg2 img, .postimg1 img {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.postimg1 {
-    width: 100%;
-}
-
-.postimg1 a, .postimg2 a {
-    width: 100%;
-}
-
-.postimg2 {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-}
-
-.newpost {
-    width: 100%;
-    display: column;
-}
-
-textarea {
-    width: 100%;
-}
-
-.settings, .logregdiv {
+.settings, .authentication {
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
@@ -152,13 +111,13 @@ textarea {
     padding: 20px;
 }
 
-.settings form, .logregdiv form {
+.settings form, .authentication form {
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.settings input, .logregdiv input {
+.settings input, .authentication input {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -167,13 +126,13 @@ textarea {
 
 
 @media only screen and (max-width: 1500px) {
-    .new, .post {
+    .new, .content {
         max-width: 700px;
     }
 }
 
 @media only screen and (max-width: 1200px) {
-    .new, .post {
+    .new, .content {
         max-width: 600px;
     }
 }

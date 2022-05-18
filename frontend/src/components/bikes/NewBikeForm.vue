@@ -1,5 +1,5 @@
 <template>
-    <div class="logregdiv">
+    <div class="authentication">
         <form id="newbike" method="POST" v-on:submit.prevent="addBike">
             <label for="manufacturer">Manufacturer</label>
             <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import {BikeForm, IBikeForm} from "@/models/bikes/bikeForm";
+import {BikeForm} from "@/models/bikes/bikeForm";
 import {defineComponent} from "vue";
 
 export default defineComponent({
