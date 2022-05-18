@@ -1,3 +1,3 @@
 ﻿namespace BikeHistory.Models.Bikes;
 
-public record BikeResponse(Bike[] Bikes, string[] Errors);
+public record BikeResponse(BikeDto[] Bikes, string[] Errors);

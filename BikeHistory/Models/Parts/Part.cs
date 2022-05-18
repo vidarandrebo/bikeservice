@@ -1,4 +1,6 @@
-﻿namespace BikeHistory.Models.Bikes;
+﻿using BikeHistory.Models.Bikes;
+
+namespace BikeHistory.Models.Parts;
 
 public class Part
 {

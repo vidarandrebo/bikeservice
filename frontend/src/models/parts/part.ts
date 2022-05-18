@@ -3,3 +3,7 @@ export type Part = {
     manufacturer: string;
     model: string;
 }
+export type PartResponse = {
+    parts: Part[];
+    errors: string[];
+}

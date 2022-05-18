@@ -19,7 +19,9 @@ public class GetBikes
 
         public async Task<BikeResponse> Handle(Request request, CancellationToken cancellationToken)
         {
-            var bikes = await _bikeContext.Bikes.ToArrayAsync(cancellationToken);
+            var bikes = await _bikeContext.Bikes.Select(a =>
+                new BikeDto(a.Id, a.Manufacturer, a.Model, a.Mileage)).ToArrayAsync(cancellationToken);
+
             return new BikeResponse(bikes, Array.Empty<string>());
         }
     }

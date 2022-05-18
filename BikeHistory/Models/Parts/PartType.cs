@@ -1,4 +1,4 @@
-namespace BikeHistory.Models.Bikes;
+namespace BikeHistory.Models.Parts;
 
 public class PartType
 {

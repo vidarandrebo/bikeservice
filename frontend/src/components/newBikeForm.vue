@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import {BikeForm, IBikeForm} from "@/models/bike/bikeForm";
+import {BikeForm, IBikeForm} from "@/models/bikes/bikeForm";
 import {defineComponent} from "vue";
 
 export default defineComponent({
@@ -26,7 +26,7 @@ export default defineComponent({
     methods: {
         addBike: async function () {
             let result = await this.bikeData.addBikeRequest();
-            if (result.status == 404) {
+            if (result.status == 201) {
                 this.bikeData.clear();
             }
         }
