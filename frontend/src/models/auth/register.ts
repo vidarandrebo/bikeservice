@@ -7,7 +7,7 @@ export interface IRegisterData {
     passwordRequirementsCheck(): void;
 }
 
-export class RegisterData {
+export class RegisterData implements IRegisterData{
     username: string;
     passwd: string;
     repasswd: string;

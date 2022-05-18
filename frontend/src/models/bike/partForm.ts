@@ -1,33 +1,34 @@
 import {FetchResponse, post} from "@/models/genericFetch";
 
-export interface IBikeForm {
+export interface IPartForm {
     manufacturer: string;
     model: string;
     mileage: number;
-
-    addBikeRequest(): Promise<FetchResponse<null>>;
 
     clear(): void;
+
+    addPartRequest(): Promise<FetchResponse<null>>;
 }
 
-export class BikeForm implements IBikeForm {
+export class PartForm implements IPartForm {
     manufacturer: string;
     model: string;
     mileage: number;
 
-    async addBikeRequest(): Promise<FetchResponse<null>> {
-        return await post<BikeForm>("/bike", this);
+    clear(): void {
+        this.mileage = 0.0;
+        this.model = "";
+        this.manufacturer = "";
     }
 
-    clear(): void {
-        this.manufacturer = "";
-        this.model = "";
-        this.mileage = 0.0;
+    async addPartRequest(): Promise<FetchResponse<null>> {
+        return await post<PartForm>("/part", this);
     }
+
 
     constructor() {
         this.manufacturer = "";
         this.model = "";
-        this.mileage = 0;
+        this.mileage = 0.0;
     }
 }

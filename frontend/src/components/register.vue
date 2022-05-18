@@ -22,7 +22,7 @@ export default defineComponent({
     name: 'Register',
     data: function () {
         return {
-            registerData: new RegisterData() as IRegisterData,
+            registerData: new RegisterData(),
         }
     },
     methods: {

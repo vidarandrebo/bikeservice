@@ -20,7 +20,7 @@ export default defineComponent({
     name: "NewBikeForm",
     data: function () {
         return {
-            bikeData: new BikeForm() as IBikeForm,
+            bikeData: new BikeForm(),
         }
     },
     methods: {
