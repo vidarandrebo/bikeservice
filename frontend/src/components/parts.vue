@@ -35,6 +35,8 @@ import {defineComponent} from 'vue';
 
 export default defineComponent({
     name: 'Parts',
+    emits: ['fetchUsername'],
+    props: ["user"],
     data: function () {
         return {
             manufacturer: "hei"

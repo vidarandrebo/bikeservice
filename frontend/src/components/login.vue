@@ -20,7 +20,7 @@ export default defineComponent({
     name: 'Login',
     data: function () {
         return {
-            loginData: new LoginData() as ILoginData,
+            loginData: new LoginData(),
         }
     },
     emits: ['fetchUsername'],

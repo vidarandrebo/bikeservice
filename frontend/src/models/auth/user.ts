@@ -10,7 +10,7 @@ export interface IUser {
     loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
 }
 
-export class User {
+export class User implements IUser {
     userName: string;
     password: string;
 

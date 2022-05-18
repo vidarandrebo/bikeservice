@@ -1,4 +1,6 @@
-﻿namespace BikeHistory.Models.Bike;
+﻿using BikeHistory.Models.Bikes;
+
+namespace BikeHistory.Models.Parts;
 
 public class Part
 {
@@ -6,8 +8,8 @@ public class Part
     public string Manufacturer { get; set; }
     public string Model { get; set; }
     public double Mileage { get; set; }
-    public PartType PartType { get; set; }
-    public Models.Bike.Bike? Bike { get; set; }
+    public PartType? PartType { get; set; }
+    public Bikes.Bike? Bike { get; set; }
 
     public Part(string manufacturer, string model, double mileage)
     {

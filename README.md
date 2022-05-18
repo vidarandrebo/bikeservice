@@ -1,8 +1,8 @@
-# Bikehistory (work in progress)
-Web app for managing your bike's service history and milage.
+# BikeHistory (work in progress)
+Web app for managing your bike's service history and mileage.
 
 ## Frontend
-Fronded written in Vue3.
+Frontend written in Vue3.
 
 ## Backend
-Backend written in ASP .Net Core
+Backend written in ASP.Net Core
