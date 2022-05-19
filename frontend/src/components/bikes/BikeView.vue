@@ -39,8 +39,8 @@ export default defineComponent({
     },
     emits: {
         updateBikesEvent() {
-            return true;
-        }
+            return true
+        },
     }
 })
 </script>

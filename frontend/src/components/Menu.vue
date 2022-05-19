@@ -20,18 +20,22 @@ import {httpGet} from "@/models/httpMethods";
 import router from "@/router";
 
 export default defineComponent({
+    name: 'Menubar',
     props: {
         user: {
             type: String as PropType<string>,
         }
     },
-    name: 'Menubar',
-    emits: ['updateUsername'],
+    emits: {
+        updateUsernameEvent(value: string) {
+            return true
+        },
+    },
     methods: {
         logout: async function () {
             let response = await httpGet("/logout");
             if (response.status == 200) {
-                this.$emit('updateUsername', "");
+                this.$emit('updateUsernameEvent', "");
                 await router.push("/login");
             }
         }

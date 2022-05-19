@@ -1,10 +1,10 @@
 <template>
     <header>
-        <menubar v-bind:user="user" @updateUsername="updateUsername"></menubar>
+        <menubar v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></menubar>
     </header>
     <main>
         <!--Changes depending on which component is active-->
-        <router-view v-bind:user="user" @updateUsername="updateUsername"></router-view>
+        <router-view v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></router-view>
     </main>
     <div class="space"></div>
     <footer>
@@ -31,7 +31,7 @@ export default defineComponent({
         }
     },
     methods: {
-        updateUsername: function (name: string): void {
+        updateUsernameHandler: function (name: string): void {
             this.user = name;
         }
     },
