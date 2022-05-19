@@ -1,5 +1,5 @@
 <template>
-    <div class="post">
+    <div class="content">
         <table>
             <thead>
             <tr>
@@ -35,7 +35,7 @@ import {defineComponent} from 'vue';
 
 export default defineComponent({
     name: 'Parts',
-    emits: ['fetchUsername'],
+    emits: ['UpdateUsername'],
     props: ["user"],
     data: function () {
         return {

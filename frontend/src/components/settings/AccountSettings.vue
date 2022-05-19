@@ -11,22 +11,22 @@
             <input type="submit" value="Change Password">
         </form>
     </div>
-    <div class="post" v-if="!user">
+    <div class="content" v-if="!user">
         <p>Welcome to the settings page! Since you are not logged in, you have no settings to change!</p>
     </div>
 </template>
 <script lang="ts">
-import {AccountSettings, IAccountSettings} from "@/models/settings/accountSettings";
+import {AccountSettings} from "@/models/settings/accountSettings";
 import {defineComponent} from "vue";
 
 export default defineComponent({
     props: ["user"],
     name: 'Settings',
-    emits: ['fetchUsername'],
+    emits: ['updateUsername'],
     data:
         function () {
             return {
-                accountSettings: new AccountSettings() as IAccountSettings,
+                accountSettings: new AccountSettings(),
             }
         },
     methods: {

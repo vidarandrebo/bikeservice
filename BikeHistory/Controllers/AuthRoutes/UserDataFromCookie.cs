@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using BikeHistory.Models;
 
 namespace BikeHistory.Controllers.AuthRoutes;
 
@@ -12,11 +13,6 @@ public static class UserDataFromCookie
     public static Guid GetUserId(this HttpContext context)
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId is not null)
-        {
-            return new Guid(userId);
-        }
-
-        return Guid.Empty;
+        return GuidHelper.GuidOrEmpty(userId);
     }
 }

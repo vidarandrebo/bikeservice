@@ -3,6 +3,7 @@ using BikeHistory.Models.Bikes;
 using BikeHistory.Models.Bikes.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BikeHistory.Models;
 
 namespace BikeHistory.Controllers.BikeRoutes;
 
@@ -40,5 +41,18 @@ public class BikeController : Controller
         }
 
         return BadRequest();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteBike(string id)
+    {
+        var bikeId = GuidHelper.GuidOrEmpty(id);
+        var result = await _mediator.Send(new DeleteBike.Request(bikeId, HttpContext.GetUserId()));
+        if (result.Success)
+        {
+            return Ok();
+        }
+
+        return NotFound();
     }
 }

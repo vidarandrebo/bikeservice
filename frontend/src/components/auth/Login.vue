@@ -1,5 +1,5 @@
 <template>
-    <div class="logregdiv">
+    <div class="authentication">
         <form id="login" method="POST" v-on:submit.prevent="loginUser">
             <p v-for="err in loginData.errors">{{ err }}</p>
             <label for="username">Username</label>
@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import {defineComponent} from 'vue';
-import {ILoginData, LoginData} from "@/models/auth/login";
+import {LoginData} from "@/models/auth/login";
 import {IUser, User} from "@/models/auth/user";
 import router from "@/router";
 
@@ -23,7 +23,8 @@ export default defineComponent({
             loginData: new LoginData(),
         }
     },
-    emits: ['fetchUsername'],
+    emits: ['updateUsername'],
+    props: ["user"],
     methods: {
         loginUser: async function (): Promise<void> {
             let user: IUser = new User(
@@ -32,7 +33,7 @@ export default defineComponent({
             );
             let response = await user.loginUserRequest();
             if (response.status == 200) {
-                this.$emit('fetchUsername', response.body.userName);
+                this.$emit('updateUsername', response.body.userName);
                 router.push('/')
             } else {
                 this.loginData.errors = response.body.errors;

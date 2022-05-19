@@ -1,10 +1,10 @@
 <template>
     <header>
-        <menubar v-bind:user="user" @fetchUsername="setUser"></menubar>
+        <menubar v-bind:user="user" @updateUsername="updateUsername"></menubar>
     </header>
     <main>
         <!--Changes depending on which component is active-->
-        <router-view v-bind:user="user" @fetchUsername="setUser"></router-view>
+        <router-view v-bind:user="user" @updateUsername="updateUsername"></router-view>
     </main>
     <div class="space"></div>
     <footer>
@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts">
-import Menubar from './components/menu.vue';
-import MainSite from './components/mainsite.vue';
+import Menubar from './components/Menu.vue';
+import MainSite from './components/MainSite.vue';
 import {defineComponent} from 'vue';
-import {getWithBody} from "@/models/genericFetch";
+import {httpGetWithBody} from "@/models/httpMethods";
 import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export default defineComponent({
@@ -25,19 +25,18 @@ export default defineComponent({
         Menubar,
         MainSite,
     },
-    emits: ['fetchUsername'],
     data: function () {
         return {
             user: null as any,
         }
     },
     methods: {
-        setUser: function (name: string): void {
+        updateUsername: function (name: string): void {
             this.user = name;
         }
     },
     async created() {
-        let result = await getWithBody<AuthRouteResponse>("/login");
+        let result = await httpGetWithBody<AuthRouteResponse>("/login");
         this.user = result.body.userName;
     }
 })

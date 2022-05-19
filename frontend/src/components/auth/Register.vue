@@ -1,5 +1,5 @@
 <template>
-    <div class="logregdiv">
+    <div class="authentication">
         <form id="register" method="POST" v-on:submit.prevent="registerUser">
             <p v-for="err in registerData.error">{{ err }}</p>
             <label for="username">Username</label>
@@ -20,6 +20,8 @@ import {IRegisterData, RegisterData} from "@/models/auth/register";
 
 export default defineComponent({
     name: 'Register',
+    emits: ['updateUsername'],
+    props: ["user"],
     data: function () {
         return {
             registerData: new RegisterData(),

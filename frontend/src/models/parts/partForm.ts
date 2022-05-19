@@ -1,4 +1,4 @@
-import {FetchResponse, post} from "@/models/genericFetch";
+import {FetchResponse, httpPost} from "@/models/httpMethods";
 
 export interface IPartForm {
     manufacturer: string;
@@ -22,7 +22,7 @@ export class PartForm implements IPartForm {
     }
 
     async addPartRequest(): Promise<FetchResponse<null>> {
-        return await post<PartForm>("/part", this);
+        return await httpPost<PartForm>("/part", this);
     }
 
 

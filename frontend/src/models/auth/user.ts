@@ -1,4 +1,4 @@
-import {FetchResponse, postWithBody} from "@/models/genericFetch";
+import {FetchResponse, httpPostWithBody} from "@/models/httpMethods";
 import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export interface IUser {
@@ -20,11 +20,11 @@ export class User implements IUser {
     }
 
     async registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await postWithBody<IUser, AuthRouteResponse>("/register", this);
+        return await httpPostWithBody<IUser, AuthRouteResponse>("/register", this);
     }
 
     async loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await postWithBody<IUser, AuthRouteResponse>("/login", this);
+        return await httpPostWithBody<IUser, AuthRouteResponse>("/login", this);
     }
 
 
