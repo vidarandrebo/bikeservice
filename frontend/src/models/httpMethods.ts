@@ -3,7 +3,19 @@ export type FetchResponse<T> = {
     status: number;
 }
 
-export async function get(route: string): Promise<FetchResponse<null>> {
+export async function httpDelete(route: string, id: string): Promise<FetchResponse<null>> {
+    let params = new URLSearchParams({"id": id});
+    let response = await fetch(route + "?" + params, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    return {body: null, status: response.status};
+}
+
+
+export async function httpGet(route: string): Promise<FetchResponse<null>> {
     let response = await fetch(route, {
         method: "GET",
         headers: {
@@ -13,7 +25,7 @@ export async function get(route: string): Promise<FetchResponse<null>> {
     return {body: null, status: response.status};
 }
 
-export async function getWithBody<T>(route: string): Promise<FetchResponse<T>> {
+export async function httpGetWithBody<T>(route: string): Promise<FetchResponse<T>> {
     let response = await fetch(route, {
         method: "GET",
         headers: {
@@ -24,7 +36,7 @@ export async function getWithBody<T>(route: string): Promise<FetchResponse<T>> {
     return {body: body, status: response.status};
 }
 
-export async function post<T>(route: string, data: T): Promise<FetchResponse<null>> {
+export async function httpPost<T>(route: string, data: T): Promise<FetchResponse<null>> {
     let response = await fetch(route, {
         method: "POST",
         headers: {
@@ -35,7 +47,7 @@ export async function post<T>(route: string, data: T): Promise<FetchResponse<nul
     return {body: null, status: response.status};
 }
 
-export async function postWithBody<TIn, TOut>(route: string, data: TIn): Promise<FetchResponse<TOut>> {
+export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Promise<FetchResponse<TOut>> {
     let response = await fetch(route, {
         method: "POST",
         headers: {

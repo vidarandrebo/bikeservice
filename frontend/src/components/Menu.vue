@@ -16,20 +16,20 @@
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
-import {get} from "@/models/genericFetch";
+import {httpGet} from "@/models/httpMethods";
 import router from "@/router";
 
 export default defineComponent({
     props: {
         user: {
-            type: Object as PropType<string>,
+            type: String as PropType<string>,
         }
     },
     name: 'Menubar',
     emits: ['updateUsername'],
     methods: {
         logout: async function () {
-            let response = await get("/logout");
+            let response = await httpGet("/logout");
             if (response.status == 200) {
                 this.$emit('updateUsername', "");
                 await router.push("/login");
