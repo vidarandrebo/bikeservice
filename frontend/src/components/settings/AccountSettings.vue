@@ -17,12 +17,18 @@
 </template>
 <script lang="ts">
 import {AccountSettings} from "@/models/settings/accountSettings";
-import {defineComponent} from "vue";
+import {defineComponent, PropType} from "vue";
 
 export default defineComponent({
-    props: ["user"],
     name: 'Settings',
-    emits: ['updateUsername'],
+    props: {
+        user: {
+            type: String as PropType<string>,
+        }
+    },
+    emits: {
+        updateUsernameEvent(value: string){return true},
+    },
     data:
         function () {
             return {

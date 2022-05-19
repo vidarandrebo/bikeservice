@@ -11,7 +11,7 @@
     </div>
 </template>
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import {LoginData} from "@/models/auth/login";
 import {IUser, User} from "@/models/auth/user";
 import router from "@/router";
@@ -23,8 +23,16 @@ export default defineComponent({
             loginData: new LoginData(),
         }
     },
-    emits: ['updateUsername'],
-    props: ["user"],
+    props: {
+        user: {
+            type: String as PropType<string>,
+        }
+    },
+    emits: {
+        updateUsernameEvent(value: string) {
+            return true
+        },
+    },
     methods: {
         loginUser: async function (): Promise<void> {
             let user: IUser = new User(
@@ -33,7 +41,7 @@ export default defineComponent({
             );
             let response = await user.loginUserRequest();
             if (response.status == 200) {
-                this.$emit('updateUsername', response.body.userName);
+                this.$emit('updateUsernameEvent', response.body.userName);
                 router.push('/')
             } else {
                 this.loginData.errors = response.body.errors;

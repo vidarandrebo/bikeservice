@@ -5,19 +5,24 @@ export interface IBike {
     manufacturer: string;
     model: string;
     mileage: number;
+
     addBikeRequest(): Promise<FetchResponse<null>>;
+
     deleteBikeRequest(): Promise<FetchResponse<null>>;
 
     clear(): void;
 }
-export class Bike implements IBike{
+
+export class Bike implements IBike {
     id: string;
     manufacturer: string;
     model: string;
-    mileage : number;
+    mileage: number;
+
     async addBikeRequest(): Promise<FetchResponse<null>> {
         return await httpPost<IBike>("/bike", this);
     }
+
     async deleteBikeRequest(): Promise<FetchResponse<null>> {
         return await httpDelete("/bike", this.id);
     }
@@ -28,24 +33,21 @@ export class Bike implements IBike{
         this.mileage = 0.0;
     }
 
-    constructor(...args : IBike[]) {
+    // Copies over the fields in the argument object if given
+    constructor(...args: IBike[]) {
+        this.id = "";
+        this.manufacturer = "";
+        this.model = "";
+        this.mileage = 0.0;
         if (args.length === 1) {
-            let bike = args[0];
-            this.id = bike.id;
-            this.mileage = bike.mileage;
-            this.model = bike.model;
-            this.manufacturer = bike.manufacturer;
-        }
-        else {
-            this.id = "";
-            this.manufacturer = "";
-            this.model = "";
-            this.mileage = 0.0;
+            Object.assign(this, args[0]);
         }
     }
+}
 
 
-
+export function createBike(bike: IBike) {
+    return new Bike(bike);
 }
 
 export type BikeResponse = {
