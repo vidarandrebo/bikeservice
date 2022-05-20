@@ -4,8 +4,9 @@ export type FetchResponse<T> = {
 }
 
 export async function httpDelete(route: string, id: string): Promise<FetchResponse<null>> {
-    let params = new URLSearchParams({"id": id});
-    let response = await fetch(route + "?" + params, {
+    let url = new URL(route, window.location.origin);
+    url.searchParams.append("id", id);
+    let response = await fetch(url.toString(), {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json'
