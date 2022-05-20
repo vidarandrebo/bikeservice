@@ -46,7 +46,7 @@ public class BikeController : Controller
     [HttpDelete]
     public async Task<IActionResult> DeleteBike(string id)
     {
-        var bikeId = GuidHelper.GuidOrEmpty(id);
+        var bikeId = await GuidHelper.GuidOrEmptyAsync(id);
         var result = await _mediator.Send(new DeleteBike.Request(bikeId, HttpContext.GetUserId()));
         if (result.Success)
         {

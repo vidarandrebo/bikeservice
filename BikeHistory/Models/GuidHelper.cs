@@ -22,4 +22,8 @@ public static class GuidHelper
             }
         }
     }
+    public static Task<Guid> GuidOrEmptyAsync(string value)
+    {
+        return Task.Run(() => GuidOrEmpty(value));
+    }
 }
