@@ -1,6 +1,13 @@
+// Status and response body from request
 export type FetchResponse<T> = {
     body: T;
     status: number;
+}
+
+// Used as body field in the FetchResponse
+export type DataArrayResponse<T> = {
+    data: T[];
+    errors: string[];
 }
 
 export async function httpDelete(route: string, id: string): Promise<FetchResponse<null>> {

@@ -6,9 +6,9 @@ namespace BikeHistory.Models.Bikes.Pipelines;
 
 public class GetBikes
 {
-    public record Request(Guid UserId) : IRequest<BikeResponse>;
+    public record Request(Guid UserId) : IRequest<DataResponse<BikeDto[]>>;
 
-    public class Handler : IRequestHandler<Request, BikeResponse>
+    public class Handler : IRequestHandler<Request, DataResponse<BikeDto[]>>
     {
         private readonly BikeContext _bikeContext;
 
@@ -17,12 +17,12 @@ public class GetBikes
             _bikeContext = bikeContext;
         }
 
-        public async Task<BikeResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<DataResponse<BikeDto[]>> Handle(Request request, CancellationToken cancellationToken)
         {
             var bikes = await _bikeContext.Bikes.Select(a =>
                 new BikeDto(a.Id, a.Manufacturer, a.Model, a.Mileage)).ToArrayAsync(cancellationToken);
 
-            return new BikeResponse(bikes, Array.Empty<string>());
+            return new DataResponse<BikeDto[]>(bikes, Array.Empty<string>());
         }
     }
 }

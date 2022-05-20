@@ -5,8 +5,8 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
 import NewBikeForm from "@/components/bikes/NewBikeForm.vue";
-import {BikeResponse, createBike, IBike} from "@/models/bikes/bike";
-import {httpGetWithBody} from "@/models/httpMethods";
+import {Bike, createBike, IBike} from "@/models/bikes/bike";
+import {DataArrayResponse, httpGetWithBody} from "@/models/httpMethods";
 import BikeView from "@/components/bikes/BikeView.vue";
 
 export default defineComponent({
@@ -35,9 +35,9 @@ export default defineComponent({
     },
     methods: {
         getBikes: async function () {
-            let result = await httpGetWithBody<BikeResponse>("/bike");
+            let result = await httpGetWithBody<DataArrayResponse<Bike>>("/bike");
             if (result.status === 200) {
-                this.bikes = result.body.bikes.map(createBike);
+                this.bikes = result.body.data.map(createBike);
             }
         },
         updateBikesHandler: async function () {

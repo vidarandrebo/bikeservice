@@ -19,7 +19,7 @@ public class BikeController : Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult<BikeResponse>> GetBikes()
+    public async Task<ActionResult<DataResponse<BikeDto[]>>> GetBikes()
     {
         var userId = HttpContext.GetUserId();
         if (userId != Guid.Empty)
@@ -28,7 +28,7 @@ public class BikeController : Controller
             return Ok(bikes);
         }
 
-        return Unauthorized(new BikeResponse(Array.Empty<BikeDto>(), new[] {"Not logged in"}));
+        return Unauthorized(new DataResponse<BikeDto[]>(Array.Empty<BikeDto>(), new[] {"Not logged in"}));
     }
 
     [HttpPost]

@@ -9,7 +9,7 @@ public class Part
     public string Model { get; set; }
     public double Mileage { get; set; }
     public PartType? PartType { get; set; }
-    public Bikes.Bike? Bike { get; set; }
+    public Bike? Bike { get; set; }
 
     public Part(string manufacturer, string model, double mileage)
     {
