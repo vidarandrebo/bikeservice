@@ -1,7 +1,5 @@
 <template>
-    <header>
-        <menubar v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></menubar>
-    </header>
+    <menubar v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></menubar>
     <main>
         <!--Changes depending on which component is active-->
         <router-view v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></router-view>
@@ -42,5 +40,50 @@ export default defineComponent({
 })
 </script>
 <style>
-@import "css/style.css";
+
+/*sticky footer etc*/
+html {
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+}
+
+
+main {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.space {
+    flex: 1;
+}
+
+footer {
+    height: 60px;
+    background-color: #ff8c00;
+    margin-bottom: 0;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+footer a {
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 </style>

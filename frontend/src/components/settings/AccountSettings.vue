@@ -27,7 +27,9 @@ export default defineComponent({
         }
     },
     emits: {
-        updateUsernameEvent(value: string){return true},
+        updateUsernameEvent(value: string) {
+            return true
+        },
     },
     data:
         function () {
@@ -42,3 +44,28 @@ export default defineComponent({
     }
 })
 </script>
+<style scoped>
+.settings {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 460px;
+    background-color: #ccc;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+form {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+</style>

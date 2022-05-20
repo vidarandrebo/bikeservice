@@ -47,5 +47,22 @@ export default defineComponent({
 
 
 <style scoped>
+.bike-specs {
+    display: flex;
+    flex-wrap: wrap;
+}
+.bike-specs .spec {
+    margin-right: 1rem;
+}
 
+.spec p {
+    display: inline;
+    margin-right: 1rem;
+}
+.bike-view {
+    background-color: beige;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+}
 </style>

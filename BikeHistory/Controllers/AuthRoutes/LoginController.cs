@@ -25,7 +25,7 @@ public class LoginController : Controller
             return Ok(new AuthRouteResponse(userName, Array.Empty<string>()));
         }
 
-        return Unauthorized(new AuthRouteResponse("", new[] {"Not logged in"}));
+        return Ok(new AuthRouteResponse("", new[] {"Not logged in"}));
     }
 
     // POST
