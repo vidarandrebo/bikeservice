@@ -1,7 +1,4 @@
-﻿using BikeHistory.Models.Bikes;
-using BikeHistory.Models.Types;
-
-namespace BikeHistory.Models.Parts;
+﻿namespace BikeHistory.Models.Parts;
 
 public class Part
 {
@@ -14,7 +11,7 @@ public class Part
 
     public PartDto CreateDto()
     {
-        return new PartDto(Id, Manufacturer, Model, Mileage, BikeId);
+        return new PartDto(Id, Manufacturer, Model, Mileage, TypeId, BikeId);
     }
 
     public Part(string manufacturer, string model, double mileage, Guid typeId)
