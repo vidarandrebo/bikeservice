@@ -20,9 +20,7 @@ public class GetParts
         public async Task<DataResponse<PartDto[]>> Handle(Request request, CancellationToken cancellationToken)
         {
             var parts = await _bikeContext.Parts
-                .Include(p => p.Bike)
-                .Select(p =>
-                    new PartDto(p.Id, p.Manufacturer, p.Model, p.Mileage, p.Bike.Id))
+                .Select(p => p.CreateDto())
                 .ToArrayAsync(cancellationToken);
             return new DataResponse<PartDto[]>(parts, Array.Empty<string>());
         }

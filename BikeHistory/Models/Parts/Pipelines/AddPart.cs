@@ -19,7 +19,7 @@ public class AddPart
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var part = new Part(request.PartFormDto.Manufacturer, request.PartFormDto.Model,
-                request.PartFormDto.Mileage);
+                request.PartFormDto.Mileage, GuidHelper.GuidOrEmpty(request.PartFormDto.TypeId));
             _bikeContext.Parts.Add(part);
             await _bikeContext.SaveChangesAsync(cancellationToken);
             return new SuccessResponse(true, Array.Empty<string>());

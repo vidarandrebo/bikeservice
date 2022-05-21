@@ -19,8 +19,9 @@ public class GetBikes
 
         public async Task<DataResponse<BikeDto[]>> Handle(Request request, CancellationToken cancellationToken)
         {
-            var bikes = await _bikeContext.Bikes.Select(a =>
-                new BikeDto(a.Id, a.Manufacturer, a.Model, a.Mileage)).ToArrayAsync(cancellationToken);
+            var bikes = await _bikeContext.Bikes
+                .Select(b => b.CreateDto())
+                .ToArrayAsync(cancellationToken);
 
             return new DataResponse<BikeDto[]>(bikes, Array.Empty<string>());
         }
