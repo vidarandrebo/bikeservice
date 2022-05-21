@@ -6,7 +6,12 @@ public class Bike
     public string Manufacturer { get; set; }
     public string Model { get; set; }
     public double Mileage { get; set; }
-    public BikeType? BikeType { get; set; }
+    public Guid TypeId { get; set; }
+
+    public BikeDto CreateDto()
+    {
+        return new BikeDto(Id, Manufacturer, Model, Mileage, TypeId);
+    }
 
     public Bike(string manufacturer, string model, double mileage)
     {

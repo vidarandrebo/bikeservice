@@ -49,8 +49,3 @@ export class Bike implements IBike {
 export function createBike(bike: IBike) {
     return new Bike(bike);
 }
-
-export type BikeResponse = {
-    bikes: IBike[];
-    errors: string[];
-}

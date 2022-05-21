@@ -2,6 +2,7 @@
 using BikeHistory.Models.Auth;
 using BikeHistory.Models.Bikes;
 using BikeHistory.Models.Parts;
+using BikeHistory.Models.Types;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public class BikeContext : IdentityDbContext<User>
 {
     public DbSet<Bike> Bikes { get; set; } = null!;
     public DbSet<Part> Parts { get; set; } = null!;
+    public DbSet<EquipmentType> EquipmentTypes { get; set; } = null!;
 
     public BikeContext(DbContextOptions conf) : base(conf)
     {

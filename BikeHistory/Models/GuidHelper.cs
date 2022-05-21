@@ -2,12 +2,14 @@ namespace BikeHistory.Models;
 
 public static class GuidHelper
 {
-    // Returns a Guid if one can be created the incoming value, returns an empty Guid otherwise
-    public static Guid GuidOrEmpty(string value)
+    /// <summary>Non crashing constructor for Guid</summary>
+    /// <param name="input">String representation of Guid</param>
+    /// <returns>Guid from input or an empty Guid</returns>
+    public static Guid GuidOrEmpty(string input)
     {
         try
         {
-            return new Guid(value);
+            return new Guid(input);
         }
         catch (Exception ex)
         {
@@ -21,5 +23,13 @@ public static class GuidHelper
                     throw;
             }
         }
+    }
+
+    /// <summary>Non crashing async constructor for Guid</summary>
+    /// <param name="input">String representation of Guid</param>
+    /// <returns>Task containing Guid from input or an empty Guid</returns>
+    public static Task<Guid> GuidOrEmptyAsync(string input)
+    {
+        return Task.Run(() => GuidOrEmpty(input));
     }
 }
