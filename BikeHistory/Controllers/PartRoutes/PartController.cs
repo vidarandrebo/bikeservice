@@ -44,9 +44,21 @@ public class PartController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeletePart(string id)
+    public async Task<ActionResult<SuccessResponse>> DeletePart(string id)
     {
-        var partId = await GuidHelper.GuidOrEmptyAsync(id);
-        return Ok();
+        var partId = GuidHelper.GuidOrEmpty(id);
+        var userId = HttpContext.GetUserId();
+        if (userId == Guid.Empty)
+        {
+            return Unauthorized(new SuccessResponse(false, new []{"Not logged in"}));
+        }
+
+        var result = await _mediator.Send(new DeletePart.Request(partId, userId));
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+
+        return BadRequest(result);
     }
 }
