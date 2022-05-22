@@ -40,7 +40,6 @@ export default defineComponent({
 })
 </script>
 <style>
-
 /*sticky footer etc*/
 html {
     height: 100%;

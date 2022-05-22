@@ -40,6 +40,9 @@ export default defineComponent({
                 this.bikes = result.body.data.map(createBike);
             }
         },
+        /**
+         * Handler for updateBikesEvent
+         */
         updateBikesHandler: async function () {
             await this.getBikes();
         }
