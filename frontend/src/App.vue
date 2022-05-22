@@ -33,7 +33,7 @@ export default defineComponent({
             this.user = name;
         }
     },
-    async created() {
+    created: async function () {
         let result = await httpGetWithBody<AuthRouteResponse>("/login");
         this.user = result.body.userName;
     }
