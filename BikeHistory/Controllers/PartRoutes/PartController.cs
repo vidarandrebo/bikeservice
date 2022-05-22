@@ -28,7 +28,7 @@ public class PartController : Controller
             return Ok(parts);
         }
 
-        return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] {"Not logged in"}));
+        return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] { "Not logged in" }));
     }
 
     [HttpPost]

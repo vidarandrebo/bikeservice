@@ -6,7 +6,7 @@ namespace BikeHistory.Models.Types.Pipelines;
 
 public class DeleteType
 {
-    public record Request(Guid Id) : IRequest<SuccessResponse>;
+    public record Request(Guid Id, Guid UserId) : IRequest<SuccessResponse>;
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
@@ -21,6 +21,7 @@ public class DeleteType
         {
             var equipmentType =
                 await _bikeContext.EquipmentTypes
+                    .Where(e => e.UserId == request.UserId)
                     .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
             if (equipmentType is not null)
             {
