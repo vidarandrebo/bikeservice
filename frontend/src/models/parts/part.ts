@@ -5,6 +5,8 @@ export interface IPart {
     manufacturer: string;
     model: string;
     mileage: number;
+    typeId: string;
+    bikeId: string;
 
     addPartRequest(): Promise<FetchResponse<null>>;
 
@@ -18,12 +20,16 @@ export class Part implements IPart {
     manufacturer: string;
     model: string;
     mileage: number;
+    typeId: string;
+    bikeId: string;
 
     clear(): void {
         this.id = "";
         this.mileage = 0.0;
         this.model = "";
         this.manufacturer = "";
+        this.typeId = "";
+        this.bikeId = "";
     }
 
     async addPartRequest(): Promise<FetchResponse<null>> {
@@ -40,12 +46,19 @@ export class Part implements IPart {
         this.manufacturer = "";
         this.model = "";
         this.mileage = 0.0;
+        this.typeId = "";
+        this.bikeId = "";
         if (args.length === 1) {
             Object.assign(this, args[0]);
         }
     }
 }
 
+/**
+ * Creates a new object of the Part class from an object conforming to the IPart interface
+ * @param part The object whose fields will be transferred to new object
+ * @returns A new object of the Part class
+ */
 export function createPart(part: IPart) {
     return new Part(part);
 }
