@@ -4,15 +4,15 @@
             <router-link to="/"><h3>BikeHistory</h3></router-link>
         </div>
         <div class="menu-group">
-            <router-link to="/bikes"><i class="fa fa-bicycle fa-2x"></i></router-link>
-            <router-link to="/parts"><i class="fa fa-wrench fa-2x"></i></router-link>
+            <router-link to="/bikes"><font-awesome-icon icon="bicycle" size="2x"></font-awesome-icon></router-link>
+            <router-link to="/parts"><font-awesome-icon icon="cog" size="2x"></font-awesome-icon></router-link>
         </div>
         <div class="menu-group">
             <p v-if="user" id="username">{{ user }}</p>
-            <router-link v-if="user" to="/settings"><i class="fa fa-cog fa-2x"></i></router-link>
-            <a v-if="user" href="#" v-on:click="logout"><i class="fa fa-sign-out fa-2x"></i></a>
-            <router-link v-if="!user" to="/login"><i class="fa fa-sign-in fa-2x"></i></router-link>
-            <router-link v-if="!user" to="/register"><i class="fa fa-user-plus fa-2x"></i></router-link>
+            <router-link v-if="user" to="/settings"><font-awesome-icon icon="tools" size="2x"></font-awesome-icon></router-link>
+            <a v-if="user" href="#" v-on:click="logout"><font-awesome-icon icon="sign-out" size="2x"></font-awesome-icon></a>
+            <router-link v-if="!user" to="/login"><font-awesome-icon icon="sign-in" size="2x"></font-awesome-icon></router-link>
+            <router-link v-if="!user" to="/register"><font-awesome-icon icon="user-plus" size="2x"></font-awesome-icon></router-link>
         </div>
     </header>
 </template>
@@ -20,9 +20,13 @@
 import {defineComponent, PropType} from 'vue';
 import {httpGet} from "@/models/httpMethods";
 import router from "@/router";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default defineComponent({
     name: 'Menubar',
+    components: {
+        FontAwesomeIcon
+    },
     props: {
         user: {
             type: String as PropType<string>,
