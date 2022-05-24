@@ -1,5 +1,5 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router'
-import Settings from "@/components/settings/AccountSettings.vue";
+import Settings from "@/components/settings/Settings.vue";
 import Bikes from "@/components/bikes/Bikes.vue";
 import Parts from "@/components/parts/Parts.vue";
 import Register from "@/components/auth/Register.vue";
