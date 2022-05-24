@@ -42,7 +42,7 @@ export default defineComponent({
             let response = await user.loginUserRequest();
             if (response.status == 200) {
                 this.$emit('updateUsernameEvent', response.body.userName);
-                router.push('/')
+                await router.push('/')
             } else {
                 this.loginData.errors = response.body.errors;
             }
@@ -53,14 +53,11 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.authentication {
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 460px;
-    background-color: #ccc;
-    border-radius: 10px;
-    padding: 20px;
+div {
+    background-color: beige;
+    margin: 0.5rem;
+    padding: 1rem;
+    flex-grow: 1;
 }
 
 form {

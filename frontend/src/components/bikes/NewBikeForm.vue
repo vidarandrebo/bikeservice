@@ -53,8 +53,7 @@ export default defineComponent({
 <style scoped>
 .new-bike-view {
     background-color: beige;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin: 0.5rem;
     padding: 1rem;
 }
 

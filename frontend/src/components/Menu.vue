@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="menu-group">
-            <router-link to="/"><h3>BikeHistory</h3></router-link>
+            <router-link to="/"><font-awesome-icon icon="home" size="2x"></font-awesome-icon></router-link>
         </div>
         <div class="menu-group">
             <router-link to="/bikes"><font-awesome-icon icon="bicycle" size="2x"></font-awesome-icon></router-link>

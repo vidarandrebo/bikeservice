@@ -11,48 +11,39 @@
             <input type="submit" value="Change Password">
         </form>
     </div>
-    <div class="content" v-if="!user">
-        <p>Welcome to the settings page! Since you are not logged in, you have no settings to change!</p>
-    </div>
 </template>
+
 <script lang="ts">
 import {AccountSettings} from "@/models/settings/accountSettings";
 import {defineComponent, PropType} from "vue";
 
 export default defineComponent({
-    name: 'Settings',
+    name: "AccountSettings",
     props: {
         user: {
             type: String as PropType<string>,
         }
     },
-    emits: {
-        updateUsernameEvent(value: string) {
-            return true
-        },
+    data: function () {
+        return {
+            accountSettings: new AccountSettings(),
+        }
     },
-    data:
-        function () {
-            return {
-                accountSettings: new AccountSettings(),
-            }
-        },
     methods: {
         changePasswd: async function () {
             console.log("not implemented")
         },
-    }
+    },
+
 })
 </script>
+
 <style scoped>
 .settings {
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 460px;
-    background-color: #ccc;
-    border-radius: 10px;
-    padding: 20px;
+    background-color: beige;
+    margin: 0.5rem 0.5rem 0.5rem 0.25rem;
+    padding: 1rem;
+    flex-grow: 1;
 }
 
 form {
