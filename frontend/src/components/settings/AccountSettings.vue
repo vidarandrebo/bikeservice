@@ -43,7 +43,6 @@ export default defineComponent({
     background-color: beige;
     margin: 0.5rem 0.5rem 0.5rem 0.25rem;
     padding: 1rem;
-    flex: 75%;
     flex-grow: 1;
 }
 

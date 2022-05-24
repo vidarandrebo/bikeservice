@@ -1,14 +1,12 @@
 <template>
     <div class="settings-buttons">
         <button>Account</button>
-        <button>Equipment types</button>
+        <button>Part types</button>
         <button>Bike types</button>
-        <button>Account</button>
-        <button>Equipment types</button>
-        <button>Bike types</button>
-        <button>Account</button>
-        <button>Equipment types</button>
-        <button>Bike types</button>
+        <button>Setting 1</button>
+        <button>Setting 2</button>
+        <button>Setting 3</button>
+        <button>Setting 4</button>
     </div>
 </template>
 

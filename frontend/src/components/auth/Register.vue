@@ -3,11 +3,11 @@
         <form id="register" method="POST" v-on:submit.prevent="registerUser">
             <p v-for="err in registerData.error">{{ err }}</p>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" v-model="registerData.username" required>
+            <input type="text" id="username" v-model="registerData.username" required>
             <label for="passwd">Password</label>
-            <input type="password" id="passwd" name="passwd" v-model="registerData.passwd" required>
-            <label for="repasswd">Repeat password</label>
-            <input type="password" id="repasswd" name="repasswd" v-model="registerData.repasswd" required>
+            <input type="password" id="passwd" v-model="registerData.passwd" required>
+            <label for="repeat-passwd">Repeat password</label>
+            <input type="password" id="repeat-passwd" v-model="registerData.repasswd" required>
             <input type="submit" value="Register">
         </form>
     </div>
@@ -57,14 +57,11 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.authentication {
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 460px;
-    background-color: #ccc;
-    border-radius: 10px;
-    padding: 20px;
+div {
+    background-color: beige;
+    margin: 0.5rem;
+    padding: 1rem;
+    flex-grow: 1;
 }
 
 form {
