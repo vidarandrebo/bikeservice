@@ -1,18 +1,18 @@
 <template>
     <header>
         <div class="menu-group">
-            <router-link to="/"><font-awesome-icon icon="home" size="2x"></font-awesome-icon></router-link>
+            <router-link to="/"><font-awesome-icon icon="home" size="2x" title="Home"></font-awesome-icon></router-link>
         </div>
         <div class="menu-group">
-            <router-link to="/bikes"><font-awesome-icon icon="bicycle" size="2x"></font-awesome-icon></router-link>
-            <router-link to="/parts"><font-awesome-icon icon="cog" size="2x"></font-awesome-icon></router-link>
+            <router-link to="/bikes"><font-awesome-icon icon="bicycle" size="2x" title="Bikes"></font-awesome-icon></router-link>
+            <router-link to="/parts"><font-awesome-icon icon="cog" size="2x" title="Parts"></font-awesome-icon></router-link>
         </div>
         <div class="menu-group">
             <p v-if="user" id="username">{{ user }}</p>
-            <router-link v-if="user" to="/settings"><font-awesome-icon icon="tools" size="2x"></font-awesome-icon></router-link>
-            <a v-if="user" href="#" v-on:click="logout"><font-awesome-icon icon="sign-out" size="2x"></font-awesome-icon></a>
-            <router-link v-if="!user" to="/login"><font-awesome-icon icon="sign-in" size="2x"></font-awesome-icon></router-link>
-            <router-link v-if="!user" to="/register"><font-awesome-icon icon="user-plus" size="2x"></font-awesome-icon></router-link>
+            <router-link v-if="user" to="/settings"><font-awesome-icon icon="tools" size="2x" title="Settings"></font-awesome-icon></router-link>
+            <a v-if="user" href="#" v-on:click="logout"><font-awesome-icon icon="sign-out" size="2x" title="Log out"></font-awesome-icon></a>
+            <router-link v-if="!user" to="/login"><font-awesome-icon icon="sign-in" size="2x" title="Login"></font-awesome-icon></router-link>
+            <router-link v-if="!user" to="/register"><font-awesome-icon icon="user-plus" size="2x" title="Register"></font-awesome-icon></router-link>
         </div>
     </header>
 </template>
