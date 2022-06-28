@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BikeHistory.Controllers.AuthRoutes;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class RegisterController : Controller
 {
     private readonly IMediator _mediator;

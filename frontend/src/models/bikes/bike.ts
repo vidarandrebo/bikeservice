@@ -20,11 +20,11 @@ export class Bike implements IBike {
     mileage: number;
 
     async addBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<IBike>("/bike", this);
+        return await httpPost<IBike>("/api/bike", this);
     }
 
     async deleteBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpDelete("/bike", this.id);
+        return await httpDelete("/api/bike", this.id);
     }
 
     clear(): void {

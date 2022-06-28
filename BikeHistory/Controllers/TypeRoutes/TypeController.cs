@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BikeHistory.Controllers.TypeRoutes;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class TypeController : Controller
 {
     private readonly IMediator _mediator;

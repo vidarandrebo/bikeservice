@@ -8,7 +8,7 @@ using BikeHistory.Models;
 namespace BikeHistory.Controllers.BikeRoutes;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class BikeController : Controller
 {
     private readonly IMediator _mediator;

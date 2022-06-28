@@ -33,11 +33,11 @@ export class Part implements IPart {
     }
 
     async addPartRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<Part>("/part", this);
+        return await httpPost<Part>("/api/part", this);
     }
 
     async deletePartRequest(): Promise<FetchResponse<null>> {
-        return await httpDelete("/part", this.id);
+        return await httpDelete("/api/part", this.id);
     }
 
 

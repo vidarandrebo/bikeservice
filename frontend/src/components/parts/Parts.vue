@@ -32,7 +32,7 @@ export default defineComponent({
     },
     methods: {
         getParts: async function () {
-            let result = await httpGetWithBody<DataArrayResponse<Part>>("/part");
+            let result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
             if (result.status === 200) {
                 this.parts = result.body.data.map(createPart);
             }

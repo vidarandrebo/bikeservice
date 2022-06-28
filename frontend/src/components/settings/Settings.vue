@@ -1,7 +1,7 @@
 <template>
     <div class="settings-page">
         <settings-menu></settings-menu>
-        <account-settings v-bind:user="user"></account-settings>
+        <router-view v-bind:user="user"></router-view>
     </div>
 </template>
 <script lang="ts">

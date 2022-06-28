@@ -20,11 +20,11 @@ export class User implements IUser {
     }
 
     async registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await httpPostWithBody<IUser, AuthRouteResponse>("/register", this);
+        return await httpPostWithBody<IUser, AuthRouteResponse>("/api/register", this);
     }
 
     async loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await httpPostWithBody<IUser, AuthRouteResponse>("/login", this);
+        return await httpPostWithBody<IUser, AuthRouteResponse>("/api/login", this);
     }
 
 

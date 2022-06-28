@@ -39,7 +39,7 @@ export default defineComponent({
     },
     methods: {
         logout: async function () {
-            let response = await httpGet("/logout");
+            let response = await httpGet("/api/logout");
             if (response.status == 200) {
                 this.$emit('updateUsernameEvent', "");
                 await router.push("/login");
