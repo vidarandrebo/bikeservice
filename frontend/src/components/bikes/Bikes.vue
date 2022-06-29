@@ -6,7 +6,7 @@
 import {defineComponent, PropType} from 'vue';
 import NewBikeForm from "@/components/bikes/NewBikeForm.vue";
 import {Bike, createBike, IBike} from "@/models/bikes/bike";
-import {DataArrayResponse, httpGetWithBody} from "@/models/httpMethods";
+import {DataArrayResponse, getHost, httpGetWithBody} from "@/models/httpMethods";
 import BikeView from "@/components/bikes/BikeView.vue";
 
 export default defineComponent({

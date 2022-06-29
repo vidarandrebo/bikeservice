@@ -14,7 +14,7 @@
 import Menubar from './components/Menu.vue';
 import MainSite from './components/MainSite.vue';
 import {defineComponent} from 'vue';
-import {httpGetWithBody} from "@/models/httpMethods";
+import {getHost, httpGetWithBody} from "@/models/httpMethods";
 import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export default defineComponent({

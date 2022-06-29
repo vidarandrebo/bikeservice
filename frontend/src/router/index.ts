@@ -53,6 +53,10 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Course',
         props: true,
         component: Register
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: '/'
     }
 ]
 

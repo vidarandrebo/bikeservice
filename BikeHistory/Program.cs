@@ -4,9 +4,11 @@ using BikeHistory.Models.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(p => p.AddPolicy("mypolicy", b =>
+{
+    b.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader();
+}));
 // Add services to the container.
 
 builder.Services.AddRouting();
@@ -45,9 +47,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseRouting();
 
-app.UseHttpsRedirection();
+app.UseCors("mypolicy");
+
+app.UseRouting();
 
 app.UseAuthentication();
 

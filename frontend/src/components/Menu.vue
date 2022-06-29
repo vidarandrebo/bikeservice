@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
-import {httpGet} from "@/models/httpMethods";
+import {getHost, httpGet} from "@/models/httpMethods";
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 

@@ -1,8 +1,10 @@
 using BikeHistory.Models.Auth.Pipelines;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeHistory.Controllers.AuthRoutes;
+
 
 [ApiController]
 [Route("api/[controller]")]

@@ -15,7 +15,9 @@ export async function httpDelete(route: string, id: string): Promise<FetchRespon
     url.searchParams.append("id", id);
     let response = await fetch(url.toString(), {
         method: "DELETE",
+        mode: 'cors',
         headers: {
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
         },
     })
@@ -26,7 +28,9 @@ export async function httpDelete(route: string, id: string): Promise<FetchRespon
 export async function httpGet(route: string): Promise<FetchResponse<null>> {
     let response = await fetch(route, {
         method: "GET",
+        mode: 'cors',
         headers: {
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
         },
     });
@@ -36,7 +40,9 @@ export async function httpGet(route: string): Promise<FetchResponse<null>> {
 export async function httpGetWithBody<T>(route: string): Promise<FetchResponse<T>> {
     let response = await fetch(route, {
         method: "GET",
+        mode: 'cors',
         headers: {
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
         },
     });
@@ -47,7 +53,9 @@ export async function httpGetWithBody<T>(route: string): Promise<FetchResponse<T
 export async function httpPost<T>(route: string, data: T): Promise<FetchResponse<null>> {
     let response = await fetch(route, {
         method: "POST",
+        mode: 'cors',
         headers: {
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
@@ -58,11 +66,22 @@ export async function httpPost<T>(route: string, data: T): Promise<FetchResponse
 export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Promise<FetchResponse<TOut>> {
     let response = await fetch(route, {
         method: "POST",
+        mode: 'cors',
         headers: {
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     });
     let body = await response.json();
     return {body: body, status: response.status};
+}
+
+
+export function getHost() : string {
+    console.log(window.location.hostname);
+    if (window.location.hostname === "localhost") {
+        return "http://localhost:5116";
+    }
+    return "";
 }
