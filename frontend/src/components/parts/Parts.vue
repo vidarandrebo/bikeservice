@@ -6,7 +6,7 @@
 import {defineComponent, PropType} from 'vue';
 import NewPartForm from "@/components/parts/NewPartForm.vue";
 import {createPart, IPart, Part} from "@/models/parts/part";
-import {DataArrayResponse, getHost, httpGetWithBody} from "@/models/httpMethods";
+import {DataArrayResponse, getOrigin, httpGetWithBody} from "@/models/httpMethods";
 import PartView from "@/components/parts/PartView.vue";
 
 export default defineComponent({

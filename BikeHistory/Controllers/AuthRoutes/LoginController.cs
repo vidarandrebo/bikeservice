@@ -1,33 +1,34 @@
+using System.Security.Claims;
 using BikeHistory.Models.Auth.Pipelines;
+using BikeHistory.Services;
 using MediatR;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeHistory.Controllers.AuthRoutes;
-
 
 [ApiController]
 [Route("api/[controller]")]
 public class LoginController : Controller
 {
     private readonly IMediator _mediator;
+    private readonly ITokenHandler _tokenHandler;
 
-    public LoginController(IMediator mediator)
+    public LoginController(IMediator mediator, ITokenHandler tokenHandler)
     {
         _mediator = mediator;
+        _tokenHandler = tokenHandler;
     }
 
     // GET
     [HttpGet]
     public IActionResult Index()
     {
-        var userName = HttpContext.GetUserName();
+        var userName = _tokenHandler.GetUserNameFromRequest(HttpContext);
         if (userName is not null)
         {
-            return Ok(new AuthRouteResponse(userName, Array.Empty<string>()));
+            return Ok(new AuthRouteResponse(userName, "", Array.Empty<string>()));
         }
-
-        return Ok(new AuthRouteResponse("", new[] {"Not logged in"}));
+        return Ok(new AuthRouteResponse("", "", new[] {"Not logged in"}));
     }
 
     // POST
@@ -35,11 +36,12 @@ public class LoginController : Controller
     public async Task<IActionResult> LoginUser(Credentials credentials)
     {
         var result = await _mediator.Send(new LoginUser.Request(credentials));
-        if (result.Success)
+        if (result.Errors.Length == 0)
         {
-            return Ok(new AuthRouteResponse(credentials.UserName, result.Errors));
+            var token = _tokenHandler.CreateToken(result.Data.Id, result.Data.UserName);
+            return Ok(new AuthRouteResponse(credentials.UserName, token, result.Errors));
         }
 
-        return Unauthorized(new AuthRouteResponse(credentials.UserName, result.Errors));
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", result.Errors));
     }
 }

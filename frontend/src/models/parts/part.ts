@@ -1,4 +1,4 @@
-import {FetchResponse, getHost, httpDelete, httpPost} from "@/models/httpMethods";
+import {FetchResponse, getOrigin, httpDelete, httpPost} from "@/models/httpMethods";
 
 export interface IPart {
     id: string;

@@ -1,6 +1,7 @@
 using BikeHistory;
 using BikeHistory.Data;
 using BikeHistory.Models.Auth;
+using BikeHistory.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,9 +35,11 @@ builder.Services.AddDbContext<BikeContext>(options =>
     options.UseNpgsql(dbConnectionString));
 
 
-builder.Services.AddIdentity<User, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<BikeContext>()
     .AddUserManager<UserManager<User>>();
+
+builder.Services.AddSingleton<ITokenHandler, TokenHandler>();
 
 builder.Services.AddAuthentication();
 var app = builder.Build();
@@ -56,12 +59,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseDefaultFiles();
-
-app.UseStaticFiles();
-
 app.MapControllers();
 
-app.MapFallbackToFile("index.html");
+//app.MapFallbackToFile("index.html");
 
 app.Run();

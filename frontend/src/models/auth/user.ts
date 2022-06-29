@@ -1,4 +1,4 @@
-import {FetchResponse, getHost, httpPostWithBody} from "@/models/httpMethods";
+import {FetchResponse, getOrigin, httpPostWithBody} from "@/models/httpMethods";
 import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export interface IUser {

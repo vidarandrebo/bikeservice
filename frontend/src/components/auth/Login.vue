@@ -15,6 +15,7 @@ import {defineComponent, PropType} from 'vue';
 import {LoginData} from "@/models/auth/login";
 import {IUser, User} from "@/models/auth/user";
 import router from "@/router";
+import {setToken} from "@/models/httpMethods";
 
 export default defineComponent({
     name: 'Login',
@@ -42,6 +43,7 @@ export default defineComponent({
             let response = await user.loginUserRequest();
             if (response.status == 200) {
                 this.$emit('updateUsernameEvent', response.body.userName);
+                setToken(response.body.token);
                 await router.push('/')
             } else {
                 this.loginData.errors = response.body.errors;

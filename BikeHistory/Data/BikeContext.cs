@@ -3,12 +3,13 @@ using BikeHistory.Models.Auth;
 using BikeHistory.Models.Bikes;
 using BikeHistory.Models.Parts;
 using BikeHistory.Models.Types;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BikeHistory.Data;
 
-public class BikeContext : IdentityDbContext<User>
+public class BikeContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     public DbSet<Bike> Bikes { get; set; } = null!;
     public DbSet<Part> Parts { get; set; } = null!;

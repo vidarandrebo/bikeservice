@@ -29,9 +29,9 @@ public class RegisterController : Controller
         var result = await _mediator.Send(new RegisterUser.Request(credentials));
         if (result.Success)
         {
-            return Created(nameof(RegisterUser), new AuthRouteResponse(credentials.UserName, result.Errors));
+            return Created(nameof(RegisterUser), new AuthRouteResponse(credentials.UserName, "", result.Errors));
         }
 
-        return Unauthorized(new AuthRouteResponse(credentials.UserName, result.Errors));
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", result.Errors));
     }
 }

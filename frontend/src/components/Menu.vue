@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
-import {getHost, httpGet} from "@/models/httpMethods";
+import {getOrigin, httpGet} from "@/models/httpMethods";
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
@@ -39,11 +39,9 @@ export default defineComponent({
     },
     methods: {
         logout: async function () {
-            let response = await httpGet("/api/logout");
-            if (response.status == 200) {
-                this.$emit('updateUsernameEvent', "");
-                await router.push("/login");
-            }
+            localStorage.removeItem("authToken");
+            this.$emit('updateUsernameEvent', "");
+            await router.push("/login");
         }
     }
 })

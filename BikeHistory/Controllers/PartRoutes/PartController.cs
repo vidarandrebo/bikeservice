@@ -2,6 +2,7 @@ using BikeHistory.Controllers.AuthRoutes;
 using BikeHistory.Models;
 using BikeHistory.Models.Parts;
 using BikeHistory.Models.Parts.Pipelines;
+using BikeHistory.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,16 +13,18 @@ namespace BikeHistory.Controllers.PartRoutes;
 public class PartController : Controller
 {
     private readonly IMediator _mediator;
+    private readonly ITokenHandler _tokenHandler;
 
-    public PartController(IMediator mediator)
+    public PartController(IMediator mediator, ITokenHandler tokenHandler)
     {
+        _tokenHandler = tokenHandler;
         _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<ActionResult<DataResponse<PartDto[]>>> GetParts()
     {
-        var userId = HttpContext.GetUserId();
+        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId != Guid.Empty)
         {
             var parts = await _mediator.Send(new GetParts.Request(userId));
@@ -47,7 +50,7 @@ public class PartController : Controller
     public async Task<ActionResult<SuccessResponse>> DeletePart(string id)
     {
         var partId = GuidHelper.GuidOrEmpty(id);
-        var userId = HttpContext.GetUserId();
+        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId == Guid.Empty)
         {
             return Unauthorized(new SuccessResponse(false, new []{"Not logged in"}));
