@@ -4,24 +4,27 @@ using BikeHistory.Models.Bikes.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using BikeHistory.Models;
+using BikeHistory.Services;
 
 namespace BikeHistory.Controllers.BikeRoutes;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class BikeController : Controller
 {
     private readonly IMediator _mediator;
+    private readonly ITokenHandler _tokenHandler;
 
-    public BikeController(IMediator mediator)
+    public BikeController(IMediator mediator, ITokenHandler tokenHandler)
     {
         _mediator = mediator;
+        _tokenHandler = tokenHandler;
     }
 
     [HttpGet]
     public async Task<ActionResult<DataResponse<BikeDto[]>>> GetBikes()
     {
-        var userId = HttpContext.GetUserId();
+        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId != Guid.Empty)
         {
             var bikes = await _mediator.Send(new GetBikes.Request(userId));
@@ -47,7 +50,7 @@ public class BikeController : Controller
     public async Task<IActionResult> DeleteBike(string id)
     {
         var bikeId = await GuidHelper.GuidOrEmptyAsync(id);
-        var result = await _mediator.Send(new DeleteBike.Request(bikeId, HttpContext.GetUserId()));
+        var result = await _mediator.Send(new DeleteBike.Request(bikeId, _tokenHandler.GetUserIdFromRequest(HttpContext)));
         if (result.Success)
         {
             return Ok();

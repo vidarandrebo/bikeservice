@@ -1,12 +1,10 @@
 <template>
     <div class="settings-buttons">
-        <button>Account</button>
-        <button>Part types</button>
-        <button>Bike types</button>
-        <button>Setting 1</button>
-        <button>Setting 2</button>
-        <button>Setting 3</button>
-        <button>Setting 4</button>
+        <router-link to="/settings/account">Account</router-link>
+        <router-link to="#">Bike Types</router-link>
+        <router-link to="#">Part Types</router-link>
+        <router-link to="#">Something</router-link>
+        <router-link to="#">Else</router-link>
     </div>
 </template>
 
@@ -25,11 +23,15 @@ export default defineComponent({
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    .settings-buttons button{
+    .settings-buttons a{
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         display: block;
         min-width: 100%;
         width: inherit;
+    }
+
+    .router-link-active {
+        background-color: burlywood;
     }
 </style>

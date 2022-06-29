@@ -14,7 +14,7 @@
 import Menubar from './components/Menu.vue';
 import MainSite from './components/MainSite.vue';
 import {defineComponent} from 'vue';
-import {httpGetWithBody} from "@/models/httpMethods";
+import {getOrigin, httpGetWithBody} from "@/models/httpMethods";
 import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export default defineComponent({
@@ -34,7 +34,7 @@ export default defineComponent({
         }
     },
     created: async function () {
-        let result = await httpGetWithBody<AuthRouteResponse>("/login");
+        let result = await httpGetWithBody<AuthRouteResponse>("/api/login");
         this.user = result.body.userName;
     }
 })

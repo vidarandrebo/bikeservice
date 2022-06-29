@@ -1,5 +1,5 @@
 <template>
-    <div class="settings" v-if="user">
+    <div class="settings">
         <form id="changePasswd" method="POST" v-on:submit.prevent="changePasswd">
             <p v-for="err in accountSettings.errors">{{ err }}</p>
             <label for="oldpasswd">Old Password</label>
@@ -19,11 +19,6 @@ import {defineComponent, PropType} from "vue";
 
 export default defineComponent({
     name: "AccountSettings",
-    props: {
-        user: {
-            type: String as PropType<string>,
-        }
-    },
     data: function () {
         return {
             accountSettings: new AccountSettings(),

@@ -5,5 +5,5 @@
  */
 module.exports = {
     // options...
-    outputDir: '../BikeHistory/wwwroot/'
+    //outputDir: '../BikeHistory/wwwroot/'
 }

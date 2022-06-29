@@ -6,7 +6,7 @@
 import {defineComponent, PropType} from 'vue';
 import NewBikeForm from "@/components/bikes/NewBikeForm.vue";
 import {Bike, createBike, IBike} from "@/models/bikes/bike";
-import {DataArrayResponse, httpGetWithBody} from "@/models/httpMethods";
+import {DataArrayResponse, getOrigin, httpGetWithBody} from "@/models/httpMethods";
 import BikeView from "@/components/bikes/BikeView.vue";
 
 export default defineComponent({
@@ -35,7 +35,7 @@ export default defineComponent({
     },
     methods: {
         getBikes: async function () {
-            let result = await httpGetWithBody<DataArrayResponse<Bike>>("/bike");
+            let result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
             if (result.status === 200) {
                 this.bikes = result.body.data.map(createBike);
             }

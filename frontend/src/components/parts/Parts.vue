@@ -6,7 +6,7 @@
 import {defineComponent, PropType} from 'vue';
 import NewPartForm from "@/components/parts/NewPartForm.vue";
 import {createPart, IPart, Part} from "@/models/parts/part";
-import {DataArrayResponse, httpGetWithBody} from "@/models/httpMethods";
+import {DataArrayResponse, getOrigin, httpGetWithBody} from "@/models/httpMethods";
 import PartView from "@/components/parts/PartView.vue";
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
     },
     methods: {
         getParts: async function () {
-            let result = await httpGetWithBody<DataArrayResponse<Part>>("/part");
+            let result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
             if (result.status === 200) {
                 this.parts = result.body.data.map(createPart);
             }

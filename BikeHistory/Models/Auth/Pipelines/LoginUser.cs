@@ -6,9 +6,9 @@ namespace BikeHistory.Models.Auth.Pipelines;
 
 public class LoginUser
 {
-    public record Request(Credentials Credentials) : IRequest<SuccessResponse>;
+    public record Request(Credentials Credentials) : IRequest<DataResponse<UserData>>;
 
-    public class Handler : IRequestHandler<Request, SuccessResponse>
+    public class Handler : IRequestHandler<Request, DataResponse<UserData>>
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -19,25 +19,24 @@ public class LoginUser
             _signInManager = signInManager;
         }
 
-        public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<DataResponse<UserData>> Handle(Request request, CancellationToken cancellationToken)
         {
             var err = new List<string>();
             var user = await _userManager.FindByNameAsync(request.Credentials.UserName);
             if (user is null)
             {
                 err.Add("User not found");
-                return new SuccessResponse(false, err.ToArray());
+                return new DataResponse<UserData>(new UserData(Guid.Empty, ""), err.ToArray());
             }
 
-            var loginResult =
-                await _signInManager.PasswordSignInAsync(user, request.Credentials.Password, false, false);
-            if (!loginResult.Succeeded)
+            var result = await _userManager.CheckPasswordAsync(user, request.Credentials.Password);
+            if (result)
             {
-                err.Add("Password is wrong");
-                return new SuccessResponse(false, err.ToArray());
+                return new DataResponse<UserData>(new UserData(user.Id, user.UserName), Array.Empty<string>());
             }
+            err.Add("Password is wrong");
 
-            return new SuccessResponse(true, Array.Empty<string>());
+            return new DataResponse<UserData>(new UserData(Guid.Empty,  ""), err.ToArray());
         }
     }
 }
