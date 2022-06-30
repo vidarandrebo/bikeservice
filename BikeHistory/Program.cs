@@ -5,11 +5,11 @@ using BikeHistory.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddCors(p => p.AddPolicy("mypolicy", b =>
-{
-    b.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader();
-}));
+builder.WebHost.UseUrls("http://localhost:5000");
+builder.Services.AddCors(p =>
+    p.AddPolicy("mypolicy", b => { b.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader(); }));
 // Add services to the container.
 
 builder.Services.AddRouting();
