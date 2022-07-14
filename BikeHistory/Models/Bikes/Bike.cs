@@ -7,6 +7,7 @@ public class Bike
     public string Model { get; set; }
     public double Mileage { get; set; }
     public Guid TypeId { get; set; }
+    public List<ServiceEntry> Services {get;set;}
 
     public BikeDto CreateDto()
     {
@@ -19,5 +20,6 @@ public class Bike
         Manufacturer = manufacturer;
         Model = model;
         Mileage = mileage;
+        Services = new List<ServiceEntry>();
     }
 }
