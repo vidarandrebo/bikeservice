@@ -14,12 +14,13 @@ public class Bike
         return new BikeDto(Id, Manufacturer, Model, Mileage, TypeId);
     }
 
-    public Bike(string manufacturer, string model, double mileage)
+    public Bike(string manufacturer, string model, double mileage, Guid typeId)
     {
         Id = Guid.NewGuid();
         Manufacturer = manufacturer;
         Model = model;
         Mileage = mileage;
+        TypeId = typeId;
         Services = new List<ServiceEntry>();
     }
 }

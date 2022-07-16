@@ -1,3 +1,3 @@
 namespace BikeHistory.Models.Types;
 
-public record EquipmentTypeFormDto(string Id, string Name, Category Category);
+public record EquipmentTypeFormDto(string Name, Category Category);

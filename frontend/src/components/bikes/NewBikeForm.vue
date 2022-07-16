@@ -2,14 +2,32 @@
     <div class="new-bike-view">
         <button v-on:click="showForm" v-show="!show">New Bike</button>
         <form id="new-bike" method="POST" v-on:submit.prevent="addBike" v-show="show">
-            <label for="manufacturer">Manufacturer</label>
-            <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
-            <label for="model">Model</label>
-            <input type="text" id="model" v-model="bikeData.model" required>
-            <label for="mileage">Mileage</label>
-            <input type="number" id="mileage" v-model="bikeData.mileage" required>
-            <input type="submit" value="Add">
-            <button v-on:click="hideForm">Cancel</button>
+            <div class="form-field">
+                <label for="manufacturer">Manufacturer</label>
+                <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
+            </div>
+            <div class="form-field">
+                <label for="model">Model</label>
+                <input type="text" id="model" v-model="bikeData.model" required>
+            </div>
+            <div class="form-field">
+                <label for="mileage">Mileage</label>
+                <input type="number" id="mileage" v-model="bikeData.mileage" required>
+            </div>
+            <div class="form-field">
+                <label for="type">Type</label>
+                <select id="type" v-model="bikeData.typeId" required>
+                    <option value="">No Type</option>
+                    <option v-for="bikeType in bikeTypes" :value="bikeType.id" :key="bikeType.id">{{
+                            bikeType.name
+                        }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Add">
+                <button v-on:click="hideForm">Cancel</button>
+            </div>
         </form>
     </div>
 </template>
@@ -17,6 +35,7 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {Bike} from "@/models/bikes/bike";
+import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export default defineComponent({
     name: "NewBikeForm",
@@ -24,6 +43,11 @@ export default defineComponent({
         return {
             bikeData: new Bike(),
             show: false as boolean,
+        }
+    },
+    props: {
+        bikeTypes: {
+            type: Array<EquipmentType>
         }
     },
     emits: {
@@ -34,7 +58,7 @@ export default defineComponent({
     methods: {
         addBike: async function () {
             let result = await this.bikeData.addBikeRequest();
-            if (result.status == 201) {
+            if (result.status === 201) {
                 this.bikeData.clear();
                 this.$emit('updateBikesEvent');
             }
@@ -45,6 +69,9 @@ export default defineComponent({
         showForm: function () {
             this.show = true;
         }
+    },
+    created() {
+        this.bikeTypes?.forEach(p => console.log(p.name));
     }
 
 })

@@ -6,6 +6,7 @@ import Register from "@/components/auth/Register.vue";
 import Login from "@/components/auth/Login.vue";
 import MainSite from "@/components/MainSite.vue";
 import AccountSettings from "@/components/settings/AccountSettings.vue";
+import BikeTypeSettings from "@/components/settings/BikeTypeSettings.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -45,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
                 name: 'AccountSettings',
                 path: '/settings/account',
                 component: AccountSettings
+            },
+            {
+                name:'BikeTypeSettings',
+                path: '/settings/bike-types',
+                component: BikeTypeSettings
             }
         ]
     },

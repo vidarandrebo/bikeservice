@@ -1,7 +1,7 @@
 <template>
     <div class="settings-buttons">
         <router-link to="/settings/account">Account</router-link>
-        <router-link to="#">Bike Types</router-link>
+        <router-link to="/settings/bike-types">Bike Types</router-link>
         <router-link to="#">Part Types</router-link>
         <router-link to="#">Something</router-link>
         <router-link to="#">Else</router-link>

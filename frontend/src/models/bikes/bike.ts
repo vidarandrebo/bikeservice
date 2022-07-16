@@ -1,10 +1,12 @@
 import {FetchResponse, getOrigin, httpDelete, httpPost} from "@/models/httpMethods";
+import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export interface IBike {
     id: string;
     manufacturer: string;
     model: string;
     mileage: number;
+    typeId: string;
 
     addBikeRequest(): Promise<FetchResponse<null>>;
 
@@ -18,6 +20,8 @@ export class Bike implements IBike {
     manufacturer: string;
     model: string;
     mileage: number;
+    typeId: string;
+
 
     async addBikeRequest(): Promise<FetchResponse<null>> {
         return await httpPost<IBike>("/api/bike", this);
@@ -31,6 +35,7 @@ export class Bike implements IBike {
         this.manufacturer = "";
         this.model = "";
         this.mileage = 0.0;
+        this.typeId = "";
     }
 
     // Copies over the fields in the argument object if given
@@ -39,6 +44,7 @@ export class Bike implements IBike {
         this.manufacturer = "";
         this.model = "";
         this.mileage = 0.0;
+        this.typeId = "";
         if (args.length === 1) {
             Object.assign(this, args[0]);
         }
