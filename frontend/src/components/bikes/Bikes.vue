@@ -1,13 +1,14 @@
 <template>
-    <new-bike-form @updateBikesEvent="updateBikesHandler"></new-bike-form>
-    <bike-view v-for="bike in bikes" v-bind:bike="bike" @updateBikesEvent="updateBikesHandler"></bike-view>
+    <new-bike-form @updateBikesEvent="updateBikesHandler" v-bind:equipment-types="equipmentTypes"></new-bike-form>
+    <bike-view v-for="bike in bikes" v-bind:bike="bike" v-bind:equipment-types="equipmentTypes"
+               @updateBikesEvent="updateBikesHandler"></bike-view>
 </template>
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {defineComponent} from 'vue';
 import NewBikeForm from "@/components/bikes/NewBikeForm.vue";
-import {Bike, createBike, IBike} from "@/models/bikes/bike";
-import {DataArrayResponse, getOrigin, httpGetWithBody} from "@/models/httpMethods";
+import {getBikesRequest, IBike} from "@/models/bikes/bike";
 import BikeView from "@/components/bikes/BikeView.vue";
+import {getTypeRequest, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export default defineComponent({
     name: 'Bikes',
@@ -17,7 +18,7 @@ export default defineComponent({
     },
     props: {
         user: {
-            type: String as PropType<string>,
+            type: String
         }
     },
     emits: {
@@ -28,23 +29,19 @@ export default defineComponent({
     data: function () {
         return {
             bikes: [] as Array<IBike>,
+            equipmentTypes: [] as Array<IEquipmentType>,
         }
     },
     created: async function () {
-        await this.getBikes();
+        this.bikes = await getBikesRequest();
+        this.equipmentTypes = await getTypeRequest();
     },
     methods: {
-        getBikes: async function () {
-            let result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
-            if (result.status === 200) {
-                this.bikes = result.body.data.map(createBike);
-            }
-        },
         /**
          * Handler for updateBikesEvent
          */
         updateBikesHandler: async function () {
-            await this.getBikes();
+            this.bikes = await getBikesRequest();
         }
     }
 })

@@ -1,4 +1,4 @@
-import {FetchResponse, getOrigin, httpDelete, httpPost} from "@/models/httpMethods";
+import {DataArrayResponse, FetchResponse, getOrigin, httpDelete, httpGetWithBody, httpPost} from "@/models/httpMethods";
 
 export interface IPart {
     id: string;
@@ -53,12 +53,20 @@ export class Part implements IPart {
         }
     }
 }
+export async function getPartsRequest(): Promise<IPart[]> {
+    let result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
+    if (result.status === 200) {
+        return result.body.data.map(createPart);
+    }
+    return [];
+}
+
 
 /**
  * Creates a new object of the Part class from an object conforming to the IPart interface
  * @param part The object whose fields will be transferred to new object
  * @returns A new object of the Part class
  */
-export function createPart(part: IPart) {
+function createPart(part: IPart) {
     return new Part(part);
 }
