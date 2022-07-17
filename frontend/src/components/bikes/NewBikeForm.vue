@@ -35,7 +35,8 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {Bike} from "@/models/bikes/bike";
-import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {Category} from "@/models/equipmentTypes/category";
 
 export default defineComponent({
     name: "NewBikeForm",
@@ -46,13 +47,19 @@ export default defineComponent({
         }
     },
     props: {
-        bikeTypes: {
-            type: Array<EquipmentType>
+        equipmentTypes: {
+            required: true,
+            type: Array<IEquipmentType>
         }
     },
     emits: {
         updateBikesEvent() {
             return true
+        }
+    },
+    computed: {
+        bikeTypes(): Array<IEquipmentType> {
+            return this.equipmentTypes.filter(t => t.category == Category.Bike);
         }
     },
     methods: {
@@ -70,9 +77,6 @@ export default defineComponent({
             this.show = true;
         }
     },
-    created() {
-        this.bikeTypes?.forEach(p => console.log(p.name));
-    }
 
 })
 </script>

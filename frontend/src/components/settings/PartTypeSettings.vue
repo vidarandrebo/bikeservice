@@ -1,7 +1,7 @@
 <template>
     <div class="setting-wrapper">
         <div class="settings">
-            <h2>Add Bike Type</h2>
+            <h2>Add Part Type</h2>
             <form id="addBikeType" method="POST" v-on:submit.prevent="addType">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" v-model="equipmentTypeSettings.name" required>
@@ -9,8 +9,8 @@
             </form>
         </div>
         <div class="settings">
-            <h2>Bike Types</h2>
-            <p v-for="type in bikeTypes" :key="type.id">{{ type.name }}</p>
+            <h2>Part Types</h2>
+            <p v-for="type in partTypes" :key="type.id">{{ type.name }}</p>
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@ import {EquipmentType, getTypeRequest, IEquipmentType} from "@/models/equipmentT
 import {Category} from "@/models/equipmentTypes/category";
 
 export default defineComponent({
-    name: "BikeTypeSettings",
+    name: "PartTypeSettings",
     data: function () {
         return {
             equipmentTypeSettings: new EquipmentType(),
@@ -30,6 +30,7 @@ export default defineComponent({
     },
     methods: {
         addType: async function () {
+            this.equipmentTypeSettings.category = Category.Part;
             let result = await this.equipmentTypeSettings.addTypeRequest();
             if (result.status == 201) {
                 this.equipmentTypeSettings.clear();
@@ -41,8 +42,8 @@ export default defineComponent({
         }
     },
     computed: {
-        bikeTypes(): Array<IEquipmentType> {
-            return this.equipmentTypes.filter(t => t.category == Category.Bike);
+        partTypes() : Array<IEquipmentType> {
+            return this.equipmentTypes.filter(t => t.category == Category.Part);
         }
     },
     async created() {

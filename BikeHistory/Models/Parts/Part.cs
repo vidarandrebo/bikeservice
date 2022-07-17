@@ -14,12 +14,13 @@ public class Part
         return new PartDto(Id, Manufacturer, Model, Mileage, TypeId, BikeId);
     }
 
-    public Part(string manufacturer, string model, double mileage, Guid typeId)
+    public Part(string manufacturer, string model, double mileage, Guid typeId, Guid bikeId)
     {
         Id = Guid.NewGuid();
         Manufacturer = manufacturer;
         Model = model;
         Mileage = mileage;
         TypeId = typeId;
+        BikeId = bikeId;
     }
 }

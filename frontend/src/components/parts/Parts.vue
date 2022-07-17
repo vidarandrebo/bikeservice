@@ -1,13 +1,13 @@
 <template>
-    <new-part-form @updatePartsEvent="updatePartsHandler"></new-part-form>
+    <new-part-form @updatePartsEvent="updatePartsHandler" v-bind:equipment-types="equipmentTypes"></new-part-form>
     <part-view v-for="part in parts" v-bind:part="part" @updatePartsEvent="updatePartsHandler"></part-view>
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
 import NewPartForm from "@/components/parts/NewPartForm.vue";
-import {createPart, IPart, Part} from "@/models/parts/part";
-import {DataArrayResponse, getOrigin, httpGetWithBody} from "@/models/httpMethods";
+import {getPartsRequest, IPart} from "@/models/parts/part";
 import PartView from "@/components/parts/PartView.vue";
+import {getTypeRequest, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export default defineComponent({
     name: 'Parts',
@@ -25,17 +25,19 @@ export default defineComponent({
     data: function () {
         return {
             parts: [] as Array<IPart>,
+            equipmentTypes: [] as Array<IEquipmentType>,
         }
     },
     created: async function () {
         await this.getParts();
+        await this.getTypes();
     },
     methods: {
         getParts: async function () {
-            let result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
-            if (result.status === 200) {
-                this.parts = result.body.data.map(createPart);
-            }
+            this.parts = await getPartsRequest();
+        },
+        getTypes: async function () {
+            this.equipmentTypes = await getTypeRequest();
         },
         /**
          * Handler for updatePartsEvent

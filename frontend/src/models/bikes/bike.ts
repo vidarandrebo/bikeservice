@@ -1,4 +1,4 @@
-import {FetchResponse, getOrigin, httpDelete, httpPost} from "@/models/httpMethods";
+import {DataArrayResponse, FetchResponse, getOrigin, httpDelete, httpGetWithBody, httpPost} from "@/models/httpMethods";
 import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export interface IBike {
@@ -50,8 +50,15 @@ export class Bike implements IBike {
         }
     }
 }
+export async function getBikesRequest(): Promise<IBike[]> {
+    let result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
+    if (result.status === 200) {
+        return result.body.data.map(createBike);
+    }
+    return [];
+}
 
 
-export function createBike(bike: IBike) {
+function createBike(bike: IBike) {
     return new Bike(bike);
 }

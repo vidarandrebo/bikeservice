@@ -33,13 +33,13 @@ export default defineComponent({
         bike: {
             type: Object as PropType<IBike>
         },
-        bikeTypes: {
+        equipmentTypes: {
             type: Array<EquipmentType>
         }
     },
     computed: {
         type() : string{
-            let result = this.bikeTypes?.find(p => p.id == this.bike?.typeId);
+            let result = this.equipmentTypes?.find(p => p.id == this.bike?.typeId);
             if (result != undefined) {
                 return result.name;
             }
