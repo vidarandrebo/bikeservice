@@ -40,7 +40,7 @@ export class EquipmentType implements IEquipmentType {
 /**
  * Acquires all equipment-types and returns an array of object containing them.
  */
-export async function getTypeRequest() : Promise<IEquipmentType[]> {
+export async function getTypeRequest(): Promise<IEquipmentType[]> {
     let result = await httpGetWithBody<DataArrayResponse<IEquipmentType>>("/api/type");
     if (result.status === 200) {
         return result.body.data.map(createType);
