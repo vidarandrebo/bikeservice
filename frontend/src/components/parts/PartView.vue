@@ -1,6 +1,6 @@
 <template>
     <div class="part-view">
-        <h5>{{ part.manufacturer }} {{ part.model }}</h5>
+        <h5>{{ part.manufacturer }} {{ part.model }} {{ equipmentType.name }}</h5>
         <details>
             <summary>More</summary>
             <div class="part-specs">
@@ -12,6 +12,10 @@
                     <p>Guid:</p>
                     <p>{{ part.id }}</p>
                 </div>
+                <div class="spec">
+                    <p>Bike:</p>
+                    <p>{{ bike.manufacturer }} {{ bike.model }}</p>
+                </div>
             </div>
             <button v-on:click="deletePart">Delete</button>
         </details>
@@ -21,12 +25,20 @@
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
 import {IPart} from "@/models/parts/part";
+import {IBike} from "@/models/bikes/bike";
+import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export default defineComponent({
     name: "PartView",
     props: {
         part: {
             type: Object as PropType<IPart>
+        },
+        bike: {
+            type: Object as PropType<IBike>
+        },
+        equipmentType: {
+            type: Object as PropType<IEquipmentType>
         }
     },
     methods: {

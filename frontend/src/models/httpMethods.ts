@@ -1,10 +1,15 @@
-// Status and response body from request
+/**
+ * Status and response body from request
+ */
 export type FetchResponse<T> = {
     body: T;
     status: number;
 }
 
-// Used as body field in the FetchResponse
+
+/**
+ * Used as body field in the FetchResponse
+ */
 export type DataArrayResponse<T> = {
     data: T[];
     errors: string[];
