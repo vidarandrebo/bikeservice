@@ -20,7 +20,7 @@ public class AddBike
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var bike = new Bike(request.BikeFormDto.Manufacturer, request.BikeFormDto.Model,
-                request.BikeFormDto.Mileage, request.BikeFormDto.Date.ToUniversalTime() , GuidHelper.GuidOrEmpty(request.BikeFormDto.TypeId));
+                request.BikeFormDto.Mileage, request.BikeFormDto.Date , GuidHelper.GuidOrEmpty(request.BikeFormDto.TypeId));
             _bikeContext.Bikes.Add(bike);
             await _bikeContext.SaveChangesAsync(cancellationToken);
             return new SuccessResponse(true, Array.Empty<string>());

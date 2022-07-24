@@ -16,7 +16,7 @@
             </div>
             <div class="form-field">
                 <label for="date">Date</label>
-                <input type="date" id="date" v-model="bikeData.date" required>
+                <input type="date" id="date" v-model="date" required>
             </div>
             <div class="form-field">
                 <label for="type">Type</label>
@@ -47,6 +47,7 @@ export default defineComponent({
     data: function () {
         return {
             bikeData: new Bike(),
+            date: "",
             show: false as boolean,
         }
     },
@@ -68,8 +69,10 @@ export default defineComponent({
     },
     methods: {
         addBike: async function () {
+            this.bikeData.date = new Date(this.date);
             let result = await this.bikeData.addBikeRequest();
             if (result.status === 201) {
+                this.date = "";
                 this.bikeData.clear();
                 this.$emit('updateBikesEvent');
             }
