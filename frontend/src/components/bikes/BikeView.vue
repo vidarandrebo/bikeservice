@@ -17,6 +17,10 @@
                 <p>Type</p>
                 <p>{{ equipmentType.name }}</p>
             </div>
+            <div class="spec">
+                <p>Date</p>
+                <p>{{ bike.date }}</p>
+            </div>
             <button v-on:click="deleteBike">Delete</button>
         </details>
     </div>
