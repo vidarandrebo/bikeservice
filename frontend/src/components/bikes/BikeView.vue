@@ -15,7 +15,7 @@
             </div>
             <div class="spec">
                 <p>Type</p>
-                <p>{{ type }}</p>
+                <p>{{ equipmentType.name }}</p>
             </div>
             <div class="spec">
                 <p>Date</p>
@@ -30,7 +30,7 @@
 <script lang="ts">
 import {IBike} from "@/models/bikes/bike";
 import {defineComponent, PropType} from "vue";
-import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export default defineComponent({
     name: "BikeView",
@@ -38,17 +38,8 @@ export default defineComponent({
         bike: {
             type: Object as PropType<IBike>
         },
-        equipmentTypes: {
-            type: Array<EquipmentType>
-        }
-    },
-    computed: {
-        type() : string{
-            let result = this.equipmentTypes?.find(p => p.id == this.bike?.typeId);
-            if (result != undefined) {
-                return result.name;
-            }
-            return "Type not set";
+        equipmentType: {
+            type: Object as PropType<IEquipmentType>
         }
     },
     methods: {
