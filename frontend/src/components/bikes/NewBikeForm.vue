@@ -15,9 +15,13 @@
                 <input type="number" id="mileage" v-model="bikeData.mileage" required>
             </div>
             <div class="form-field">
+                <label for="date">Date</label>
+                <input type="date" id="date" v-model="bikeData.date" required>
+            </div>
+            <div class="form-field">
                 <label for="type">Type</label>
                 <select id="type" v-model="bikeData.typeId" required>
-                    <option value="">No Type</option>
+                    <option value="0">No Type</option>
                     <option v-for="bikeType in bikeTypes" :value="bikeType.id" :key="bikeType.id">{{
                             bikeType.name
                         }}

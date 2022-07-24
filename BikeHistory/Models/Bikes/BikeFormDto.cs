@@ -1,3 +1,3 @@
 ﻿namespace BikeHistory.Models.Bikes;
 
-public record BikeFormDto(string Id, double Mileage, string Model, string Manufacturer, string TypeId);
+public record BikeFormDto(string Id, double Mileage, string Model, string Manufacturer, DateTime Date, string TypeId);

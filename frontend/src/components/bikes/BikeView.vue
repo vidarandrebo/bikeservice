@@ -17,6 +17,11 @@
                 <p>Type</p>
                 <p>{{ type }}</p>
             </div>
+            <div class="spec">
+                <p>Date</p>
+                <p>{{ bike.date }}</p>
+                <p>{{ typeof bike.date}}</p>
+            </div>
             <button v-on:click="deleteBike">Delete</button>
         </details>
     </div>

@@ -7,6 +7,7 @@ export interface IBike {
     model: string;
     mileage: number;
     typeId: string;
+    date: Date;
 
     addBikeRequest(): Promise<FetchResponse<null>>;
 
@@ -21,6 +22,7 @@ export class Bike implements IBike {
     model: string;
     mileage: number;
     typeId: string;
+    date: Date;
 
 
     async addBikeRequest(): Promise<FetchResponse<null>> {
@@ -45,8 +47,10 @@ export class Bike implements IBike {
         this.model = "";
         this.mileage = 0.0;
         this.typeId = "";
+        this.date = new Date();
         if (args.length === 1) {
             Object.assign(this, args[0]);
+            this.date = new Date(args[0].date)
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using BikeHistory.Controllers.AuthRoutes;
+﻿using BikeHistory.Models;
 using BikeHistory.Models.Bikes;
 using BikeHistory.Models.Bikes.Pipelines;
+using BikeHistory.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using BikeHistory.Models;
-using BikeHistory.Services;
 
 namespace BikeHistory.Controllers.BikeRoutes;
 
@@ -37,6 +36,7 @@ public class BikeController : Controller
     [HttpPost]
     public async Task<IActionResult> AddBike(BikeFormDto bikeForm)
     {
+        Console.WriteLine(bikeForm.Date);
         var result = await _mediator.Send(new AddBike.Request(bikeForm));
         if (result.Success)
         {
@@ -50,7 +50,8 @@ public class BikeController : Controller
     public async Task<IActionResult> DeleteBike(string id)
     {
         var bikeId = await GuidHelper.GuidOrEmptyAsync(id);
-        var result = await _mediator.Send(new DeleteBike.Request(bikeId, _tokenHandler.GetUserIdFromRequest(HttpContext)));
+        var result =
+            await _mediator.Send(new DeleteBike.Request(bikeId, _tokenHandler.GetUserIdFromRequest(HttpContext)));
         if (result.Success)
         {
             return Ok();

@@ -6,20 +6,22 @@ public class Bike
     public string Manufacturer { get; set; }
     public string Model { get; set; }
     public double Mileage { get; set; }
+    public DateTime Date { get; set; }
     public Guid TypeId { get; set; }
     public List<ServiceEntry> Services {get;set;}
 
     public BikeDto CreateDto()
     {
-        return new BikeDto(Id, Manufacturer, Model, Mileage, TypeId);
+        return new BikeDto(Id, Manufacturer, Model, Mileage,Date, TypeId);
     }
 
-    public Bike(string manufacturer, string model, double mileage, Guid typeId)
+    public Bike(string manufacturer, string model, double mileage, DateTime date, Guid typeId)
     {
         Id = Guid.NewGuid();
         Manufacturer = manufacturer;
         Model = model;
         Mileage = mileage;
+        Date = date;
         TypeId = typeId;
         Services = new List<ServiceEntry>();
     }
