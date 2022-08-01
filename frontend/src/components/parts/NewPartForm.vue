@@ -17,7 +17,7 @@
             <div class="form-field">
                 <label for="type">Type</label>
                 <select id="type" v-model="partData.typeId" required>
-                    <option value="">No Type</option>
+                    <option value="0">No Type</option>
                     <option v-for="partType in partTypes" :value="partType.id" :key="partType.id">{{
                             partType.name
                         }}
@@ -27,7 +27,7 @@
             <div class="form-field">
                 <label for="type">Bike</label>
                 <select id="type" v-model="partData.bikeId" required>
-                    <option value="">No Bike</option>
+                    <option value="0">No Bike</option>
                     <option v-for="bike in bikes" :value="bike.id" :key="bike.id">{{
                             bike.manufacturer
                         }}

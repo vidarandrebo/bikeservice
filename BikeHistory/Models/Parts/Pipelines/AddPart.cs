@@ -5,7 +5,7 @@ namespace BikeHistory.Models.Parts.Pipelines;
 
 public class AddPart
 {
-    public record Request(PartFormDto PartFormDto) : IRequest<SuccessResponse>;
+    public record Request(PartFormDto PartFormDto, Guid UserId) : IRequest<SuccessResponse>;
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
@@ -20,7 +20,7 @@ public class AddPart
         {
             var part = new Part(request.PartFormDto.Manufacturer, request.PartFormDto.Model,
                 request.PartFormDto.Mileage, GuidHelper.GuidOrEmpty(request.PartFormDto.TypeId),
-                GuidHelper.GuidOrEmpty(request.PartFormDto.BikeId));
+                GuidHelper.GuidOrEmpty(request.PartFormDto.BikeId),request.UserId);
             _bikeContext.Parts.Add(part);
             await _bikeContext.SaveChangesAsync(cancellationToken);
             return new SuccessResponse(true, Array.Empty<string>());

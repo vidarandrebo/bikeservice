@@ -20,6 +20,7 @@ public class GetBikes
         public async Task<DataResponse<BikeDto[]>> Handle(Request request, CancellationToken cancellationToken)
         {
             var bikes = await _bikeContext.Bikes
+                .Where(b => b.UserId == request.UserId)
                 .Select(b => b.CreateDto())
                 .ToArrayAsync(cancellationToken);
 

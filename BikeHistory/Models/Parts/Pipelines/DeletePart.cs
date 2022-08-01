@@ -20,7 +20,9 @@ public class DeletePart
 
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
-            var part = await _bikeContext.Parts.FirstOrDefaultAsync(p => p.Id == request.PartId, cancellationToken);
+            var part = await _bikeContext.Parts
+                .Where(p => p.UserId == request.UserId)
+                .FirstOrDefaultAsync(p => p.Id == request.PartId, cancellationToken);
             if (part is not null)
             {
                 _bikeContext.Parts.Remove(part);
@@ -31,5 +33,4 @@ public class DeletePart
             return new SuccessResponse(false, new[] {"Part not found"});
         }
     }
-
 }
