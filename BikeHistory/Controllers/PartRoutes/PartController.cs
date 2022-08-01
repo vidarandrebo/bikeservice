@@ -1,4 +1,3 @@
-using BikeHistory.Controllers.AuthRoutes;
 using BikeHistory.Models;
 using BikeHistory.Models.Parts;
 using BikeHistory.Models.Parts.Pipelines;
@@ -31,19 +30,25 @@ public class PartController : Controller
             return Ok(parts);
         }
 
-        return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] { "Not logged in" }));
+        return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] {"Not logged in"}));
     }
 
     [HttpPost]
     public async Task<IActionResult> AddPart(PartFormDto partForm)
     {
-        var result = await _mediator.Send(new AddPart.Request(partForm));
-        if (result.Success)
+        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userId != Guid.Empty)
         {
-            return Created(nameof(AddPart), partForm);
+            var result = await _mediator.Send(new AddPart.Request(partForm,userId));
+            if (result.Success)
+            {
+                return Created(nameof(AddPart), partForm);
+            }
+
+            return BadRequest();
         }
 
-        return BadRequest();
+        return Unauthorized();
     }
 
     [HttpDelete]
@@ -53,7 +58,7 @@ public class PartController : Controller
         var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId == Guid.Empty)
         {
-            return Unauthorized(new SuccessResponse(false, new []{"Not logged in"}));
+            return Unauthorized(new SuccessResponse(false, new[] {"Not logged in"}));
         }
 
         var result = await _mediator.Send(new DeletePart.Request(partId, userId));

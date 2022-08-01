@@ -8,13 +8,14 @@ public class Part
     public double Mileage { get; set; }
     public Guid TypeId { get; set; }
     public Guid BikeId { get; set; }
+    public Guid UserId { get; set; }
 
     public PartDto CreateDto()
     {
         return new PartDto(Id, Manufacturer, Model, Mileage, TypeId, BikeId);
     }
 
-    public Part(string manufacturer, string model, double mileage, Guid typeId, Guid bikeId)
+    public Part(string manufacturer, string model, double mileage, Guid typeId, Guid bikeId, Guid userId)
     {
         Id = Guid.NewGuid();
         Manufacturer = manufacturer;
@@ -22,5 +23,6 @@ public class Part
         Mileage = mileage;
         TypeId = typeId;
         BikeId = bikeId;
+        UserId = userId;
     }
 }

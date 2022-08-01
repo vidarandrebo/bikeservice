@@ -20,7 +20,9 @@ public class DeleteBike
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var errors = new List<string>();
-            var bike = await _bikeContext.Bikes.FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
+            var bike = await _bikeContext.Bikes
+                .Where(b => b.UserId == request.UserId)
+                .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
             if (bike is not null)
             {
                 _bikeContext.Bikes.Remove(bike);
