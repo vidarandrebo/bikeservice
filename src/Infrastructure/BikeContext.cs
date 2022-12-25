@@ -3,6 +3,7 @@ using BikeHistory.Models.Auth;
 using BikeHistory.Models.Bikes;
 using BikeHistory.Models.Parts;
 using BikeHistory.Models.Types;
+using Domain.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

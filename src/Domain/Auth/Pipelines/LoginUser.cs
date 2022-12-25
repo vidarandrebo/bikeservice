@@ -1,8 +1,8 @@
-using BikeHistory.Controllers.AuthRoutes;
+using BikeHistory.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace BikeHistory.Models.Auth.Pipelines;
+namespace Domain.Auth.Pipelines;
 
 public class LoginUser
 {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace BikeHistory.Models.Auth;
+namespace Domain.Auth;
 
 public class User : IdentityUser<Guid>
 {

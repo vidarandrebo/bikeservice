@@ -1,3 +1,4 @@
+using Domain.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

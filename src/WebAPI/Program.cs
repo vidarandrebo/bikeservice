@@ -2,6 +2,7 @@ using BikeHistory;
 using BikeHistory.Data;
 using BikeHistory.Models.Auth;
 using BikeHistory.Services;
+using Domain.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

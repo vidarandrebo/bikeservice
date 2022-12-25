@@ -1,8 +1,9 @@
-using BikeHistory.Controllers.AuthRoutes;
+using BikeHistory.Models;
+using BikeHistory.Models.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace BikeHistory.Models.Auth.Pipelines;
+namespace Domain.Auth.Pipelines;
 
 public class RegisterUser
 {
