@@ -1,11 +1,11 @@
-using BikeHistory.Models;
-using BikeHistory.Models.Parts;
-using BikeHistory.Models.Parts.Pipelines;
-using BikeHistory.Services;
+using Application.Parts;
+using Domain;
+using Domain.Parts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Services;
 
-namespace BikeHistory.Controllers.PartRoutes;
+namespace WebAPI.Controllers.PartRoutes;
 
 [ApiController]
 [Route("api/[controller]")]

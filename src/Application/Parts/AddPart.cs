@@ -1,7 +1,9 @@
-using BikeHistory.Data;
+using Application.Interfaces;
+using Domain;
+using Domain.Parts;
 using MediatR;
 
-namespace BikeHistory.Models.Parts.Pipelines;
+namespace Application.Parts;
 
 public class AddPart
 {
@@ -9,11 +11,11 @@ public class AddPart
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
@@ -21,8 +23,8 @@ public class AddPart
             var part = new Part(request.PartFormDto.Manufacturer, request.PartFormDto.Model,
                 request.PartFormDto.Mileage, GuidHelper.GuidOrEmpty(request.PartFormDto.TypeId),
                 GuidHelper.GuidOrEmpty(request.PartFormDto.BikeId),request.UserId);
-            _bikeContext.Parts.Add(part);
-            await _bikeContext.SaveChangesAsync(cancellationToken);
+            _dbContext.Parts.Add(part);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return new SuccessResponse(true, Array.Empty<string>());
         }
     }

@@ -1,4 +1,4 @@
-namespace BikeHistory.Models.Bikes;
+namespace Domain.Bikes;
 
 public class ServiceEntry
 {

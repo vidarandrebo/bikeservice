@@ -1,4 +1,4 @@
-namespace BikeHistory.Models.Types;
+namespace Domain.Types;
 
 public enum Category
 {

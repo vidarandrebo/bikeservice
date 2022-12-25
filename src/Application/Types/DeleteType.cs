@@ -1,8 +1,9 @@
-﻿using BikeHistory.Data;
+﻿using Application.Interfaces;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BikeHistory.Models.Types.Pipelines;
+namespace Application.Types;
 
 public class DeleteType
 {
@@ -10,23 +11,23 @@ public class DeleteType
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var equipmentType =
-                await _bikeContext.EquipmentTypes
+                await _dbContext.EquipmentTypes
                     .Where(e => e.UserId == request.UserId)
                     .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
             if (equipmentType is not null)
             {
-                _bikeContext.EquipmentTypes.Remove(equipmentType);
-                await _bikeContext.SaveChangesAsync(cancellationToken);
+                _dbContext.EquipmentTypes.Remove(equipmentType);
+                await _dbContext.SaveChangesAsync(cancellationToken);
                 return new SuccessResponse(true, Array.Empty<string>());
             }
 

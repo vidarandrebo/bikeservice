@@ -1,10 +1,9 @@
+using Application.Auth;
 using BikeHistory.Controllers.AuthRoutes;
-using BikeHistory.Models.Auth.Pipelines;
-using BikeHistory.Services;
-using Domain.Auth;
-using Domain.Auth.Pipelines;
+using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers.AuthRoutes;
 

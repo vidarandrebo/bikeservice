@@ -1,8 +1,10 @@
-using BikeHistory.Data;
+using Application.Interfaces;
+using Domain;
+using Domain.Parts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BikeHistory.Models.Parts.Pipelines;
+namespace Application.Parts;
 
 public class GetParts
 {
@@ -10,16 +12,16 @@ public class GetParts
 
     public class Handler : IRequestHandler<Request, DataResponse<PartDto[]>>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<DataResponse<PartDto[]>> Handle(Request request, CancellationToken cancellationToken)
         {
-            var parts = await _bikeContext.Parts
+            var parts = await _dbContext.Parts
                 .Where(p => p.UserId == request.UserId)
                 .Select(p => p.CreateDto())
                 .ToArrayAsync(cancellationToken);

@@ -1,8 +1,10 @@
-﻿using BikeHistory.Data;
+﻿using Application.Interfaces;
+using Domain;
+using Domain.Types;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BikeHistory.Models.Types.Pipelines;
+namespace Application.Types;
 
 public class GetTypes
 {
@@ -10,16 +12,16 @@ public class GetTypes
 
     public class Handler : IRequestHandler<Request, DataResponse<EquipmentTypeDto[]>>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<DataResponse<EquipmentTypeDto[]>> Handle(Request request, CancellationToken cancellationToken)
         {
-            var equipmentTypes = await _bikeContext.EquipmentTypes
+            var equipmentTypes = await _dbContext.EquipmentTypes
                 .Where(e => e.UserId == request.UserId)
                 .Select(e => e.CreateDto())
                 .ToArrayAsync(cancellationToken);

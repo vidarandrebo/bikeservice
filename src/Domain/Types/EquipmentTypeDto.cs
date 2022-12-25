@@ -1,3 +1,3 @@
-namespace BikeHistory.Models.Types;
+namespace Domain.Types;
 
 public record EquipmentTypeDto(Guid Id, string Name, Category Category);

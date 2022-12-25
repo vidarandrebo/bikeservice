@@ -1,10 +1,10 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using BikeHistory.Models;
+using Domain;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BikeHistory.Services;
+namespace WebAPI.Services;
 
 public interface ITokenHandler
 {

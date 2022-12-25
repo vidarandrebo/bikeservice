@@ -1,16 +1,17 @@
-using BikeHistory;
-using BikeHistory.Data;
-using BikeHistory.Models.Auth;
-using BikeHistory.Services;
-using Domain.Auth;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Application;
+using Infrastructure;
+using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+
+
 builder.WebHost.UseUrls("http://localhost:5000");
 builder.Services.AddCors(p =>
-    p.AddPolicy("mypolicy", b => { b.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader(); }));
+    p.AddPolicy("mypolicy",
+        b => { b.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader(); }));
 // Add services to the container.
 
 builder.Services.AddRouting();
@@ -18,31 +19,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(typeof(Program));
-/*
-builder.Services.AddDbContext<BikeContext>(options =>
-{
-    options.UseSqlite($"Data Source={Path.Combine("Data", "bike.db")}");
-});
-*/
-DotEnv.Load(".env");
-var dbConnectionString = $"User ID={Environment.GetEnvironmentVariable("DB_USER")};" +
-                         $"Password={Environment.GetEnvironmentVariable("DB_PASSWD")};" +
-                         $"Server={Environment.GetEnvironmentVariable("DB_SERVER")};" +
-                         $"Port={Environment.GetEnvironmentVariable("DB_PORT")};" +
-                         $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
-                         $"Integrated Security=true;Pooling=true;";
-builder.Services.AddDbContext<BikeContext>(options =>
-    options.UseNpgsql(dbConnectionString));
-
-
-builder.Services.AddIdentity<User, IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<BikeContext>()
-    .AddUserManager<UserManager<User>>();
-
-builder.Services.AddSingleton<ITokenHandler, TokenHandler>();
-
 builder.Services.AddAuthentication();
+builder.Services.AddSingleton<ITokenHandler, TokenHandler>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,4 +1,4 @@
-namespace BikeHistory.Models;
+namespace Domain;
 
 public static class GuidHelper
 {

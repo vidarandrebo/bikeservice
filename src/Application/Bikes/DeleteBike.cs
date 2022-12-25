@@ -1,8 +1,9 @@
-using BikeHistory.Data;
+using Application.Interfaces;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BikeHistory.Models.Bikes.Pipelines;
+namespace Application.Bikes;
 
 public class DeleteBike
 {
@@ -10,29 +11,29 @@ public class DeleteBike
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var errors = new List<string>();
-            var bike = await _bikeContext.Bikes
+            var bike = await _dbContext.Bikes
                 .Where(b => b.UserId == request.UserId)
                 .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
             if (bike is not null)
             {
-                _bikeContext.Bikes.Remove(bike);
+                _dbContext.Bikes.Remove(bike);
             }
             else
             {
                 errors.Add("Bike not found");
             }
 
-            await _bikeContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             if (errors.Count > 0)
             {
                 return new SuccessResponse(false, errors.ToArray());

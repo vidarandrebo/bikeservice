@@ -1,4 +1,4 @@
-using BikeHistory.Models.Auth.Pipelines;
+using Application.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

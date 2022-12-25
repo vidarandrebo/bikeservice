@@ -1,4 +1,4 @@
-﻿namespace BikeHistory.Models.Parts;
+﻿namespace Domain.Parts;
 
 public class Part
 {

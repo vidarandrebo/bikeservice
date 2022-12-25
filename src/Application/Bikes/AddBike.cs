@@ -1,7 +1,9 @@
-﻿using BikeHistory.Data;
+﻿using Application.Interfaces;
+using Domain;
+using Domain.Bikes;
 using MediatR;
 
-namespace BikeHistory.Models.Bikes.Pipelines;
+namespace Application.Bikes;
 
 public class AddBike
 {
@@ -9,11 +11,11 @@ public class AddBike
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
@@ -21,8 +23,8 @@ public class AddBike
             var bike = new Bike(request.BikeFormDto.Manufacturer, request.BikeFormDto.Model,
                 request.BikeFormDto.Mileage, request.BikeFormDto.Date,
                 GuidHelper.GuidOrEmpty(request.BikeFormDto.TypeId), request.UserId);
-            _bikeContext.Bikes.Add(bike);
-            await _bikeContext.SaveChangesAsync(cancellationToken);
+            _dbContext.Bikes.Add(bike);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return new SuccessResponse(true, Array.Empty<string>());
         }
     }

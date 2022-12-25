@@ -1,7 +1,9 @@
-﻿using BikeHistory.Data;
+﻿using Application.Interfaces;
+using Domain;
+using Domain.Types;
 using MediatR;
 
-namespace BikeHistory.Models.Types.Pipelines;
+namespace Application.Types;
 
 public class AddType
 {
@@ -9,18 +11,18 @@ public class AddType
 
     public class Handler : IRequestHandler<Request, SuccessResponse>
     {
-        private readonly BikeContext _bikeContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public Handler(BikeContext bikeContext)
+        public Handler(IApplicationDbContext dbContext)
         {
-            _bikeContext = bikeContext;
+            _dbContext = dbContext;
         }
 
         public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
         {
             var equipmentType = new EquipmentType(request.Name, request.Category, request.UserId);
-            _bikeContext.EquipmentTypes.Add(equipmentType);
-            await _bikeContext.SaveChangesAsync(cancellationToken);
+            _dbContext.EquipmentTypes.Add(equipmentType);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return new SuccessResponse(true, Array.Empty<string>());
         }
     }

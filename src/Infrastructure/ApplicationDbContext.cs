@@ -1,22 +1,21 @@
-﻿using BikeHistory.Models;
-using BikeHistory.Models.Auth;
-using BikeHistory.Models.Bikes;
-using BikeHistory.Models.Parts;
-using BikeHistory.Models.Types;
-using Domain.Auth;
+﻿using Application.Interfaces;
+using Domain.Bikes;
+using Domain.Parts;
+using Domain.Types;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BikeHistory.Data;
+namespace Infrastructure;
 
-public class BikeContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IApplicationDbContext
 {
     public DbSet<Bike> Bikes { get; set; } = null!;
     public DbSet<Part> Parts { get; set; } = null!;
     public DbSet<EquipmentType> EquipmentTypes { get; set; } = null!;
 
-    public BikeContext(DbContextOptions conf) : base(conf)
+    public ApplicationDbContext(DbContextOptions conf) : base(conf)
     {
     }
 

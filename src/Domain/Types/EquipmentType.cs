@@ -1,4 +1,4 @@
-namespace BikeHistory.Models.Types;
+namespace Domain.Types;
 
 public class EquipmentType
 {
@@ -11,6 +11,7 @@ public class EquipmentType
     {
         return new EquipmentTypeDto(Id, Name, Category);
     }
+
     public EquipmentType(string name, Category category, Guid userId)
     {
         Name = name;
