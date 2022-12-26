@@ -144,3 +144,5 @@ bike.db**
 **/Migrations/*.cs
 **.env**
 **dist**
+
+appsettings.json

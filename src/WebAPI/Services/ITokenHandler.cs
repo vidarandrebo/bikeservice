@@ -64,7 +64,7 @@ public class TokenHandler : ITokenHandler
         var claimList = new List<Claim>();
         claimList.Add(new Claim(ClaimTypes.Name, userName));
         claimList.Add(new Claim(ClaimTypes.NameIdentifier, id.ToString()));
-        var signKey = _configuration["JWT:Secret"] ?? throw new ArgumentNullException();
+        var signKey = Environment.GetEnvironmentVariable("JWT_SECRET") ?? throw new ArgumentNullException();
         var token = new JwtSecurityToken(
             claims: claimList,
             expires: DateTime.Now.AddDays(30),
@@ -77,7 +77,12 @@ public class TokenHandler : ITokenHandler
     private JwtSecurityToken? _validateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var signKey = _configuration["JWT:Secret"] ?? throw new ArgumentNullException();
+        if (_configuration is null)
+        {
+            Console.WriteLine("conf is null");
+        }
+        var signKey = Environment.GetEnvironmentVariable("JWT_SECRET") ?? throw new ArgumentNullException();
+        //var signKey = _configuration["JWT:Secret"] ?? throw new ArgumentNullException();
         try
         {
             tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -87,7 +92,7 @@ public class TokenHandler : ITokenHandler
                 ValidateIssuer = false,
                 ValidateAudience = false
             }, out SecurityToken validatedToken);
-            return (JwtSecurityToken) validatedToken;
+            return (JwtSecurityToken)validatedToken;
         }
         catch (Exception)
         {

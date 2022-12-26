@@ -30,9 +30,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("mypolicy");
 
 app.UseRouting();
+
+app.UseCors("mypolicy");
 
 app.UseAuthentication();
 
