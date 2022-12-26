@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: setup
-        working-directory: frontend
+        working-directory: src/WebUI
         run: npm install
       - name: build
-        working-directory: frontend
+        working-directory: src/WebUI
         run: npm run build
