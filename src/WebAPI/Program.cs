@@ -8,7 +8,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
 
-builder.WebHost.UseUrls("http://localhost:5000");
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
 builder.Services.AddCors(p =>
     p.AddPolicy("mypolicy",
         b => { b.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader(); }));
