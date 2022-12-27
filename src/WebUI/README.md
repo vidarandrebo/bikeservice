@@ -1,4 +1,4 @@
-# frontend
+# bikeservice-web-ui
 
 ## Project setup
 ```

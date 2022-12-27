@@ -1,4 +1,4 @@
-# BikeHistory (work in progress)
+# BikeService (work in progress)
 Web app for managing your bike's service history and mileage.
 
 ## Frontend

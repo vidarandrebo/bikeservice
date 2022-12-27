@@ -1,0 +1,9 @@
+src/WebUI
+src/Application/obj
+src/Application/bin
+src/Domain/obj
+src/Domain/bin
+src/Infrastructure/obj
+src/Infrastructure/bin
+src/WebAPI/bin
+src/WebAPI/obj
