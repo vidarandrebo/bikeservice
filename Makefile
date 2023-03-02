@@ -1,10 +1,8 @@
 build:
-	dotnet build -o bin
-	cp bin/appsettings.json ./
+	dotnet build src/WebAPI -o bin/debug
 
 build-release:
-	dotnet publish -c Release -o bin
-	cp bin/appsettings.json ./
+	dotnet publish src/WebAPI -c Release -o bin/release
 
 clean:
 	rm -rf bin
