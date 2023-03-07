@@ -1,15 +1,31 @@
-build:
-	dotnet build src/WebAPI -o bin/debug
+build-debug: build-backend-debug build-frontend-debug
 
-build-release:
+build-release: build-backend-release build-frontend-release
+
+build-frontend-release: install-frontend
+	npm run buildRelease --prefix src/WebUI
+
+build-frontend-debug: install-frontend
+	npm run build --prefix src/WebUI
+
+build-backend-debug: restore
+	dotnet build --no-restore src/WebAPI -o bin/debug
+
+build-backend-release: restore
 	dotnet publish src/WebAPI -c Release -o bin/release
 
 clean:
+	rm -rf src/WebUI/node_modules
+	rm -rf src/WebUI/dist
 	rm -rf bin
 	find ./src/Infrastructure -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
 	find ./src/Domain -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
 	find ./src/Application -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
 	find ./src/WebAPI -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
+
+install-frontend:
+	npm --prefix src/WebUI ci
+
 
 restore:
 	dotnet restore
