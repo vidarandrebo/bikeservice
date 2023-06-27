@@ -1,4 +1,3 @@
-src/WebUI
 src/Application/obj
 src/Application/bin
 src/Domain/obj
@@ -7,3 +6,5 @@ src/Infrastructure/obj
 src/Infrastructure/bin
 src/WebAPI/bin
 src/WebAPI/obj
+src/WebUI/node_modules
+src/WebUI/dist

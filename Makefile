@@ -37,13 +37,13 @@ start:
 	dotnet run --project src/WebAPI/WebAPI.csproj
 
 migrations:
-	cp .env src/WebAPI/
+	cp local.env src/WebAPI/.env
 	dotnet ef migrations add Init --project src/Infrastructure --startup-project src/WebAPI --output-dir Migrations
 	dotnet ef database update --project src/Infrastructure --startup-project src/WebAPI
 	rm src/WebAPI/.env
 
 rebuild-db:
-	cp .env src/WebAPI/
+	cp local.env src/WebAPI/.env
 	dotnet ef database drop -f -v --project src/Infrastructure/ --startup-project src/WebAPI/
 	find ./src/Infrastructure -type d \( -name "Migrations" \) -exec rm -rf {} +
 	dotnet ef migrations add Init --project src/Infrastructure --startup-project src/WebAPI --output-dir Migrations
