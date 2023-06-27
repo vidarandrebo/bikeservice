@@ -1,0 +1,9 @@
+services:
+  bikeservice-api:
+    container_name: "bikeservice-api"
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    extra_hosts:
+    - "host.docker.internal:host-gateway"

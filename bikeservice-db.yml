@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: bikeservice-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=bikeservice
+      - POSTGRES_PASSWORD=bikeservice
+    ports:
+      - '5432:5432'
+    volumes:
+      - /data/bikeservice/db:/var/lib/postgresql/data
