@@ -7,6 +7,6 @@ services:
       - POSTGRES_USER=bikeservice
       - POSTGRES_PASSWORD=bikeservice
     ports:
-      - '5432:5432'
+      - '5013:5432'
     volumes:
       - /data/bikeservice/db:/var/lib/postgresql/data
