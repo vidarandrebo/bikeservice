@@ -88,9 +88,6 @@ export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Pro
 
 
 export function getOrigin(): string {
-    if (window.location.hostname === "localhost") {
-        return "http://localhost:8080";
-    }
     return window.location.origin;
 }
 
