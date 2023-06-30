@@ -141,7 +141,6 @@ wwwroot
 
 bike.db**
 
-**/Migrations/*.cs
 **.env**
 **dist**
 
