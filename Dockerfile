@@ -27,5 +27,4 @@ COPY --from=dotnet-build-env /data/bin/ .
 RUN true
 COPY docker.env .env
 RUN true
-EXPOSE 8080
 ENTRYPOINT ["dotnet","WebAPI.dll"]
