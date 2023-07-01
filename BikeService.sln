@@ -24,11 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Makefile = Makefile
 		README.md = README.md
 		Dockerfile = Dockerfile
-		bikeservice-api.yml = bikeservice-api.yml
-		bikeservice-db.yml = bikeservice-db.yml
 		.dockerignore = .dockerignore
 		local.env = local.env
 		docker.env = docker.env
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Global
