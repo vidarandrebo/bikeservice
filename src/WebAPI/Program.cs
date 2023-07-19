@@ -5,7 +5,7 @@ using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
 builder.Services.AddApplicationServices();
 
 
@@ -33,6 +33,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    Environment.SetEnvironmentVariable("JWT_SECRET", app.Configuration.GetValue<string>("JWT:Secret"));
 }
 
 app.UseRouting();

@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "buildRelease": "vue-cli-service build",
-    "build": "vue-cli-service build --mode development"
+    "build": "vue-cli-service build --mode development && cp -r dist ../WebAPI/wwwroot"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",

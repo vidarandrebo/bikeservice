@@ -139,9 +139,9 @@ _NCrunch*
 wwwroot
 
 
-bike.db**
+*.db
 
 **.env**
 **dist**
 
-appsettings.json
+log.txt
