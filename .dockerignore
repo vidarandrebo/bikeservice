@@ -8,3 +8,4 @@ src/WebAPI/bin
 src/WebAPI/obj
 src/WebUI/node_modules
 src/WebUI/dist
+src/WebAPI/wwwroot
