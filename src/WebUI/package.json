@@ -1,11 +1,14 @@
 {
   "name": "bikeservice-web-ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "author": {
+    "name": "Vidar André Bø"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "buildRelease": "vue-cli-service build",
-    "build": "vue-cli-service build --mode development && cp -r dist ../WebAPI/wwwroot"
+    "build": "rimraf --glob ../WebAPI/wwwroot/* && vue-cli-service build --mode development && cp -r dist/* ../WebAPI/wwwroot/"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -23,6 +26,7 @@
     "@vue/cli-service": "~5.0.8",
     "eslint": "^8.45.0",
     "eslint-plugin-vue": "^9.15.1",
+    "rimraf": "^5.0.1",
     "typescript": "~5.1.6"
   }
 }
