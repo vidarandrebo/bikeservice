@@ -17,6 +17,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>bikeservice-infrastructure</PackageId>
+    <Title>BikeService Infrastructure</Title>
+    <Version>1.0.0</Version>
+    <Authors>Vidar André Bø</Authors>
+    <Product>BikeService</Product>
+    <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
 </Project>
