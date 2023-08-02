@@ -1,5 +1,5 @@
 <template>
-    <div class="authentication">
+    <div class="card">
         <form id="register" method="POST" v-on:submit.prevent="registerUser">
             <p v-for="err in registerData.error">{{ err }}</p>
             <label for="username">Username</label>
@@ -58,9 +58,6 @@ export default defineComponent({
 </script>
 <style scoped>
 div {
-    background-color: beige;
-    margin: 0.5rem;
-    padding: 1rem;
     flex-grow: 1;
 }
 

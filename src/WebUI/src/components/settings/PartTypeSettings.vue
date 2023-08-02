@@ -1,6 +1,6 @@
 <template>
     <div class="setting-wrapper">
-        <div class="settings">
+        <div class="card">
             <h2>Add Part Type</h2>
             <form id="addBikeType" method="POST" v-on:submit.prevent="addType">
                 <label for="name">Name</label>
@@ -8,7 +8,7 @@
                 <input type="submit" value="Add Type">
             </form>
         </div>
-        <div class="settings">
+        <div class="card">
             <h2>Part Types</h2>
             <p v-for="type in partTypes" :key="type.id">{{ type.name }}</p>
         </div>
@@ -58,12 +58,6 @@ export default defineComponent({
     flex-grow: 1;
 }
 
-.settings, .bike-types {
-    background-color: beige;
-    margin: 0.5rem 0.5rem 0.5rem 0.25rem;
-    padding: 1rem;
-
-}
 
 form {
     max-width: 300px;

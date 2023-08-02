@@ -139,6 +139,8 @@ _NCrunch*
 
 
 *.db
+*.db-shm
+*.db-wal
 
 **.env**
 **dist**

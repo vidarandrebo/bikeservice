@@ -1,5 +1,5 @@
 <template>
-    <div class="new-bike-view">
+    <div class="card">
         <button v-on:click="showForm" v-show="!show">New Bike</button>
         <form id="new-bike" method="POST" v-on:submit.prevent="addBike" v-show="show">
             <div class="form-field">
@@ -89,10 +89,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.new-bike-view {
-    background-color: beige;
-    margin: 0.5rem;
-    padding: 1rem;
-}
-
 </style>

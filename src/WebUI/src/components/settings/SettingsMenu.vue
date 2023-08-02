@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-buttons">
+    <div class="card settings-buttons">
         <router-link to="/settings/account">Account</router-link>
         <router-link to="/settings/bike-types">Bike Types</router-link>
         <router-link to="/settings/part-types">Part Types</router-link>
@@ -17,12 +17,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    .settings-buttons {
-        background-color: beige;
-        margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
     .settings-buttons a{
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
@@ -32,6 +26,10 @@ export default defineComponent({
     }
 
     .router-link-active {
-        background-color: burlywood;
+        background-color: var(--highlight-color);
+    }
+
+    a:visited {
+        color: var(--text-color);
     }
 </style>
