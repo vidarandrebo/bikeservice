@@ -1,5 +1,5 @@
 <template>
-    <div class="bike-view">
+    <div class="card">
         <h5>{{ bike.manufacturer }} {{ bike.model }}</h5>
         <details>
             <summary>More</summary>
@@ -74,7 +74,7 @@ export default defineComponent({
 }
 
 .bike-view {
-    background-color: beige;
+    background-color: var(--card-color);
     margin: 0.5rem;
     padding: 1rem;
 }

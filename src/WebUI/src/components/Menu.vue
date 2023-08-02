@@ -52,14 +52,14 @@ header h3 {
 }
 header {
     height: 40px;
-    background-color: #ff8c00;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--white-text-color);
     display: flex;
     justify-content: space-between;
 }
 
 a {
-    color: white;
+    color: var(--white-text-color);
     text-decoration: none;
     margin-left: 10px;
     margin-right: 10px;
@@ -69,7 +69,7 @@ a {
 }
 
 .router-link-active {
-    background-color: #ff6c00;
+    background-color: var(--accent-highlight-color);
 }
 .menu-group {
     display: flex;

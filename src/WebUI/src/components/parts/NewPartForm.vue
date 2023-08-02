@@ -1,5 +1,5 @@
 <template>
-    <div class="new-part-view">
+    <div class="card">
         <button v-on:click="showForm" v-show="!show">New Part</button>
         <form id="new-part" method="POST" v-on:submit.prevent="addPart" v-show="show">
             <div class="form-field">
@@ -98,10 +98,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.new-part-view {
-    background-color: beige;
-    margin: 0.5rem;
-    padding: 1rem;
-}
-
 </style>

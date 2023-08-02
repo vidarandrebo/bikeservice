@@ -12,16 +12,14 @@
 
 <script lang="ts">
 import Menubar from './components/Menu.vue';
-import MainSite from './components/MainSite.vue';
 import {defineComponent} from 'vue';
-import {getOrigin, httpGetWithBody} from "@/models/httpMethods";
+import {httpGetWithBody} from "@/models/httpMethods";
 import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
 
 export default defineComponent({
     name: 'App',
     components: {
         Menubar,
-        MainSite,
     },
     data: function () {
         return {
@@ -40,9 +38,21 @@ export default defineComponent({
 })
 </script>
 <style>
+:root {
+    --card-color: #ffffff;
+    --highlight-color: #ccc;
+    --text-color: #000000;
+    --white-text-color: #fff;
+    --bg-color: #F4F1DE;
+    --accent-color: #495867;
+    --accent-highlight-color: #577399;
+    --error-color: #FE5F55;
+}
+
 /*sticky footer etc*/
 html {
     height: 100%;
+    background-color: var(--bg-color);
 }
 
 #app {
@@ -71,17 +81,24 @@ main {
 
 footer {
     height: 60px;
-    background-color: #ff8c00;
+    background-color: var(--accent-color);
     margin-bottom: 0;
-    color: white;
+    color: var(--white-text-color);
     display: flex;
     align-items: center;
 }
 
 footer a {
-    color: white;
+    color: var(--white-text-color);
     margin-left: auto;
     margin-right: auto;
+}
+
+.card {
+    background-color: var(--card-color);
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
 

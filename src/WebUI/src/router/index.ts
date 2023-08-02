@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw} from 'vue-router'
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import Settings from "@/components/settings/Settings.vue";
 import Bikes from "@/components/bikes/Bikes.vue";
 import Parts from "@/components/parts/Parts.vue";
@@ -42,19 +42,19 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Settings',
         props: true,
         component: Settings,
-        children:[
+        children: [
             {
                 name: 'AccountSettings',
                 path: '/settings/account',
                 component: AccountSettings
             },
             {
-                name:'BikeTypeSettings',
+                name: 'BikeTypeSettings',
                 path: '/settings/bike-types',
                 component: BikeTypeSettings
             },
             {
-                name:'Part',
+                name: 'Part',
                 path: '/settings/part-types',
                 component: PartTypeSettings
             }

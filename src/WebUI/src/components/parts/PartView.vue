@@ -1,5 +1,5 @@
 <template>
-    <div class="part-view">
+    <div class="card">
         <h5>{{ part.manufacturer }} {{ part.model }} {{ equipmentType.name }}</h5>
         <details>
             <summary>More</summary>
@@ -74,7 +74,7 @@ export default defineComponent({
 }
 
 .part-view {
-    background-color: beige;
+    background-color: var(--card-color);
     margin: 0.5rem;
     padding: 1rem;
 }

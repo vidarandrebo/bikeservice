@@ -1,5 +1,5 @@
 <template>
-    <div class="authentication">
+    <div class="card">
         <form id="login" method="POST" v-on:submit.prevent="loginUser">
             <p v-for="err in loginData.errors">{{ err }}</p>
             <label for="username">Username</label>
@@ -56,9 +56,6 @@ export default defineComponent({
 </script>
 <style scoped>
 div {
-    background-color: beige;
-    margin: 0.5rem;
-    padding: 1rem;
     flex-grow: 1;
 }
 
