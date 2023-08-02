@@ -1,6 +1,7 @@
 using Application.Auth;
-using BikeHistory.Controllers.AuthRoutes;
+using Application.Types;
 using Infrastructure.Identity;
+using LanguageExt.Pretty;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,11 +30,23 @@ public class RegisterController : Controller
     public async Task<IActionResult> RegisterUser(Credentials credentials)
     {
         var result = await _mediator.Send(new RegisterUser.Request(credentials));
-        if (result.Success)
-        {
-            return Created(nameof(RegisterUser), new AuthRouteResponse(credentials.UserName, "", result.Errors));
-        }
+        var errors = Array.Empty<string>();
 
-        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", result.Errors));
+        var userId = result.Match(
+            guid => guid,
+            ex =>
+            {
+                errors = new[] { ex.Message };
+                return Guid.Empty;
+            }
+        );
+        if (result.IsSuccess)
+        {
+            await _mediator.Send(new AddDefaultTypes.Request(userId));
+            
+            return Created(nameof(RegisterUser),
+                new AuthRouteResponse(credentials.UserName, "", Array.Empty<string>()));
+        }
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", errors));
     }
 }
