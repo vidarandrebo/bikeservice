@@ -23,45 +23,68 @@ public class BikeController : Controller
     [HttpGet]
     public async Task<ActionResult<DataResponse<BikeDto[]>>> GetBikes()
     {
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId != Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new GetBikes.Request(userId));
+            var result = await _mediator.Send(new GetBikes.Request(userIdResult.Value));
             return Ok(new DataResponse<BikeDto[]>(result.Value, Array.Empty<string>()));
         }
 
-        return Unauthorized(new DataResponse<BikeDto[]>(Array.Empty<BikeDto>(), new[] {"Not logged in"}));
+        return Unauthorized(new DataResponse<BikeDto[]>(Array.Empty<BikeDto>(), new[] { "Not logged in" }));
     }
 
     [HttpPost]
     public async Task<IActionResult> AddBike(BikeFormDto bikeForm)
     {
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId != Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsFailed)
         {
-            var result = await _mediator.Send(new AddBike.Request(bikeForm, userId));
-            if (result.IsSuccess)
-            {
-                return Created(nameof(AddBike), bikeForm);
-            }
-            return BadRequest();
+            return Unauthorized();
         }
 
-        return Unauthorized();
+        var result = await _mediator.Send(new AddBike.Request(bikeForm, userIdResult.Value));
+        if (result.IsSuccess)
+        {
+            return Created(nameof(AddBike), bikeForm);
+        }
 
+        return BadRequest();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> EditBike(BikeFormDto bikeForm)
+    {
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsFailed)
+        {
+            return Unauthorized();
+        }
+
+        var editBikeResult = await _mediator.Send(new EditBike.Request(bikeForm, userIdResult.Value));
+        if (editBikeResult.IsSuccess)
+        {
+            return Ok();
+        }
+
+        return BadRequest();
     }
 
     [HttpDelete]
     public async Task<IActionResult> DeleteBike(string id)
     {
         var bikeId = await GuidHelper.GuidOrEmptyAsync(id);
-        var result =
-            await _mediator.Send(new DeleteBike.Request(bikeId, _tokenHandler.GetUserIdFromRequest(HttpContext)));
-        if (result.IsSuccess)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsFailed)
         {
-            return Ok();
+            return Unauthorized();
         }
 
-        return NotFound();
+        var result = await _mediator.Send(new DeleteBike.Request(bikeId, userIdResult.Value));
+        if (result.IsFailed)
+        {
+            return BadRequest();
+        }
+
+        return Ok();
     }
 }

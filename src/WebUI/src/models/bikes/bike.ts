@@ -1,5 +1,4 @@
-import {DataArrayResponse, FetchResponse, getOrigin, httpDelete, httpGetWithBody, httpPost} from "@/models/httpMethods";
-import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "@/models/httpMethods";
 
 export interface IBike {
     id: string;
@@ -33,6 +32,10 @@ export class Bike implements IBike {
         return await httpDelete("/api/bike", this.id);
     }
 
+    async putBikeRequest(): Promise<FetchResponse<null>> {
+        return await httpPut<IBike>("/api/bike", this);
+    }
+
     clear(): void {
         this.manufacturer = "";
         this.model = "";
@@ -54,6 +57,7 @@ export class Bike implements IBike {
         }
     }
 }
+
 export async function getBikesRequest(): Promise<IBike[]> {
     let result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
     if (result.status === 200) {

@@ -23,10 +23,10 @@ public class TypeController : Controller
     [HttpGet]
     public async Task<ActionResult<DataResponse<EquipmentTypeDto[]>>> GetTypes()
     {
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId != Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new GetTypes.Request(userId));
+            var result = await _mediator.Send(new GetTypes.Request(userIdResult.Value));
             return Ok(new DataResponse<EquipmentTypeDto[]>(result.Value, Array.Empty<string>()));
         }
 
@@ -37,10 +37,10 @@ public class TypeController : Controller
     [HttpPost]
     public async Task<IActionResult> AddType(EquipmentTypeFormDto typeForm)
     {
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId != Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new AddType.Request(typeForm.Name, typeForm.Category, userId));
+            var result = await _mediator.Send(new AddType.Request(typeForm.Name, typeForm.Category, userIdResult.Value));
             if (result.IsSuccess)
             {
                 return Created(nameof(AddType), typeForm);
@@ -56,12 +56,12 @@ public class TypeController : Controller
     public async Task<ActionResult> DeleteType(string id)
     {
         var typeId = GuidHelper.GuidOrEmpty(id);
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId == Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsFailed)
         {
             return Unauthorized();
         }
-        var result = await _mediator.Send(new DeleteType.Request(typeId, userId));
+        var result = await _mediator.Send(new DeleteType.Request(typeId, userIdResult.Value));
         if (result.IsSuccess)
         {
             return Ok();

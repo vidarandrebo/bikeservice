@@ -23,23 +23,23 @@ public class PartController : Controller
     [HttpGet]
     public async Task<ActionResult<DataResponse<PartDto[]>>> GetParts()
     {
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId != Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new GetParts.Request(userId));
+            var result = await _mediator.Send(new GetParts.Request(userIdResult.Value));
             return Ok(new DataResponse<PartDto[]>(result.Value, Array.Empty<string>()));
         }
 
-        return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] {"Not logged in"}));
+        return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] { "Not logged in" }));
     }
 
     [HttpPost]
     public async Task<IActionResult> AddPart(PartFormDto partForm)
     {
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId != Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new AddPart.Request(partForm,userId));
+            var result = await _mediator.Send(new AddPart.Request(partForm, userIdResult.Value));
             if (result.IsSuccess)
             {
                 return Created(nameof(AddPart), partForm);
@@ -55,19 +55,18 @@ public class PartController : Controller
     public async Task<ActionResult> DeletePart(string id)
     {
         var partId = GuidHelper.GuidOrEmpty(id);
-        var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userId == Guid.Empty)
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsSuccess)
         {
             return Unauthorized();
         }
 
-        var result = await _mediator.Send(new DeletePart.Request(partId, userId));
+        var result = await _mediator.Send(new DeletePart.Request(partId, userIdResult.Value));
         if (result.IsSuccess)
         {
             return Ok();
         }
 
         return BadRequest();
-        
     }
 }
