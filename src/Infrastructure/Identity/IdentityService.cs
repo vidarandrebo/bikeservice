@@ -1,7 +1,7 @@
 using Application.Interfaces;
 using Domain;
 using Domain.Auth;
-using LanguageExt.Common;
+using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -53,18 +53,17 @@ public class IdentityService : IIdentityService
             UserName = userName
         };
         var registerResult = await _userManager.CreateAsync(user, password);
-        Console.WriteLine(user.Id);
-        var errors = new List<Exception>();
+        var errors = new List<Error>();
         foreach (var err in registerResult.Errors)
         {
-            errors.Add(new Exception(err.Description));
+            errors.Add(new Error(err.Description));
         }
 
         if (errors.Count > 0)
         {
-            return new Result<Guid>(new AggregateException(errors));
+            return Result.Fail(errors);
         }
 
-        return new Result<Guid>(user.Id);
+        return Result.Ok(user.Id);
     }
 }

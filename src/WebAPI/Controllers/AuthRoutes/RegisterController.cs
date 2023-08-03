@@ -1,7 +1,6 @@
 using Application.Auth;
 using Application.Types;
 using Infrastructure.Identity;
-using LanguageExt.Pretty;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,23 +29,14 @@ public class RegisterController : Controller
     public async Task<IActionResult> RegisterUser(Credentials credentials)
     {
         var result = await _mediator.Send(new RegisterUser.Request(credentials));
-        var errors = Array.Empty<string>();
 
-        var userId = result.Match(
-            guid => guid,
-            ex =>
-            {
-                errors = new[] { ex.Message };
-                return Guid.Empty;
-            }
-        );
         if (result.IsSuccess)
         {
-            await _mediator.Send(new AddDefaultTypes.Request(userId));
+            await _mediator.Send(new AddDefaultTypes.Request(result.Value));
             
             return Created(nameof(RegisterUser),
                 new AuthRouteResponse(credentials.UserName, "", Array.Empty<string>()));
         }
-        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", errors));
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", result.Errors.Select(e => e.Message).ToArray()));
     }
 }

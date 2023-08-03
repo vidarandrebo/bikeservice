@@ -1,7 +1,6 @@
 using Application.Interfaces;
-using Domain;
+using FluentResults;
 using Infrastructure.Identity;
-using LanguageExt.Common;
 using MediatR;
 
 namespace Application.Auth;

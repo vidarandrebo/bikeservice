@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain;
 using Domain.Types;
+using FluentResults;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
@@ -8,9 +9,9 @@ namespace Application.Types;
 
 public class AddDefaultTypes
 {
-    public record Request(Guid UserId) : IRequest<SuccessResponse>;
+    public record Request(Guid UserId) : IRequest<Result>;
 
-    public class Handler : IRequestHandler<Request, SuccessResponse>
+    public class Handler : IRequestHandler<Request, Result>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IConfiguration _configuration;
@@ -21,7 +22,7 @@ public class AddDefaultTypes
             _configuration = configuration;
         }
 
-        public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
             var partTypes = _configuration.GetSection("DefaultPartTypes").GetArray();
             foreach (var type in partTypes)
@@ -38,7 +39,7 @@ public class AddDefaultTypes
             }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return new SuccessResponse(true, Array.Empty<string>());
+            return Result.Ok();
         }
     }
 }
