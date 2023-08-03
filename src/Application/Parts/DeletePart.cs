@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Domain;
+using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +7,10 @@ namespace Application.Parts;
 
 public class DeletePart
 {
-    public record Request(Guid PartId, Guid UserId) : IRequest<SuccessResponse>;
+    public record Request(Guid PartId, Guid UserId) : IRequest<Result>;
 
 
-    public class Handler : IRequestHandler<Request, SuccessResponse>
+    public class Handler : IRequestHandler<Request, Result>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -19,7 +19,7 @@ public class DeletePart
             _dbContext = dbContext;
         }
 
-        public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
             var part = await _dbContext.Parts
                 .Where(p => p.UserId == request.UserId)
@@ -28,10 +28,10 @@ public class DeletePart
             {
                 _dbContext.Parts.Remove(part);
                 await _dbContext.SaveChangesAsync(cancellationToken);
-                return new SuccessResponse(true, Array.Empty<string>());
+                return Result.Ok();
             }
 
-            return new SuccessResponse(false, new[] {"Part not found"});
+            return Result.Fail(new Error("Part not found"));
         }
     }
 }

@@ -20,7 +20,6 @@ export async function httpDelete(route: string, id: string): Promise<FetchRespon
     url.searchParams.append("id", id);
     const response = await fetch(url.toString(), {
         method: "DELETE",
-        mode: 'cors',
         headers: {
             'Authorization': getBearerToken(),
             'Content-Type': 'application/json'
@@ -34,7 +33,6 @@ export async function httpGet(route: string): Promise<FetchResponse<null>> {
     const url = new URL(route, getOrigin());
     const response = await fetch(url.toString(), {
         method: "GET",
-        mode: 'cors',
         headers: {
             'Authorization': getBearerToken(),
             'Content-Type': 'application/json'
@@ -47,7 +45,6 @@ export async function httpGetWithBody<T>(route: string): Promise<FetchResponse<T
     const url = new URL(route, getOrigin());
     const response = await fetch(url.toString(), {
         method: "GET",
-        mode: 'cors',
         headers: {
             'Authorization': getBearerToken(),
             'Content-Type': 'application/json'
@@ -61,7 +58,6 @@ export async function httpPost<T>(route: string, data: T): Promise<FetchResponse
     const url = new URL(route, getOrigin());
     const response = await fetch(url.toString(), {
         method: "POST",
-        mode: 'cors',
         headers: {
             'Authorization': getBearerToken(),
             'Content-Type': 'application/json'
@@ -75,7 +71,6 @@ export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Pro
     const url = new URL(route, getOrigin());
     const response = await fetch(url.toString(), {
         method: "POST",
-        mode: 'cors',
         headers: {
             'Authorization': getBearerToken(),
             'Content-Type': 'application/json'

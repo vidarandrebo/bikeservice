@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Domain;
+using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +8,9 @@ namespace Application.Bikes;
 
 public class DeleteBike
 {
-    public record Request(Guid Id, Guid UserId) : IRequest<SuccessResponse>;
+    public record Request(Guid Id, Guid UserId) : IRequest<Result>;
 
-    public class Handler : IRequestHandler<Request, SuccessResponse>
+    public class Handler : IRequestHandler<Request, Result>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -18,9 +19,9 @@ public class DeleteBike
             _dbContext = dbContext;
         }
 
-        public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
-            var errors = new List<string>();
+            var errors = new List<Error>();
             var bike = await _dbContext.Bikes
                 .Where(b => b.UserId == request.UserId)
                 .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
@@ -30,16 +31,16 @@ public class DeleteBike
             }
             else
             {
-                errors.Add("Bike not found");
+                errors.Add(new Error("Bike not found"));
             }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             if (errors.Count > 0)
             {
-                return new SuccessResponse(false, errors.ToArray());
+                return Result.Fail(errors);
             }
 
-            return new SuccessResponse(true, errors.ToArray());
+            return Result.Ok();
         }
     }
 }

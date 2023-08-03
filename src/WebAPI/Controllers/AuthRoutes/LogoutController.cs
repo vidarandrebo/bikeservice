@@ -2,7 +2,7 @@ using Application.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BikeHistory.Controllers.AuthRoutes;
+namespace WebAPI.Controllers.AuthRoutes;
 
 [ApiController]
 [Route("api/[controller]")]
