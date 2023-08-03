@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Domain;
 using Domain.Auth;
+using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -45,19 +46,24 @@ public class IdentityService : IIdentityService
         return Unit.Value;
     }
 
-    public async Task<SuccessResponse> RegisterUser(string userName, string password)
+    public async Task<Result<Guid>> RegisterUser(string userName, string password)
     {
         var user = new User
         {
             UserName = userName
         };
         var registerResult = await _userManager.CreateAsync(user, password);
-        var errors = new List<string>();
+        var errors = new List<Error>();
         foreach (var err in registerResult.Errors)
         {
-            errors.Add(err.Description);
+            errors.Add(new Error(err.Description));
         }
 
-        return new SuccessResponse(registerResult.Succeeded, errors.ToArray());
+        if (errors.Count > 0)
+        {
+            return Result.Fail(errors);
+        }
+
+        return Result.Ok(user.Id);
     }
 }
