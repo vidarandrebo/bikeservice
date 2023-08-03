@@ -1,5 +1,4 @@
 using Application.Interfaces;
-using Domain;
 using Domain.Auth;
 using FluentResults;
 using MediatR;
@@ -18,26 +17,24 @@ public class IdentityService : IIdentityService
         _signInManager = signInManager;
     }
 
-    public async Task<DataResponse<UserData>> LoginUser(string userName, string password)
+    public async Task<Result<UserData>> LoginUser(string userName, string password)
     {
-        var err = new List<string>();
         var user = await _userManager.FindByNameAsync(userName);
         if (user is null)
         {
-            err.Add("User not found");
-            return new DataResponse<UserData>(new UserData(Guid.Empty, ""), err.ToArray());
+            return Result.Fail((new Error("User not found")));
         }
-
-        var result = await _userManager.CheckPasswordAsync(user, password);
-        if (result)
+        var correctPasswd = await _userManager.CheckPasswordAsync(user, password);
+        if (!correctPasswd)
         {
-            if (user.UserName != null)
-                return new DataResponse<UserData>(new UserData(user.Id, user.UserName), Array.Empty<string>());
+            return Result.Fail(new Error("Password is wrong"));
         }
 
-        err.Add("Password is wrong");
-
-        return new DataResponse<UserData>(new UserData(Guid.Empty, ""), err.ToArray());
+        if (user.UserName is null)
+        {
+            return Result.Fail(new Error("Username is null"));
+        }
+        return Result.Ok(new UserData(user.Id, user.UserName));
     }
 
     public async Task<Unit> LogoutUser()

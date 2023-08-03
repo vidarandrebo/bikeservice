@@ -26,8 +26,8 @@ public class TypeController : Controller
         var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId != Guid.Empty)
         {
-            var types = await _mediator.Send(new GetTypes.Request(userId));
-            return Ok(types);
+            var result = await _mediator.Send(new GetTypes.Request(userId));
+            return Ok(new DataResponse<EquipmentTypeDto[]>(result.Value, Array.Empty<string>()));
         }
 
         return Unauthorized(
@@ -41,7 +41,7 @@ public class TypeController : Controller
         if (userId != Guid.Empty)
         {
             var result = await _mediator.Send(new AddType.Request(typeForm.Name, typeForm.Category, userId));
-            if (result.Success)
+            if (result.IsSuccess)
             {
                 return Created(nameof(AddType), typeForm);
             }
@@ -53,20 +53,20 @@ public class TypeController : Controller
     }
 
     [HttpDelete]
-    public async Task<ActionResult<SuccessResponse>> DeleteType(string id)
+    public async Task<ActionResult> DeleteType(string id)
     {
         var typeId = GuidHelper.GuidOrEmpty(id);
         var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId == Guid.Empty)
         {
-            return Unauthorized(new SuccessResponse(false, new[] { "Not logged in" }));
+            return Unauthorized();
         }
         var result = await _mediator.Send(new DeleteType.Request(typeId, userId));
-        if (result.Success)
+        if (result.IsSuccess)
         {
-            return Ok(result);
+            return Ok();
         }
 
-        return BadRequest(result);
+        return BadRequest();
     }
 }

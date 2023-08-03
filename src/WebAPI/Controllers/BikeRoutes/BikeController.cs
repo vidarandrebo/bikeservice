@@ -26,8 +26,8 @@ public class BikeController : Controller
         var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId != Guid.Empty)
         {
-            var bikes = await _mediator.Send(new GetBikes.Request(userId));
-            return Ok(bikes);
+            var result = await _mediator.Send(new GetBikes.Request(userId));
+            return Ok(new DataResponse<BikeDto[]>(result.Value, Array.Empty<string>()));
         }
 
         return Unauthorized(new DataResponse<BikeDto[]>(Array.Empty<BikeDto>(), new[] {"Not logged in"}));
@@ -40,7 +40,7 @@ public class BikeController : Controller
         if (userId != Guid.Empty)
         {
             var result = await _mediator.Send(new AddBike.Request(bikeForm, userId));
-            if (result.Success)
+            if (result.IsSuccess)
             {
                 return Created(nameof(AddBike), bikeForm);
             }
@@ -57,7 +57,7 @@ public class BikeController : Controller
         var bikeId = await GuidHelper.GuidOrEmptyAsync(id);
         var result =
             await _mediator.Send(new DeleteBike.Request(bikeId, _tokenHandler.GetUserIdFromRequest(HttpContext)));
-        if (result.Success)
+        if (result.IsSuccess)
         {
             return Ok();
         }

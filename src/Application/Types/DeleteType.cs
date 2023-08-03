@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces;
-using Domain;
+using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Types;
 
 public class DeleteType
 {
-    public record Request(Guid Id, Guid UserId) : IRequest<SuccessResponse>;
+    public record Request(Guid Id, Guid UserId) : IRequest<Result>;
 
-    public class Handler : IRequestHandler<Request, SuccessResponse>
+    public class Handler : IRequestHandler<Request, Result>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -18,7 +18,7 @@ public class DeleteType
             _dbContext = dbContext;
         }
 
-        public async Task<SuccessResponse> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
             var equipmentType =
                 await _dbContext.EquipmentTypes
@@ -28,10 +28,10 @@ public class DeleteType
             {
                 _dbContext.EquipmentTypes.Remove(equipmentType);
                 await _dbContext.SaveChangesAsync(cancellationToken);
-                return new SuccessResponse(true, Array.Empty<string>());
+                return Result.Ok();
             }
 
-            return new SuccessResponse(false, new[] { "Type not found" });
+            return Result.Fail(new Error("Type not found"));
         }
     }
 }

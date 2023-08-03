@@ -26,8 +26,8 @@ public class PartController : Controller
         var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId != Guid.Empty)
         {
-            var parts = await _mediator.Send(new GetParts.Request(userId));
-            return Ok(parts);
+            var result = await _mediator.Send(new GetParts.Request(userId));
+            return Ok(new DataResponse<PartDto[]>(result.Value, Array.Empty<string>()));
         }
 
         return Unauthorized(new DataResponse<PartDto[]>(Array.Empty<PartDto>(), new[] {"Not logged in"}));
@@ -40,7 +40,7 @@ public class PartController : Controller
         if (userId != Guid.Empty)
         {
             var result = await _mediator.Send(new AddPart.Request(partForm,userId));
-            if (result.Success)
+            if (result.IsSuccess)
             {
                 return Created(nameof(AddPart), partForm);
             }
@@ -52,21 +52,22 @@ public class PartController : Controller
     }
 
     [HttpDelete]
-    public async Task<ActionResult<SuccessResponse>> DeletePart(string id)
+    public async Task<ActionResult> DeletePart(string id)
     {
         var partId = GuidHelper.GuidOrEmpty(id);
         var userId = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userId == Guid.Empty)
         {
-            return Unauthorized(new SuccessResponse(false, new[] {"Not logged in"}));
+            return Unauthorized();
         }
 
         var result = await _mediator.Send(new DeletePart.Request(partId, userId));
-        if (result.Success)
+        if (result.IsSuccess)
         {
-            return Ok(result);
+            return Ok();
         }
 
-        return BadRequest(result);
+        return BadRequest();
+        
     }
 }

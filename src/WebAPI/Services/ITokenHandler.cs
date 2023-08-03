@@ -77,10 +77,6 @@ public class TokenHandler : ITokenHandler
     private JwtSecurityToken? _validateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        if (_configuration is null)
-        {
-            Console.WriteLine("conf is null");
-        }
         var signKey = Environment.GetEnvironmentVariable("JWT_SECRET") ?? throw new ArgumentNullException();
         //var signKey = _configuration["JWT:Secret"] ?? throw new ArgumentNullException();
         try
