@@ -7,6 +7,12 @@
       "commands": [
         "dotnet-ef"
       ]
+    },
+    "dotnet-setversion": {
+      "version": "2.6.0",
+      "commands": [
+        "setversion"
+      ]
     }
   }
 }
