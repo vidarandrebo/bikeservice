@@ -1,5 +1,5 @@
-import {FetchResponse, getOrigin, httpPostWithBody} from "@/models/httpMethods";
-import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
+import {FetchResponse, httpPostWithBody} from "../httpMethods.ts";
+import {AuthRouteResponse} from "./authRouteResponse.ts";
 
 export interface IUser {
     userName: string;

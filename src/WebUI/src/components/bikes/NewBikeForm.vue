@@ -37,10 +37,11 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent} from "vue";
-import {Bike} from "@/models/bikes/bike";
-import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
-import {Category} from "@/models/equipmentTypes/category";
+import {Bike} from "../../models/bikes/bike.ts";
+import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
+import {Category} from "../../models/equipmentTypes/category.ts";
 
 export default defineComponent({
     name: "NewBikeForm",
@@ -54,7 +55,7 @@ export default defineComponent({
     props: {
         equipmentTypes: {
             required: true,
-            type: Array<IEquipmentType>
+            type: Array<EquipmentType>
         }
     },
     emits: {
@@ -63,7 +64,7 @@ export default defineComponent({
         }
     },
     computed: {
-        bikeTypes(): Array<IEquipmentType> {
+        bikeTypes(): Array<EquipmentType> {
             return this.equipmentTypes.filter(t => t.category == Category.Bike);
         }
     },

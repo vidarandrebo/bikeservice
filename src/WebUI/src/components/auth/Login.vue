@@ -12,10 +12,10 @@
 </template>
 <script lang="ts">
 import {defineComponent} from 'vue';
-import {LoginData} from "@/models/auth/login";
-import {IUser, User} from "@/models/auth/user";
-import router from "@/router";
-import {setToken} from "@/models/httpMethods";
+import {LoginData} from "../../models/auth/login.ts";
+import {IUser, User} from "../../models/auth/user.ts";
+import {setToken} from "../../models/httpMethods.ts";
+import router from "../../router";
 
 export default defineComponent({
     name: 'Login',
@@ -31,7 +31,7 @@ export default defineComponent({
     },
     emits: {
         updateUsernameEvent(value: string) {
-            return true
+            return value;
         },
     },
     methods: {

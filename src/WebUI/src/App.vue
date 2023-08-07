@@ -13,8 +13,8 @@
 <script lang="ts">
 import Menubar from './components/Menu.vue';
 import {defineComponent} from 'vue';
-import {httpGetWithBody} from "@/models/httpMethods";
-import {AuthRouteResponse} from "@/models/auth/authRouteResponse";
+import {AuthRouteResponse} from "./models/auth/authRouteResponse.ts";
+import {httpGetWithBody} from "./models/httpMethods.ts";
 
 export default defineComponent({
     name: 'App',

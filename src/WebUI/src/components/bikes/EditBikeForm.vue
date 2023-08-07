@@ -36,11 +36,12 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent} from "vue";
-import {Bike} from "@/models/bikes/bike";
-import {Category} from "@/models/equipmentTypes/category";
-import {getDateString} from "@/models/dateFormatter";
-import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {Bike} from "../../models/bikes/bike.ts";
+import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
+import {Category} from "../../models/equipmentTypes/category.ts";
+import {getDateString} from "../../models/dateFormatter.ts";
 
 export default defineComponent({
     name: "EditBikeForm",

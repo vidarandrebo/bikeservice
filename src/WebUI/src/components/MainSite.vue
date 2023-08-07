@@ -19,7 +19,7 @@ export default defineComponent({
         }
     },
     emits: {
-        updateUsernameEvent(value: string) {
+        updateUsernameEvent() {
             return true
         },
     },

@@ -14,8 +14,9 @@
 </template>
 
 <script lang="ts">
-import {AccountSettings} from "@/models/settings/accountSettings";
-import {defineComponent, PropType} from "vue";
+
+import {defineComponent} from "vue";
+import {AccountSettings} from "../../models/settings/accountSettings.ts";
 
 export default defineComponent({
     name: "AccountSettings",

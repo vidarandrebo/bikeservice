@@ -14,9 +14,10 @@
 </template>
 <script lang="ts">
 
-import {defineComponent, PropType} from 'vue';
-import {IUser, User} from '@/models/auth/user';
-import {RegisterData} from "@/models/auth/register";
+
+import {RegisterData} from "../../models/auth/register.ts";
+import {defineComponent} from "vue";
+import {IUser, User} from "../../models/auth/user.ts";
 
 export default defineComponent({
     name: 'Register',
@@ -26,7 +27,7 @@ export default defineComponent({
         }
     },
     emits: {
-        updateUsernameEvent(value: string) {
+        updateUsernameEvent() {
             return true
         },
     },
