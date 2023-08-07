@@ -69,4 +69,21 @@ public class PartController : Controller
 
         return BadRequest();
     }
+    [HttpPut]
+    public async Task<IActionResult> EditPart(PartFormDto partForm)
+    {
+        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        if (userIdResult.IsFailed)
+        {
+            return Unauthorized();
+        }
+
+        var editPartResult = await _mediator.Send(new EditPart.Request(partForm, userIdResult.Value));
+        if (editPartResult.IsSuccess)
+        {
+            return Ok();
+        }
+
+        return BadRequest();
+    }
 }

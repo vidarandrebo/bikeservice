@@ -11,7 +11,7 @@
     </div>
 </template>
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {defineComponent} from 'vue';
 import {LoginData} from "@/models/auth/login";
 import {IUser, User} from "@/models/auth/user";
 import router from "@/router";
@@ -26,7 +26,7 @@ export default defineComponent({
     },
     props: {
         user: {
-            type: String as PropType<string>,
+            type: String,
         }
     },
     emits: {

@@ -23,15 +23,16 @@
             </div>
             <button v-on:click="deleteBike">Delete</button>
             <button v-on:click="showEdit" v-show="showEditButton">Edit</button>
-            <edit-bike-form v-show="showEditForm" @editDoneEvent="editDoneHandler" @updateBikesEvent="updateBikesHandler"
+            <edit-bike-form v-show="showEditForm" @editDoneEvent="editDoneHandler"
+                            @updateBikesEvent="updateBikesHandler"
                             v-bind:equipment-types="equipmentTypes" v-bind:bike="bike"></edit-bike-form>
         </details>
     </div>
 </template>
 
 <script lang="ts">
-import {IBike} from "@/models/bikes/bike";
-import {defineComponent, PropType} from "vue";
+import {Bike} from "@/models/bikes/bike";
+import {defineComponent} from "vue";
 import {EquipmentType, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 import EditBikeForm from "@/components/bikes/EditBikeForm.vue";
 
@@ -42,7 +43,8 @@ export default defineComponent({
     },
     props: {
         bike: {
-            type: Object as PropType<IBike>
+            required: true,
+            type: Bike
         },
         equipmentTypes: {
             required: true,
@@ -70,7 +72,7 @@ export default defineComponent({
             this.showEditForm = false;
             this.showEditButton = true;
         },
-        updateBikesHandler: function() {
+        updateBikesHandler: function () {
             this.$emit("updateBikesEvent");
         }
     },

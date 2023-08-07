@@ -24,7 +24,9 @@ public class EditBike
         {
             var bikeId = GuidHelper.GuidOrEmpty(request.BikeFormDto.Id);
             var typeId = GuidHelper.GuidOrEmpty(request.BikeFormDto.TypeId);
-            var bike = await _dbContext.Bikes.FirstOrDefaultAsync(b => b.Id == bikeId, cancellationToken);
+            var bike = await _dbContext.Bikes
+                .Where(b => b.UserId == request.UserId)
+                .FirstOrDefaultAsync(b => b.Id == bikeId, cancellationToken);
             if (bike is null)
             {
                 return Result.Fail(new Error("Bike not found"));
