@@ -1,21 +1,6 @@
 import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "@/models/httpMethods";
 
-export interface IBike {
-    id: string;
-    manufacturer: string;
-    model: string;
-    mileage: number;
-    typeId: string;
-    date: Date;
-
-    addBikeRequest(): Promise<FetchResponse<null>>;
-
-    deleteBikeRequest(): Promise<FetchResponse<null>>;
-
-    clear(): void;
-}
-
-export class Bike implements IBike {
+export class Bike {
     id: string;
     manufacturer: string;
     model: string;
@@ -25,7 +10,7 @@ export class Bike implements IBike {
 
 
     async addBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<IBike>("/api/bike", this);
+        return await httpPost<Bike>("/api/bike", this);
     }
 
     async deleteBikeRequest(): Promise<FetchResponse<null>> {
@@ -33,7 +18,7 @@ export class Bike implements IBike {
     }
 
     async putBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpPut<IBike>("/api/bike", this);
+        return await httpPut<Bike>("/api/bike", this);
     }
 
     clear(): void {
@@ -44,7 +29,7 @@ export class Bike implements IBike {
     }
 
     // Copies over the fields in the argument object if given
-    constructor(...args: IBike[]) {
+    constructor(...args: Bike[]) {
         this.id = "";
         this.manufacturer = "";
         this.model = "";
@@ -58,8 +43,8 @@ export class Bike implements IBike {
     }
 }
 
-export async function getBikesRequest(): Promise<IBike[]> {
-    let result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
+export async function getBikesRequest(): Promise<Bike[]> {
+    const result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
     if (result.status === 200) {
         return result.body.data.map(createBike);
     }
@@ -67,6 +52,6 @@ export async function getBikesRequest(): Promise<IBike[]> {
 }
 
 
-function createBike(bike: IBike) {
+function createBike(bike: Bike) {
     return new Bike(bike);
 }

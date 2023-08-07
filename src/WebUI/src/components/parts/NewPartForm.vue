@@ -31,7 +31,7 @@
                     <option v-for="bike in bikes" :value="bike.id" :key="bike.id">{{
                             bike.manufacturer
                         }}
-                        {{bike.model}}
+                        {{ bike.model }}
                     </option>
                 </select>
             </div>
@@ -46,9 +46,9 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {Part} from "@/models/parts/part";
-import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
 import {Category} from "@/models/equipmentTypes/category";
-import {getBikesRequest, IBike} from "@/models/bikes/bike";
+import {Bike} from "@/models/bikes/bike";
 
 export default defineComponent({
     name: "NewPartForm",
@@ -56,13 +56,16 @@ export default defineComponent({
         return {
             partData: new Part(),
             show: false as boolean,
-            bikes: [] as Array<IBike>
         }
     },
     props: {
         equipmentTypes: {
             required: true,
-            type: Array<IEquipmentType>
+            type: Array<EquipmentType>
+        },
+        bikes: {
+            required: true,
+            type: Array<Bike>
         }
     },
     emits: {
@@ -85,11 +88,8 @@ export default defineComponent({
             this.show = true;
         }
     },
-    async created() {
-        this.bikes = await getBikesRequest();
-    },
     computed: {
-        partTypes(): Array<IEquipmentType> {
+        partTypes(): Array<EquipmentType> {
             return this.equipmentTypes.filter(t => t.category == Category.Part);
         }
     },

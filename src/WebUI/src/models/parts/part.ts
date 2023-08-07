@@ -1,21 +1,6 @@
-import {DataArrayResponse, FetchResponse, getOrigin, httpDelete, httpGetWithBody, httpPost} from "@/models/httpMethods";
+import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "@/models/httpMethods";
 
-export interface IPart {
-    id: string;
-    manufacturer: string;
-    model: string;
-    mileage: number;
-    typeId: string;
-    bikeId: string;
-
-    addPartRequest(): Promise<FetchResponse<null>>;
-
-    deletePartRequest(): Promise<FetchResponse<null>>;
-
-    clear(): void;
-}
-
-export class Part implements IPart {
+export class Part {
     id: string;
     manufacturer: string;
     model: string;
@@ -40,8 +25,12 @@ export class Part implements IPart {
         return await httpDelete("/api/part", this.id);
     }
 
+    async putPartRequest(): Promise<FetchResponse<null>> {
+        return await httpPut<Part>("/api/part", this);
+    }
 
-    constructor(...args: IPart[]) {
+
+    constructor(...args: Part[]) {
         this.id = "";
         this.manufacturer = "";
         this.model = "";
@@ -53,8 +42,9 @@ export class Part implements IPart {
         }
     }
 }
-export async function getPartsRequest(): Promise<IPart[]> {
-    let result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
+
+export async function getPartsRequest(): Promise<Part[]> {
+    const result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
     if (result.status === 200) {
         return result.body.data.map(createPart);
     }
@@ -67,6 +57,6 @@ export async function getPartsRequest(): Promise<IPart[]> {
  * @param part The object whose fields will be transferred to new object
  * @returns A new object of the Part class
  */
-function createPart(part: IPart) {
+function createPart(part: Part) {
     return new Part(part);
 }

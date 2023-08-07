@@ -1,22 +1,12 @@
 import {Category} from "@/models/equipmentTypes/category";
 import {DataArrayResponse, FetchResponse, httpGetWithBody, httpPost} from "@/models/httpMethods";
 
-export interface IEquipmentType {
+export class EquipmentType {
     id: string;
     name: string;
     category: Category;
 
-    addTypeRequest(): Promise<FetchResponse<null>>;
-
-    clear(): void;
-}
-
-export class EquipmentType implements IEquipmentType {
-    id: string;
-    name: string;
-    category: Category;
-
-    constructor(...args: IEquipmentType[]) {
+    constructor(...args: EquipmentType[]) {
         this.id = "";
         this.name = "";
         this.category = Category.Bike;
@@ -26,7 +16,7 @@ export class EquipmentType implements IEquipmentType {
     }
 
     async addTypeRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<IEquipmentType>("/api/type", this);
+        return await httpPost<EquipmentType>("/api/type", this);
     }
 
     clear() {
@@ -40,8 +30,8 @@ export class EquipmentType implements IEquipmentType {
 /**
  * Acquires all equipment-types and returns an array of object containing them.
  */
-export async function getTypeRequest(): Promise<IEquipmentType[]> {
-    let result = await httpGetWithBody<DataArrayResponse<IEquipmentType>>("/api/type");
+export async function getTypeRequest(): Promise<EquipmentType[]> {
+    const result = await httpGetWithBody<DataArrayResponse<EquipmentType>>("/api/type");
     if (result.status === 200) {
         return result.body.data.map(createType);
     }
@@ -52,6 +42,6 @@ export async function getTypeRequest(): Promise<IEquipmentType[]> {
  * Mapper for the types received from api-call
  * @param type The received object
  */
-function createType(type: IEquipmentType) {
+function createType(type: EquipmentType) {
     return new EquipmentType(type);
 }

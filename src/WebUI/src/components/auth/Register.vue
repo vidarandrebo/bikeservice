@@ -22,7 +22,7 @@ export default defineComponent({
     name: 'Register',
     props: {
         user: {
-            type: String as PropType<string>,
+            type: String,
         }
     },
     emits: {

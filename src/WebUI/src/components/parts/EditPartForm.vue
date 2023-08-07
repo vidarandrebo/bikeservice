@@ -1,29 +1,36 @@
 <template>
     <div class="card">
-        <form id="new-bike" method="POST" v-on:submit.prevent="putBike">
+        <form id="edit-part" method="POST" v-on:submit.prevent="putPart">
             <div class="form-field">
                 <label for="manufacturer">Manufacturer</label>
-                <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
+                <input type="text" id="manufacturer" v-model="partData.manufacturer" required>
             </div>
             <div class="form-field">
                 <label for="model">Model</label>
-                <input type="text" id="model" v-model="bikeData.model" required>
+                <input type="text" id="model" v-model="partData.model" required>
             </div>
             <div class="form-field">
                 <label for="mileage">Mileage</label>
-                <input type="number" id="mileage" v-model="bikeData.mileage" required>
-            </div>
-            <div class="form-field">
-                <label for="date">Date</label>
-                <input type="date" id="date" v-model="date" required>
+                <input type="number" id="mileage" v-model="partData.mileage" required>
             </div>
             <div class="form-field">
                 <label for="type">Type</label>
-                <select id="type" v-model="bikeData.typeId" required>
+                <select id="type" v-model="partData.typeId" required>
                     <option value="0">No Type</option>
-                    <option v-for="bikeType in bikeTypes" :value="bikeType.id" :key="bikeType.id">{{
-                            bikeType.name
+                    <option v-for="partType in partTypes" :value="partType.id" :key="partType.id">{{
+                            partType.name
                         }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="type">Bike</label>
+                <select id="type" v-model="partData.bikeId" required>
+                    <option value="0">No Bike</option>
+                    <option v-for="bike in bikes" :value="bike.id" :key="bike.id">{{
+                            bike.manufacturer
+                        }}
+                        {{ bike.model }}
                     </option>
                 </select>
             </div>
@@ -37,17 +44,16 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {Bike} from "@/models/bikes/bike";
-import {Category} from "@/models/equipmentTypes/category";
-import {getDateString} from "@/models/dateFormatter";
 import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {Category} from "@/models/equipmentTypes/category";
+import {Part} from "@/models/parts/part";
+import {Bike} from "@/models/bikes/bike";
 
 export default defineComponent({
-    name: "EditBikeForm",
+    name: "EditPartForm",
     data: function () {
         return {
-            bikeData: new Bike(),
-            date: "",
+            partData: new Part(),
         }
     },
     props: {
@@ -55,13 +61,17 @@ export default defineComponent({
             required: true,
             type: Array<EquipmentType>
         },
-        bike: {
+        part: {
             required: true,
-            type: Bike,
+            type: Part,
+        },
+        bikes: {
+            required: true,
+            type: Array<Bike>
         }
     },
     emits: {
-        updateBikesEvent() {
+        updatePartsEvent() {
             return true
         },
         editDoneEvent() {
@@ -69,26 +79,24 @@ export default defineComponent({
         }
     },
     computed: {
-        bikeTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter(t => t.category == Category.Bike);
+        partTypes(): Array<EquipmentType> {
+            return this.equipmentTypes.filter(t => t.category == Category.Part);
         }
     },
     created: function () {
         this.setFormDataFromProp();
     },
     watch: {
-        bike: function () {
+        part: function () {
             this.setFormDataFromProp();
         },
     },
     methods: {
-        putBike: async function () {
-            this.bikeData.date = new Date(this.date);
-            let result = await this.bikeData.putBikeRequest();
+        putPart: async function () {
+            let result = await this.partData.putPartRequest();
             if (result.status === 200) {
-                this.date = "";
-                this.bikeData.clear();
-                this.$emit('updateBikesEvent');
+                this.partData.clear();
+                this.$emit('updatePartsEvent');
                 this.$emit('editDoneEvent');
             }
         },
@@ -96,8 +104,7 @@ export default defineComponent({
             this.$emit('editDoneEvent');
         },
         setFormDataFromProp() {
-            this.bikeData = new Bike(this.bike);
-            this.date = getDateString(this.bike.date);
+            this.partData = new Part(this.part);
         }
     },
 

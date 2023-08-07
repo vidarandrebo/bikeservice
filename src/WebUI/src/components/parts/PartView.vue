@@ -18,27 +18,45 @@
                 </div>
             </div>
             <button v-on:click="deletePart">Delete</button>
+            <button v-on:click="showEdit" v-show="showEditButton">Edit</button>
+            <edit-part-form v-show="showEditForm" @editDoneEvent="editDoneHandler"
+                            @updatePartsEvent="updatePartsHandler"
+                            v-bind:equipment-types="equipmentTypes"
+                            v-bind:bikes="bikes"
+                            v-bind:part="part">
+            </edit-part-form>
         </details>
     </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from "vue";
-import {IPart} from "@/models/parts/part";
-import {IBike} from "@/models/bikes/bike";
-import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {defineComponent} from "vue";
+import {Part} from "@/models/parts/part";
+import {Bike} from "@/models/bikes/bike";
+import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
+import EditPartForm from "@/components/parts/EditPartForm.vue";
 
 export default defineComponent({
     name: "PartView",
+    components: {EditPartForm},
     props: {
         part: {
-            type: Object as PropType<IPart>
+            required: true,
+            type: Part
         },
-        bike: {
-            type: Object as PropType<IBike>
+        bikes: {
+            required: true,
+            type: Array<Bike>
         },
-        equipmentType: {
-            type: Object as PropType<IEquipmentType>
+        equipmentTypes: {
+            required: true,
+            type: Array<EquipmentType>
+        }
+    },
+    data: function () {
+        return {
+            showEditForm: false,
+            showEditButton: true,
         }
     },
     methods: {
@@ -47,6 +65,33 @@ export default defineComponent({
                 await this.part.deletePartRequest();
                 this.$emit('updatePartsEvent');
             }
+        },
+        showEdit: function () {
+            this.showEditForm = true;
+            this.showEditButton = false;
+        },
+        editDoneHandler: function () {
+            this.showEditForm = false;
+            this.showEditButton = true;
+        },
+        updatePartsHandler: function () {
+            this.$emit("updatePartsEvent");
+        },
+    },
+    computed: {
+        bike(): Bike {
+            let bike = this.bikes.find(b => b.id == this.part.bikeId);
+            if (bike != undefined) {
+                return bike;
+            }
+            return new Bike();
+        },
+        equipmentType(): EquipmentType {
+            let type = this.equipmentTypes.find(t => t.id == this.part.typeId);
+            if (type != undefined) {
+                return type;
+            }
+            return new EquipmentType();
         }
     },
     emits: {
