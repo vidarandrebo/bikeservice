@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Domain;
+using FluentResults;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebAPI.Services;
@@ -9,7 +10,7 @@ namespace WebAPI.Services;
 public interface ITokenHandler
 {
     string CreateToken(Guid id, string userName);
-    Guid GetUserIdFromRequest(HttpContext context);
+    Result<Guid> GetUserIdFromRequest(HttpContext context);
     string? GetUserNameFromRequest(HttpContext context);
 }
 
@@ -28,11 +29,17 @@ public class TokenHandler : ITokenHandler
         return token?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
     }
 
-    public Guid GetUserIdFromRequest(HttpContext context)
+    public Result<Guid> GetUserIdFromRequest(HttpContext context)
     {
         var token = _getTokenFromRequest(context);
         var id = token?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "";
-        return GuidHelper.GuidOrEmpty(id);
+        var parsedGuid = GuidHelper.GuidOrEmpty(id);
+        if (parsedGuid == Guid.Empty)
+        {
+            return Result.Fail(new Error("Failed to find ID in http-context"));
+        }
+
+        return Result.Ok(parsedGuid);
     }
 
     public string CreateToken(Guid id, string userName)

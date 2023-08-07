@@ -81,6 +81,18 @@ export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Pro
     return {body: body, status: response.status};
 }
 
+export async function httpPut<T>(route: string, data: T): Promise<FetchResponse<null>> {
+    const url = new URL(route, getOrigin());
+    const response = await fetch(url.toString(), {
+        method: "PUT",
+        headers: {
+            'Authorization': getBearerToken(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return {body: null, status: response.status};
+}
 
 export function getOrigin(): string {
     return window.location.origin;

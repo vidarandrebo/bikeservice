@@ -1,6 +1,6 @@
 <template>
     <new-bike-form @updateBikesEvent="updateBikesHandler" v-bind:equipment-types="equipmentTypes"></new-bike-form>
-    <bike-view v-for="bike in bikes" :key="bike.id" v-bind:bike="bike" v-bind:equipment-type="equipmentType(bike)"
+    <bike-view v-for="bike in bikes" :key="bike.id" v-bind:bike="bike" v-bind:equipment-types="equipmentTypes"
                @updateBikesEvent="updateBikesHandler"></bike-view>
 </template>
 <script lang="ts">
@@ -8,7 +8,7 @@ import {defineComponent} from 'vue';
 import NewBikeForm from "@/components/bikes/NewBikeForm.vue";
 import {getBikesRequest, IBike} from "@/models/bikes/bike";
 import BikeView from "@/components/bikes/BikeView.vue";
-import {EquipmentType, getTypeRequest, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
+import {getTypeRequest, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 
 export default defineComponent({
     name: 'Bikes',
@@ -41,13 +41,6 @@ export default defineComponent({
          * Handler for updateBikesEvent
          */
 
-        equipmentType(bike: IBike): IEquipmentType {
-            let type = this.equipmentTypes.find(t => t.id == bike.typeId);
-            if (type != undefined) {
-                return type;
-            }
-            return new EquipmentType();
-        },
         updateBikesHandler: async function () {
             this.bikes = await getBikesRequest();
         }
