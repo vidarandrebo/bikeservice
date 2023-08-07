@@ -44,11 +44,12 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent} from "vue";
-import {Part} from "@/models/parts/part";
-import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
-import {Category} from "@/models/equipmentTypes/category";
-import {Bike} from "@/models/bikes/bike";
+import {Part} from "../../models/parts/part.ts";
+import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
+import {Bike} from "../../models/bikes/bike.ts";
+import {Category} from "../../models/equipmentTypes/category.ts";
 
 export default defineComponent({
     name: "NewPartForm",

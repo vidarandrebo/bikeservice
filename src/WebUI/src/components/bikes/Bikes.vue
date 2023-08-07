@@ -9,11 +9,12 @@
     </bike-view>
 </template>
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
-import NewBikeForm from "@/components/bikes/NewBikeForm.vue";
-import {Bike, getBikesRequest} from "@/models/bikes/bike";
-import BikeView from "@/components/bikes/BikeView.vue";
-import {EquipmentType, getTypeRequest} from "@/models/equipmentTypes/equipmentType";
+
+import {defineComponent} from "vue";
+import BikeView from "./BikeView.vue";
+import NewBikeForm from "./NewBikeForm.vue";
+import {Bike, getBikesRequest} from "../../models/bikes/bike.ts";
+import {EquipmentType, getTypeRequest} from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
     name: 'Bikes',
@@ -27,7 +28,7 @@ export default defineComponent({
         }
     },
     emits: {
-        updateUsernameEvent(value: string) {
+        updateUsernameEvent() {
             return true
         },
     },

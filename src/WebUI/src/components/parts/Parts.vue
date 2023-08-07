@@ -11,12 +11,13 @@
     </part-view>
 </template>
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
-import NewPartForm from "@/components/parts/NewPartForm.vue";
-import {getPartsRequest, Part} from "@/models/parts/part";
-import PartView from "@/components/parts/PartView.vue";
-import {EquipmentType, getTypeRequest} from "@/models/equipmentTypes/equipmentType";
-import {Bike, getBikesRequest} from "@/models/bikes/bike";
+
+import {defineComponent} from "vue";
+import PartView from "./PartView.vue";
+import NewPartForm from "./NewPartForm.vue";
+import {getPartsRequest, Part} from "../../models/parts/part.ts";
+import {Bike, getBikesRequest} from "../../models/bikes/bike.ts";
+import {EquipmentType, getTypeRequest} from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
     name: 'Parts',
@@ -27,7 +28,7 @@ export default defineComponent({
         }
     },
     emits: {
-        updateUsernameEvent(value: string) {
+        updateUsernameEvent() {
             return true
         },
     },

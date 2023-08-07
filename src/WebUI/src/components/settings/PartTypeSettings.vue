@@ -16,16 +16,17 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent} from "vue";
-import {EquipmentType, getTypeRequest, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
-import {Category} from "@/models/equipmentTypes/category";
+import {EquipmentType, getTypeRequest} from "../../models/equipmentTypes/equipmentType.ts";
+import {Category} from "../../models/equipmentTypes/category.ts";
 
 export default defineComponent({
     name: "PartTypeSettings",
     data: function () {
         return {
             equipmentTypeSettings: new EquipmentType(),
-            equipmentTypes: [] as Array<IEquipmentType>,
+            equipmentTypes: [] as Array<EquipmentType>,
         }
     },
     methods: {
@@ -42,7 +43,7 @@ export default defineComponent({
         }
     },
     computed: {
-        partTypes() : Array<IEquipmentType> {
+        partTypes() : Array<EquipmentType> {
             return this.equipmentTypes.filter(t => t.category == Category.Part);
         }
     },

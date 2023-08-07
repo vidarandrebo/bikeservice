@@ -1,4 +1,4 @@
-import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "@/models/httpMethods";
+import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "../httpMethods.ts";
 
 export class Bike {
     id: string;

@@ -31,10 +31,11 @@
 </template>
 
 <script lang="ts">
-import {Bike} from "@/models/bikes/bike";
+
 import {defineComponent} from "vue";
-import {EquipmentType, IEquipmentType} from "@/models/equipmentTypes/equipmentType";
-import EditBikeForm from "@/components/bikes/EditBikeForm.vue";
+import EditBikeForm from "./EditBikeForm.vue";
+import {Bike} from "../../models/bikes/bike.ts";
+import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
     name: "BikeView",
@@ -48,7 +49,7 @@ export default defineComponent({
         },
         equipmentTypes: {
             required: true,
-            type: Array<IEquipmentType>,
+            type: Array<EquipmentType>,
         }
     },
     data: function () {
@@ -77,7 +78,7 @@ export default defineComponent({
         }
     },
     computed: {
-        equipmentType(): IEquipmentType {
+        equipmentType(): EquipmentType {
             let type = this.equipmentTypes.find(t => t.id == this.bike.typeId);
             if (type != undefined) {
                 return type;

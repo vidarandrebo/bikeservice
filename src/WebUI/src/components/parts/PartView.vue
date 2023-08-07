@@ -30,11 +30,12 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent} from "vue";
-import {Part} from "@/models/parts/part";
-import {Bike} from "@/models/bikes/bike";
-import {EquipmentType} from "@/models/equipmentTypes/equipmentType";
-import EditPartForm from "@/components/parts/EditPartForm.vue";
+import EditPartForm from "./EditPartForm.vue";
+import {Part} from "../../models/parts/part.ts";
+import {Bike} from "../../models/bikes/bike.ts";
+import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
     name: "PartView",
