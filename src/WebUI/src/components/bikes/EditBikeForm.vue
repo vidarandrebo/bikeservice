@@ -1,7 +1,6 @@
 <template>
     <div class="card">
-        <button v-on:click="showForm" v-show="!show">Edit</button>
-        <form id="new-bike" method="POST" v-on:submit.prevent="putBike" v-show="show">
+        <form id="new-bike" method="POST" v-on:submit.prevent="putBike">
             <div class="form-field">
                 <label for="manufacturer">Manufacturer</label>
                 <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
@@ -29,8 +28,8 @@
                 </select>
             </div>
             <div class="form-field">
-                <input type="submit" value="Add">
-                <button v-on:click="hideForm">Cancel</button>
+                <input type="submit" value="Save">
+                <button v-on:click.prevent="hideForm">Cancel</button>
             </div>
         </form>
     </div>
@@ -41,6 +40,7 @@ import {defineComponent} from "vue";
 import {Bike} from "@/models/bikes/bike";
 import {IEquipmentType} from "@/models/equipmentTypes/equipmentType";
 import {Category} from "@/models/equipmentTypes/category";
+import {getDateString} from "@/models/dateFormatter";
 
 export default defineComponent({
     name: "EditBikeForm",
@@ -48,7 +48,6 @@ export default defineComponent({
         return {
             bikeData: new Bike(),
             date: "",
-            show: false as boolean,
         }
     },
     props: {
@@ -64,6 +63,9 @@ export default defineComponent({
     emits: {
         updateBikesEvent() {
             return true
+        },
+        editDoneEvent() {
+            return true
         }
     },
     computed: {
@@ -72,7 +74,12 @@ export default defineComponent({
         }
     },
     created: function () {
-        this.bikeData = new Bike(this.bike);
+        this.setFormDataFromProp();
+    },
+    watch: {
+        bike: function () {
+            this.setFormDataFromProp();
+        },
     },
     methods: {
         putBike: async function () {
@@ -82,13 +89,15 @@ export default defineComponent({
                 this.date = "";
                 this.bikeData.clear();
                 this.$emit('updateBikesEvent');
+                this.$emit('editDoneEvent');
             }
         },
         hideForm: function () {
-            this.show = false;
+            this.$emit('editDoneEvent');
         },
-        showForm: function () {
-            this.show = true;
+        setFormDataFromProp() {
+            this.bikeData = new Bike(this.bike);
+            this.date = getDateString(this.bike.date);
         }
     },
 

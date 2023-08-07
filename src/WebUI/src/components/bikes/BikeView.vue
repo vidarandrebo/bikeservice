@@ -22,7 +22,9 @@
                 <p>{{ bike.date }}</p>
             </div>
             <button v-on:click="deleteBike">Delete</button>
-            <edit-bike-form v-bind:equipment-types="equipmentTypes" v-bind:bike="bike"></edit-bike-form>
+            <button v-on:click="showEdit" v-show="showEditButton">Edit</button>
+            <edit-bike-form v-show="showEditForm" @editDoneEvent="editDoneHandler" @updateBikesEvent="updateBikesHandler"
+                            v-bind:equipment-types="equipmentTypes" v-bind:bike="bike"></edit-bike-form>
         </details>
     </div>
 </template>
@@ -47,6 +49,12 @@ export default defineComponent({
             type: Array<IEquipmentType>,
         }
     },
+    data: function () {
+        return {
+            showEditForm: false,
+            showEditButton: true,
+        }
+    },
     methods: {
         deleteBike: async function () {
             if (this.bike != null) {
@@ -54,6 +62,17 @@ export default defineComponent({
                 this.$emit('updateBikesEvent');
             }
         },
+        showEdit: function () {
+            this.showEditForm = true;
+            this.showEditButton = false;
+        },
+        editDoneHandler: function () {
+            this.showEditForm = false;
+            this.showEditButton = true;
+        },
+        updateBikesHandler: function() {
+            this.$emit("updateBikesEvent");
+        }
     },
     computed: {
         equipmentType(): IEquipmentType {
