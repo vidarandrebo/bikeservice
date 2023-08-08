@@ -1,8 +1,10 @@
 using Application.Interfaces;
 using Infrastructure.Identity;
+using Infrastructure.Interceptors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +17,7 @@ public static class ConfigureServices
         IConfiguration configuration,
         IWebHostEnvironment environment)
     {
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         if (environment.IsProduction())
         {
             DotEnv.Load(".env");
@@ -25,17 +28,21 @@ public static class ConfigureServices
                                      $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
                                      $"Integrated Security=true;Pooling=true;";
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(dbConnectionString));
+            services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
+            {
+                options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
+                options.UseNpgsql(dbConnectionString);
+            });
         }
         else
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
                 var folder = configuration.GetValue<string>("Database:Folder");
                 var filename = configuration.GetValue<string>("Database:File");
                 Directory.CreateDirectory(folder);
                 options.UseSqlite($"Data Source={Path.Combine(folder, filename)}");
+                options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             });
         }
 

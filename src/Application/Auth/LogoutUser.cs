@@ -1,13 +1,14 @@
 using Application.Interfaces;
+using FluentResults;
 using MediatR;
 
 namespace Application.Auth;
 
 public class LogoutUser
 {
-    public record Request() : IRequest;
+    public record Request() : IRequest<Result>;
 
-    public class Handler : IRequestHandler<Request, Unit>
+    public class Handler : IRequestHandler<Request, Result>
     {
         private readonly IIdentityService _identityService;
 
@@ -16,9 +17,10 @@ public class LogoutUser
             _identityService = identityService;
         }
 
-        public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
-            return await _identityService.LogoutUser();
+            await _identityService.LogoutUser();
+            return Result.Ok();
         }
     }
 }

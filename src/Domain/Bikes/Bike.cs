@@ -1,11 +1,27 @@
-﻿namespace Domain.Bikes;
+﻿using Domain.Common;
+using Domain.Events;
 
-public class Bike
+namespace Domain.Bikes;
+
+public class Bike : BaseEntity
 {
-    public Guid Id { get; set; }
     public string Manufacturer { get; set; }
     public string Model { get; set; }
-    public double Mileage { get; set; }
+    private double _mileage;
+
+    public double Mileage
+    {
+        get => _mileage;
+        set
+        {
+            if (Math.Abs(value - _mileage) > 1.0)
+            {
+                AddDomainEvent(new BikeMileageUpdatedEvent(_mileage, value, Id));
+                _mileage = value;
+            }
+        }
+    }
+
     public DateTime Date { get; set; }
     public Guid TypeId { get; set; }
     public List<ServiceEntry> Services { get; set; }
@@ -21,7 +37,7 @@ public class Bike
         Id = Guid.NewGuid();
         Manufacturer = manufacturer;
         Model = model;
-        Mileage = mileage;
+        _mileage = mileage;
         Date = date;
         TypeId = typeId;
         Services = new List<ServiceEntry>();

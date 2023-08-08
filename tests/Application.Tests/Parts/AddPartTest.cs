@@ -1,4 +1,5 @@
 using Application.Parts;
+using Application.Parts.Commands;
 using Application.Tests.TestHelpers;
 using Domain.Parts;
 using Infrastructure;
