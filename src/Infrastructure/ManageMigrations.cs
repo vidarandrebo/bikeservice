@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Npgsql;
 using Serilog;
 
@@ -7,32 +9,41 @@ namespace Infrastructure;
 
 public static class ManageMigrations
 {
-    public static async Task ApplyMigrations(this IServiceProvider serviceProvider)
+    public static async Task ApplyMigrations(this IServiceProvider serviceProvider, IWebHostEnvironment environment)
     {
         using (var scope = serviceProvider.CreateScope())
         {
-            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            Log.Logger.Information("Running migration on database");
-            var tries = 0;
-            while (true)
+            if (environment.IsProduction())
             {
-                tries++;
-                try
+                var db = scope.ServiceProvider.GetRequiredService<NpgsqlContext>();
+                Log.Logger.Information("Running migration on database");
+                var tries = 0;
+                while (true)
                 {
-                    db.Database.Migrate();
-                    break;
-                }
-                catch (NpgsqlException)
-                {
-                    Log.Logger.Warning("Database not accessible, trying again in 5 seconds");
-                    await Task.Delay(5000);
-                }
+                    tries++;
+                    try
+                    {
+                        db.Database.Migrate();
+                        break;
+                    }
+                    catch (NpgsqlException)
+                    {
+                        Log.Logger.Warning("Database not accessible, trying again in 5 seconds");
+                        await Task.Delay(5000);
+                    }
 
-                if (tries > 5)
-                {
-                    Log.Logger.Error("Migrations did not apply, continuing");
-                    break;
+                    if (tries > 5)
+                    {
+                        Log.Logger.Error("Migrations did not apply, continuing");
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                var db = scope.ServiceProvider.GetRequiredService<SqliteContext>();
+                Log.Logger.Information("Running migration on database");
+                db.Database.Migrate();
             }
         }
     }

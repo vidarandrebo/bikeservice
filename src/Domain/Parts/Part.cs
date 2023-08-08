@@ -1,8 +1,9 @@
-﻿namespace Domain.Parts;
+﻿using Domain.Common;
 
-public class Part
+namespace Domain.Parts;
+
+public class Part : BaseEntity
 {
-    public Guid Id { get; set; }
     public string Manufacturer { get; set; }
     public string Model { get; set; }
     public double Mileage { get; set; }

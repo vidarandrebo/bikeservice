@@ -3,7 +3,7 @@ using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Parts;
+namespace Application.Parts.Commands;
 
 public class DeletePart
 {

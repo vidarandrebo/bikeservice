@@ -4,7 +4,7 @@ using Domain.Parts;
 using FluentResults;
 using MediatR;
 
-namespace Application.Parts;
+namespace Application.Parts.Commands;
 
 public class AddPart
 {
