@@ -11,11 +11,11 @@ public static class DatabaseHelper
         var conn = new SqliteConnection("Filename=:memory:");
         conn.Open();
 
-        var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+        var contextOptions = new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite(conn)
             .Options;
 
-        var ctx = new ApplicationDbContext(contextOptions);
+        var ctx = new SqliteContext(contextOptions);
         ctx.Database.Migrate();
 
         return ctx;
