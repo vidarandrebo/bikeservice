@@ -57,7 +57,7 @@ public class PartController : Controller
     {
         var partId = GuidHelper.GuidOrEmpty(id);
         var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
-        if (userIdResult.IsSuccess)
+        if (userIdResult.IsFailed)
         {
             return Unauthorized();
         }
