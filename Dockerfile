@@ -9,7 +9,7 @@ RUN npm ci
 
 RUN npm run buildRelease
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS dotnet-build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build-env
 WORKDIR /data
 
 # Copy everything
@@ -20,7 +20,7 @@ COPY --from=node-build-env /data/dist/ /data/src/WebAPI/wwwroot/
 RUN dotnet publish /data/src/WebAPI -c Release -o bin
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /data
 COPY --from=dotnet-build-env /data/bin/ .
 #COPY --from=dotnet-build-env /data/bin/appsettings.json .
