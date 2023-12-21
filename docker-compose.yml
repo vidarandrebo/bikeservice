@@ -8,6 +8,7 @@ services:
       - POSTGRES_PASSWORD=bikeservice
     ports:
       - '127.0.0.1:5013:5432'
+      - '[::1]:5013:5432'
     volumes:
       - /data/bikeservice/db:/var/lib/postgresql/data
 
@@ -16,6 +17,7 @@ services:
     build: .
     ports:
       - "127.0.0.1:5012:80"
+      - "[::1]:5012:80"
     restart: unless-stopped
     volumes:
       - /data/bikeservice/log:/var/log/bikeservice/

@@ -26,8 +26,7 @@ public static class ConfigureServices
                                      $"Password={Environment.GetEnvironmentVariable("DB_PASSWD")};" +
                                      $"Server={Environment.GetEnvironmentVariable("DB_SERVER")};" +
                                      $"Port={Environment.GetEnvironmentVariable("DB_PORT")};" +
-                                     $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
-                                     $"Integrated Security=true;Pooling=true;";
+                                     $"Database={Environment.GetEnvironmentVariable("DB_NAME")};";
 
             services.AddDbContext<NpgsqlContext>((serviceProvider, options) =>
             {
