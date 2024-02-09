@@ -1,57 +1,48 @@
 <template>
     <div class="card">
-        <button v-on:click="showForm" v-show="!show">New Bike</button>
-        <form id="new-bike" method="POST" v-on:submit.prevent="addBike" v-show="show">
+        <button v-show="!show" @click="showForm">New Bike</button>
+        <form v-show="show" id="new-bike" method="POST" @submit.prevent="addBike">
             <div class="form-field">
                 <label for="manufacturer">Manufacturer</label>
-                <input type="text" id="manufacturer" v-model="bikeData.manufacturer" required>
+                <input id="manufacturer" v-model="bikeData.manufacturer" type="text" required />
             </div>
             <div class="form-field">
                 <label for="model">Model</label>
-                <input type="text" id="model" v-model="bikeData.model" required>
+                <input id="model" v-model="bikeData.model" type="text" required />
             </div>
             <div class="form-field">
                 <label for="mileage">Mileage</label>
-                <input type="number" id="mileage" v-model="bikeData.mileage" required>
+                <input id="mileage" v-model="bikeData.mileage" type="number" required />
             </div>
             <div class="form-field">
                 <label for="date">Date</label>
-                <input type="date" id="date" v-model="date" required>
+                <input id="date" v-model="date" type="date" required />
             </div>
             <div class="form-field">
                 <label for="type">Type</label>
                 <select id="type" v-model="bikeData.typeId" required>
                     <option value="0">No Type</option>
-                    <option v-for="bikeType in bikeTypes" :value="bikeType.id" :key="bikeType.id">{{
-                            bikeType.name
-                        }}
+                    <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
+                        {{ bikeType.name }}
                     </option>
                 </select>
             </div>
             <div class="form-field">
-                <input type="submit" value="Add">
-                <button v-on:click="hideForm">Cancel</button>
+                <input type="submit" value="Add" />
+                <button @click="hideForm">Cancel</button>
             </div>
         </form>
     </div>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "vue";
-import {Bike} from "../../models/bikes/bike.ts";
-import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
-import {Category} from "../../models/equipmentTypes/category.ts";
+import { defineComponent } from "vue";
+import { Bike } from "../../models/bikes/bike.ts";
+import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
+import { Category } from "../../models/equipmentTypes/category.ts";
 
 export default defineComponent({
     name: "NewBikeForm",
-    data: function () {
-        return {
-            bikeData: new Bike(),
-            date: "",
-            show: false as boolean,
-        }
-    },
     props: {
         equipmentTypes: {
             required: true,
@@ -60,12 +51,19 @@ export default defineComponent({
     },
     emits: {
         updateBikesEvent() {
-            return true
+            return true;
         }
+    },
+    data: function () {
+        return {
+            bikeData: new Bike(),
+            date: "",
+            show: false as boolean
+        };
     },
     computed: {
         bikeTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter(t => t.category == Category.Bike);
+            return this.equipmentTypes.filter((t) => t.category == Category.Bike);
         }
     },
     methods: {
@@ -75,7 +73,7 @@ export default defineComponent({
             if (result.status === 201) {
                 this.date = "";
                 this.bikeData.clear();
-                this.$emit('updateBikesEvent');
+                this.$emit("updateBikesEvent");
             }
         },
         hideForm: function () {
@@ -84,10 +82,8 @@ export default defineComponent({
         showForm: function () {
             this.show = true;
         }
-    },
-
-})
+    }
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

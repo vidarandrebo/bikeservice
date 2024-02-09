@@ -9,27 +9,27 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "SettingsMenu"
-})
+});
 </script>
 
 <style scoped>
-    .settings-buttons a{
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-        display: block;
-        min-width: 100%;
-        width: inherit;
-    }
+.settings-buttons a {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    min-width: 100%;
+    width: inherit;
+}
 
-    .router-link-active {
-        background-color: var(--highlight-color);
-    }
+.router-link-active {
+    background-color: var(--highlight-color);
+}
 
-    a:visited {
-        color: var(--text-color);
-    }
+a:visited {
+    color: var(--text-color);
+}
 </style>

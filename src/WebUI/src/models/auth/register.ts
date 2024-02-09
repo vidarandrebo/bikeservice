@@ -7,7 +7,7 @@ export interface IRegisterData {
     passwordRequirementsCheck(): void;
 }
 
-export class RegisterData implements IRegisterData{
+export class RegisterData implements IRegisterData {
     username: string;
     passwd: string;
     repasswd: string;
@@ -29,5 +29,4 @@ export class RegisterData implements IRegisterData{
         this.repasswd = "";
         this.error = new Array<string>();
     }
-
 }

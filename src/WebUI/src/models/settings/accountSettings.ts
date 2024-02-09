@@ -5,7 +5,7 @@ export interface IAccountSettings {
     errors: string[];
 }
 
-export class AccountSettings implements IAccountSettings{
+export class AccountSettings implements IAccountSettings {
     oldPassword: string;
     newPassword: string;
     reNewPassword: string;

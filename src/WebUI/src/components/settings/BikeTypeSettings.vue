@@ -2,10 +2,10 @@
     <div class="setting-wrapper">
         <div class="card">
             <h2>Add Bike Type</h2>
-            <form id="addBikeType" method="POST" v-on:submit.prevent="addType">
+            <form id="addBikeType" method="POST" @submit.prevent="addType">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" v-model="equipmentTypeSettings.name" required>
-                <input type="submit" value="Add Type">
+                <input id="name" v-model="equipmentTypeSettings.name" type="text" name="name" required />
+                <input type="submit" value="Add Type" />
             </form>
         </div>
         <div class="card">
@@ -16,18 +16,25 @@
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "vue";
-import {EquipmentType, getTypeRequest} from "../../models/equipmentTypes/equipmentType.ts";
-import {Category} from "../../models/equipmentTypes/category.ts";
+import { defineComponent } from "vue";
+import { EquipmentType, getTypeRequest } from "../../models/equipmentTypes/equipmentType.ts";
+import { Category } from "../../models/equipmentTypes/category.ts";
 
 export default defineComponent({
     name: "BikeTypeSettings",
     data: function () {
         return {
             equipmentTypeSettings: new EquipmentType(),
-            equipmentTypes: [] as Array<EquipmentType>,
+            equipmentTypes: [] as Array<EquipmentType>
+        };
+    },
+    computed: {
+        bikeTypes(): Array<EquipmentType> {
+            return this.equipmentTypes.filter((t) => t.category == Category.Bike);
         }
+    },
+    async created() {
+        await this.getTypes();
     },
     methods: {
         addType: async function () {
@@ -40,24 +47,14 @@ export default defineComponent({
         getTypes: async function () {
             this.equipmentTypes = await getTypeRequest();
         }
-    },
-    computed: {
-        bikeTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter(t => t.category == Category.Bike);
-        }
-    },
-    async created() {
-        await this.getTypes();
     }
-
-})
+});
 </script>
 
 <style scoped>
 .setting-wrapper {
     flex-grow: 1;
 }
-
 
 form {
     max-width: 300px;
@@ -71,5 +68,4 @@ input {
     box-sizing: border-box;
     margin-bottom: 10px;
 }
-
 </style>

@@ -9,7 +9,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>bikeservice-api</PackageId>
     <Title>BikeService API</Title>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Authors>Vidar André Bø</Authors>
     <Product>BikeService</Product>
     <PackageProjectUrl />

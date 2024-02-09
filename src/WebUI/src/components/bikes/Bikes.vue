@@ -1,42 +1,43 @@
 <template>
-    <new-bike-form @updateBikesEvent="updateBikesHandler"
-                   v-bind:equipment-types="equipmentTypes">
-    </new-bike-form>
-    <bike-view v-for="bike in bikes" :key="bike.id"
-               v-bind:bike="bike"
-               v-bind:equipment-types="equipmentTypes"
-               @updateBikesEvent="updateBikesHandler">
+    <new-bike-form :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler"> </new-bike-form>
+    <bike-view
+        v-for="bike in bikes"
+        :key="bike.id"
+        :bike="bike"
+        :equipment-types="equipmentTypes"
+        @update-bikes-event="updateBikesHandler"
+    >
     </bike-view>
 </template>
 <script lang="ts">
-
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import BikeView from "./BikeView.vue";
 import NewBikeForm from "./NewBikeForm.vue";
-import {Bike, getBikesRequest} from "../../models/bikes/bike.ts";
-import {EquipmentType, getTypeRequest} from "../../models/equipmentTypes/equipmentType.ts";
+import { Bike, getBikesRequest } from "../../models/bikes/bike.ts";
+import { EquipmentType, getTypeRequest } from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
-    name: 'Bikes',
+    name: "BikesPage",
     components: {
         BikeView,
-        NewBikeForm,
+        NewBikeForm
     },
     props: {
         user: {
-            type: String
+            type: String,
+            default: ""
         }
     },
     emits: {
         updateUsernameEvent() {
-            return true
-        },
+            return true;
+        }
     },
     data: function () {
         return {
             bikes: [] as Array<Bike>,
-            equipmentTypes: [] as Array<EquipmentType>,
-        }
+            equipmentTypes: [] as Array<EquipmentType>
+        };
     },
     created: async function () {
         const bikesPromise = getBikesRequest();
@@ -52,5 +53,5 @@ export default defineComponent({
             this.bikes = await getBikesRequest();
         }
     }
-})
+});
 </script>

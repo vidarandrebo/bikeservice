@@ -21,26 +21,29 @@
                 <p>Date</p>
                 <p>{{ bike.date }}</p>
             </div>
-            <button v-on:click="deleteBike">Delete</button>
-            <button v-on:click="showEdit" v-show="showEditButton">Edit</button>
-            <edit-bike-form v-show="showEditForm" @editDoneEvent="editDoneHandler"
-                            @updateBikesEvent="updateBikesHandler"
-                            v-bind:equipment-types="equipmentTypes" v-bind:bike="bike"></edit-bike-form>
+            <button @click="deleteBike">Delete</button>
+            <button v-show="showEditButton" @click="showEdit">Edit</button>
+            <edit-bike-form
+                v-show="showEditForm"
+                :equipment-types="equipmentTypes"
+                :bike="bike"
+                @edit-done-event="editDoneHandler"
+                @update-bikes-event="updateBikesHandler"
+            ></edit-bike-form>
         </details>
     </div>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import EditBikeForm from "./EditBikeForm.vue";
-import {Bike} from "../../models/bikes/bike.ts";
-import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
+import { Bike } from "../../models/bikes/bike.ts";
+import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
     name: "BikeView",
     components: {
-        EditBikeForm,
+        EditBikeForm
     },
     props: {
         bike: {
@@ -49,20 +52,34 @@ export default defineComponent({
         },
         equipmentTypes: {
             required: true,
-            type: Array<EquipmentType>,
+            type: Array<EquipmentType>
+        }
+    },
+    emits: {
+        updateBikesEvent() {
+            return true;
         }
     },
     data: function () {
         return {
             showEditForm: false,
-            showEditButton: true,
+            showEditButton: true
+        };
+    },
+    computed: {
+        equipmentType(): EquipmentType {
+            let type = this.equipmentTypes.find((t) => t.id == this.bike.typeId);
+            if (type != undefined) {
+                return type;
+            }
+            return new EquipmentType();
         }
     },
     methods: {
         deleteBike: async function () {
             if (this.bike != null) {
                 await this.bike.deleteBikeRequest();
-                this.$emit('updateBikesEvent');
+                this.$emit("updateBikesEvent");
             }
         },
         showEdit: function () {
@@ -76,24 +93,9 @@ export default defineComponent({
         updateBikesHandler: function () {
             this.$emit("updateBikesEvent");
         }
-    },
-    computed: {
-        equipmentType(): EquipmentType {
-            let type = this.equipmentTypes.find(t => t.id == this.bike.typeId);
-            if (type != undefined) {
-                return type;
-            }
-            return new EquipmentType();
-        }
-    },
-    emits: {
-        updateBikesEvent() {
-            return true
-        },
     }
-})
+});
 </script>
-
 
 <style scoped>
 .bike-specs {
@@ -109,5 +111,4 @@ export default defineComponent({
     display: inline;
     margin-right: 1rem;
 }
-
 </style>

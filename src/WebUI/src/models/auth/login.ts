@@ -4,7 +4,7 @@ export interface ILoginData {
     errors: Array<string>;
 }
 
-export class LoginData implements ILoginData{
+export class LoginData implements ILoginData {
     username: string;
     passwd: string;
     errors: Array<string>;
