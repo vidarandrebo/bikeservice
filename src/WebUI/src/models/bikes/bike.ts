@@ -1,4 +1,4 @@
-import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "../httpMethods.ts";
+import { DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut } from "../httpMethods.ts";
 
 export class Bike {
     id: string;
@@ -7,7 +7,6 @@ export class Bike {
     mileage: number;
     typeId: string;
     date: Date;
-
 
     async addBikeRequest(): Promise<FetchResponse<null>> {
         return await httpPost<Bike>("/api/bike", this);
@@ -38,7 +37,7 @@ export class Bike {
         this.date = new Date();
         if (args.length === 1) {
             Object.assign(this, args[0]);
-            this.date = new Date(args[0].date)
+            this.date = new Date(args[0].date);
         }
     }
 }
@@ -50,7 +49,6 @@ export async function getBikesRequest(): Promise<Bike[]> {
     }
     return [];
 }
-
 
 function createBike(bike: Bike) {
     return new Bike(bike);

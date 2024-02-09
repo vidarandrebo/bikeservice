@@ -1,4 +1,4 @@
-import {DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut} from "../httpMethods.ts";
+import { DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut } from "../httpMethods.ts";
 
 export class Part {
     id: string;
@@ -29,7 +29,6 @@ export class Part {
         return await httpPut<Part>("/api/part", this);
     }
 
-
     constructor(...args: Part[]) {
         this.id = "";
         this.manufacturer = "";
@@ -50,7 +49,6 @@ export async function getPartsRequest(): Promise<Part[]> {
     }
     return [];
 }
-
 
 /**
  * Creates a new object of the Part class from an object conforming to the IPart interface

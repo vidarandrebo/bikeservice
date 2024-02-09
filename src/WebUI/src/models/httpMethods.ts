@@ -4,8 +4,7 @@
 export type FetchResponse<T> = {
     body: T;
     status: number;
-}
-
+};
 
 /**
  * Used as body field in the FetchResponse
@@ -13,7 +12,7 @@ export type FetchResponse<T> = {
 export type DataArrayResponse<T> = {
     data: T[];
     errors: string[];
-}
+};
 
 export async function httpDelete(route: string, id: string): Promise<FetchResponse<null>> {
     const url = new URL(route, getOrigin());
@@ -21,24 +20,23 @@ export async function httpDelete(route: string, id: string): Promise<FetchRespon
     const response = await fetch(url.toString(), {
         method: "DELETE",
         headers: {
-            'Authorization': getBearerToken(),
-            'Content-Type': 'application/json'
-        },
-    })
-    return {body: null, status: response.status};
+            Authorization: getBearerToken(),
+            "Content-Type": "application/json"
+        }
+    });
+    return { body: null, status: response.status };
 }
-
 
 export async function httpGet(route: string): Promise<FetchResponse<null>> {
     const url = new URL(route, getOrigin());
     const response = await fetch(url.toString(), {
         method: "GET",
         headers: {
-            'Authorization': getBearerToken(),
-            'Content-Type': 'application/json'
-        },
+            Authorization: getBearerToken(),
+            "Content-Type": "application/json"
+        }
     });
-    return {body: null, status: response.status};
+    return { body: null, status: response.status };
 }
 
 export async function httpGetWithBody<T>(route: string): Promise<FetchResponse<T>> {
@@ -46,12 +44,12 @@ export async function httpGetWithBody<T>(route: string): Promise<FetchResponse<T
     const response = await fetch(url.toString(), {
         method: "GET",
         headers: {
-            'Authorization': getBearerToken(),
-            'Content-Type': 'application/json'
-        },
+            Authorization: getBearerToken(),
+            "Content-Type": "application/json"
+        }
     });
     const body = await response.json();
-    return {body: body, status: response.status};
+    return { body: body, status: response.status };
 }
 
 export async function httpPost<T>(route: string, data: T): Promise<FetchResponse<null>> {
@@ -59,12 +57,12 @@ export async function httpPost<T>(route: string, data: T): Promise<FetchResponse
     const response = await fetch(url.toString(), {
         method: "POST",
         headers: {
-            'Authorization': getBearerToken(),
-            'Content-Type': 'application/json'
+            Authorization: getBearerToken(),
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     });
-    return {body: null, status: response.status};
+    return { body: null, status: response.status };
 }
 
 export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Promise<FetchResponse<TOut>> {
@@ -72,13 +70,13 @@ export async function httpPostWithBody<TIn, TOut>(route: string, data: TIn): Pro
     const response = await fetch(url.toString(), {
         method: "POST",
         headers: {
-            'Authorization': getBearerToken(),
-            'Content-Type': 'application/json'
+            Authorization: getBearerToken(),
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     });
     const body = await response.json();
-    return {body: body, status: response.status};
+    return { body: body, status: response.status };
 }
 
 export async function httpPut<T>(route: string, data: T): Promise<FetchResponse<null>> {
@@ -86,12 +84,12 @@ export async function httpPut<T>(route: string, data: T): Promise<FetchResponse<
     const response = await fetch(url.toString(), {
         method: "PUT",
         headers: {
-            'Authorization': getBearerToken(),
-            'Content-Type': 'application/json'
+            Authorization: getBearerToken(),
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     });
-    return {body: null, status: response.status};
+    return { body: null, status: response.status };
 }
 
 export function getOrigin(): string {

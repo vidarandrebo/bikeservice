@@ -18,7 +18,7 @@
             <router-link v-if="user" to="/settings">
                 <font-awesome-icon icon="tools" size="2x" title="Settings"></font-awesome-icon>
             </router-link>
-            <a v-if="user" href="#" v-on:click="logout">
+            <a v-if="user" href="#" @click="logout">
                 <font-awesome-icon icon="sign-out" size="2x" title="Log out"></font-awesome-icon>
             </a>
             <router-link v-if="!user" to="/login">
@@ -31,33 +31,34 @@
     </header>
 </template>
 <script lang="ts">
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {defineComponent, PropType} from "vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { defineComponent, PropType } from "vue";
 import router from "../router";
 
 export default defineComponent({
-    name: 'Menubar',
+    name: "MenuBar",
     components: {
         FontAwesomeIcon
     },
     props: {
         user: {
             type: String as PropType<string>,
+            default: ""
         }
     },
     emits: {
         updateUsernameEvent(value: string) {
             return value;
-        },
+        }
     },
     methods: {
         logout: async function () {
             localStorage.removeItem("authToken");
-            this.$emit('updateUsernameEvent', "");
+            this.$emit("updateUsernameEvent", "");
             await router.push("/login");
         }
     }
-})
+});
 </script>
 <style scoped>
 header h3 {
@@ -90,6 +91,4 @@ a {
     display: flex;
     align-items: center;
 }
-
-
 </style>

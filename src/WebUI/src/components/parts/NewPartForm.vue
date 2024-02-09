@@ -1,26 +1,25 @@
 <template>
     <div class="card">
-        <button v-on:click="showForm" v-show="!show">New Part</button>
-        <form id="new-part" method="POST" v-on:submit.prevent="addPart" v-show="show">
+        <button v-show="!show" @click="showForm">New Part</button>
+        <form v-show="show" id="new-part" method="POST" @submit.prevent="addPart">
             <div class="form-field">
                 <label for="manufacturer">Manufacturer</label>
-                <input type="text" id="manufacturer" v-model="partData.manufacturer" required>
+                <input id="manufacturer" v-model="partData.manufacturer" type="text" required />
             </div>
             <div class="form-field">
                 <label for="model">Model</label>
-                <input type="text" id="model" v-model="partData.model" required>
+                <input id="model" v-model="partData.model" type="text" required />
             </div>
             <div class="form-field">
                 <label for="mileage">Mileage</label>
-                <input type="number" id="mileage" v-model="partData.mileage" required>
+                <input id="mileage" v-model="partData.mileage" type="number" required />
             </div>
             <div class="form-field">
                 <label for="type">Type</label>
                 <select id="type" v-model="partData.typeId" required>
                     <option value="0">No Type</option>
-                    <option v-for="partType in partTypes" :value="partType.id" :key="partType.id">{{
-                            partType.name
-                        }}
+                    <option v-for="partType in partTypes" :key="partType.id" :value="partType.id">
+                        {{ partType.name }}
                     </option>
                 </select>
             </div>
@@ -28,37 +27,29 @@
                 <label for="type">Bike</label>
                 <select id="type" v-model="partData.bikeId" required>
                     <option value="0">No Bike</option>
-                    <option v-for="bike in bikes" :value="bike.id" :key="bike.id">{{
-                            bike.manufacturer
-                        }}
+                    <option v-for="bike in bikes" :key="bike.id" :value="bike.id">
+                        {{ bike.manufacturer }}
                         {{ bike.model }}
                     </option>
                 </select>
             </div>
             <div class="form-field">
-                <input type="submit" value="Add">
-                <button v-on:click="hideForm">Cancel</button>
+                <input type="submit" value="Add" />
+                <button @click="hideForm">Cancel</button>
             </div>
         </form>
     </div>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "vue";
-import {Part} from "../../models/parts/part.ts";
-import {EquipmentType} from "../../models/equipmentTypes/equipmentType.ts";
-import {Bike} from "../../models/bikes/bike.ts";
-import {Category} from "../../models/equipmentTypes/category.ts";
+import { defineComponent } from "vue";
+import { Part } from "../../models/parts/part.ts";
+import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
+import { Bike } from "../../models/bikes/bike.ts";
+import { Category } from "../../models/equipmentTypes/category.ts";
 
 export default defineComponent({
     name: "NewPartForm",
-    data: function () {
-        return {
-            partData: new Part(),
-            show: false as boolean,
-        }
-    },
     props: {
         equipmentTypes: {
             required: true,
@@ -71,7 +62,18 @@ export default defineComponent({
     },
     emits: {
         updatePartsEvent() {
-            return true
+            return true;
+        }
+    },
+    data: function () {
+        return {
+            partData: new Part(),
+            show: false as boolean
+        };
+    },
+    computed: {
+        partTypes(): Array<EquipmentType> {
+            return this.equipmentTypes.filter((t) => t.category == Category.Part);
         }
     },
     methods: {
@@ -79,7 +81,7 @@ export default defineComponent({
             let result = await this.partData.addPartRequest();
             if (result.status == 201) {
                 this.partData.clear();
-                this.$emit('updatePartsEvent');
+                this.$emit("updatePartsEvent");
             }
         },
         hideForm: function () {
@@ -88,15 +90,8 @@ export default defineComponent({
         showForm: function () {
             this.show = true;
         }
-    },
-    computed: {
-        partTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter(t => t.category == Category.Part);
-        }
-    },
-
-})
+    }
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

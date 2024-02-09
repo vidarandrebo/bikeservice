@@ -1,43 +1,44 @@
 <template>
-    <new-part-form @updatePartsEvent="updatePartsHandler"
-                   v-bind:equipment-types="equipmentTypes"
-                   v-bind:bikes="bikes">
+    <new-part-form :equipment-types="equipmentTypes" :bikes="bikes" @update-parts-event="updatePartsHandler">
     </new-part-form>
-    <part-view v-for="part in parts" :key="part.id"
-               v-bind:part="part"
-               v-bind:equipment-types="equipmentTypes"
-               v-bind:bikes="bikes"
-               @updatePartsEvent="updatePartsHandler">
+    <part-view
+        v-for="part in parts"
+        :key="part.id"
+        :part="part"
+        :equipment-types="equipmentTypes"
+        :bikes="bikes"
+        @update-parts-event="updatePartsHandler"
+    >
     </part-view>
 </template>
 <script lang="ts">
-
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import PartView from "./PartView.vue";
 import NewPartForm from "./NewPartForm.vue";
-import {getPartsRequest, Part} from "../../models/parts/part.ts";
-import {Bike, getBikesRequest} from "../../models/bikes/bike.ts";
-import {EquipmentType, getTypeRequest} from "../../models/equipmentTypes/equipmentType.ts";
+import { getPartsRequest, Part } from "../../models/parts/part.ts";
+import { Bike, getBikesRequest } from "../../models/bikes/bike.ts";
+import { EquipmentType, getTypeRequest } from "../../models/equipmentTypes/equipmentType.ts";
 
 export default defineComponent({
-    name: 'Parts',
-    components: {PartView, NewPartForm},
+    name: "PartsPage",
+    components: { PartView, NewPartForm },
     props: {
         user: {
             type: String,
+            default: ""
         }
     },
     emits: {
         updateUsernameEvent() {
-            return true
-        },
+            return true;
+        }
     },
     data: function () {
         return {
             parts: [] as Array<Part>,
             bikes: [] as Array<Bike>,
-            equipmentTypes: [] as Array<EquipmentType>,
-        }
+            equipmentTypes: [] as Array<EquipmentType>
+        };
     },
     created: async function () {
         const partsPromise = getPartsRequest();
@@ -55,5 +56,5 @@ export default defineComponent({
             this.parts = await getPartsRequest();
         }
     }
-})
+});
 </script>

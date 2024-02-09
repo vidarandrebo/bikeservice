@@ -1,5 +1,5 @@
-import {FetchResponse, httpPostWithBody} from "../httpMethods.ts";
-import {AuthRouteResponse} from "./authRouteResponse.ts";
+import { FetchResponse, httpPostWithBody } from "../httpMethods.ts";
+import { AuthRouteResponse } from "./authRouteResponse.ts";
 
 export interface IUser {
     userName: string;
@@ -26,6 +26,4 @@ export class User implements IUser {
     async loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
         return await httpPostWithBody<IUser, AuthRouteResponse>("/api/login", this);
     }
-
-
 }

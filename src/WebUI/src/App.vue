@@ -1,8 +1,8 @@
 <template>
-    <menubar v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></menubar>
+    <menu-bar :user="user" @update-username-event="updateUsernameHandler"></menu-bar>
     <main>
         <!--Changes depending on which component is active-->
-        <router-view v-bind:user="user" @updateUsernameEvent="updateUsernameHandler"></router-view>
+        <router-view :user="user" @update-username-event="updateUsernameHandler"></router-view>
     </main>
     <div class="space"></div>
     <footer>
@@ -11,31 +11,31 @@
 </template>
 
 <script lang="ts">
-import Menubar from './components/Menu.vue';
-import {defineComponent} from 'vue';
-import {AuthRouteResponse} from "./models/auth/authRouteResponse.ts";
-import {httpGetWithBody} from "./models/httpMethods.ts";
+import MenuBar from "./components/MenuBar.vue";
+import { defineComponent } from "vue";
+import { AuthRouteResponse } from "./models/auth/authRouteResponse.ts";
+import { httpGetWithBody } from "./models/httpMethods.ts";
 
 export default defineComponent({
-    name: 'App',
+    name: "App",
     components: {
-        Menubar,
+        MenuBar
     },
     data: function () {
         return {
-            user: null as any,
-        }
+            user: ""
+        };
+    },
+    created: async function () {
+        let result = await httpGetWithBody<AuthRouteResponse>("/api/login");
+        this.user = result.body.userName;
     },
     methods: {
         updateUsernameHandler: function (name: string): void {
             this.user = name;
         }
-    },
-    created: async function () {
-        let result = await httpGetWithBody<AuthRouteResponse>("/api/login");
-        this.user = result.body.userName;
     }
-})
+});
 </script>
 <style>
 :root {
@@ -43,10 +43,10 @@ export default defineComponent({
     --highlight-color: #ccc;
     --text-color: #000000;
     --white-text-color: #fff;
-    --bg-color: #F4F1DE;
+    --bg-color: #f4f1de;
     --accent-color: #495867;
     --accent-highlight-color: #577399;
-    --error-color: #FE5F55;
+    --error-color: #fe5f55;
 }
 
 /*sticky footer etc*/
@@ -66,7 +66,6 @@ body {
     height: 100%;
     margin: 0;
 }
-
 
 main {
     width: 100%;
@@ -100,6 +99,4 @@ footer a {
     padding: 1rem;
     border-radius: 1rem;
 }
-
-
 </style>

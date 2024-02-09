@@ -1,27 +1,28 @@
 <template>
-    <div class="card" v-if="!user">
+    <div v-if="!user" class="card">
         <h1>BikeService</h1>
         <p>Welcome to BikeService</p>
     </div>
-    <div class="card" v-if="user">
+    <div v-if="user" class="card">
         <h1>BikeService</h1>
         <p>Welcome {{ user }}</p>
     </div>
 </template>
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-    name: 'MainSite',
+    name: "MainPage",
     props: {
         user: {
             type: String as PropType<string>,
+            default: ""
         }
     },
     emits: {
         updateUsernameEvent() {
-            return true
-        },
-    },
-})
+            return true;
+        }
+    }
+});
 </script>
