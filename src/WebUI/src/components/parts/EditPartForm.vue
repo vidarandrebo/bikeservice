@@ -1,19 +1,19 @@
 <template>
-    <div class="card">
+    <div>
         <form id="edit-part" method="POST" @submit.prevent="putPart">
-            <div class="form-field">
+            <div>
                 <label for="manufacturer">Manufacturer</label>
                 <input id="manufacturer" v-model="partData.manufacturer" type="text" required />
             </div>
-            <div class="form-field">
+            <div>
                 <label for="model">Model</label>
                 <input id="model" v-model="partData.model" type="text" required />
             </div>
-            <div class="form-field">
+            <div>
                 <label for="mileage">Mileage</label>
                 <input id="mileage" v-model="partData.mileage" type="number" required />
             </div>
-            <div class="form-field">
+            <div>
                 <label for="type">Type</label>
                 <select id="type" v-model="partData.typeId" required>
                     <option value="0">No Type</option>
@@ -22,7 +22,7 @@
                     </option>
                 </select>
             </div>
-            <div class="form-field">
+            <div>
                 <label for="type">Bike</label>
                 <select id="type" v-model="partData.bikeId" required>
                     <option value="0">No Bike</option>
@@ -32,7 +32,7 @@
                     </option>
                 </select>
             </div>
-            <div class="form-field">
+            <div>
                 <input type="submit" value="Save" />
                 <button @click.prevent="hideForm">Cancel</button>
             </div>
@@ -107,5 +107,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped></style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="settings card">
+    <div>
         <form id="changePasswd" method="POST" @submit.prevent="changePasswd">
             <p v-for="(err, i) in accountSettings.errors" :key="i">{{ err }}</p>
             <label for="oldpasswd">Old Password</label>
@@ -37,22 +37,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-.settings {
-    flex-grow: 1;
-}
-
-form {
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-input {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-</style>

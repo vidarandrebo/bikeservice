@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div>
         <form id="register" method="POST" @submit.prevent="registerUser">
             <p v-for="(err, i) in registerData.error" :key="i">{{ err }}</p>
             <label for="username">Username</label>
@@ -53,21 +53,3 @@ export default defineComponent({
     }
 });
 </script>
-<style scoped>
-div {
-    flex-grow: 1;
-}
-
-form {
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-input {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-</style>

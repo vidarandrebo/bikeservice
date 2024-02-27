@@ -6,7 +6,6 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>bikeservice-api</PackageId>
     <Title>BikeService API</Title>
     <Version>3.0.4</Version>

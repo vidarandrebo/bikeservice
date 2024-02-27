@@ -1,11 +1,11 @@
 <template>
     <header>
-        <div class="menu-group">
+        <div>
             <router-link to="/">
                 <font-awesome-icon icon="home" size="2x" title="Home"></font-awesome-icon>
             </router-link>
         </div>
-        <div class="menu-group">
+        <div>
             <router-link to="/bikes">
                 <font-awesome-icon icon="bicycle" size="2x" title="Bikes"></font-awesome-icon>
             </router-link>
@@ -13,7 +13,7 @@
                 <font-awesome-icon icon="cog" size="2x" title="Parts"></font-awesome-icon>
             </router-link>
         </div>
-        <div class="menu-group">
+        <div>
             <p v-if="user" id="username">{{ user }}</p>
             <router-link v-if="user" to="/settings">
                 <font-awesome-icon icon="tools" size="2x" title="Settings"></font-awesome-icon>
@@ -60,35 +60,3 @@ export default defineComponent({
     }
 });
 </script>
-<style scoped>
-header h3 {
-    display: inline;
-}
-
-header {
-    height: 40px;
-    background-color: var(--accent-color);
-    color: var(--white-text-color);
-    display: flex;
-    justify-content: space-between;
-}
-
-a {
-    color: var(--white-text-color);
-    text-decoration: none;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
-}
-
-.router-link-active {
-    background-color: var(--accent-highlight-color);
-}
-
-.menu-group {
-    display: flex;
-    align-items: center;
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-page">
+    <div>
         <settings-menu></settings-menu>
         <router-view :user="user"></router-view>
     </div>
@@ -24,8 +24,3 @@ export default defineComponent({
     }
 });
 </script>
-<style scoped>
-.settings-page {
-    display: flex;
-}
-</style>

@@ -1,9 +1,9 @@
 <template>
-    <div v-if="!user" class="card">
+    <div v-if="!user">
         <h1>BikeService</h1>
         <p>Welcome to BikeService</p>
     </div>
-    <div v-if="user" class="card">
+    <div v-if="user">
         <h1>BikeService</h1>
         <p>Welcome {{ user }}</p>
     </div>

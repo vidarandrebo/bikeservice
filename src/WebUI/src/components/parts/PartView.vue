@@ -1,18 +1,18 @@
 <template>
-    <div class="card">
+    <div>
         <h5>{{ part.manufacturer }} {{ part.model }} {{ equipmentType.name }}</h5>
         <details>
             <summary>More</summary>
-            <div class="part-specs">
-                <div class="spec">
+            <div>
+                <div>
                     <p>Distance:</p>
                     <p>{{ part.mileage }} km</p>
                 </div>
-                <div class="spec">
+                <div>
                     <p>Guid:</p>
                     <p>{{ part.id }}</p>
                 </div>
-                <div class="spec">
+                <div>
                     <p>Bike:</p>
                     <p>{{ bike.manufacturer }} {{ bike.model }}</p>
                 </div>
@@ -104,25 +104,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-.part-specs {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.part-specs .spec {
-    margin-right: 1rem;
-}
-
-.spec p {
-    display: inline;
-    margin-right: 1rem;
-}
-
-.part-view {
-    background-color: var(--card-color);
-    margin: 0.5rem;
-    padding: 1rem;
-}
-</style>

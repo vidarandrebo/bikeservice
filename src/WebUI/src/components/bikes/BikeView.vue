@@ -1,23 +1,23 @@
 <template>
-    <div class="card">
+    <div>
         <h5>{{ bike.manufacturer }} {{ bike.model }}</h5>
         <details>
             <summary>More</summary>
-            <div class="bike-specs">
-                <div class="spec">
+            <div>
+                <div>
                     <p>Distance:</p>
                     <p>{{ bike.mileage }} km</p>
                 </div>
-                <div class="spec">
+                <div>
                     <p>Guid:</p>
                     <p>{{ bike.id }}</p>
                 </div>
             </div>
-            <div class="spec">
+            <div>
                 <p>Type</p>
                 <p>{{ equipmentType.name }}</p>
             </div>
-            <div class="spec">
+            <div>
                 <p>Date</p>
                 <p>{{ bike.date }}</p>
             </div>
@@ -96,19 +96,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-.bike-specs {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.bike-specs .spec {
-    margin-right: 1rem;
-}
-
-.spec p {
-    display: inline;
-    margin-right: 1rem;
-}
-</style>
