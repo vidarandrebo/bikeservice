@@ -17,9 +17,9 @@
                     <p>{{ bike.manufacturer }} {{ bike.model }}</p>
                 </div>
             </div>
-            <button @click="deletePart">Delete</button>
-            <button v-show="showEditButton" @click="showEdit">Edit</button>
-            <edit-part-form
+            <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
+            <ButtonSecondary @click="deletePart">Delete</ButtonSecondary>
+            <EditPartForm
                 v-show="showEditForm"
                 :equipment-types="equipmentTypes"
                 :bikes="bikes"
@@ -27,7 +27,7 @@
                 @edit-done-event="editDoneHandler"
                 @update-parts-event="updatePartsHandler"
             >
-            </edit-part-form>
+            </EditPartForm>
         </details>
     </div>
 </template>
@@ -38,10 +38,12 @@ import EditPartForm from "./EditPartForm.vue";
 import { Part } from "../../models/parts/part.ts";
 import { Bike } from "../../models/bikes/bike.ts";
 import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
+import ButtonPrimary from "../common/ButtonPrimary.vue";
+import ButtonSecondary from "../common/ButtonSecondary.vue";
 
 export default defineComponent({
     name: "PartView",
-    components: { EditPartForm },
+    components: { ButtonSecondary, ButtonPrimary, EditPartForm },
     props: {
         part: {
             required: true,

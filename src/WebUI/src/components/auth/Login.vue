@@ -2,11 +2,11 @@
     <div>
         <form id="login" method="POST" @submit.prevent="loginUser">
             <p v-for="(err, i) in loginData.errors" :key="i">{{ err }}</p>
-            <label for="username">Username</label>
-            <input id="username" v-model="loginData.username" type="text" name="username" required />
-            <label for="passwd">Password</label>
-            <input id="passwd" v-model="loginData.passwd" type="password" name="passwd" required />
-            <input type="submit" value="Login" />
+            <LabelPrimary for="username">Username</LabelPrimary>
+            <InputText id="username" v-model="loginData.username" name="username" required />
+            <LabelPrimary for="passwd">Password</LabelPrimary>
+            <InputText id="passwd" v-model="loginData.passwd" type="password" name="passwd" required />
+            <ButtonPrimary type="submit">Login</ButtonPrimary>
         </form>
     </div>
 </template>
@@ -16,9 +16,13 @@ import { LoginData } from "../../models/auth/login.ts";
 import { IUser, User } from "../../models/auth/user.ts";
 import { setToken } from "../../models/httpMethods.ts";
 import router from "../../router";
+import ButtonPrimary from "../common/ButtonPrimary.vue";
+import LabelPrimary from "../common/LabelPrimary.vue";
+import InputText from "../common/InputText.vue";
 
 export default defineComponent({
     name: "LoginPage",
+    components: { InputText, LabelPrimary, ButtonPrimary },
     props: {
         user: {
             type: String,

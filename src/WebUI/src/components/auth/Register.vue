@@ -2,13 +2,13 @@
     <div>
         <form id="register" method="POST" @submit.prevent="registerUser">
             <p v-for="(err, i) in registerData.error" :key="i">{{ err }}</p>
-            <label for="username">Username</label>
-            <input id="username" v-model="registerData.username" type="text" required />
-            <label for="passwd">Password</label>
-            <input id="passwd" v-model="registerData.passwd" type="password" required />
-            <label for="repeat-passwd">Repeat password</label>
-            <input id="repeat-passwd" v-model="registerData.repasswd" type="password" required />
-            <input type="submit" value="Register" />
+            <LabelPrimary for="username">Username</LabelPrimary>
+            <InputText id="username" v-model="registerData.username" required />
+            <LabelPrimary for="passwd">Password</LabelPrimary>
+            <InputText id="passwd" v-model="registerData.passwd" type="password" required />
+            <LabelPrimary for="repeat-passwd">Repeat password</LabelPrimary>
+            <InputText id="repeat-passwd" v-model="registerData.repasswd" type="password" required />
+            <ButtonPrimary type="submit">Register</ButtonPrimary>
         </form>
     </div>
 </template>
@@ -16,9 +16,13 @@
 import { RegisterData } from "../../models/auth/register.ts";
 import { defineComponent } from "vue";
 import { IUser, User } from "../../models/auth/user.ts";
+import InputText from "../common/InputText.vue";
+import ButtonPrimary from "../common/ButtonPrimary.vue";
+import LabelPrimary from "../common/LabelPrimary.vue";
 
 export default defineComponent({
     name: "RegisterPage",
+    components: { InputText, LabelPrimary, ButtonPrimary },
     props: {
         user: {
             type: String,

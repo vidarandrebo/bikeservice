@@ -21,15 +21,15 @@
                 <p>Date</p>
                 <p>{{ bike.date }}</p>
             </div>
-            <button @click="deleteBike">Delete</button>
-            <button v-show="showEditButton" @click="showEdit">Edit</button>
-            <edit-bike-form
+            <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
+            <ButtonSecondary @click="deleteBike">Delete</ButtonSecondary>
+            <EditBikeForm
                 v-show="showEditForm"
                 :equipment-types="equipmentTypes"
                 :bike="bike"
                 @edit-done-event="editDoneHandler"
                 @update-bikes-event="updateBikesHandler"
-            ></edit-bike-form>
+            ></EditBikeForm>
         </details>
     </div>
 </template>
@@ -39,11 +39,15 @@ import { defineComponent } from "vue";
 import EditBikeForm from "./EditBikeForm.vue";
 import { Bike } from "../../models/bikes/bike.ts";
 import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
+import ButtonPrimary from "../common/ButtonPrimary.vue";
+import ButtonSecondary from "../common/ButtonSecondary.vue";
 
 export default defineComponent({
     name: "BikeView",
     components: {
-        EditBikeForm
+        ButtonSecondary,
+        EditBikeForm,
+        ButtonPrimary
     },
     props: {
         bike: {

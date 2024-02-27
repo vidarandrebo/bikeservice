@@ -1,10 +1,10 @@
 <template>
     <div>
-        <router-link to="/settings/account">Account</router-link>
-        <router-link to="/settings/bike-types">Bike Types</router-link>
-        <router-link to="/settings/part-types">Part Types</router-link>
-        <router-link to="#">Something</router-link>
-        <router-link to="#">Else</router-link>
+        <RouterLink to="/settings/account">Account</RouterLink>
+        <RouterLink to="/settings/bike-types">Bike Types</RouterLink>
+        <RouterLink to="/settings/part-types">Part Types</RouterLink>
+        <RouterLink to="#">Something</RouterLink>
+        <RouterLink to="#">Else</RouterLink>
     </div>
 </template>
 

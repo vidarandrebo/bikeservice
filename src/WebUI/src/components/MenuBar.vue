@@ -1,32 +1,32 @@
 <template>
-    <header>
-        <div>
-            <router-link to="/">
-                <font-awesome-icon icon="home" size="2x" title="Home"></font-awesome-icon>
-            </router-link>
+    <header class="flex justify-between">
+        <div class="p-1">
+            <RouterLink to="/">
+                <FontAwesomeIcon icon="home" size="2x" title="Home"></FontAwesomeIcon>
+            </RouterLink>
         </div>
-        <div>
-            <router-link to="/bikes">
-                <font-awesome-icon icon="bicycle" size="2x" title="Bikes"></font-awesome-icon>
-            </router-link>
-            <router-link to="/parts">
-                <font-awesome-icon icon="cog" size="2x" title="Parts"></font-awesome-icon>
-            </router-link>
+        <div class="flex gap-4 p-1">
+            <RouterLink to="/bikes">
+                <FontAwesomeIcon icon="bicycle" size="2x" title="Bikes"></FontAwesomeIcon>
+            </RouterLink>
+            <RouterLink to="/parts">
+                <FontAwesomeIcon icon="cog" size="2x" title="Parts"></FontAwesomeIcon>
+            </RouterLink>
         </div>
-        <div>
+        <div class="flex gap-4 p-1">
             <p v-if="user" id="username">{{ user }}</p>
-            <router-link v-if="user" to="/settings">
-                <font-awesome-icon icon="tools" size="2x" title="Settings"></font-awesome-icon>
-            </router-link>
+            <RouterLink v-if="user" to="/settings">
+                <FontAwesomeIcon icon="tools" size="2x" title="Settings"></FontAwesomeIcon>
+            </RouterLink>
             <a v-if="user" href="#" @click="logout">
-                <font-awesome-icon icon="sign-out" size="2x" title="Log out"></font-awesome-icon>
+                <FontAwesomeIcon icon="sign-out" size="2x" title="Log out"></FontAwesomeIcon>
             </a>
-            <router-link v-if="!user" to="/login">
-                <font-awesome-icon icon="sign-in" size="2x" title="Login"></font-awesome-icon>
-            </router-link>
-            <router-link v-if="!user" to="/register">
-                <font-awesome-icon icon="user-plus" size="2x" title="Register"></font-awesome-icon>
-            </router-link>
+            <RouterLink v-if="!user" to="/login">
+                <FontAwesomeIcon icon="sign-in" size="2x" title="Login"></FontAwesomeIcon>
+            </RouterLink>
+            <RouterLink v-if="!user" to="/register">
+                <FontAwesomeIcon icon="user-plus" size="2x" title="Register"></FontAwesomeIcon>
+            </RouterLink>
         </div>
     </header>
 </template>

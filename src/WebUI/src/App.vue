@@ -1,10 +1,9 @@
 <template>
-    <menu-bar :user="user" @update-username-event="updateUsernameHandler"></menu-bar>
+    <MenuBar :user="user" @update-username-event="updateUsernameHandler"></MenuBar>
     <main>
         <!--Changes depending on which component is active-->
-        <router-view :user="user" @update-username-event="updateUsernameHandler"></router-view>
+        <RouterView :user="user" @update-username-event="updateUsernameHandler"></RouterView>
     </main>
-    <div></div>
     <footer>
         <a href="https://github.com/vidarandrebo">https://github.com/vidarandrebo</a>
     </footer>

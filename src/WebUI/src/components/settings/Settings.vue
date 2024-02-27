@@ -1,7 +1,7 @@
 <template>
     <div>
-        <settings-menu></settings-menu>
-        <router-view :user="user"></router-view>
+        <SettingsMenu></SettingsMenu>
+        <RouterView :user="user"></RouterView>
     </div>
 </template>
 <script lang="ts">

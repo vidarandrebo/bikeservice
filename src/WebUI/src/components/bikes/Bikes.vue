@@ -1,13 +1,13 @@
 <template>
-    <new-bike-form :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler"> </new-bike-form>
-    <bike-view
+    <NewBikeForm :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler"></NewBikeForm>
+    <BikeView
         v-for="bike in bikes"
         :key="bike.id"
         :bike="bike"
         :equipment-types="equipmentTypes"
         @update-bikes-event="updateBikesHandler"
     >
-    </bike-view>
+    </BikeView>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

@@ -2,33 +2,33 @@
     <div>
         <form id="new-bike" method="POST" @submit.prevent="putBike">
             <div>
-                <label for="manufacturer">Manufacturer</label>
-                <input id="manufacturer" v-model="bikeData.manufacturer" type="text" required />
+                <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
+                <InputText id="manufacturer" v-model="bikeData.manufacturer" required />
             </div>
             <div>
-                <label for="model">Model</label>
-                <input id="model" v-model="bikeData.model" type="text" required />
+                <LabelPrimary for="model">Model</LabelPrimary>
+                <InputText id="model" v-model="bikeData.model" required />
             </div>
             <div>
-                <label for="mileage">Mileage</label>
-                <input id="mileage" v-model="bikeData.mileage" type="number" required />
+                <LabelPrimary for="mileage">Mileage</LabelPrimary>
+                <InputNumber id="mileage" v-model="bikeData.mileage" required />
             </div>
             <div>
-                <label for="date">Date</label>
-                <input id="date" v-model="date" type="date" required />
+                <LabelPrimary for="date">Date</LabelPrimary>
+                <InputDate id="date" v-model="date" required />
             </div>
             <div>
-                <label for="type">Type</label>
-                <select id="type" v-model="bikeData.typeId" required>
+                <LabelPrimary for="type">Type</LabelPrimary>
+                <SelectPrimary id="type" v-model="bikeData.typeId" required>
                     <option value="0">No Type</option>
                     <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
                         {{ bikeType.name }}
                     </option>
-                </select>
+                </SelectPrimary>
             </div>
             <div>
-                <input type="submit" value="Save" />
-                <button @click.prevent="hideForm">Cancel</button>
+                <ButtonPrimary type="submit">Save</ButtonPrimary>
+                <ButtonSecondary @click.prevent="hideForm">Cancel</ButtonSecondary>
             </div>
         </form>
     </div>
@@ -40,9 +40,25 @@ import { Bike } from "../../models/bikes/bike.ts";
 import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
 import { Category } from "../../models/equipmentTypes/category.ts";
 import { getDateString } from "../../models/dateFormatter.ts";
+import ButtonPrimary from "../common/ButtonPrimary.vue";
+import ButtonSecondary from "../common/ButtonSecondary.vue";
+import LabelPrimary from "../common/LabelPrimary.vue";
+import SelectPrimary from "../common/SelectPrimary.vue";
+import InputText from "../common/InputText.vue";
+import InputNumber from "../common/InputNumber.vue";
+import InputDate from "../common/InputDate.vue";
 
 export default defineComponent({
     name: "EditBikeForm",
+    components: {
+        ButtonSecondary,
+        InputDate,
+        InputNumber,
+        InputText,
+        SelectPrimary,
+        LabelPrimary,
+        ButtonPrimary
+    },
     props: {
         equipmentTypes: {
             required: true,

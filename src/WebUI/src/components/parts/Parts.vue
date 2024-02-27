@@ -1,7 +1,7 @@
 <template>
-    <new-part-form :equipment-types="equipmentTypes" :bikes="bikes" @update-parts-event="updatePartsHandler">
-    </new-part-form>
-    <part-view
+    <NewPartForm :equipment-types="equipmentTypes" :bikes="bikes" @update-parts-event="updatePartsHandler">
+    </NewPartForm>
+    <PartView
         v-for="part in parts"
         :key="part.id"
         :part="part"
@@ -9,7 +9,7 @@
         :bikes="bikes"
         @update-parts-event="updatePartsHandler"
     >
-    </part-view>
+    </PartView>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
