@@ -76,5 +76,9 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
+router.beforeEach((to, _, next) => {
+    document.title = "BikeService - " + <string>to.name;
+    next();
+});
 
 export default router;

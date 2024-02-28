@@ -1,36 +1,38 @@
 <template>
-    <ButtonPrimary v-show="!show" @click="showForm">New Bike</ButtonPrimary>
-    <form v-show="show" id="new-bike" method="POST" @submit.prevent="addBike">
-        <div>
-            <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
-            <TextInput id="manufacturer" v-model="bikeData.manufacturer" required />
-        </div>
-        <div>
-            <LabelPrimary for="model">Model</LabelPrimary>
-            <TextInput id="model" v-model="bikeData.model" required />
-        </div>
-        <div>
-            <LabelPrimary for="mileage">Mileage</LabelPrimary>
-            <NumberInput id="mileage" v-model="bikeData.mileage" required />
-        </div>
-        <div>
-            <LabelPrimary for="date">Date</LabelPrimary>
-            <DateInput id="date" v-model="date" required />
-        </div>
-        <div>
-            <LabelPrimary for="type">Type</LabelPrimary>
-            <SelectPrimary id="type" v-model="bikeData.typeId" required>
-                <option value="0">No Type</option>
-                <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
-                    {{ bikeType.name }}
-                </option>
-            </SelectPrimary>
-        </div>
-        <div>
-            <ButtonPrimary type="submit">Add</ButtonPrimary>
-            <ButtonSecondary @click="hideForm">Cancel</ButtonSecondary>
-        </div>
-    </form>
+    <article>
+        <ButtonPrimary v-show="!show" @click="showForm">New Bike</ButtonPrimary>
+        <form v-show="show" id="new-bike" method="POST" @submit.prevent="addBike">
+            <FormField>
+                <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
+                <TextInput id="manufacturer" v-model="bikeData.manufacturer" required />
+            </FormField>
+            <FormField>
+                <LabelPrimary for="model">Model</LabelPrimary>
+                <TextInput id="model" v-model="bikeData.model" required />
+            </FormField>
+            <FormField>
+                <LabelPrimary for="mileage">Mileage</LabelPrimary>
+                <NumberInput id="mileage" v-model="bikeData.mileage" required />
+            </FormField>
+            <FormField>
+                <LabelPrimary for="date">Date</LabelPrimary>
+                <DateInput id="date" v-model="date" required />
+            </FormField>
+            <FormField>
+                <LabelPrimary for="type">Type</LabelPrimary>
+                <SelectPrimary id="type" v-model="bikeData.typeId" required>
+                    <option value="0">No Type</option>
+                    <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
+                        {{ bikeType.name }}
+                    </option>
+                </SelectPrimary>
+            </FormField>
+            <FormField class="flex space-x-2">
+                <ButtonPrimary type="submit">Add</ButtonPrimary>
+                <ButtonSecondary @click="hideForm">Cancel</ButtonSecondary>
+            </FormField>
+        </form>
+    </article>
 </template>
 
 <script lang="ts">
@@ -45,10 +47,20 @@ import NumberInput from "../common/InputNumber.vue";
 import DateInput from "../common/InputDate.vue";
 import SelectPrimary from "../common/SelectPrimary.vue";
 import ButtonSecondary from "../common/ButtonSecondary.vue";
+import FormField from "../common/FormField.vue";
 
 export default defineComponent({
     name: "NewBikeForm",
-    components: { ButtonSecondary, SelectPrimary, DateInput, NumberInput, TextInput, LabelPrimary, ButtonPrimary },
+    components: {
+        FormField,
+        ButtonSecondary,
+        SelectPrimary,
+        DateInput,
+        NumberInput,
+        TextInput,
+        LabelPrimary,
+        ButtonPrimary
+    },
     props: {
         equipmentTypes: {
             required: true,
@@ -60,7 +72,7 @@ export default defineComponent({
             return true;
         }
     },
-    data: function () {
+    data: function() {
         return {
             bikeData: new Bike(),
             date: "",
@@ -73,7 +85,7 @@ export default defineComponent({
         }
     },
     methods: {
-        addBike: async function () {
+        addBike: async function() {
             this.bikeData.date = new Date(this.date);
             let result = await this.bikeData.addBikeRequest();
             if (result.status === 201) {
@@ -83,10 +95,10 @@ export default defineComponent({
                 this.$emit("updateBikesEvent");
             }
         },
-        hideForm: function () {
+        hideForm: function() {
             this.show = false;
         },
-        showForm: function () {
+        showForm: function() {
             this.show = true;
         }
     }

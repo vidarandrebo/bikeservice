@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <main>
         <SettingsMenu></SettingsMenu>
         <RouterView :user="user"></RouterView>
-    </div>
+    </main>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";

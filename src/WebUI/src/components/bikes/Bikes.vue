@@ -1,13 +1,16 @@
 <template>
-    <NewBikeForm :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler"></NewBikeForm>
-    <BikeView
-        v-for="bike in bikes"
-        :key="bike.id"
-        :bike="bike"
-        :equipment-types="equipmentTypes"
-        @update-bikes-event="updateBikesHandler"
-    >
-    </BikeView>
+    <main>
+        <article class="flex flex-col items-center justify-center">
+            <h1 class="min-w-full">Bikes</h1>
+            <NewBikeForm :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler" class="min-w-full"></NewBikeForm>
+            <ol class="flex flex-col space-y-2 min-w-full">
+                <li v-for="bike in bikes" :key="bike.id" >
+                    <BikeView :bike="bike" :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler">
+                    </BikeView>
+                </li>
+            </ol>
+        </article>
+    </main>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

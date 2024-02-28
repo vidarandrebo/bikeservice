@@ -1,37 +1,28 @@
 <template>
-    <div>
-        <h5>{{ bike.manufacturer }} {{ bike.model }}</h5>
-        <details>
-            <summary>More</summary>
-            <div>
-                <div>
-                    <p>Distance:</p>
-                    <p>{{ bike.mileage }} km</p>
-                </div>
-                <div>
-                    <p>Guid:</p>
-                    <p>{{ bike.id }}</p>
-                </div>
-            </div>
-            <div>
-                <p>Type</p>
-                <p>{{ equipmentType.name }}</p>
-            </div>
-            <div>
-                <p>Date</p>
-                <p>{{ bike.date }}</p>
-            </div>
-            <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
-            <ButtonSecondary @click="deleteBike">Delete</ButtonSecondary>
-            <EditBikeForm
-                v-show="showEditForm"
-                :equipment-types="equipmentTypes"
-                :bike="bike"
-                @edit-done-event="editDoneHandler"
-                @update-bikes-event="updateBikesHandler"
-            ></EditBikeForm>
-        </details>
-    </div>
+    <article class="bg-amber-300 p-2">
+        <h2>{{ bike.manufacturer }} {{ bike.model }}</h2>
+        <div class="">
+            <p>Distance:</p>
+            <p>{{ bike.mileage }} km</p>
+        </div>
+        <div>
+            <p>Guid:</p>
+            <p>{{ bike.id }}</p>
+        </div>
+        <p>Type</p>
+        <p>{{ equipmentType.name }}</p>
+        <p>Date</p>
+        <p>{{ bike.date }}</p>
+        <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
+        <ButtonSecondary @click="deleteBike">Delete</ButtonSecondary>
+        <EditBikeForm
+            v-show="showEditForm"
+            :equipment-types="equipmentTypes"
+            :bike="bike"
+            @edit-done-event="editDoneHandler"
+            @update-bikes-event="updateBikesHandler"
+        ></EditBikeForm>
+    </article>
 </template>
 
 <script lang="ts">
@@ -64,7 +55,7 @@ export default defineComponent({
             return true;
         }
     },
-    data: function () {
+    data: function() {
         return {
             showEditForm: false,
             showEditButton: true
@@ -80,21 +71,21 @@ export default defineComponent({
         }
     },
     methods: {
-        deleteBike: async function () {
+        deleteBike: async function() {
             if (this.bike != null) {
                 await this.bike.deleteBikeRequest();
                 this.$emit("updateBikesEvent");
             }
         },
-        showEdit: function () {
+        showEdit: function() {
             this.showEditForm = true;
             this.showEditButton = false;
         },
-        editDoneHandler: function () {
+        editDoneHandler: function() {
             this.showEditForm = false;
             this.showEditButton = true;
         },
-        updateBikesHandler: function () {
+        updateBikesHandler: function() {
             this.$emit("updateBikesEvent");
         }
     }
