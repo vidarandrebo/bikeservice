@@ -1,20 +1,52 @@
 <template>
-    <article class="bg-amber-300 p-2">
-        <h2>{{ bike.manufacturer }} {{ bike.model }}</h2>
-        <div class="">
-            <p>Distance:</p>
-            <p>{{ bike.mileage }} km</p>
+    <article class="bg-gray-300 p-2 rounded">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="row" colspan="2">
+                        <h2>{{ bike.manufacturer }} {{ bike.model }}</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <p>Distance:</p>
+                    </th>
+                    <td>
+                        <p>{{ bike.mileage }} km</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Guid</p>
+                    </th>
+                    <td>
+                        <p>{{ bike.id }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Type</p>
+                    </th>
+                    <td>
+                        <p>{{ equipmentType.name }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Date</p>
+                    </th>
+                    <td>
+                        <p>{{ bike.date }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="space-x-1">
+            <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
+            <ButtonSecondary @click="deleteBike">Delete</ButtonSecondary>
         </div>
-        <div>
-            <p>Guid:</p>
-            <p>{{ bike.id }}</p>
-        </div>
-        <p>Type</p>
-        <p>{{ equipmentType.name }}</p>
-        <p>Date</p>
-        <p>{{ bike.date }}</p>
-        <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
-        <ButtonSecondary @click="deleteBike">Delete</ButtonSecondary>
         <EditBikeForm
             v-show="showEditForm"
             :equipment-types="equipmentTypes"
@@ -55,7 +87,7 @@ export default defineComponent({
             return true;
         }
     },
-    data: function() {
+    data: function () {
         return {
             showEditForm: false,
             showEditButton: true
@@ -71,21 +103,21 @@ export default defineComponent({
         }
     },
     methods: {
-        deleteBike: async function() {
+        deleteBike: async function () {
             if (this.bike != null) {
                 await this.bike.deleteBikeRequest();
                 this.$emit("updateBikesEvent");
             }
         },
-        showEdit: function() {
+        showEdit: function () {
             this.showEditForm = true;
             this.showEditButton = false;
         },
-        editDoneHandler: function() {
+        editDoneHandler: function () {
             this.showEditForm = false;
             this.showEditButton = true;
         },
-        updateBikesHandler: function() {
+        updateBikesHandler: function () {
             this.$emit("updateBikesEvent");
         }
     }

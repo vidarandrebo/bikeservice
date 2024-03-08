@@ -72,7 +72,7 @@ export default defineComponent({
             return true;
         }
     },
-    data: function() {
+    data: function () {
         return {
             bikeData: new Bike(),
             date: "",
@@ -85,7 +85,7 @@ export default defineComponent({
         }
     },
     methods: {
-        addBike: async function() {
+        addBike: async function () {
             this.bikeData.date = new Date(this.date);
             let result = await this.bikeData.addBikeRequest();
             if (result.status === 201) {
@@ -95,10 +95,10 @@ export default defineComponent({
                 this.$emit("updateBikesEvent");
             }
         },
-        hideForm: function() {
+        hideForm: function () {
             this.show = false;
         },
-        showForm: function() {
+        showForm: function () {
             this.show = true;
         }
     }

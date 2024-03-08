@@ -45,13 +45,13 @@ export default defineComponent({
             return true;
         }
     },
-    data: function() {
+    data: function () {
         return {
             registerData: new RegisterData()
         };
     },
     methods: {
-        registerUser: async function() {
+        registerUser: async function () {
             this.registerData.passwordRequirementsCheck();
             if (this.registerData.error.length > 0) {
                 return;

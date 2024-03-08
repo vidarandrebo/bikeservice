@@ -1,44 +1,44 @@
 <template>
-    <header class="flex justify-between">
-        <div class="p-1">
+    <header class="flex justify-between bg-blue-500 text-white">
+        <div class="px-1">
             <RouterLink to="/">
-                <FontAwesomeIcon icon="home" size="2x" title="Home"></FontAwesomeIcon>
+                <MenuBarIcon icon="home" title="Home"></MenuBarIcon>
             </RouterLink>
         </div>
-        <div class="flex gap-4 p-1">
+        <div class="flex gap-4 px-1">
             <RouterLink to="/bikes">
-                <FontAwesomeIcon icon="bicycle" size="2x" title="Bikes"></FontAwesomeIcon>
+                <MenuBarIcon icon="bicycle" title="Bikes"></MenuBarIcon>
             </RouterLink>
             <RouterLink to="/parts">
-                <FontAwesomeIcon icon="cog" size="2x" title="Parts"></FontAwesomeIcon>
+                <MenuBarIcon icon="cog" title="Parts"></MenuBarIcon>
             </RouterLink>
         </div>
-        <div class="flex gap-4 p-1">
-            <p v-if="user" id="username">{{ user }}</p>
+        <div class="flex gap-4 px-1">
+            <p v-if="user" id="username" class="h-full flex flex-col justify-center">{{ user }}</p>
             <RouterLink v-if="user" to="/settings">
-                <FontAwesomeIcon icon="tools" size="2x" title="Settings"></FontAwesomeIcon>
+                <MenuBarIcon icon="tools" title="Settings"></MenuBarIcon>
             </RouterLink>
             <a v-if="user" href="#" @click="logout">
-                <FontAwesomeIcon icon="sign-out" size="2x" title="Log out"></FontAwesomeIcon>
+                <MenuBarIcon icon="sign-out" title="Log out"></MenuBarIcon>
             </a>
             <RouterLink v-if="!user" to="/login">
-                <FontAwesomeIcon icon="sign-in" size="2x" title="Login"></FontAwesomeIcon>
+                <MenuBarIcon icon="sign-in" title="Login"></MenuBarIcon>
             </RouterLink>
             <RouterLink v-if="!user" to="/register">
-                <FontAwesomeIcon icon="user-plus" size="2x" title="Register"></FontAwesomeIcon>
+                <MenuBarIcon icon="user-plus" title="Register"></MenuBarIcon>
             </RouterLink>
         </div>
     </header>
 </template>
 <script lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { defineComponent, PropType } from "vue";
 import router from "../router";
+import MenuBarIcon from "./common/MenuBarIcon.vue";
 
 export default defineComponent({
     name: "MenuBar",
     components: {
-        FontAwesomeIcon
+        MenuBarIcon
     },
     props: {
         user: {

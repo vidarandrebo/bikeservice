@@ -35,14 +35,14 @@ export default defineComponent({
             return true;
         }
     },
-    data: function() {
+    data: function () {
         return {
             parts: [] as Array<Part>,
             bikes: [] as Array<Bike>,
             equipmentTypes: [] as Array<EquipmentType>
         };
     },
-    created: async function() {
+    created: async function () {
         const partsPromise = getPartsRequest();
         const bikesPromise = getBikesRequest();
         const equipmentTypesPromise = getTypeRequest();
@@ -54,7 +54,7 @@ export default defineComponent({
         /**
          * Handler for updatePartsEvent
          */
-        updatePartsHandler: async function() {
+        updatePartsHandler: async function () {
             this.parts = await getPartsRequest();
         }
     }

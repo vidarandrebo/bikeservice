@@ -10,9 +10,6 @@ export default defineComponent({
     <footer>
         <a href="https://github.com/vidarandrebo">https://github.com/vidarandrebo</a>
     </footer>
-
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

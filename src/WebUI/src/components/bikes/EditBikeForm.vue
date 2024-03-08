@@ -77,7 +77,7 @@ export default defineComponent({
             return true;
         }
     },
-    data: function() {
+    data: function () {
         return {
             bikeData: new Bike(),
             date: ""
@@ -89,15 +89,15 @@ export default defineComponent({
         }
     },
     watch: {
-        bike: function() {
+        bike: function () {
             this.setFormDataFromProp();
         }
     },
-    created: function() {
+    created: function () {
         this.setFormDataFromProp();
     },
     methods: {
-        putBike: async function() {
+        putBike: async function () {
             this.bikeData.date = new Date(this.date);
             let result = await this.bikeData.putBikeRequest();
             if (result.status === 200) {
@@ -107,7 +107,7 @@ export default defineComponent({
                 this.$emit("editDoneEvent");
             }
         },
-        hideForm: function() {
+        hideForm: function () {
             this.$emit("editDoneEvent");
         },
         setFormDataFromProp() {

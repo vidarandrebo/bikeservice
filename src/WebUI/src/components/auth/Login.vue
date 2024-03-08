@@ -43,13 +43,13 @@ export default defineComponent({
             return value;
         }
     },
-    data: function() {
+    data: function () {
         return {
             loginData: new LoginData()
         };
     },
     methods: {
-        loginUser: async function(): Promise<void> {
+        loginUser: async function (): Promise<void> {
             let user: IUser = new User(this.loginData.username, this.loginData.passwd);
             let response = await user.loginUserRequest();
             if (response.status == 200) {
