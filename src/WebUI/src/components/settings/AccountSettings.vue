@@ -3,16 +3,16 @@
         <form id="changePasswd" method="POST" @submit.prevent="changePasswd">
             <p v-for="(err, i) in accountSettings.errors" :key="i">{{ err }}</p>
             <LabelPrimary for="oldpasswd">Old Password</LabelPrimary>
-            <InputText id="oldpasswd" v-model="accountSettings.oldPassword" type="password" name="oldpasswd" required />
+            <InputText id="oldpasswd" v-model="accountSettings.oldPassword" name="oldpasswd" required type="password" />
             <LabelPrimary for="newpasswd">New Password</LabelPrimary>
-            <InputText id="newpasswd" v-model="accountSettings.newPassword" type="password" name="newpasswd" required />
+            <InputText id="newpasswd" v-model="accountSettings.newPassword" name="newpasswd" required type="password" />
             <LabelPrimary for="renewpasswd">Repeat New Password</LabelPrimary>
             <InputText
                 id="renewpasswd"
                 v-model="accountSettings.reNewPassword"
-                type="password"
                 name="renewpasswd"
                 required
+                type="password"
             />
             <ButtonPrimary type="submit">Change Password"</ButtonPrimary>
         </form>

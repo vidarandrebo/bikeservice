@@ -1,13 +1,13 @@
 <template>
     <main>
-        <NewPartForm :equipment-types="equipmentTypes" :bikes="bikes" @update-parts-event="updatePartsHandler">
+        <NewPartForm :bikes="bikes" :equipment-types="equipmentTypes" @update-parts-event="updatePartsHandler">
         </NewPartForm>
         <PartView
             v-for="part in parts"
             :key="part.id"
-            :part="part"
-            :equipment-types="equipmentTypes"
             :bikes="bikes"
+            :equipment-types="equipmentTypes"
+            :part="part"
             @update-parts-event="updatePartsHandler"
         >
         </PartView>

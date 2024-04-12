@@ -9,11 +9,11 @@
                 </FormField>
                 <FormField>
                     <LabelPrimary for="passwd">Password</LabelPrimary>
-                    <InputText id="passwd" v-model="registerData.passwd" type="password" required />
+                    <InputText id="passwd" v-model="registerData.passwd" required type="password" />
                 </FormField>
                 <FormField>
                     <LabelPrimary for="repeat-passwd">Repeat password</LabelPrimary>
-                    <InputText id="repeat-passwd" v-model="registerData.repasswd" type="password" required />
+                    <InputText id="repeat-passwd" v-model="registerData.repasswd" required type="password" />
                 </FormField>
                 <FormField>
                     <ButtonPrimary type="submit">Register</ButtonPrimary>

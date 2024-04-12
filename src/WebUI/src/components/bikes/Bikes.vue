@@ -4,8 +4,8 @@
             <h1 class="min-w-full">Bikes</h1>
             <NewBikeForm
                 :equipment-types="equipmentTypes"
-                @update-bikes-event="updateBikesHandler"
                 class="min-w-full"
+                @update-bikes-event="updateBikesHandler"
             ></NewBikeForm>
             <ol class="flex flex-col space-y-2 min-w-full">
                 <li v-for="bike in bikes" :key="bike.id">

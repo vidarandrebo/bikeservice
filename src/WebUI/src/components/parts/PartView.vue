@@ -21,8 +21,8 @@
             <ButtonSecondary @click="deletePart">Delete</ButtonSecondary>
             <EditPartForm
                 v-show="showEditForm"
-                :equipment-types="equipmentTypes"
                 :bikes="bikes"
+                :equipment-types="equipmentTypes"
                 :part="part"
                 @edit-done-event="editDoneHandler"
                 @update-parts-event="updatePartsHandler"

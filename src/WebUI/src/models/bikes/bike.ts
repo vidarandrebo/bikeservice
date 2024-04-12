@@ -8,6 +8,20 @@ export class Bike {
     typeId: string;
     date: Date;
 
+    // Copies over the fields in the argument object if given
+    constructor(...args: Bike[]) {
+        this.id = "";
+        this.manufacturer = "";
+        this.model = "";
+        this.mileage = 0.0;
+        this.typeId = "";
+        this.date = new Date();
+        if (args.length === 1) {
+            Object.assign(this, args[0]);
+            this.date = new Date(args[0].date);
+        }
+    }
+
     async addBikeRequest(): Promise<FetchResponse<null>> {
         return await httpPost<Bike>("/api/bike", this);
     }
@@ -25,20 +39,6 @@ export class Bike {
         this.model = "";
         this.mileage = 0.0;
         this.typeId = "";
-    }
-
-    // Copies over the fields in the argument object if given
-    constructor(...args: Bike[]) {
-        this.id = "";
-        this.manufacturer = "";
-        this.model = "";
-        this.mileage = 0.0;
-        this.typeId = "";
-        this.date = new Date();
-        if (args.length === 1) {
-            Object.assign(this, args[0]);
-            this.date = new Date(args[0].date);
-        }
     }
 }
 

@@ -9,7 +9,7 @@
                 </FormField>
                 <FormField>
                     <LabelPrimary for="passwd">Password</LabelPrimary>
-                    <InputText id="passwd" v-model="loginData.passwd" type="password" name="passwd" required />
+                    <InputText id="passwd" v-model="loginData.passwd" name="passwd" required type="password" />
                 </FormField>
                 <FormField>
                     <ButtonPrimary type="submit">Login</ButtonPrimary>

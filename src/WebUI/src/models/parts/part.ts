@@ -8,6 +8,18 @@ export class Part {
     typeId: string;
     bikeId: string;
 
+    constructor(...args: Part[]) {
+        this.id = "";
+        this.manufacturer = "";
+        this.model = "";
+        this.mileage = 0.0;
+        this.typeId = "";
+        this.bikeId = "";
+        if (args.length === 1) {
+            Object.assign(this, args[0]);
+        }
+    }
+
     clear(): void {
         this.id = "";
         this.mileage = 0.0;
@@ -27,18 +39,6 @@ export class Part {
 
     async putPartRequest(): Promise<FetchResponse<null>> {
         return await httpPut<Part>("/api/part", this);
-    }
-
-    constructor(...args: Part[]) {
-        this.id = "";
-        this.manufacturer = "";
-        this.model = "";
-        this.mileage = 0.0;
-        this.typeId = "";
-        this.bikeId = "";
-        if (args.length === 1) {
-            Object.assign(this, args[0]);
-        }
     }
 }
 

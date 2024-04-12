@@ -1,6 +1,6 @@
 <template>
     <div class="hover:bg-blue-700 p-1 rounded">
-        <FontAwesomeIcon size="2x" v-bind="$attrs"></FontAwesomeIcon>
+        <FontAwesomeIcon :icon="icon" size="2x" v-bind="$attrs"></FontAwesomeIcon>
     </div>
 </template>
 <script lang="ts">
@@ -12,6 +12,12 @@ export default defineComponent({
     components: {
         FontAwesomeIcon
     },
-    inheritAttrs: false
+    inheritAttrs: false,
+    props: {
+        icon: {
+            required: true,
+            type: String
+        }
+    }
 });
 </script>

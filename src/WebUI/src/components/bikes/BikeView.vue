@@ -3,7 +3,7 @@
         <table>
             <thead>
                 <tr>
-                    <th scope="row" colspan="2">
+                    <th colspan="2" scope="row">
                         <h2>{{ bike.manufacturer }} {{ bike.model }}</h2>
                     </th>
                 </tr>
@@ -49,8 +49,8 @@
         </div>
         <EditBikeForm
             v-show="showEditForm"
-            :equipment-types="equipmentTypes"
             :bike="bike"
+            :equipment-types="equipmentTypes"
             @edit-done-event="editDoneHandler"
             @update-bikes-event="updateBikesHandler"
         ></EditBikeForm>

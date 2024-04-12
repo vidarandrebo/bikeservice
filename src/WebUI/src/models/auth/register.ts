@@ -13,6 +13,13 @@ export class RegisterData implements IRegisterData {
     repasswd: string;
     error: Array<string>;
 
+    constructor() {
+        this.username = "";
+        this.passwd = "";
+        this.repasswd = "";
+        this.error = new Array<string>();
+    }
+
     passwordRequirementsCheck(): void {
         this.error = new Array<string>();
         if (this.passwd !== this.repasswd) {
@@ -21,12 +28,5 @@ export class RegisterData implements IRegisterData {
         if (this.passwd.length < 8) {
             this.error.push("Password should be 8 characters or longer!");
         }
-    }
-
-    constructor() {
-        this.username = "";
-        this.passwd = "";
-        this.repasswd = "";
-        this.error = new Array<string>();
     }
 }
