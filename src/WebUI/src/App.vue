@@ -1,11 +1,13 @@
 <template>
-    <MenuBar :user="user" @update-username-event="updateUsernameHandler"></MenuBar>
-    <RouterView
-        :user="user"
-        class="flex flex-row justify-center items-center"
-        @update-username-event="updateUsernameHandler"
-    ></RouterView>
-    <PageFooter></PageFooter>
+    <div class="flex flex-col h-screen">
+        <MenuBar :user="user" @update-username-event="updateUsernameHandler"></MenuBar>
+        <RouterView
+            :user="user"
+            class="grow flex flex-row justify-center"
+            @update-username-event="updateUsernameHandler"
+        ></RouterView>
+        <PageFooter></PageFooter>
+    </div>
 </template>
 
 <script lang="ts">

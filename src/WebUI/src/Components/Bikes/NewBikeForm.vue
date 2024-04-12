@@ -1,6 +1,8 @@
 <template>
     <article>
-        <ButtonPrimary v-show="!show" @click="showForm">New Bike</ButtonPrimary>
+        <FormField>
+            <ButtonPrimary v-show="!show" @click="showForm">New Bike</ButtonPrimary>
+        </FormField>
         <form v-show="show" id="new-bike" method="POST" @submit.prevent="addBike">
             <FormField>
                 <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
@@ -27,7 +29,7 @@
                     </option>
                 </SelectPrimary>
             </FormField>
-            <FormField class="flex space-x-2">
+            <FormField class="space-x-1">
                 <ButtonPrimary type="submit">Add</ButtonPrimary>
                 <ButtonSecondary @click="hideForm">Cancel</ButtonSecondary>
             </FormField>

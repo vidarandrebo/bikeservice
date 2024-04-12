@@ -1,13 +1,9 @@
 <template>
     <main>
-        <article class="flex flex-col items-center justify-center">
-            <h1 class="min-w-full">Bikes</h1>
-            <NewBikeForm
-                :equipment-types="equipmentTypes"
-                class="min-w-full"
-                @update-bikes-event="updateBikesHandler"
-            ></NewBikeForm>
-            <ol class="flex flex-col space-y-2 min-w-full">
+        <article class="flex max-w-prose flex-col">
+            <h1 class="">Bikes</h1>
+            <NewBikeForm :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler"></NewBikeForm>
+            <ol class="space-y-2">
                 <li v-for="bike in bikes" :key="bike.id">
                     <BikeView :bike="bike" :equipment-types="equipmentTypes" @update-bikes-event="updateBikesHandler">
                     </BikeView>

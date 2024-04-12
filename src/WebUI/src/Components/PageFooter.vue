@@ -7,9 +7,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <footer>
+    <footer class="sticky bottom-0 z-50 bg-white">
         <a href="https://github.com/vidarandrebo">https://github.com/vidarandrebo</a>
     </footer>
 </template>
-
-<style scoped></style>

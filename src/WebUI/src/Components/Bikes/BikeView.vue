@@ -45,7 +45,7 @@
         </table>
         <div class="space-x-1">
             <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
-            <ButtonSecondary @click="deleteBike">Delete</ButtonSecondary>
+            <ButtonSecondary v-show="showEditButton" @click="deleteBike">Delete</ButtonSecondary>
         </div>
         <EditBikeForm
             v-show="showEditForm"

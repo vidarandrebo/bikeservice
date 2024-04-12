@@ -1,35 +1,62 @@
 <template>
-    <div>
-        <h5>{{ part.manufacturer }} {{ part.model }} {{ equipmentType.name }}</h5>
-        <details>
-            <summary>More</summary>
-            <div>
-                <div>
-                    <p>Distance:</p>
-                    <p>{{ part.mileage }} km</p>
-                </div>
-                <div>
-                    <p>Guid:</p>
-                    <p>{{ part.id }}</p>
-                </div>
-                <div>
-                    <p>Bike:</p>
-                    <p>{{ bike.manufacturer }} {{ bike.model }}</p>
-                </div>
-            </div>
+    <article class="bg-gray-300 p-2 rounded">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" scope="row">
+                        <h2>{{ part.manufacturer }} {{ part.model }}</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <p>Distance:</p>
+                    </th>
+                    <td>
+                        <p>{{ part.mileage }} km</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Guid</p>
+                    </th>
+                    <td>
+                        <p>{{ part.id }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Type</p>
+                    </th>
+                    <td>
+                        <p>{{ equipmentType.name }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Bike</p>
+                    </th>
+                    <td>
+                        <p>{{ bike.manufacturer }} {{ bike.model }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="space-x-1">
             <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
-            <ButtonSecondary @click="deletePart">Delete</ButtonSecondary>
-            <EditPartForm
-                v-show="showEditForm"
-                :bikes="bikes"
-                :equipment-types="equipmentTypes"
-                :part="part"
-                @edit-done-event="editDoneHandler"
-                @update-parts-event="updatePartsHandler"
-            >
-            </EditPartForm>
-        </details>
-    </div>
+            <ButtonSecondary v-show="showEditButton" @click="deletePart">Delete</ButtonSecondary>
+        </div>
+        <EditPartForm
+            v-show="showEditForm"
+            :bikes="bikes"
+            :equipment-types="equipmentTypes"
+            :part="part"
+            @edit-done-event="editDoneHandler"
+            @update-parts-event="updatePartsHandler"
+        >
+        </EditPartForm>
+    </article>
 </template>
 
 <script lang="ts">

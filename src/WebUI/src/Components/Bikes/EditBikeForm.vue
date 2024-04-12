@@ -25,7 +25,7 @@
                 </option>
             </SelectPrimary>
         </FormField>
-        <FormField>
+        <FormField class="space-x-1">
             <ButtonPrimary type="submit">Save</ButtonPrimary>
             <ButtonSecondary @click.prevent="hideForm">Cancel</ButtonSecondary>
         </FormField>

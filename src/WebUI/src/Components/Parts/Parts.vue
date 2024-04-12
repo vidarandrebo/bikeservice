@@ -1,16 +1,21 @@
 <template>
     <main>
-        <NewPartForm :bikes="bikes" :equipment-types="equipmentTypes" @update-parts-event="updatePartsHandler">
-        </NewPartForm>
-        <PartView
-            v-for="part in parts"
-            :key="part.id"
-            :bikes="bikes"
-            :equipment-types="equipmentTypes"
-            :part="part"
-            @update-parts-event="updatePartsHandler"
-        >
-        </PartView>
+        <article class="flex max-w-prose flex-col">
+            <h1 class="">Parts</h1>
+            <NewPartForm :bikes="bikes" :equipment-types="equipmentTypes" @update-parts-event="updatePartsHandler">
+            </NewPartForm>
+            <ol class="space-y-2">
+                <li v-for="part in parts" :key="part.id">
+                    <PartView
+                        :bikes="bikes"
+                        :equipment-types="equipmentTypes"
+                        :part="part"
+                        @update-parts-event="updatePartsHandler"
+                    >
+                    </PartView>
+                </li>
+            </ol>
+        </article>
     </main>
 </template>
 <script lang="ts">
