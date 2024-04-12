@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <h2>Add Part Type</h2>
+            <h2>Add Bike Type</h2>
             <form id="addBikeType" method="POST" @submit.prevent="addType">
                 <LabelPrimary for="name">Name</LabelPrimary>
                 <InputText id="name" v-model="equipmentTypeSettings.name" name="name" required />
@@ -9,22 +9,22 @@
             </form>
         </div>
         <div>
-            <h2>Part Types</h2>
-            <p v-for="type in partTypes" :key="type.id">{{ type.name }}</p>
+            <h2>Bike Types</h2>
+            <p v-for="type in bikeTypes" :key="type.id">{{ type.name }}</p>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { EquipmentType, getTypeRequest } from "../../models/equipmentTypes/equipmentType.ts";
-import { Category } from "../../models/equipmentTypes/category.ts";
-import LabelPrimary from "../common/LabelPrimary.vue";
-import InputText from "../common/InputText.vue";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
+import { EquipmentType, getTypeRequest } from "../../Models/EquipmentTypes/EquipmentType.ts";
+import { Category } from "../../Models/EquipmentTypes/Category.ts";
+import LabelPrimary from "../Common/LabelPrimary.vue";
+import InputText from "../Common/InputText.vue";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
 
 export default defineComponent({
-    name: "PartTypeSettings",
+    name: "BikeTypeSettings",
     components: { ButtonPrimary, InputText, LabelPrimary },
     data: function () {
         return {
@@ -33,8 +33,8 @@ export default defineComponent({
         };
     },
     computed: {
-        partTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter((t) => t.category == Category.Part);
+        bikeTypes(): Array<EquipmentType> {
+            return this.equipmentTypes.filter((t) => t.category == Category.Bike);
         }
     },
     async created() {
@@ -42,7 +42,6 @@ export default defineComponent({
     },
     methods: {
         addType: async function () {
-            this.equipmentTypeSettings.category = Category.Part;
             let result = await this.equipmentTypeSettings.addTypeRequest();
             if (result.status == 201) {
                 this.equipmentTypeSettings.clear();

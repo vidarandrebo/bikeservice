@@ -17,9 +17,9 @@
 import { defineComponent } from "vue";
 import PartView from "./PartView.vue";
 import NewPartForm from "./NewPartForm.vue";
-import { getPartsRequest, Part } from "../../models/parts/part.ts";
-import { Bike, getBikesRequest } from "../../models/bikes/bike.ts";
-import { EquipmentType, getTypeRequest } from "../../models/equipmentTypes/equipmentType.ts";
+import { getPartsRequest, Part } from "../../Models/Parts/Part.ts";
+import { Bike, getBikesRequest } from "../../Models/Bikes/Bike.ts";
+import { EquipmentType, getTypeRequest } from "../../Models/EquipmentTypes/EquipmentType.ts";
 
 export default defineComponent({
     name: "PartsPage",

@@ -32,8 +32,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import router from "../router";
-import MenuBarIcon from "./common/MenuBarIcon.vue";
+import router from "../Router";
+import MenuBarIcon from "./Common/MenuBarIcon.vue";
 
 export default defineComponent({
     name: "MenuBar",

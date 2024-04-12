@@ -21,10 +21,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { AccountSettings } from "../../models/settings/accountSettings.ts";
-import LabelPrimary from "../common/LabelPrimary.vue";
-import InputText from "../common/InputText.vue";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
+import { AccountSettings } from "../../Models/Settings/AccountSettings.ts";
+import LabelPrimary from "../Common/LabelPrimary.vue";
+import InputText from "../Common/InputText.vue";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
 
 export default defineComponent({
     name: "AccountSettings",

@@ -20,14 +20,14 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { LoginData } from "../../models/auth/login.ts";
-import { IUser, User } from "../../models/auth/user.ts";
-import { setToken } from "../../models/httpMethods.ts";
-import router from "../../router";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
-import LabelPrimary from "../common/LabelPrimary.vue";
-import InputText from "../common/InputText.vue";
-import FormField from "../common/FormField.vue";
+import { LoginData } from "../../Models/Auth/Login.ts";
+import { IUser, User } from "../../Models/Auth/User.ts";
+import { setToken } from "../../Models/HttpMethods.ts";
+import router from "../../Router";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
+import LabelPrimary from "../Common/LabelPrimary.vue";
+import InputText from "../Common/InputText.vue";
+import FormField from "../Common/FormField.vue";
 
 export default defineComponent({
     name: "LoginPage",

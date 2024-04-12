@@ -1,4 +1,4 @@
-import { DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut } from "../httpMethods.ts";
+import { DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut } from "../HttpMethods.ts";
 
 export class Part {
     id: string;

@@ -20,8 +20,8 @@
 import { defineComponent } from "vue";
 import BikeView from "./BikeView.vue";
 import NewBikeForm from "./NewBikeForm.vue";
-import { Bike, getBikesRequest } from "../../models/bikes/bike.ts";
-import { EquipmentType, getTypeRequest } from "../../models/equipmentTypes/equipmentType.ts";
+import { Bike, getBikesRequest } from "../../Models/Bikes/Bike.ts";
+import { EquipmentType, getTypeRequest } from "../../Models/EquipmentTypes/EquipmentType.ts";
 
 export default defineComponent({
     name: "BikesPage",

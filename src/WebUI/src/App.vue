@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts">
-import MenuBar from "./components/MenuBar.vue";
+import MenuBar from "./Components/MenuBar.vue";
 import { defineComponent } from "vue";
-import { AuthRouteResponse } from "./models/auth/authRouteResponse.ts";
-import { httpGetWithBody } from "./models/httpMethods.ts";
-import PageFooter from "./components/PageFooter.vue";
+import { AuthRouteResponse } from "./Models/Auth/AuthRouteResponse.ts";
+import { httpGetWithBody } from "./Models/HttpMethods.ts";
+import PageFooter from "./Components/PageFooter.vue";
 
 export default defineComponent({
     name: "App",

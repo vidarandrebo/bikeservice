@@ -60,10 +60,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import EditBikeForm from "./EditBikeForm.vue";
-import { Bike } from "../../models/bikes/bike.ts";
-import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
-import ButtonSecondary from "../common/ButtonSecondary.vue";
+import { Bike } from "../../Models/Bikes/Bike.ts";
+import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
+import ButtonSecondary from "../Common/ButtonSecondary.vue";
 
 export default defineComponent({
     name: "BikeView",

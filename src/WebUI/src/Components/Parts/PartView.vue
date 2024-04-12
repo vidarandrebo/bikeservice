@@ -35,11 +35,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import EditPartForm from "./EditPartForm.vue";
-import { Part } from "../../models/parts/part.ts";
-import { Bike } from "../../models/bikes/bike.ts";
-import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
-import ButtonSecondary from "../common/ButtonSecondary.vue";
+import { Part } from "../../Models/Parts/Part.ts";
+import { Bike } from "../../Models/Bikes/Bike.ts";
+import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
+import ButtonSecondary from "../Common/ButtonSecondary.vue";
 
 export default defineComponent({
     name: "PartView",

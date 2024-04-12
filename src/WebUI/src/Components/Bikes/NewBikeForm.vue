@@ -37,17 +37,17 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Bike } from "../../models/bikes/bike.ts";
-import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
-import { Category } from "../../models/equipmentTypes/category.ts";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
-import LabelPrimary from "../common/LabelPrimary.vue";
-import TextInput from "../common/InputText.vue";
-import NumberInput from "../common/InputNumber.vue";
-import DateInput from "../common/InputDate.vue";
-import SelectPrimary from "../common/SelectPrimary.vue";
-import ButtonSecondary from "../common/ButtonSecondary.vue";
-import FormField from "../common/FormField.vue";
+import { Bike } from "../../Models/Bikes/Bike.ts";
+import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
+import { Category } from "../../Models/EquipmentTypes/Category.ts";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
+import LabelPrimary from "../Common/LabelPrimary.vue";
+import TextInput from "../Common/InputText.vue";
+import NumberInput from "../Common/InputNumber.vue";
+import DateInput from "../Common/InputDate.vue";
+import SelectPrimary from "../Common/SelectPrimary.vue";
+import ButtonSecondary from "../Common/ButtonSecondary.vue";
+import FormField from "../Common/FormField.vue";
 
 export default defineComponent({
     name: "NewBikeForm",

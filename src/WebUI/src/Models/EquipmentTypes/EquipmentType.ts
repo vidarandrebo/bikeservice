@@ -1,5 +1,5 @@
-import { DataArrayResponse, FetchResponse, httpGetWithBody, httpPost } from "../httpMethods.ts";
-import { Category } from "./category.ts";
+import { DataArrayResponse, FetchResponse, httpGetWithBody, httpPost } from "../HttpMethods.ts";
+import { Category } from "./Category.ts";
 
 export class EquipmentType {
     id: string;

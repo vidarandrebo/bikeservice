@@ -1,12 +1,12 @@
-import MainPage from "../components/MainPage.vue";
-import BikesPage from "../components/bikes/Bikes.vue";
-import PartsPage from "../components/parts/Parts.vue";
-import RegisterPage from "../components/auth/Register.vue";
-import LoginPage from "../components/auth/Login.vue";
-import SettingsPage from "../components/settings/Settings.vue";
-import AccountSettings from "../components/settings/AccountSettings.vue";
-import BikeTypeSettings from "../components/settings/BikeTypeSettings.vue";
-import PartTypeSettings from "../components/settings/PartTypeSettings.vue";
+import MainPage from "../Components/MainPage.vue";
+import BikesPage from "../Components/Bikes/Bikes.vue";
+import PartsPage from "../Components/Parts/Parts.vue";
+import RegisterPage from "../Components/Auth/Register.vue";
+import LoginPage from "../Components/Auth/Login.vue";
+import SettingsPage from "../Components/Settings/Settings.vue";
+import AccountSettings from "../Components/Settings/AccountSettings.vue";
+import BikeTypeSettings from "../Components/Settings/BikeTypeSettings.vue";
+import PartTypeSettings from "../Components/Settings/PartTypeSettings.vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [

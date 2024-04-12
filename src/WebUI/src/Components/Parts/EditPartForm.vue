@@ -1,7 +1,6 @@
 <template>
     <div>
-        <ButtonPrimary v-show="!show" @click="showForm">New Part</ButtonPrimary>
-        <form v-show="show" id="new-part" method="POST" @submit.prevent="addPart">
+        <form id="edit-part" method="POST" @submit.prevent="putPart">
             <div>
                 <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
                 <InputText id="manufacturer" v-model="partData.manufacturer" required />
@@ -34,8 +33,8 @@
                 </SelectPrimary>
             </div>
             <div>
-                <ButtonPrimary type="submit">Add</ButtonPrimary>
-                <ButtonSecondary @click="hideForm">Cancel</ButtonSecondary>
+                <ButtonPrimary type="submit">Save</ButtonPrimary>
+                <ButtonSecondary @click.prevent="hideForm">Cancel</ButtonSecondary>
             </div>
         </form>
     </div>
@@ -43,24 +42,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Part } from "../../models/parts/part.ts";
-import { EquipmentType } from "../../models/equipmentTypes/equipmentType.ts";
-import { Bike } from "../../models/bikes/bike.ts";
-import { Category } from "../../models/equipmentTypes/category.ts";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
-import LabelPrimary from "../common/LabelPrimary.vue";
-import InputText from "../common/InputText.vue";
-import InputNumber from "../common/InputNumber.vue";
-import SelectPrimary from "../common/SelectPrimary.vue";
-import ButtonSecondary from "../common/ButtonSecondary.vue";
+import { Part } from "../../Models/Parts/Part.ts";
+import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
+import { Bike } from "../../Models/Bikes/Bike.ts";
+import { Category } from "../../Models/EquipmentTypes/Category.ts";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
+import LabelPrimary from "../Common/LabelPrimary.vue";
+import InputText from "../Common/InputText.vue";
+import InputNumber from "../Common/InputNumber.vue";
+import SelectPrimary from "../Common/SelectPrimary.vue";
+import ButtonSecondary from "../Common/ButtonSecondary.vue";
 
 export default defineComponent({
-    name: "NewPartForm",
+    name: "EditPartForm",
     components: { ButtonSecondary, SelectPrimary, InputNumber, InputText, LabelPrimary, ButtonPrimary },
     props: {
         equipmentTypes: {
             required: true,
             type: Array<EquipmentType>
+        },
+        part: {
+            required: true,
+            type: Part
         },
         bikes: {
             required: true,
@@ -70,12 +73,14 @@ export default defineComponent({
     emits: {
         updatePartsEvent() {
             return true;
+        },
+        editDoneEvent() {
+            return true;
         }
     },
     data: function () {
         return {
-            partData: new Part(),
-            show: false as boolean
+            partData: new Part()
         };
     },
     computed: {
@@ -83,19 +88,28 @@ export default defineComponent({
             return this.equipmentTypes.filter((t) => t.category == Category.Part);
         }
     },
+    watch: {
+        part: function () {
+            this.setFormDataFromProp();
+        }
+    },
+    created: function () {
+        this.setFormDataFromProp();
+    },
     methods: {
-        addPart: async function () {
-            let result = await this.partData.addPartRequest();
-            if (result.status == 201) {
+        putPart: async function () {
+            let result = await this.partData.putPartRequest();
+            if (result.status === 200) {
                 this.partData.clear();
                 this.$emit("updatePartsEvent");
+                this.$emit("editDoneEvent");
             }
         },
         hideForm: function () {
-            this.show = false;
+            this.$emit("editDoneEvent");
         },
-        showForm: function () {
-            this.show = true;
+        setFormDataFromProp() {
+            this.partData = new Part(this.part);
         }
     }
 });

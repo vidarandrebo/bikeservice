@@ -23,13 +23,13 @@
     </main>
 </template>
 <script lang="ts">
-import { RegisterData } from "../../models/auth/register.ts";
+import { RegisterData } from "../../Models/Auth/Register.ts";
 import { defineComponent } from "vue";
-import { IUser, User } from "../../models/auth/user.ts";
-import InputText from "../common/InputText.vue";
-import ButtonPrimary from "../common/ButtonPrimary.vue";
-import LabelPrimary from "../common/LabelPrimary.vue";
-import FormField from "../common/FormField.vue";
+import { IUser, User } from "../../Models/Auth/User.ts";
+import InputText from "../Common/InputText.vue";
+import ButtonPrimary from "../Common/ButtonPrimary.vue";
+import LabelPrimary from "../Common/LabelPrimary.vue";
+import FormField from "../Common/FormField.vue";
 
 export default defineComponent({
     name: "RegisterPage",

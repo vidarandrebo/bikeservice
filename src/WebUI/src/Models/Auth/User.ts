@@ -1,5 +1,5 @@
-import { FetchResponse, httpPostWithBody } from "../httpMethods.ts";
-import { AuthRouteResponse } from "./authRouteResponse.ts";
+import { FetchResponse, httpPostWithBody } from "../HttpMethods.ts";
+import { AuthRouteResponse } from "./AuthRouteResponse.ts";
 
 export interface IUser {
     userName: string;
