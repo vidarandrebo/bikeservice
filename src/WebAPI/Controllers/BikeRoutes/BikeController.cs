@@ -36,13 +36,14 @@ public class BikeController : Controller
     [HttpPost]
     public async Task<IActionResult> AddBike(BikeFormDto bikeForm)
     {
+        var ctSrc = new CancellationTokenSource();
         var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userIdResult.IsFailed)
         {
             return Unauthorized();
         }
 
-        var result = await _mediator.Send(new AddBike.Request(bikeForm, userIdResult.Value));
+        var result = await _mediator.Send(new AddBike.Request(bikeForm, userIdResult.Value), ctSrc.Token);
         if (result.IsSuccess)
         {
             return Created(nameof(AddBike), bikeForm);
