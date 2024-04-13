@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th colspan="2" scope="row">
-                        <h2>{{ bike.manufacturer }} {{ bike.model }}</h2>
+                        <HeadingH2>{{ bike.manufacturer }} {{ bike.model }}</HeadingH2>
                     </th>
                 </tr>
             </thead>
@@ -64,10 +64,12 @@ import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import ButtonSecondary from "../Common/ButtonSecondary.vue";
+import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 
 export default defineComponent({
     name: "BikeView",
     components: {
+        HeadingH2,
         ButtonSecondary,
         EditBikeForm,
         ButtonPrimary

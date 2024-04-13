@@ -1,7 +1,7 @@
 <template>
     <main>
         <article class="flex max-w-prose flex-col">
-            <h1 class="">Parts</h1>
+            <HeadingH1 class="">Parts</HeadingH1>
             <NewPartForm :bikes="bikes" :equipment-types="equipmentTypes" @update-parts-event="updatePartsHandler">
             </NewPartForm>
             <ol class="space-y-2">
@@ -25,10 +25,11 @@ import NewPartForm from "./NewPartForm.vue";
 import { getPartsRequest, Part } from "../../Models/Parts/Part.ts";
 import { Bike, getBikesRequest } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType, getTypeRequest } from "../../Models/EquipmentTypes/EquipmentType.ts";
+import HeadingH1 from "../Common/Headings/HeadingH1.vue";
 
 export default defineComponent({
     name: "PartsPage",
-    components: { PartView, NewPartForm },
+    components: { HeadingH1, PartView, NewPartForm },
     props: {
         user: {
             type: String,

@@ -1,7 +1,9 @@
 <template>
     <main>
-        <SettingsMenu></SettingsMenu>
-        <RouterView :user="user"></RouterView>
+        <article class="flex flex-row justify-between min-w-full">
+            <SettingsMenu></SettingsMenu>
+            <RouterView :user="user" class="flex flex-row grow"></RouterView>
+        </article>
     </main>
 </template>
 <script lang="ts">

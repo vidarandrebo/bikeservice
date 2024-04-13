@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex flex-col">
         <RouterLink to="/settings/account">Account</RouterLink>
         <RouterLink to="/settings/bike-types">Bike Types</RouterLink>
         <RouterLink to="/settings/part-types">Part Types</RouterLink>
