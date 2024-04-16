@@ -38,7 +38,7 @@ public class EditPart
             part.Mileage = request.PartFormDto.Mileage;
             part.BikeId = bikeId;
             part.TypeId = typeId;
-            
+
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Result.Ok();
         }

@@ -2,7 +2,6 @@ using Application.Interfaces;
 using Domain;
 using Domain.Auth;
 using FluentResults;
-using Infrastructure.Identity;
 using MediatR;
 
 namespace Application.Auth;

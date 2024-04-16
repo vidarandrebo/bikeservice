@@ -40,7 +40,8 @@ public class TypeController : Controller
         var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new AddType.Request(typeForm.Name, typeForm.Category, userIdResult.Value));
+            var result =
+                await _mediator.Send(new AddType.Request(typeForm.Name, typeForm.Category, userIdResult.Value));
             if (result.IsSuccess)
             {
                 return Created(nameof(AddType), typeForm);
@@ -61,6 +62,7 @@ public class TypeController : Controller
         {
             return Unauthorized();
         }
+
         var result = await _mediator.Send(new DeleteType.Request(typeId, userIdResult.Value));
         if (result.IsSuccess)
         {

@@ -24,6 +24,7 @@ public class IdentityService : IIdentityService
         {
             return Result.Fail((new Error("User not found")));
         }
+
         var correctPasswd = await _userManager.CheckPasswordAsync(user, password);
         if (!correctPasswd)
         {
@@ -34,6 +35,7 @@ public class IdentityService : IIdentityService
         {
             return Result.Fail(new Error("Username is null"));
         }
+
         return Result.Ok(new UserData(user.Id, user.UserName));
     }
 
