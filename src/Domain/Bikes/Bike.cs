@@ -11,7 +11,7 @@ public class Bike : BaseEntity
 
     public double Mileage
     {
-        get => _mileage;
+        get { return _mileage; }
         set
         {
             if (Math.Abs(value - _mileage) > 1.0)

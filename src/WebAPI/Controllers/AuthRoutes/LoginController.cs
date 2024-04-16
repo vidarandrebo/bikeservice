@@ -1,4 +1,5 @@
 using Application.Auth;
+using Domain.Auth;
 using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,8 @@ public class LoginController : Controller
         {
             return Ok(new AuthRouteResponse(userName, "", Array.Empty<string>()));
         }
-        return Ok(new AuthRouteResponse("", "", new[] {"Not logged in"}));
+
+        return Ok(new AuthRouteResponse("", "", new[] { "Not logged in" }));
     }
 
     // POST
@@ -36,7 +38,7 @@ public class LoginController : Controller
     public async Task<IActionResult> LoginUser(Credentials credentials)
     {
         var result = await _mediator.Send(new LoginUser.Request(credentials));
-        
+
         if (result.IsSuccess)
         {
             var data = result.Value;
@@ -44,6 +46,7 @@ public class LoginController : Controller
             return Ok(new AuthRouteResponse(credentials.UserName, token, Array.Empty<string>()));
         }
 
-        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", result.Errors.Select(e => e.Message).ToArray()));
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, "",
+            result.Errors.Select(e => e.Message).ToArray()));
     }
 }

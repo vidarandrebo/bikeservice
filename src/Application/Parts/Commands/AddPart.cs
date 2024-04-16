@@ -23,7 +23,7 @@ public class AddPart
         {
             var part = new Part(request.PartFormDto.Manufacturer, request.PartFormDto.Model,
                 request.PartFormDto.Mileage, GuidHelper.GuidOrEmpty(request.PartFormDto.TypeId),
-                GuidHelper.GuidOrEmpty(request.PartFormDto.BikeId),request.UserId);
+                GuidHelper.GuidOrEmpty(request.PartFormDto.BikeId), request.UserId);
             _dbContext.Parts.Add(part);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Result.Ok();

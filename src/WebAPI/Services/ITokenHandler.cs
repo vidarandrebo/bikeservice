@@ -101,6 +101,5 @@ public class TokenHandler : ITokenHandler
         {
             return null;
         }
-
     }
 }

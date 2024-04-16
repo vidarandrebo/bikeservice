@@ -1,5 +1,6 @@
 using Application.Auth;
 using Application.Types;
+using Domain.Auth;
 using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +34,12 @@ public class RegisterController : Controller
         if (result.IsSuccess)
         {
             await _mediator.Send(new AddDefaultTypes.Request(result.Value));
-            
+
             return Created(nameof(RegisterUser),
                 new AuthRouteResponse(credentials.UserName, "", Array.Empty<string>()));
         }
-        return Unauthorized(new AuthRouteResponse(credentials.UserName, "", result.Errors.Select(e => e.Message).ToArray()));
+
+        return Unauthorized(new AuthRouteResponse(credentials.UserName, "",
+            result.Errors.Select(e => e.Message).ToArray()));
     }
 }

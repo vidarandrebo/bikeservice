@@ -37,7 +37,7 @@ public class EditBike
             bike.Mileage = request.BikeFormDto.Mileage;
             bike.Date = request.BikeFormDto.Date;
             bike.TypeId = typeId;
-            
+
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Result.Ok();
         }
