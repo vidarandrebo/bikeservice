@@ -57,8 +57,8 @@
     </article>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import EditBikeForm from "./EditBikeForm.vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
@@ -66,62 +66,40 @@ import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import ButtonSecondary from "../Common/ButtonSecondary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 
-export default defineComponent({
-    name: "BikeView",
-    components: {
-        HeadingH2,
-        ButtonSecondary,
-        EditBikeForm,
-        ButtonPrimary
-    },
-    props: {
-        bike: {
-            required: true,
-            type: Bike
-        },
-        equipmentTypes: {
-            required: true,
-            type: Array<EquipmentType>
-        }
-    },
-    emits: {
-        updateBikesEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            showEditForm: false,
-            showEditButton: true
-        };
-    },
-    computed: {
-        equipmentType(): EquipmentType {
-            let type = this.equipmentTypes.find((t) => t.id == this.bike.typeId);
-            if (type != undefined) {
-                return type;
-            }
-            return new EquipmentType();
-        }
-    },
-    methods: {
-        deleteBike: async function () {
-            if (this.bike != null) {
-                await this.bike.deleteBikeRequest();
-                this.$emit("updateBikesEvent");
-            }
-        },
-        showEdit: function () {
-            this.showEditForm = true;
-            this.showEditButton = false;
-        },
-        editDoneHandler: function () {
-            this.showEditForm = false;
-            this.showEditButton = true;
-        },
-        updateBikesHandler: function () {
-            this.$emit("updateBikesEvent");
-        }
+const emit = defineEmits(["updateBikesEvent"]);
+
+const showEditForm = ref(false);
+const showEditButton = ref(true);
+
+const props = defineProps<{
+    bike: Bike;
+    equipmentTypes: EquipmentType[];
+}>();
+
+const equipmentType = computed(() => {
+    let type = props.equipmentTypes.find((t) => t.id == props.bike.typeId);
+    if (type != undefined) {
+        return type;
     }
+    return new EquipmentType();
 });
+
+async function deleteBike() {
+    await props.bike.deleteBikeRequest();
+    emit("updateBikesEvent");
+}
+
+function showEdit() {
+    showEditForm.value = true;
+    showEditButton.value = false;
+}
+
+function editDoneHandler() {
+    showEditForm.value = false;
+    showEditButton.value = true;
+}
+
+function updateBikesHandler() {
+    emit("updateBikesEvent");
+}
 </script>

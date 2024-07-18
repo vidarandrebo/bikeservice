@@ -18,51 +18,21 @@
         </article>
     </main>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import PartView from "./PartView.vue";
 import NewPartForm from "./NewPartForm.vue";
-import { getPartsRequest, Part } from "../../Models/Parts/Part.ts";
-import { Bike, getBikesRequest } from "../../Models/Bikes/Bike.ts";
-import { EquipmentType, getTypeRequest } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import HeadingH1 from "../Common/Headings/HeadingH1.vue";
+import { inject } from "vue";
+import {
+    DefaultEquipmentTypeDependency,
+    EquipmentTypeDependency
+} from "../../Models/EquipmentTypes/EquipmentTypesDependency.ts";
+import { BikesDependency, DefaultBikeDependency } from "../../Models/Bikes/BikesDependency.ts";
+import { DefaultPartsDependency, PartsDependency } from "../../Models/Parts/PartsDependency.ts";
 
-export default defineComponent({
-    name: "PartsPage",
-    components: { HeadingH1, PartView, NewPartForm },
-    props: {
-        user: {
-            type: String,
-            default: ""
-        }
-    },
-    emits: {
-        updateUsernameEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            parts: [] as Array<Part>,
-            bikes: [] as Array<Bike>,
-            equipmentTypes: [] as Array<EquipmentType>
-        };
-    },
-    created: async function () {
-        const partsPromise = getPartsRequest();
-        const bikesPromise = getBikesRequest();
-        const equipmentTypesPromise = getTypeRequest();
-        this.parts = await partsPromise;
-        this.bikes = await bikesPromise;
-        this.equipmentTypes = await equipmentTypesPromise;
-    },
-    methods: {
-        /**
-         * Handler for updatePartsEvent
-         */
-        updatePartsHandler: async function () {
-            this.parts = await getPartsRequest();
-        }
-    }
-});
+function updatePartsHandler() {}
+
+const { bikes } = inject<BikesDependency>("bikes", DefaultBikeDependency, true);
+const { parts } = inject<PartsDependency>("parts", DefaultPartsDependency, true);
+const { equipmentTypes } = inject<EquipmentTypeDependency>("equipmentTypes", DefaultEquipmentTypeDependency, true);
 </script>
