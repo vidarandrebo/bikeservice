@@ -3,21 +3,13 @@
         <FontAwesomeIcon :icon="icon" size="2x" v-bind="$attrs"></FontAwesomeIcon>
     </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { defineComponent } from "vue";
 
-export default defineComponent({
-    name: "MenuBarIcon",
-    components: {
-        FontAwesomeIcon
-    },
-    inheritAttrs: false,
-    props: {
-        icon: {
-            required: true,
-            type: String
-        }
-    }
+defineOptions({
+    inheritAttrs: false
 });
+defineProps<{
+    icon: string;
+}>();
 </script>

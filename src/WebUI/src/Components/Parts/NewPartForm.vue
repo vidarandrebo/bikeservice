@@ -43,8 +43,8 @@
     </article>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Part } from "../../Models/Parts/Part.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Bike } from "../../Models/Bikes/Bike.ts";
@@ -57,49 +57,30 @@ import SelectPrimary from "../Common/SelectPrimary.vue";
 import ButtonSecondary from "../Common/ButtonSecondary.vue";
 import FormField from "../Common/FormField.vue";
 
-export default defineComponent({
-    name: "NewPartForm",
-    components: { FormField, ButtonSecondary, SelectPrimary, InputNumber, InputText, LabelPrimary, ButtonPrimary },
-    props: {
-        equipmentTypes: {
-            required: true,
-            type: Array<EquipmentType>
-        },
-        bikes: {
-            required: true,
-            type: Array<Bike>
-        }
-    },
-    emits: {
-        updatePartsEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            partData: new Part(),
-            show: false as boolean
-        };
-    },
-    computed: {
-        partTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter((t) => t.category == Category.Part);
-        }
-    },
-    methods: {
-        addPart: async function () {
-            let result = await this.partData.addPartRequest();
-            if (result.status == 201) {
-                this.partData.clear();
-                this.$emit("updatePartsEvent");
-            }
-        },
-        hideForm: function () {
-            this.show = false;
-        },
-        showForm: function () {
-            this.show = true;
-        }
-    }
+const props = defineProps<{
+    equipmentTypes: EquipmentType[];
+    bikes: Bike[];
+}>();
+const emit = defineEmits(["updatePartsEvent"]);
+const partData = ref(new Part());
+const show = ref(false);
+const partTypes = computed(() => {
+    return props.equipmentTypes.filter((t) => t.category == Category.Part);
 });
+
+async function addPart() {
+    let result = await partData.value.addPartRequest();
+    if (result.status == 201) {
+        partData.value.clear();
+        emit("updatePartsEvent");
+    }
+}
+
+function hideForm() {
+    show.value = false;
+}
+
+function showForm() {
+    show.value = true;
+}
 </script>

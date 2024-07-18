@@ -7,23 +7,14 @@
     />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+defineProps<{
+    modelValue: number;
+}>();
+const emit = defineEmits(["update:modelValue"]);
 
-export default defineComponent({
-    name: "InputNumber",
-    props: {
-        modelValue: {
-            type: Number,
-            required: true
-        }
-    },
-    emits: ["update:modelValue"],
-    methods: {
-        handleInput(event: Event) {
-            const inputValue = (event.target as HTMLInputElement).value;
-            this.$emit("update:modelValue", inputValue);
-        }
-    }
-});
+function handleInput(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    emit("update:modelValue", inputValue);
+}
 </script>

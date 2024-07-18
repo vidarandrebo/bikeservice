@@ -38,8 +38,8 @@
     </form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, ref } from "vue";
 import { Part } from "../../Models/Parts/Part.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Bike } from "../../Models/Bikes/Bike.ts";
@@ -52,64 +52,31 @@ import SelectPrimary from "../Common/SelectPrimary.vue";
 import ButtonSecondary from "../Common/ButtonSecondary.vue";
 import FormField from "../Common/FormField.vue";
 
-export default defineComponent({
-    name: "EditPartForm",
-    components: { FormField, ButtonSecondary, SelectPrimary, InputNumber, InputText, LabelPrimary, ButtonPrimary },
-    props: {
-        equipmentTypes: {
-            required: true,
-            type: Array<EquipmentType>
-        },
-        part: {
-            required: true,
-            type: Part
-        },
-        bikes: {
-            required: true,
-            type: Array<Bike>
-        }
-    },
-    emits: {
-        updatePartsEvent() {
-            return true;
-        },
-        editDoneEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            partData: new Part()
-        };
-    },
-    computed: {
-        partTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter((t) => t.category == Category.Part);
-        }
-    },
-    watch: {
-        part: function () {
-            this.setFormDataFromProp();
-        }
-    },
-    created: function () {
-        this.setFormDataFromProp();
-    },
-    methods: {
-        putPart: async function () {
-            let result = await this.partData.putPartRequest();
-            if (result.status === 200) {
-                this.partData.clear();
-                this.$emit("updatePartsEvent");
-                this.$emit("editDoneEvent");
-            }
-        },
-        hideForm: function () {
-            this.$emit("editDoneEvent");
-        },
-        setFormDataFromProp() {
-            this.partData = new Part(this.part);
-        }
+const props = defineProps<{
+    equipmentTypes: EquipmentType[];
+    part: Part;
+    bikes: Bike[];
+}>();
+const partData = ref(new Part());
+const emit = defineEmits(["updatePartsEvent", "editDoneEvent"]);
+const partTypes = computed(() => {
+    return props.equipmentTypes.filter((t) => t.category == Category.Part);
+});
+
+async function putPart() {
+    let result = await partData.value.putPartRequest();
+    if (result.status === 200) {
+        partData.value.clear();
+        emit("updatePartsEvent");
+        emit("editDoneEvent");
     }
+}
+
+function hideForm() {
+    emit("editDoneEvent");
+}
+
+onMounted(() => {
+    partData.value = new Part(props.part);
 });
 </script>
