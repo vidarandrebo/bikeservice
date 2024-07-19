@@ -1,16 +1,16 @@
 import { ref, Ref } from "vue";
 import { Part } from "./Part.ts";
 
-export type PartsDependency = {
+export type PartCollection = {
     parts: Ref<Part[]>;
     addPart: (value: Part) => void;
-    setParts: (value: Part[]) => void;
+    fetchParts: () => void;
 };
 
-export function DefaultPartsDependency(): PartsDependency {
+export function DefaultPartCollection(): PartCollection {
     return {
         parts: ref<Part[]>([]),
-        setParts: () => {},
+        fetchParts: () => {},
         addPart: () => {}
     };
 }

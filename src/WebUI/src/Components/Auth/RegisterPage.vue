@@ -22,49 +22,30 @@
         </article>
     </main>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import { RegisterData } from "../../Models/Auth/Register.ts";
-import { defineComponent } from "vue";
-import { IUser, User } from "../../Models/Auth/User.ts";
+import { ref } from "vue";
+import { Credentials, ICredentials } from "../../Models/Auth/Credentials.ts";
 import InputText from "../Common/InputText.vue";
 import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import LabelPrimary from "../Common/LabelPrimary.vue";
 import FormField from "../Common/FormField.vue";
+import router from "../../Router";
 
-export default defineComponent({
-    name: "RegisterPage",
-    components: { FormField, InputText, LabelPrimary, ButtonPrimary },
-    props: {
-        user: {
-            type: String,
-            default: ""
-        }
-    },
-    emits: {
-        updateUsernameEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            registerData: new RegisterData()
-        };
-    },
-    methods: {
-        registerUser: async function () {
-            this.registerData.passwordRequirementsCheck();
-            if (this.registerData.error.length > 0) {
-                return;
-            }
-            let user: IUser = new User(this.registerData.username, this.registerData.passwd);
-            let response = await user.registerUserRequest();
-            if (response.status == 201) {
-                this.registerData = new RegisterData();
-                await this.$router.push("/login");
-            } else {
-                this.registerData.error = response.body.errors;
-            }
-        }
+const registerData = ref<RegisterData>(new RegisterData());
+
+async function registerUser() {
+    registerData.value.passwordRequirementsCheck();
+    if (registerData.value.error.length > 0) {
+        return;
     }
-});
+    let user: ICredentials = new Credentials(registerData.value.username, registerData.value.passwd);
+    let response = await user.registerUserRequest();
+    if (response.status == 201) {
+        registerData.value = new RegisterData();
+        await router.push("/login");
+    } else {
+        registerData.value.error = response.body.errors;
+    }
+}
 </script>

@@ -24,15 +24,15 @@ import NewPartForm from "./NewPartForm.vue";
 import HeadingH1 from "../Common/Headings/HeadingH1.vue";
 import { inject } from "vue";
 import {
-    DefaultEquipmentTypeDependency,
-    EquipmentTypeDependency
-} from "../../Models/EquipmentTypes/EquipmentTypesDependency.ts";
-import { BikesDependency, DefaultBikeDependency } from "../../Models/Bikes/BikesDependency.ts";
-import { DefaultPartsDependency, PartsDependency } from "../../Models/Parts/PartsDependency.ts";
+    DefaultEquipmentTypeCollection,
+    EquipmentTypeCollection
+} from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
+import { BikeCollection, DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
+import { DefaultPartCollection, PartCollection } from "../../Models/Parts/PartCollection.ts";
 
 function updatePartsHandler() {}
 
-const { bikes } = inject<BikesDependency>("bikes", DefaultBikeDependency, true);
-const { parts } = inject<PartsDependency>("parts", DefaultPartsDependency, true);
-const { equipmentTypes } = inject<EquipmentTypeDependency>("equipmentTypes", DefaultEquipmentTypeDependency, true);
+const { bikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
+const { parts } = inject<PartCollection>("parts", DefaultPartCollection, true);
+const { equipmentTypes } = inject<EquipmentTypeCollection>("equipmentTypes", DefaultEquipmentTypeCollection, true);
 </script>

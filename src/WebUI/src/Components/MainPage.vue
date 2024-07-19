@@ -1,30 +1,18 @@
 <template>
     <main>
-        <div v-if="!user">
+        <div v-if="!user.username">
             <h1>BikeService</h1>
             <p>Welcome to BikeService</p>
         </div>
-        <div v-if="user">
+        <div v-if="user.username">
             <h1>BikeService</h1>
-            <p>Welcome {{ user }}</p>
+            <p>Welcome {{ user.username }}</p>
         </div>
     </main>
 </template>
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { DefaultUserDependency } from "../Models/Auth/User.ts";
+import { inject } from "vue";
 
-export default defineComponent({
-    name: "MainPage",
-    props: {
-        user: {
-            type: String as PropType<string>,
-            default: ""
-        }
-    },
-    emits: {
-        updateUsernameEvent() {
-            return true;
-        }
-    }
-});
+const { user } = inject("user", DefaultUserDependency, true);
 </script>

@@ -1,16 +1,16 @@
 import { ref, Ref } from "vue";
 import { Bike } from "./Bike.ts";
 
-export type BikesDependency = {
+export type BikeCollection = {
     bikes: Ref<Bike[]>;
     addBike: (value: Bike) => void;
-    setBikes: (value: Bike[]) => void;
+    fetchBikes: () => void;
 };
 
-export function DefaultBikeDependency(): BikesDependency {
+export function DefaultBikeCollection(): BikeCollection {
     return {
         bikes: ref<Bike[]>([]),
-        setBikes: () => {},
+        fetchBikes: () => {},
         addBike: () => {}
     };
 }

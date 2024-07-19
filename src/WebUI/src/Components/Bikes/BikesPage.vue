@@ -16,9 +16,9 @@ import { inject } from "vue";
 import BikeView from "./BikeView.vue";
 import NewBikeForm from "./NewBikeForm.vue";
 import HeadingH1 from "../Common/Headings/HeadingH1.vue";
-import { BikesDependency, DefaultBikeDependency } from "../../Models/Bikes/BikesDependency.ts";
-import { DefaultEquipmentTypeDependency } from "../../Models/EquipmentTypes/EquipmentTypesDependency.ts";
+import { BikeCollection, DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
+import { DefaultEquipmentTypeCollection } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
 
-const { bikes } = inject<BikesDependency>("bikes", DefaultBikeDependency, true);
-const { equipmentTypes } = inject("equipmentTypes", DefaultEquipmentTypeDependency, true);
+const { bikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
+const { equipmentTypes } = inject("equipmentTypes", DefaultEquipmentTypeCollection, true);
 </script>
