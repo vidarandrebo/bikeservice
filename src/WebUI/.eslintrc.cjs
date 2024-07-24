@@ -5,6 +5,20 @@ module.exports = {
     rules: {
         // override/add rules settings here, such as:
         // 'vue/no-unused-vars': 'error'
+        "vue/v-on-event-hyphenation": [
+            0,
+            {
+                autofix: false,
+                ignore: []
+            }
+        ],
+        "vue/attribute-hyphenation": [
+            0,
+            {
+                autofix: false,
+                ignore: []
+            }
+        ]
     },
     parser: "vue-eslint-parser",
     parserOptions: {

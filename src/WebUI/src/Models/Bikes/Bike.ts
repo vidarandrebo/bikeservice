@@ -22,6 +22,10 @@ export class Bike {
         }
     }
 
+    get fullName(): string {
+        return this.manufacturer + " " + this.model;
+    }
+
     async addBikeRequest(): Promise<FetchResponse<null>> {
         return await httpPost<Bike>("/api/bike", this);
     }

@@ -8,7 +8,7 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <PackageId>bikeservice-api</PackageId>
         <Title>BikeService API</Title>
-        <Version>3.1.1</Version>
+        <Version>3.2.0</Version>
         <Authors>Vidar André Bø</Authors>
         <Product>BikeService</Product>
         <PackageProjectUrl />

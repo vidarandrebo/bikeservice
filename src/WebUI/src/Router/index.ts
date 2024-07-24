@@ -3,7 +3,7 @@ import BikesPage from "../Components/Bikes/BikesPage.vue";
 import PartsPage from "../Components/Parts/PartsPage.vue";
 import RegisterPage from "../Components/Auth/RegisterPage.vue";
 import LoginPage from "../Components/Auth/LoginPage.vue";
-import SettingsPage from "../Components/Settings/Settings.vue";
+import SettingsPage from "../Components/Settings/SettingsPage.vue";
 import AccountSettings from "../Components/Settings/AccountSettings.vue";
 import BikeTypeSettings from "../Components/Settings/BikeTypeSettings.vue";
 import PartTypeSettings from "../Components/Settings/PartTypeSettings.vue";

@@ -18,6 +18,16 @@ provide("parts", { parts, fetchParts });
 provide("equipmentTypes", { equipmentTypes, fetchEquipmentTypes });
 
 function setBikes(value: Bike[]) {
+    value.sort((a, b) => {
+        const aName = a.fullName.toLowerCase();
+        const bName = b.fullName.toLowerCase();
+        if (aName > bName) {
+            return 1;
+        } else if (aName < bName) {
+            return -1;
+        }
+        return 0;
+    });
     bikes.value = value;
 }
 
@@ -26,6 +36,16 @@ function addBike(value: Bike) {
 }
 
 function setParts(value: Part[]) {
+    value.sort((a, b) => {
+        const aName = a.fullName.toLowerCase();
+        const bName = b.fullName.toLowerCase();
+        if (aName > bName) {
+            return 1;
+        } else if (aName < bName) {
+            return -1;
+        }
+        return 0;
+    });
     parts.value = value;
 }
 

@@ -2,10 +2,14 @@
     <main>
         <article class="flex max-w-prose flex-col">
             <HeadingH1 class="">Bikes</HeadingH1>
-            <NewBikeForm :equipment-types="equipmentTypes"></NewBikeForm>
+            <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
             <ol class="space-y-2">
                 <li v-for="bike in bikes" :key="bike.id">
-                    <BikeView :bike="bike" :equipment-types="equipmentTypes"> </BikeView>
+                    <BikeView
+                        :equipmentTypes="equipmentTypes"
+                        :bike="bike"
+                        @updateBikesEvent="onUpdateBikesEvent"
+                    ></BikeView>
                 </li>
             </ol>
         </article>
@@ -19,6 +23,10 @@ import HeadingH1 from "../Common/Headings/HeadingH1.vue";
 import { BikeCollection, DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
 import { DefaultEquipmentTypeCollection } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
 
-const { bikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
+const { bikes, fetchBikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
 const { equipmentTypes } = inject("equipmentTypes", DefaultEquipmentTypeCollection, true);
+
+function onUpdateBikesEvent() {
+    fetchBikes();
+}
 </script>

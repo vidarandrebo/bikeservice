@@ -3,7 +3,7 @@
         <div class="flex flex-col items-center grow">
             <div>
                 <HeadingH2>Change Password</HeadingH2>
-                <form id="changePasswd" method="POST" @submit.prevent="changePasswd">
+                <form id="changePasswd" method="POST" @submit.prevent="changePassword">
                     <p v-for="(err, i) in accountSettings.errors" :key="i">{{ err }}</p>
                     <FormField>
                         <LabelPrimary for="oldpasswd">Old Password</LabelPrimary>
@@ -44,8 +44,8 @@
     </article>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import { AccountSettings } from "../../Models/Settings/AccountSettings.ts";
 import LabelPrimary from "../Common/LabelPrimary.vue";
 import InputText from "../Common/InputText.vue";
@@ -53,18 +53,9 @@ import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 import FormField from "../Common/FormField.vue";
 
-export default defineComponent({
-    name: "AccountSettings",
-    components: { FormField, HeadingH2, ButtonPrimary, InputText, LabelPrimary },
-    data: function () {
-        return {
-            accountSettings: new AccountSettings()
-        };
-    },
-    methods: {
-        changePasswd: async function () {
-            console.log("not implemented");
-        }
-    }
-});
+const accountSettings = ref(new AccountSettings());
+
+async function changePassword() {
+    console.log("not implemented");
+}
 </script>
