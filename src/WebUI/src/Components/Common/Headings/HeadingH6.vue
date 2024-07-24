@@ -1,10 +1,4 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    name: "HeadingH6"
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <h6 class="font-bold">

@@ -59,8 +59,8 @@
     </article>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import EditPartForm from "./EditPartForm.vue";
 import { Part } from "../../Models/Parts/Part.ts";
 import { Bike } from "../../Models/Bikes/Bike.ts";
@@ -69,68 +69,48 @@ import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import ButtonSecondary from "../Common/ButtonSecondary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 
-export default defineComponent({
-    name: "PartView",
-    components: { HeadingH2, ButtonSecondary, ButtonPrimary, EditPartForm },
-    props: {
-        part: {
-            required: true,
-            type: Part
-        },
-        bikes: {
-            required: true,
-            type: Array<Bike>
-        },
-        equipmentTypes: {
-            required: true,
-            type: Array<EquipmentType>
-        }
-    },
-    emits: {
-        updatePartsEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            showEditForm: false,
-            showEditButton: true
-        };
-    },
-    computed: {
-        bike(): Bike {
-            let bike = this.bikes.find((b) => b.id == this.part.bikeId);
-            if (bike != undefined) {
-                return bike;
-            }
-            return new Bike();
-        },
-        equipmentType(): EquipmentType {
-            let type = this.equipmentTypes.find((t) => t.id == this.part.typeId);
-            if (type != undefined) {
-                return type;
-            }
-            return new EquipmentType();
-        }
-    },
-    methods: {
-        deletePart: async function () {
-            if (this.part != null) {
-                await this.part.deletePartRequest();
-                this.$emit("updatePartsEvent");
-            }
-        },
-        showEdit: function () {
-            this.showEditForm = true;
-            this.showEditButton = false;
-        },
-        editDoneHandler: function () {
-            this.showEditForm = false;
-            this.showEditButton = true;
-        },
-        updatePartsHandler: function () {
-            this.$emit("updatePartsEvent");
-        }
+const props = defineProps<{
+    part: Part;
+    bikes: Bike[];
+    equipmentTypes: EquipmentType[];
+}>();
+const emit = defineEmits(["updatePartsEvent"]);
+const showEditForm = ref(false);
+const showEditButton = ref(true);
+
+const bike = computed(() => {
+    let bike = props.bikes.find((b) => b.id == props.part.bikeId);
+    if (bike != undefined) {
+        return bike;
     }
+    return new Bike();
 });
+const equipmentType = computed(() => {
+    let type = props.equipmentTypes.find((t) => t.id == props.part.typeId);
+    if (type != undefined) {
+        return type;
+    }
+    return new EquipmentType();
+});
+
+async function deletePart() {
+    if (props.part != null) {
+        await props.part.deletePartRequest();
+        emit("updatePartsEvent");
+    }
+}
+
+function showEdit() {
+    showEditForm.value = true;
+    showEditButton.value = false;
+}
+
+function editDoneHandler() {
+    showEditForm.value = false;
+    showEditButton.value = true;
+}
+
+function updatePartsHandler() {
+    emit("updatePartsEvent");
+}
 </script>

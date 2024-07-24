@@ -16,24 +16,17 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    name: "SelectPrimary",
-    inheritAttrs: false,
-    props: {
-        modelValue: {
-            type: String,
-            required: true
-        }
-    },
-    emits: ["update:modelValue"],
-    methods: {
-        handleInput(event: Event) {
-            const inputValue = (event.target as HTMLInputElement).value;
-            this.$emit("update:modelValue", inputValue);
-        }
-    }
+<script setup lang="ts">
+defineOptions({
+    inheritAttrs: false
 });
+defineProps<{
+    modelValue: string;
+}>();
+const emit = defineEmits(["update:modelValue"]);
+
+function handleInput(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    emit("update:modelValue", inputValue);
+}
 </script>

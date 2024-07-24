@@ -1,10 +1,4 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    name: "HeadingH3"
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <h3 class="text-2xl font-bold">

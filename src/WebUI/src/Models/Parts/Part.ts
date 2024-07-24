@@ -29,6 +29,10 @@ export class Part {
         this.bikeId = "";
     }
 
+    get fullName(): string {
+        return this.manufacturer + " " + this.model;
+    }
+
     async addPartRequest(): Promise<FetchResponse<null>> {
         return await httpPost<Part>("/api/part", this);
     }

@@ -14,49 +14,33 @@
             </RouterLink>
         </div>
         <div class="flex gap-4 px-1">
-            <p v-if="user" id="username" class="h-full flex flex-col justify-center">{{ user }}</p>
-            <RouterLink v-if="user" to="/settings">
+            <p v-if="user.username" id="username" class="h-full flex flex-col justify-center">{{ user.username }}</p>
+            <RouterLink v-if="user.username" to="/settings">
                 <MenuBarIcon icon="tools" title="Settings"></MenuBarIcon>
             </RouterLink>
-            <a v-if="user" href="#" @click="logout">
+            <a v-if="user.username" href="#" @click="logout">
                 <MenuBarIcon icon="sign-out" title="Log out"></MenuBarIcon>
             </a>
-            <RouterLink v-if="!user" to="/login">
+            <RouterLink v-if="!user.username" to="/login">
                 <MenuBarIcon icon="sign-in" title="Login"></MenuBarIcon>
             </RouterLink>
-            <RouterLink v-if="!user" to="/register">
+            <RouterLink v-if="!user.username" to="/register">
                 <MenuBarIcon icon="user-plus" title="Register"></MenuBarIcon>
             </RouterLink>
         </div>
     </header>
 </template>
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
 import router from "../Router";
 import MenuBarIcon from "./Common/MenuBarIcon.vue";
+import { inject } from "vue";
+import { DefaultUserDependency, User } from "../Models/Auth/User.ts";
 
-export default defineComponent({
-    name: "MenuBar",
-    components: {
-        MenuBarIcon
-    },
-    props: {
-        user: {
-            type: String as PropType<string>,
-            default: ""
-        }
-    },
-    emits: {
-        updateUsernameEvent(value: string) {
-            return value;
-        }
-    },
-    methods: {
-        logout: async function () {
-            localStorage.removeItem("authToken");
-            this.$emit("updateUsernameEvent", "");
-            await router.push("/login");
-        }
-    }
-});
+const { user, setUser } = inject("user", DefaultUserDependency, true);
+
+async function logout() {
+    localStorage.removeItem("authToken");
+    setUser(new User(""));
+    await router.push("/login");
+}
 </script>

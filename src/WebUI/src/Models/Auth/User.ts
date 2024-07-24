@@ -1,29 +1,21 @@
-import { FetchResponse, httpPostWithBody } from "../HttpMethods.ts";
-import { AuthRouteResponse } from "./AuthRouteResponse.ts";
+import { ref, Ref } from "vue";
 
-export interface IUser {
-    userName: string;
-    password: string;
+export class User {
+    username: string;
 
-    registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
-
-    loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
+    constructor(username: string) {
+        this.username = username;
+    }
 }
 
-export class User implements IUser {
-    userName: string;
-    password: string;
+export type UserDependency = {
+    user: Ref<User>;
+    setUser(user: User): void;
+};
 
-    constructor(uname: string, passwd: string) {
-        this.userName = uname;
-        this.password = passwd;
-    }
-
-    async registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await httpPostWithBody<IUser, AuthRouteResponse>("/api/register", this);
-    }
-
-    async loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await httpPostWithBody<IUser, AuthRouteResponse>("/api/login", this);
-    }
+export function DefaultUserDependency(): UserDependency {
+    return {
+        user: ref<User>(new User("")),
+        setUser: () => {}
+    };
 }

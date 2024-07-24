@@ -1,10 +1,4 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    name: "HeadingH5"
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <h5 class="text-lg font-bold">

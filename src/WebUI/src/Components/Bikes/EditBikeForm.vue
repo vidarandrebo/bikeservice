@@ -32,8 +32,8 @@
     </form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, ref } from "vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
@@ -47,73 +47,36 @@ import InputNumber from "../Common/InputNumber.vue";
 import InputDate from "../Common/InputDate.vue";
 import FormField from "../Common/FormField.vue";
 
-export default defineComponent({
-    name: "EditBikeForm",
-    components: {
-        FormField,
-        ButtonSecondary,
-        InputDate,
-        InputNumber,
-        InputText,
-        SelectPrimary,
-        LabelPrimary,
-        ButtonPrimary
-    },
-    props: {
-        equipmentTypes: {
-            required: true,
-            type: Array<EquipmentType>
-        },
-        bike: {
-            required: true,
-            type: Bike
-        }
-    },
-    emits: {
-        updateBikesEvent() {
-            return true;
-        },
-        editDoneEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            bikeData: new Bike(),
-            date: ""
-        };
-    },
-    computed: {
-        bikeTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter((t) => t.category == Category.Bike);
-        }
-    },
-    watch: {
-        bike: function () {
-            this.setFormDataFromProp();
-        }
-    },
-    created: function () {
-        this.setFormDataFromProp();
-    },
-    methods: {
-        putBike: async function () {
-            this.bikeData.date = new Date(this.date);
-            let result = await this.bikeData.putBikeRequest();
-            if (result.status === 200) {
-                this.date = "";
-                this.bikeData.clear();
-                this.$emit("updateBikesEvent");
-                this.$emit("editDoneEvent");
-            }
-        },
-        hideForm: function () {
-            this.$emit("editDoneEvent");
-        },
-        setFormDataFromProp() {
-            this.bikeData = new Bike(this.bike);
-            this.date = getDateString(this.bike.date);
-        }
-    }
+const props = defineProps<{
+    equipmentTypes: EquipmentType[];
+    bike: Bike;
+}>();
+
+const emit = defineEmits(["updateBikesEvent", "editDoneEvent"]);
+
+const bikeData = ref(new Bike());
+const date = ref("");
+
+const bikeTypes = computed(() => {
+    return props.equipmentTypes.filter((t) => t.category == Category.Bike);
 });
+onMounted(() => {
+    bikeData.value = new Bike(props.bike);
+    date.value = getDateString(props.bike.date);
+});
+
+async function putBike() {
+    bikeData.value.date = new Date(date.value);
+    let result = await bikeData.value.putBikeRequest();
+    if (result.status === 200) {
+        date.value = "";
+        bikeData.value.clear();
+        emit("updateBikesEvent");
+        emit("editDoneEvent");
+    }
+}
+
+function hideForm() {
+    emit("editDoneEvent");
+}
 </script>

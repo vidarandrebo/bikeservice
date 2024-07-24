@@ -37,8 +37,8 @@
     </article>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
@@ -51,58 +51,36 @@ import SelectPrimary from "../Common/SelectPrimary.vue";
 import ButtonSecondary from "../Common/ButtonSecondary.vue";
 import FormField from "../Common/FormField.vue";
 
-export default defineComponent({
-    name: "NewBikeForm",
-    components: {
-        FormField,
-        ButtonSecondary,
-        SelectPrimary,
-        DateInput,
-        NumberInput,
-        TextInput,
-        LabelPrimary,
-        ButtonPrimary
-    },
-    props: {
-        equipmentTypes: {
-            required: true,
-            type: Array<EquipmentType>
-        }
-    },
-    emits: {
-        updateBikesEvent() {
-            return true;
-        }
-    },
-    data: function () {
-        return {
-            bikeData: new Bike(),
-            date: "",
-            show: false as boolean
-        };
-    },
-    computed: {
-        bikeTypes(): Array<EquipmentType> {
-            return this.equipmentTypes.filter((t) => t.category == Category.Bike);
-        }
-    },
-    methods: {
-        addBike: async function () {
-            this.bikeData.date = new Date(this.date);
-            let result = await this.bikeData.addBikeRequest();
-            if (result.status === 201) {
-                this.date = "";
-                this.bikeData.clear();
-                this.hideForm();
-                this.$emit("updateBikesEvent");
-            }
-        },
-        hideForm: function () {
-            this.show = false;
-        },
-        showForm: function () {
-            this.show = true;
-        }
-    }
+const props = defineProps<{
+    equipmentTypes: EquipmentType[];
+}>();
+
+const emit = defineEmits(["updateBikesEvent"]);
+
+const bikeData = ref(new Bike());
+const date = ref("");
+const show = ref(false);
+
+const bikeTypes = computed(() => {
+    return props.equipmentTypes.filter((t) => t.category == Category.Bike);
 });
+
+async function addBike() {
+    bikeData.value.date = new Date(date.value);
+    let result = await bikeData.value.addBikeRequest();
+    if (result.status === 201) {
+        date.value = "";
+        bikeData.value.clear();
+        hideForm();
+        emit("updateBikesEvent");
+    }
+}
+
+function hideForm() {
+    show.value = false;
+}
+
+function showForm() {
+    show.value = true;
+}
 </script>
