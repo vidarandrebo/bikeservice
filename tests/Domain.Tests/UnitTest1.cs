@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 namespace Domain.Tests;
 
 public class UnitTest1

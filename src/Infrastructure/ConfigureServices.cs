@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Application.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Interceptors;
@@ -31,7 +33,7 @@ public static class ConfigureServices
             services.AddDbContext<NpgsqlContext>((serviceProvider, options) =>
             {
                 options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
-                options.UseNpgsql(dbConnectionString);
+                options.UseNpgsql(dbConnectionString, x => x.MigrationsAssembly("BikeService.Migrations.Postgres"));
             });
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<NpgsqlContext>());
             services.AddIdentity<User, IdentityRole<Guid>>()
@@ -45,7 +47,8 @@ public static class ConfigureServices
                 var folder = configuration.GetValue<string>("Database:Folder");
                 var filename = configuration.GetValue<string>("Database:File");
                 Directory.CreateDirectory(folder);
-                options.UseSqlite($"Data Source={Path.Combine(folder, filename)}");
+                options.UseSqlite($"Data Source={Path.Combine(folder, filename)}",
+                    x => x.MigrationsAssembly("BikeService.Migrations.Sqlite"));
                 options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             });
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SqliteContext>());

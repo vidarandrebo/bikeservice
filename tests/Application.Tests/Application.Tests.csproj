@@ -1,20 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
         <PackageId>bikeservice-application-tests</PackageId>
         <Title>BikeService Application Tests</Title>
-        <Version>3.2.0</Version>
+        <Version>3.3.0</Version>
         <Authors>Vidar André Bø</Authors>
         <Product>BikeService</Product>
         <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-        <PackageReference Include="xunit" Version="2.9.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0"/>
+        <PackageReference Include="xunit" Version="2.9.0"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -25,8 +24,9 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Application\Application.csproj" />
-        <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
-        <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
+        <ProjectReference Include="..\..\src\Application\Application.csproj"/>
+        <ProjectReference Include="..\..\src\Domain\Domain.csproj"/>
+        <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj"/>
+        <ProjectReference Include="..\..\src\Migrations.Sqlite\BikeService.Migrations.Sqlite.csproj"/>
     </ItemGroup>
 </Project>
