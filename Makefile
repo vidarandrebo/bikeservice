@@ -10,6 +10,6 @@ clean:
 
 migration:
 	cp docker.env src/WebAPI/.env
-	dotnet ef migrations add $(name)Production --project src/Infrastructure --startup-project src/WebAPI --output-dir Migrations --context NpgsqlContext -v -- --environment Production
-	dotnet ef migrations add $(name)Dev --project src/Infrastructure --startup-project src/WebAPI --output-dir Migrations --context SqliteContext
+	dotnet ef migrations add $(name) --project src/Migrations.Postgres --startup-project src/WebAPI --context NpgsqlContext -v -- --environment Production
+	dotnet ef migrations add $(name) --project src/Migrations.Sqlite --startup-project src/WebAPI --context SqliteContext
 	rm src/WebAPI/.env
