@@ -47,7 +47,8 @@ public static class ConfigureServices
                 var folder = configuration.GetValue<string>("Database:Folder");
                 var filename = configuration.GetValue<string>("Database:File");
                 Directory.CreateDirectory(folder);
-                options.UseSqlite($"Data Source={Path.Combine(folder, filename)}", x => x.MigrationsAssembly("BikeService.Migrations.Sqlite"));
+                options.UseSqlite($"Data Source={Path.Combine(folder, filename)}",
+                    x => x.MigrationsAssembly("BikeService.Migrations.Sqlite"));
                 options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             });
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SqliteContext>());

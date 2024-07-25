@@ -20,10 +20,7 @@ namespace Infrastructure.Migrations
                     NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_AspNetRoles", x => x.Id); });
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
@@ -45,10 +42,7 @@ namespace Infrastructure.Migrations
                     LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_AspNetUsers", x => x.Id); });
 
             migrationBuilder.CreateTable(
                 name: "Bikes",
@@ -62,10 +56,7 @@ namespace Infrastructure.Migrations
                     TypeId = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bikes", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Bikes", x => x.Id); });
 
             migrationBuilder.CreateTable(
                 name: "EquipmentTypes",
@@ -76,10 +67,7 @@ namespace Infrastructure.Migrations
                     Category = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EquipmentTypes", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_EquipmentTypes", x => x.Id); });
 
             migrationBuilder.CreateTable(
                 name: "Parts",
@@ -93,10 +81,7 @@ namespace Infrastructure.Migrations
                     BikeId = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Parts", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Parts", x => x.Id); });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
