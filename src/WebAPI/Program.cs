@@ -1,4 +1,3 @@
-using System;
 using Application;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +9,8 @@ using Serilog;
 using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.LoadEnvToConfiguration(".env");
 
 builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
 builder.Services.AddApplicationServices();
@@ -49,7 +50,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    Environment.SetEnvironmentVariable("JWT_SECRET", app.Configuration.GetValue<string>("JWT:Secret"));
 }
 
 app.UseRouting();

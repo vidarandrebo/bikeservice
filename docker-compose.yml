@@ -16,8 +16,8 @@ services:
     container_name: "bikeservice-api"
     build: .
     ports:
-      - "127.0.0.1:5012:80"
-      - "[::1]:5012:80"
+      - '127.0.0.1:5012:80'
+      - '[::1]:5012:80'
     restart: unless-stopped
     volumes:
       - /data/bikeservice/log:/var/log/bikeservice/

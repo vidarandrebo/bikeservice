@@ -23,12 +23,12 @@ public static class ConfigureServices
         if (environment.IsProduction())
         {
             Console.WriteLine("Production");
-            DotEnv.Load(".env");
-            var dbConnectionString = $"User ID={Environment.GetEnvironmentVariable("DB_USER")};" +
-                                     $"Password={Environment.GetEnvironmentVariable("DB_PASSWD")};" +
-                                     $"Server={Environment.GetEnvironmentVariable("DB_SERVER")};" +
-                                     $"Port={Environment.GetEnvironmentVariable("DB_PORT")};" +
-                                     $"Database={Environment.GetEnvironmentVariable("DB_NAME")};";
+
+            var dbConnectionString = $"User ID={configuration.GetValue<string>("Database:User")};" +
+                                     $"Password={configuration.GetValue<string>("Database:Password")};" +
+                                     $"Server={configuration.GetValue<string>("Database:Server")};" +
+                                     $"Port={configuration.GetValue<string>("Database:Port")};" +
+                                     $"Database={configuration.GetValue<string>("Database:Name")};";
 
             services.AddDbContext<NpgsqlContext>((serviceProvider, options) =>
             {
@@ -46,9 +46,8 @@ public static class ConfigureServices
             {
                 var folder = configuration.GetValue<string>("Database:Folder");
                 var filename = configuration.GetValue<string>("Database:File");
-                Directory.CreateDirectory(folder);
-                options.UseSqlite($"Data Source={Path.Combine(folder, filename)}",
-                    x => x.MigrationsAssembly("BikeService.Migrations.Sqlite"));
+                options.UseSqlite($"Data Source={Path.Join(folder, filename)}",
+                    sqliteOptions => { sqliteOptions.MigrationsAssembly("BikeService.Migrations.Sqlite"); });
                 options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             });
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SqliteContext>());
