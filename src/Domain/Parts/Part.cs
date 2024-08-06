@@ -1,7 +1,7 @@
 ﻿using System;
-using Domain.Common;
+using BikeService.Domain.Common;
 
-namespace Domain.Parts;
+namespace BikeService.Domain.Parts;
 
 public class Part : BaseEntity
 {

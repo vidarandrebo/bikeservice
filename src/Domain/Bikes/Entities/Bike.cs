@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common;
-using Domain.Events;
+using BikeService.Domain.Bikes.Events;
+using BikeService.Domain.Common;
 
-namespace Domain.Bikes;
+namespace BikeService.Domain.Bikes.Entities;
 
 public class Bike : BaseEntity
 {

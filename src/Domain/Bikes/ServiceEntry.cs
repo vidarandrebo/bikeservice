@@ -1,6 +1,6 @@
 using System;
 
-namespace Domain.Bikes;
+namespace BikeService.Domain.Bikes;
 
 public class ServiceEntry
 {

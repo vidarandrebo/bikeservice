@@ -1,5 +1,5 @@
 ﻿using System;
 
-namespace Domain.Auth;
+namespace BikeService.Domain.Auth;
 
 public record UserData(Guid Id, string UserName);

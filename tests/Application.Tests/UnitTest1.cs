@@ -1,4 +1,4 @@
-namespace BikeService.Domain.Tests;
+namespace BikeService.Application.Tests;
 
 public class UnitTest1
 {

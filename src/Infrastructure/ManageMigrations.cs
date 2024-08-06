@@ -17,7 +17,7 @@ public static class ManageMigrations
         {
             if (environment.IsProduction())
             {
-                var db = scope.ServiceProvider.GetRequiredService<NpgsqlContext>();
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 Log.Logger.Information("Running migration on database");
                 var tries = 0;
                 while (true)
@@ -43,7 +43,7 @@ public static class ManageMigrations
             }
             else
             {
-                var db = scope.ServiceProvider.GetRequiredService<SqliteContext>();
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 Log.Logger.Information("Running migration on database");
                 db.Database.Migrate();
             }

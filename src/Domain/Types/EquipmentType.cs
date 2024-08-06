@@ -1,5 +1,5 @@
 using System;
-using Domain.Common;
+using BikeService.Domain.Common;
 
 namespace Domain.Types;
 

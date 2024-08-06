@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using BikeService.Domain.Parts;
 using Domain.Bikes;
 using Domain.Parts;
 using Domain.Types;

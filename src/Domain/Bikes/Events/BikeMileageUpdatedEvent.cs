@@ -1,7 +1,7 @@
 using System;
-using Domain.Common;
+using BikeService.Domain.Common;
 
-namespace Domain.Events;
+namespace BikeService.Domain.Bikes.Events;
 
 public class BikeMileageUpdatedEvent : BaseEvent
 {
