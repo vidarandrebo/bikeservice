@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Npgsql;
 using Serilog;
 
-namespace Infrastructure;
+namespace BikeService.Infrastructure;
 
 public static class ManageMigrations
 {

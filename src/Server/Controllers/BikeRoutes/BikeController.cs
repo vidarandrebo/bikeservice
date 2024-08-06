@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Bikes;
-using Domain;
-using Domain.Bikes;
+using BikeService.Application.Bikes;
+using BikeService.Application.Interfaces;
+using BikeService.Domain;
+using BikeService.Domain.Bikes;
+using BikeService.Domain.Bikes.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Services;
 
-namespace WebAPI.Controllers.BikeRoutes;
+namespace BikeService.Server.Controllers.BikeRoutes;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -26,7 +27,7 @@ public class BikeController : Controller
     [HttpGet]
     public async Task<ActionResult<DataResponse<BikeDto[]>>> GetBikes()
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result = await _mediator.Send(new GetBikes.Request(userIdResult.Value));
@@ -40,7 +41,7 @@ public class BikeController : Controller
     public async Task<IActionResult> AddBike(BikeFormDto bikeForm)
     {
         var ctSrc = new CancellationTokenSource();
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsFailed)
         {
             return Unauthorized();
@@ -58,7 +59,7 @@ public class BikeController : Controller
     [HttpPut]
     public async Task<IActionResult> EditBike(BikeFormDto bikeForm)
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsFailed)
         {
             return Unauthorized();
@@ -77,7 +78,7 @@ public class BikeController : Controller
     public async Task<IActionResult> DeleteBike(string id)
     {
         var bikeId = await GuidHelper.GuidOrEmptyAsync(id);
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsFailed)
         {
             return Unauthorized();

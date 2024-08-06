@@ -1,14 +1,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Parts;
-using Application.Parts.Commands;
-using Application.Tests.TestHelpers;
-using Domain.Parts;
-using Infrastructure;
+using BikeService.Application.Parts.Commands;
+using BikeService.Application.Tests.TestHelpers;
+using BikeService.Domain.Parts.Contracts;
+using BikeService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Tests.Parts;
+namespace BikeService.Application.Tests.Parts;
 
 public class AddPartTest
 {

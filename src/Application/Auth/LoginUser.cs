@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
+using BikeService.Application.Interfaces;
 using BikeService.Domain.Auth;
 using FluentResults;
 using MediatR;

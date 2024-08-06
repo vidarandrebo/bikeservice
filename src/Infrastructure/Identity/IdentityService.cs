@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Auth;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Auth;
 using FluentResults;
+using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Identity;
+namespace BikeService.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {

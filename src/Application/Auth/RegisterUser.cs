@@ -1,12 +1,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Auth;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Auth;
 using FluentResults;
 using MediatR;
 
-namespace Application.Auth;
+namespace BikeService.Application.Auth;
 
 public class RegisterUser
 {

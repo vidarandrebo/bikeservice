@@ -2,14 +2,15 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain;
-using Domain.Parts;
+using BikeService.Application.Interfaces;
+using BikeService.Domain;
+using BikeService.Domain.Parts;
+using BikeService.Domain.Parts.Contracts;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Parts.Commands;
+namespace BikeService.Application.Parts.Commands;
 
 public class EditPart
 {

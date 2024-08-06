@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Domain;
+namespace BikeService.Domain;
 
 public static class GuidHelper
 {

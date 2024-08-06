@@ -1,5 +1,5 @@
 using System;
 
-namespace Domain.Types;
+namespace BikeService.Domain.Types;
 
 public record EquipmentTypeDto(Guid Id, string Name, Category Category);

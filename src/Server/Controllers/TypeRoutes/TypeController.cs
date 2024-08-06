@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Application.Types;
-using Domain;
-using Domain.Types;
+using BikeService.Application.Interfaces;
+using BikeService.Application.Types;
+using BikeService.Domain;
+using BikeService.Domain.Types;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Services;
 
-namespace WebAPI.Controllers.TypeRoutes;
+namespace BikeService.Server.Controllers.TypeRoutes;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -25,7 +25,7 @@ public class TypeController : Controller
     [HttpGet]
     public async Task<ActionResult<DataResponse<EquipmentTypeDto[]>>> GetTypes()
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result = await _mediator.Send(new GetTypes.Request(userIdResult.Value));
@@ -39,7 +39,7 @@ public class TypeController : Controller
     [HttpPost]
     public async Task<IActionResult> AddType(EquipmentTypeFormDto typeForm)
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result =
@@ -59,7 +59,7 @@ public class TypeController : Controller
     public async Task<ActionResult> DeleteType(string id)
     {
         var typeId = GuidHelper.GuidOrEmpty(id);
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsFailed)
         {
             return Unauthorized();

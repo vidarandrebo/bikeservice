@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
+using BikeService.Application.Interfaces;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Types;
+namespace BikeService.Application.Types;
 
 public class DeleteType
 {

@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Events;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Bikes.Events;
 using MediatR;
 
-namespace Application.Parts.EventHandlers;
+namespace BikeService.Application.Parts.EventHandlers;
 
 public class BikeMileageUpdatedEventHandler : INotificationHandler<BikeMileageUpdatedEvent>
 {

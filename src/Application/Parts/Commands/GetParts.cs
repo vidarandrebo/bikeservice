@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
+using BikeService.Application.Interfaces;
 using BikeService.Domain.Parts;
-using Domain.Parts;
+using BikeService.Domain.Parts.Dtos;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Parts.Commands;
+namespace BikeService.Application.Parts.Commands;
 
 public class GetParts
 {

@@ -1,14 +1,14 @@
 using System;
 using System.Threading.Tasks;
-using Application.Parts;
-using Application.Parts.Commands;
-using Domain;
-using Domain.Parts;
+using BikeService.Application.Interfaces;
+using BikeService.Application.Parts.Commands;
+using BikeService.Domain;
+using BikeService.Domain.Parts.Contracts;
+using BikeService.Domain.Parts.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Services;
 
-namespace WebAPI.Controllers.PartRoutes;
+namespace BikeService.Server.Controllers.PartRoutes;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -26,7 +26,8 @@ public class PartController : Controller
     [HttpGet]
     public async Task<ActionResult<DataResponse<PartDto[]>>> GetParts()
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        //var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result = await _mediator.Send(new GetParts.Request(userIdResult.Value));
@@ -39,7 +40,8 @@ public class PartController : Controller
     [HttpPost]
     public async Task<IActionResult> AddPart(PartFormDto partForm)
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        //var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result = await _mediator.Send(new AddPart.Request(partForm, userIdResult.Value));
@@ -58,7 +60,7 @@ public class PartController : Controller
     public async Task<ActionResult> DeletePart(string id)
     {
         var partId = GuidHelper.GuidOrEmpty(id);
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsFailed)
         {
             return Unauthorized();
@@ -76,7 +78,7 @@ public class PartController : Controller
     [HttpPut]
     public async Task<IActionResult> EditPart(PartFormDto partForm)
     {
-        var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
+        var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsFailed)
         {
             return Unauthorized();

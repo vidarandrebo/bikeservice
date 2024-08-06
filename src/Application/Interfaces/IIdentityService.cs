@@ -1,11 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Domain;
-using Domain.Auth;
+using BikeService.Domain.Auth;
 using FluentResults;
 using MediatR;
 
-namespace Application.Interfaces;
+namespace BikeService.Application.Interfaces;
 
 public interface IIdentityService
 {

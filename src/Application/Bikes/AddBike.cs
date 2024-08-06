@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain;
-using Domain.Bikes;
+using BikeService.Application.Interfaces;
+using BikeService.Domain;
+using BikeService.Domain.Bikes;
+using BikeService.Domain.Bikes.Contracts;
+using BikeService.Domain.Bikes.Entities;
 using FluentResults;
 using MediatR;
 
-namespace Application.Bikes;
+namespace BikeService.Application.Bikes;
 
 public class AddBike
 {

@@ -1,13 +1,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Bikes;
-using Application.Tests.TestHelpers;
-using Domain.Bikes;
-using Infrastructure;
+using BikeService.Application.Bikes;
+using BikeService.Application.Tests.TestHelpers;
+using BikeService.Domain.Bikes.Contracts;
+using BikeService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Tests.Bikes;
+namespace BikeService.Application.Tests.Bikes;
 
 public class AddBikeTest
 {

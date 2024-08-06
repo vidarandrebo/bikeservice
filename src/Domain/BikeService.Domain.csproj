@@ -1,23 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <PackageId>bikeservice-domain</PackageId>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <PackageId>bikeservice-domain</PackageId>
         <Title>BikeService Domain</Title>
         <Version>3.4.0</Version>
         <Authors>Vidar André Bø</Authors>
         <Product>BikeService</Product>
         <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Bikes\Contracts\" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.4.0"/>
+    </ItemGroup>
 
 </Project>

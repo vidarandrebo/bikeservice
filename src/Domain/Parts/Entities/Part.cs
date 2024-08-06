@@ -1,7 +1,8 @@
 ﻿using System;
 using BikeService.Domain.Common;
+using BikeService.Domain.Parts.Dtos;
 
-namespace BikeService.Domain.Parts;
+namespace BikeService.Domain.Parts.Entities;
 
 public class Part : BaseEntity
 {

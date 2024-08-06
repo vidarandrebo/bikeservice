@@ -1,4 +1,4 @@
-namespace Domain.Types;
+namespace BikeService.Domain.Types;
 
 public enum Category
 {

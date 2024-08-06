@@ -1,14 +1,14 @@
 ﻿using System;
-using Application.Interfaces;
-using Domain.Bikes;
-using Domain.Parts;
-using Domain.Types;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Bikes.Entities;
+using BikeService.Domain.Parts.Entities;
+using BikeService.Domain.Types;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure;
+namespace BikeService.Infrastructure;
 
 public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IApplicationDbContext
 {

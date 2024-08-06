@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Types;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Types;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Types;
+namespace BikeService.Application.Types;
 
 public class GetTypes
 {

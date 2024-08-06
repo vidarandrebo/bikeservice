@@ -1,14 +1,15 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
+using BikeService.Application.Interfaces;
+using BikeService.Domain;
 using BikeService.Domain.Parts;
-using Domain;
-using Domain.Parts;
+using BikeService.Domain.Parts.Contracts;
+using BikeService.Domain.Parts.Entities;
 using FluentResults;
 using MediatR;
 
-namespace Application.Parts.Commands;
+namespace BikeService.Application.Parts.Commands;
 
 public class AddPart
 {

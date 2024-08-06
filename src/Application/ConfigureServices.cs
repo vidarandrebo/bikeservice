@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application;
+namespace BikeService.Application;
 
 public static class ConfigureServices
 {

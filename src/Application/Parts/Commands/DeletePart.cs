@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
+using BikeService.Application.Interfaces;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Parts.Commands;
+namespace BikeService.Application.Parts.Commands;
 
 public class DeletePart
 {
