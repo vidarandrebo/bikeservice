@@ -32,15 +32,14 @@ import LabelPrimary from "../Common/LabelPrimary.vue";
 import FormField from "../Common/FormField.vue";
 import router from "../../Router";
 
-const registerData = ref<RegisterData>(new RegisterData());
+const registerData = ref<Credentials>(new Credentials());
 
 async function registerUser() {
     registerData.value.passwordRequirementsCheck();
     if (registerData.value.error.length > 0) {
         return;
     }
-    let user: ICredentials = new Credentials(registerData.value.username, registerData.value.passwd);
-    let response = await user.registerUserRequest();
+    let response = await registerData.registerUserRequest();
     if (response.status == 201) {
         registerData.value = new RegisterData();
         await router.push("/login");

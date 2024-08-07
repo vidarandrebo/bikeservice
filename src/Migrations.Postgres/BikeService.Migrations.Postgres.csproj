@@ -13,4 +13,8 @@
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\BikeService.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
