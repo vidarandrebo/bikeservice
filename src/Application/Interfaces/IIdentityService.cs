@@ -1,14 +1,15 @@
 using System;
 using System.Threading.Tasks;
-using BikeService.Domain.Auth;
 using FluentResults;
-using MediatR;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Http;
 
 namespace BikeService.Application.Interfaces;
 
 public interface IIdentityService
 {
-    public Task<Result<UserData>> LoginUser(string userName, string password);
-    public Task<Unit> LogoutUser();
-    public Task<Result<Guid>> RegisterUser(string userName, string password);
+    Task<Result<Guid>> RegisterUser(string email, string password);
+    Task<Result<AccessTokenResponse>> LoginUser(string email, string password);
+    Result<Guid> GetUserIdFromRequest(HttpContext context);
+    Result<string> GetUserNameFromRequest(HttpContext context);
 }
