@@ -3,11 +3,9 @@ import { onMounted, provide, ref } from "vue";
 import { Bike, getBikesRequest } from "./Models/Bikes/Bike.ts";
 import { getPartsRequest, Part } from "./Models/Parts/Part.ts";
 import { EquipmentType, getTypeRequest } from "./Models/EquipmentTypes/EquipmentType.ts";
-import { httpGetWithBody } from "./Models/HttpMethods.ts";
-import { User } from "./Models/Auth/User.ts";
-import { AuthRouteResponse } from "./Models/Auth/AuthRouteResponse.ts";
+import { loadUserFromLocalStorage, User } from "./Models/Auth/User.ts";
 
-const user = ref<User>(new User(""));
+const user = ref<User>(new User());
 const bikes = ref<Bike[]>([]);
 const parts = ref<Part[]>([]);
 const equipmentTypes = ref<EquipmentType[]>([]);
@@ -30,6 +28,7 @@ function setBikes(value: Bike[]) {
     });
     bikes.value = value;
 }
+
 
 function addBike(value: Bike) {
     bikes.value.push(value);
@@ -58,10 +57,17 @@ function setEquipmentTypes(value: EquipmentType[]) {
 }
 
 onMounted(() => {
+    const storedUser = loadUserFromLocalStorage();
+    if (storedUser) {
+        storedUser.refresh().then((u) => {
+            if (u) {
+                setUser(u);
+            }
+        });
+    }
     fetchBikes();
     fetchParts();
     fetchEquipmentTypes();
-    httpGetWithBody<AuthRouteResponse>("/api/login").then((u) => setUser(new User(u.body.userName)));
 });
 
 function fetchBikes() {

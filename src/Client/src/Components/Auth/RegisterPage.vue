@@ -2,18 +2,18 @@
     <main>
         <article class="max-w-prose">
             <form id="register" method="POST" @submit.prevent="registerUser">
-                <p v-for="(err, i) in registerData.error" :key="i">{{ err }}</p>
+                <p v-for="(err, i) in registerData.errors" :key="i">{{ err }}</p>
                 <FormField>
-                    <LabelPrimary for="username">Username</LabelPrimary>
-                    <InputText id="username" v-model="registerData.username" required />
+                    <LabelPrimary for="email">Email</LabelPrimary>
+                    <InputText id="email" v-model="registerData.email" required />
                 </FormField>
                 <FormField>
-                    <LabelPrimary for="passwd">Password</LabelPrimary>
-                    <InputText id="passwd" v-model="registerData.passwd" required type="password" />
+                    <LabelPrimary for="password">Password</LabelPrimary>
+                    <InputText id="password" v-model="registerData.password" required type="password" />
                 </FormField>
                 <FormField>
-                    <LabelPrimary for="repeat-passwd">Repeat password</LabelPrimary>
-                    <InputText id="repeat-passwd" v-model="registerData.repasswd" required type="password" />
+                    <LabelPrimary for="repeat-password">Repeat password</LabelPrimary>
+                    <InputText id="repeat-password" v-model="registerData.repeatPassword" required type="password" />
                 </FormField>
                 <FormField>
                     <ButtonPrimary type="submit">Register</ButtonPrimary>
@@ -23,9 +23,8 @@
     </main>
 </template>
 <script setup lang="ts">
-import { RegisterData } from "../../Models/Auth/Register.ts";
 import { ref } from "vue";
-import { Credentials, ICredentials } from "../../Models/Auth/Credentials.ts";
+import { Credentials } from "../../Models/Auth/Credentials.ts";
 import InputText from "../Common/InputText.vue";
 import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import LabelPrimary from "../Common/LabelPrimary.vue";
@@ -36,15 +35,13 @@ const registerData = ref<Credentials>(new Credentials());
 
 async function registerUser() {
     registerData.value.passwordRequirementsCheck();
-    if (registerData.value.error.length > 0) {
+    if (registerData.value.errors.length > 0) {
         return;
     }
-    let response = await registerData.registerUserRequest();
-    if (response.status == 201) {
-        registerData.value = new RegisterData();
+    let httpValidationProblemDetails = await registerData.value.registerUserRequest();
+    if (!httpValidationProblemDetails) {
+        registerData.value = new Credentials();
         await router.push("/login");
-    } else {
-        registerData.value.error = response.body.errors;
     }
 }
 </script>

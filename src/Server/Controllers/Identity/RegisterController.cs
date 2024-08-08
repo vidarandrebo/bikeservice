@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -22,11 +21,12 @@ public class RegisterController : ControllerBase
     private readonly ILogger<LoginController> _logger;
     private readonly IConfiguration _cfg;
 
-    public RegisterController(IMediator mediator, ILogger<LoginController> logger, IIdentityService identityService)
+    public RegisterController(IMediator mediator, ILogger<LoginController> logger, IIdentityService identityService, IConfiguration cfg)
     {
         _mediator = mediator;
         _logger = logger;
         _identityService = identityService;
+        _cfg = cfg;
     }
 
     // POST

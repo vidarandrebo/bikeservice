@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application;
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Types;
 using FluentResults;

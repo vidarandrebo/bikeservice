@@ -1,4 +1,6 @@
-import { DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut } from "../HttpMethods.ts";
+import { HttpRequest } from "http-methods-ts";
+import { DataArrayResponse, FetchResponse, httpDelete, httpPost, httpPut } from "../HttpMethods.ts";
+import { loadUserFromLocalStorage } from "../Auth/User.ts";
 
 export class Bike {
     id: string;
@@ -47,9 +49,30 @@ export class Bike {
 }
 
 export async function getBikesRequest(): Promise<Bike[]> {
-    const result = await httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
-    if (result.status === 200) {
-        return result.body.data.map(createBike);
+//    const result = await //httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
+//    if (result.status === 200) {
+//        return result.body.data.map(createBike);
+//    }
+    //return [];
+
+    const storedUser = loadUserFromLocalStorage();
+    if (storedUser === null) {
+        return [];
+    }
+    const httpRequest = new HttpRequest()
+        .setRoute("/api/bike")
+        .setMethod("GET")
+        .setBearerToken(storedUser.accessToken)
+        .addHeader("Content-Type", "application/json");
+
+    await httpRequest.send();
+
+    const httpResponse = httpRequest.getResponseData();
+    if (httpResponse != null) {
+        if (httpResponse.status == 200) {
+            const payload = httpResponse.body as FetchResponse<DataArrayResponse<Bike>>;
+            return payload.body.data.map(createBike);
+        }
     }
     return [];
 }

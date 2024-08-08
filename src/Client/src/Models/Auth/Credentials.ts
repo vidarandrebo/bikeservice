@@ -1,16 +1,18 @@
 import { HttpRequest } from "http-methods-ts";
-import { FetchResponse, httpPostWithBody } from "../HttpMethods.ts";
-import { AuthRouteResponse } from "./AuthRouteResponse.ts";
-import { RegisterRequest } from "aspnetcore-ts/Identity/Data";
+import { LoginRequest, RegisterRequest } from "aspnetcore-ts/Identity/Data";
+import { HttpValidationProblemDetails } from "aspnetcore-ts/Http";
+import { AccessTokenResponse } from "aspnetcore-ts/Authentication/BearerToken";
+import { User } from "./User.ts";
 
 export interface ICredentials {
     email: string;
     password: string;
     repeatPassword: string;
+    errors: Array<string>;
 
-    registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
+    registerUserRequest(): Promise<HttpValidationProblemDetails | null>;
 
-    loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>>;
+    loginUserRequest(): Promise<User | null>;
 
     passwordRequirementsCheck(): void;
 }
@@ -19,15 +21,15 @@ export class Credentials implements ICredentials {
     email: string;
     password: string;
     repeatPassword: string;
-    error: Array<string>;
+    errors: Array<string>;
 
     passwordRequirementsCheck(): void {
-        this.error = new Array<string>();
+        this.errors = new Array<string>();
         if (this.password !== this.repeatPassword) {
-            this.error.push("Passwords do not match");
+            this.errors.push("Passwords do not match");
         }
         if (this.password.length < 8) {
-            this.error.push("Password should be 8 characters or longer!");
+            this.errors.push("Password should be 8 characters or longer!");
         }
     }
 
@@ -35,25 +37,52 @@ export class Credentials implements ICredentials {
         this.email = "";
         this.repeatPassword = "";
         this.password = "";
-        this.error = new Array<string>();
+        this.errors = new Array<string>();
     }
 
-    async registerUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        //return await httpPostWithBody<ICredentials, AuthRouteResponse>("/api/register", this);
-        const payload = new RegisterRequest(this.email, this.password);
-        const request = new HttpRequest()
-            .setRoute("/api/regsiter")
+    async registerUserRequest(): Promise<HttpValidationProblemDetails | null> {
+        const registerRequest = new RegisterRequest(this.email, this.password);
+        const httpRequest = new HttpRequest()
+            .setRoute("/api/register")
             .setMethod("POST")
             .addHeader("Content-Type", "application/json")
-            .setRequestData(payload);
-        await request.send();
-        const response = request.getResponseData()
-        if (response) {
-            if (response.status === )
+            .setRequestData(registerRequest);
+        await httpRequest.send();
+        const httpResponse = httpRequest.getResponseData();
+        const registerErrors = new HttpValidationProblemDetails();
+
+        if (httpResponse) {
+            if (httpResponse?.status == 400) {
+                registerErrors.assignFromObject(httpResponse.body as Record<string, never>);
+                return registerErrors;
+            }
         }
+        return null;
     }
 
-    async loginUserRequest(): Promise<FetchResponse<AuthRouteResponse>> {
-        return await httpPostWithBody<ICredentials, AuthRouteResponse>("/api/login", this);
+    async loginUserRequest(): Promise<User | null> {
+        // send login user request to server
+        const loginRequest = new LoginRequest(this.email, this.password, null, null);
+        const httpRequest = new HttpRequest()
+            .setRoute("/api/login")
+            .setMethod("POST")
+            .addHeader("Content-Type", "application/json")
+            .setRequestData(loginRequest);
+        await httpRequest.send();
+        const httpResponse = httpRequest.getResponseData();
+        const loginResponse = new AccessTokenResponse();
+
+        if (httpResponse) {
+            if (httpResponse?.status == 201) {
+                loginResponse.assignFromObject(httpResponse.body as Record<string, never>);
+                const user = new User();
+                user.refreshToken = loginResponse.refreshToken;
+                user.accessToken = loginResponse.accessToken;
+                user.email = this.email;
+                user.writeToLocalStorage();
+                return user;
+            }
+        }
+        return null;
     }
 }

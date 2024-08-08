@@ -1,12 +1,12 @@
 <template>
     <main>
-        <div v-if="!user.username">
+        <div v-if="!user.email">
             <h1>BikeService</h1>
             <p>Welcome to BikeService</p>
         </div>
-        <div v-if="user.username">
+        <div v-if="user.email">
             <h1>BikeService</h1>
-            <p>Welcome {{ user.username }}</p>
+            <p>Welcome {{ user.email }}</p>
         </div>
     </main>
 </template>
