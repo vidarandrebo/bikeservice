@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Bikes;
+using BikeService.Domain.Bikes.Dtos;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

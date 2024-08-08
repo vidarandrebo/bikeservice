@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BikeService.Domain.Bikes.Dtos;
 using BikeService.Domain.Bikes.Events;
 using BikeService.Domain.Common;
 

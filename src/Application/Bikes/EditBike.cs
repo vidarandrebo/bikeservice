@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Domain;
-using BikeService.Domain.Bikes;
 using BikeService.Domain.Bikes.Contracts;
 using FluentResults;
 using MediatR;
@@ -14,7 +13,7 @@ namespace BikeService.Application.Bikes;
 
 public class EditBike
 {
-    public record Request(BikeFormDto BikeFormDto, Guid UserId) : IRequest<Result>;
+    public record Request(PutBikeRequest PutBikeRequest, Guid UserId) : IRequest<Result>;
 
     public class Handler : IRequestHandler<Request, Result>
     {
@@ -27,8 +26,8 @@ public class EditBike
 
         public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
-            var bikeId = GuidHelper.GuidOrEmpty(request.BikeFormDto.Id);
-            var typeId = GuidHelper.GuidOrEmpty(request.BikeFormDto.TypeId);
+            var bikeId = GuidHelper.GuidOrEmpty(request.PutBikeRequest.Id);
+            var typeId = GuidHelper.GuidOrEmpty(request.PutBikeRequest.TypeId);
             var bike = await _dbContext.Bikes
                 .Where(b => b.UserId == request.UserId)
                 .FirstOrDefaultAsync(b => b.Id == bikeId, cancellationToken);
@@ -37,10 +36,10 @@ public class EditBike
                 return Result.Fail(new Error("Bike not found"));
             }
 
-            bike.Manufacturer = request.BikeFormDto.Manufacturer;
-            bike.Model = request.BikeFormDto.Model;
-            bike.Mileage = request.BikeFormDto.Mileage;
-            bike.Date = request.BikeFormDto.Date;
+            bike.Manufacturer = request.PutBikeRequest.Manufacturer;
+            bike.Model = request.PutBikeRequest.Model;
+            bike.Mileage = request.PutBikeRequest.Mileage;
+            bike.Date = request.PutBikeRequest.Date;
             bike.TypeId = typeId;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

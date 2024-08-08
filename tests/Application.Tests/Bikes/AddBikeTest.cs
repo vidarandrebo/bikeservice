@@ -27,7 +27,7 @@ public class AddBikeTest
         var manufacturer = "bike";
         var mileage = 1234.56;
         var handler = new AddBike.Handler(_db);
-        var bikeFormDto = new BikeFormDto("", mileage, model, manufacturer, DateTime.Now,
+        var bikeFormDto = new PostBikeRequest("", mileage, model, manufacturer, DateTime.Now,
             typeId.ToString());
         var request = new AddBike.Request(bikeFormDto, userId);
         await handler.Handle(request, new CancellationToken());

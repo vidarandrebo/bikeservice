@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Domain;
 using MediatR;
@@ -26,37 +25,37 @@ public class RefreshController : ControllerBase
         _tokenHandler = tokenHandler;
     }
 
-        // POST
-        [HttpPost]
-        public async Task<ActionResult<AccessTokenResponse>> Post(RefreshRequest refreshRequest)
+    // POST
+    [HttpPost]
+    public ActionResult<AccessTokenResponse> Post(RefreshRequest refreshRequest)
+    {
+        _logger.LogInformation("refreshing token");
+
+        var claimsResult = _tokenHandler.ValidateToken(refreshRequest.RefreshToken);
+
+        if (claimsResult.IsFailed)
         {
-            _logger.LogInformation("refreshing token");
-
-            var claimsResult = _tokenHandler.ValidateToken(refreshRequest.RefreshToken);
-
-            if (claimsResult.IsFailed)
-            {
-                return Unauthorized();
-            }
-
-            var email = claimsResult.Value.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
-            var id = claimsResult.Value.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-
-            if (email is null || id is null)
-            {
-                return BadRequest();
-            }
-
-            var idGuid = await GuidHelper.GuidOrEmptyAsync(id.Value);
-
-            var response = new AccessTokenResponse()
-            {
-                AccessToken = _tokenHandler.AccessToken(idGuid, email.Value),
-                RefreshToken = _tokenHandler.RefreshToken(idGuid, email.Value),
-                ExpiresIn = 60 * 60 * 24,
-            };
-
-
-            return Ok(response);
+            return Unauthorized();
         }
+
+        var email = claimsResult.Value.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+        var id = claimsResult.Value.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+        if (email is null || id is null)
+        {
+            return BadRequest();
+        }
+
+        var idGuid = GuidHelper.GuidOrEmpty(id.Value);
+
+        var response = new AccessTokenResponse()
+        {
+            AccessToken = _tokenHandler.AccessToken(idGuid, email.Value),
+            RefreshToken = _tokenHandler.RefreshToken(idGuid, email.Value),
+            ExpiresIn = 60 * 60 * 24,
+        };
+
+
+        return Ok(response);
+    }
 }

@@ -27,12 +27,4 @@ public static class GuidHelper
             }
         }
     }
-
-    /// <summary>Non crashing async constructor for Guid</summary>
-    /// <param name="input">String representation of Guid</param>
-    /// <returns>Task containing Guid from input or an empty Guid</returns>
-    public static Task<Guid> GuidOrEmptyAsync(string input)
-    {
-        return Task.Run(() => GuidOrEmpty(input));
-    }
 }
