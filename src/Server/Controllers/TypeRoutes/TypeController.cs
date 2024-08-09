@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Application.Types;
 using BikeService.Domain;
 using BikeService.Domain.Types;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeService.Server.Controllers.TypeRoutes;
@@ -22,22 +22,25 @@ public class TypeController : Controller
         _mediator = mediator;
     }
 
+    [Authorize]
     [HttpGet]
-    public async Task<ActionResult<DataResponse<EquipmentTypeDto[]>>> GetTypes()
+    public async Task<ActionResult<EquipmentTypeResponse[]>> GetTypes()
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result = await _mediator.Send(new GetTypes.Request(userIdResult.Value));
-            return Ok(new DataResponse<EquipmentTypeDto[]>(result.Value, Array.Empty<string>()));
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
         }
 
-        return Unauthorized(
-            new DataResponse<EquipmentTypeDto[]>(Array.Empty<EquipmentTypeDto>(), new[] { "Not logged in" }));
+        return BadRequest();
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddType(EquipmentTypeFormDto typeForm)
+    public async Task<IActionResult> AddType(PostEquipmentTypeRequest typeForm)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)

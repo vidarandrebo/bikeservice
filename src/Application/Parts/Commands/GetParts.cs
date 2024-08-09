@@ -13,9 +13,9 @@ namespace BikeService.Application.Parts.Commands;
 
 public class GetParts
 {
-    public record Request(Guid UserId) : IRequest<Result<PartDto[]>>;
+    public record Request(Guid UserId) : IRequest<Result<PartResponse[]>>;
 
-    public class Handler : IRequestHandler<Request, Result<PartDto[]>>
+    public class Handler : IRequestHandler<Request, Result<PartResponse[]>>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -24,7 +24,7 @@ public class GetParts
             _dbContext = dbContext;
         }
 
-        public async Task<Result<PartDto[]>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<PartResponse[]>> Handle(Request request, CancellationToken cancellationToken)
         {
             var parts = await _dbContext.Parts
                 .Where(p => p.UserId == request.UserId)

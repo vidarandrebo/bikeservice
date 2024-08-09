@@ -72,6 +72,11 @@ export class Bike {
             .setBearerToken(bearerToken)
             .setRequestData(this);
         await httpRequest.send();
+        const response = httpRequest.getResponseData();
+        if (response) {
+            return response.status;
+        }
+        return -1;
 
     }
 

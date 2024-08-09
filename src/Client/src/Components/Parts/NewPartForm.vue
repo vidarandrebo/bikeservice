@@ -70,7 +70,7 @@ const partTypes = computed(() => {
 
 async function addPart() {
     let result = await partData.value.addPartRequest();
-    if (result.status == 201) {
+    if (result == 201) {
         partData.value.clear();
         emit("updatePartsEvent");
     }

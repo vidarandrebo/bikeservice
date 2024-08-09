@@ -1,5 +1,6 @@
-import { DataArrayResponse, FetchResponse, httpGetWithBody, httpPost } from "../HttpMethods.ts";
 import { Category } from "./Category.ts";
+import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
+import { HttpRequest } from "http-methods-ts";
 
 export class EquipmentType {
     id: string;
@@ -15,8 +16,23 @@ export class EquipmentType {
         }
     }
 
-    async addTypeRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<EquipmentType>("/api/type", this);
+    async addTypeRequest(): Promise<number> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return -1;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute(window.location.origin + "/" + "api/type")
+            .setMethod("POST")
+            .addHeader("Content-Type", "application/json")
+            .setBearerToken(bearerToken)
+            .setRequestData(this);
+        await httpRequest.send();
+        const result = httpRequest.getResponseData();
+        if (result) {
+            return result.status;
+        }
+        return -1;
     }
 
     clear() {
@@ -30,9 +46,24 @@ export class EquipmentType {
  * Acquires all equipment-types and returns an array of object containing them.
  */
 export async function getTypeRequest(): Promise<EquipmentType[]> {
-    const result = await httpGetWithBody<DataArrayResponse<EquipmentType>>("/api/type");
-    if (result.status === 200) {
-        return result.body.data.map(createType);
+    const bearerToken = loadBearerTokenFromLocalStorage();
+    if (bearerToken === null) {
+        return [];
+    }
+    const httpRequest = new HttpRequest()
+        .setRoute("/api/type")
+        .setMethod("GET")
+        .setBearerToken(bearerToken)
+        .addHeader("Content-Type", "application/json");
+
+    await httpRequest.send();
+
+    const httpResponse = httpRequest.getResponseData();
+    if (httpResponse != null) {
+        if (httpResponse.status == 200) {
+            const payload = httpResponse.body as EquipmentType[];
+            return payload.map(createType);
+        }
     }
     return [];
 }

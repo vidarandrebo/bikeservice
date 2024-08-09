@@ -1,4 +1,5 @@
-import { DataArrayResponse, FetchResponse, httpDelete, httpGetWithBody, httpPost, httpPut } from "../HttpMethods.ts";
+import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
+import { HttpRequest } from "http-methods-ts";
 
 export class Part {
     id: string;
@@ -33,23 +34,78 @@ export class Part {
         return this.manufacturer + " " + this.model;
     }
 
-    async addPartRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<Part>("/api/part", this);
+    async addPartRequest(): Promise<number> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return -1;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute("api/part")
+            .setMethod("POST")
+            .addHeader("Content-Type", "application/json")
+            .setBearerToken(bearerToken)
+            .setRequestData(this);
+        await httpRequest.send();
+        const result = httpRequest.getResponseData();
+        if (result) {
+            return result.status;
+        }
+        return -1;
     }
 
-    async deletePartRequest(): Promise<FetchResponse<null>> {
-        return await httpDelete("/api/part", this.id);
+    async deletePartRequest(): Promise<void> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute("api/part")
+            .setMethod("DELETE")
+            .addHeader("Content-Type", "application/json")
+            .addUrlParam("id", this.id)
+            .setBearerToken(bearerToken);
+        await httpRequest.send();
     }
 
-    async putPartRequest(): Promise<FetchResponse<null>> {
-        return await httpPut<Part>("/api/part", this);
+    async putPartRequest(): Promise<number> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return -1;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute("api/part")
+            .setMethod("PUT")
+            .addHeader("Content-Type", "application/json")
+            .setBearerToken(bearerToken)
+            .setRequestData(this);
+        await httpRequest.send();
+        const response = httpRequest.getResponseData();
+        if (response) {
+            return response.status;
+        }
+        return -1;
     }
 }
 
 export async function getPartsRequest(): Promise<Part[]> {
-    const result = await httpGetWithBody<DataArrayResponse<Part>>("/api/part");
-    if (result.status === 200) {
-        return result.body.data.map(createPart);
+    const bearerToken = loadBearerTokenFromLocalStorage();
+    if (bearerToken === null) {
+        return [];
+    }
+    const httpRequest = new HttpRequest()
+        .setRoute("/api/part")
+        .setMethod("GET")
+        .setBearerToken(bearerToken)
+        .addHeader("Content-Type", "application/json");
+
+    await httpRequest.send();
+
+    const httpResponse = httpRequest.getResponseData();
+    if (httpResponse != null) {
+        if (httpResponse.status == 200) {
+            const payload = httpResponse.body as Part[];
+            return payload.map(createPart);
+        }
     }
     return [];
 }

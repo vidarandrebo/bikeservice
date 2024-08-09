@@ -40,7 +40,7 @@ const bikeTypes = computed(() => {
 
 async function addType() {
     let result = await equipmentTypeSettings.value.addTypeRequest();
-    if (result.status == 201) {
+    if (result === 201) {
         equipmentTypeSettings.value.clear();
     }
     fetchEquipmentTypes();

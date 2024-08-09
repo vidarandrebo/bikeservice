@@ -9,9 +9,9 @@ public class EquipmentType : BaseEntity
     public Category Category { get; set; }
     public Guid UserId { get; set; }
 
-    public EquipmentTypeDto CreateDto()
+    public EquipmentTypeResponse CreateDto()
     {
-        return new EquipmentTypeDto(Id, Name, Category);
+        return new EquipmentTypeResponse(Id, Name, Category);
     }
 
     public EquipmentType(string name, Category category, Guid userId)

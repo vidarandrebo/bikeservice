@@ -13,9 +13,9 @@ public class Part : BaseEntity
     public Guid BikeId { get; set; }
     public Guid UserId { get; set; }
 
-    public PartDto CreateDto()
+    public PartResponse CreateDto()
     {
-        return new PartDto(Id, Manufacturer, Model, Mileage, TypeId, BikeId);
+        return new PartResponse(Id, Manufacturer, Model, Mileage, TypeId, BikeId);
     }
 
     public Part(string manufacturer, string model, double mileage, Guid typeId, Guid bikeId, Guid userId)

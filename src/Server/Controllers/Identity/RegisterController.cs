@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
+using BikeService.Application.Types;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
@@ -45,6 +46,8 @@ public class RegisterController : ControllerBase
                 }
             ));
         }
+
+        var addTypesResult = await _mediator.Send(new AddDefaultTypes.Request(registerUserResult.Value));
 
         return Created();
     }

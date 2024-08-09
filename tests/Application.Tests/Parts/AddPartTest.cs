@@ -28,7 +28,7 @@ public class AddPartTest
         var manufacturer = "part";
         var mileage = 1234.56;
         var handler = new AddPart.Handler(_db);
-        var partFormDto = new PartFormDto("", mileage, manufacturer, model, bikeId.ToString(),
+        var partFormDto = new PostPartRequest("", mileage, manufacturer, model, bikeId.ToString(),
             typeId.ToString());
         var request = new AddPart.Request(partFormDto, userId);
         await handler.Handle(request, new CancellationToken());

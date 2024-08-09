@@ -68,7 +68,7 @@ onMounted(() => {
 async function putBike() {
     bikeData.value.date = new Date(date.value);
     let result = await bikeData.value.putBikeRequest();
-    if (result.status === 200) {
+    if (result === 200) {
         date.value = "";
         bikeData.value.clear();
         emit("updateBikesEvent");

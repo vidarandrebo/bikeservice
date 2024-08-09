@@ -65,7 +65,7 @@ const partTypes = computed(() => {
 
 async function putPart() {
     let result = await partData.value.putPartRequest();
-    if (result.status === 200) {
+    if (result === 200) {
         partData.value.clear();
         emit("updatePartsEvent");
         emit("editDoneEvent");

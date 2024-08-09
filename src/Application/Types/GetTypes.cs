@@ -12,9 +12,9 @@ namespace BikeService.Application.Types;
 
 public class GetTypes
 {
-    public record Request(Guid UserId) : IRequest<Result<EquipmentTypeDto[]>>;
+    public record Request(Guid UserId) : IRequest<Result<EquipmentTypeResponse[]>>;
 
-    public class Handler : IRequestHandler<Request, Result<EquipmentTypeDto[]>>
+    public class Handler : IRequestHandler<Request, Result<EquipmentTypeResponse[]>>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -23,7 +23,7 @@ public class GetTypes
             _dbContext = dbContext;
         }
 
-        public async Task<Result<EquipmentTypeDto[]>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<EquipmentTypeResponse[]>> Handle(Request request, CancellationToken cancellationToken)
         {
             var equipmentTypes = await _dbContext.EquipmentTypes
                 .Where(e => e.UserId == request.UserId)
