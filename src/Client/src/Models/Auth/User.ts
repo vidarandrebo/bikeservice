@@ -74,3 +74,11 @@ export function loadUserFromLocalStorage(): User | null {
     }
     return null;
 }
+
+export function loadBearerTokenFromLocalStorage(): string | null {
+    const user = loadUserFromLocalStorage();
+    if (user) {
+        return user.accessToken;
+    }
+    return null;
+}

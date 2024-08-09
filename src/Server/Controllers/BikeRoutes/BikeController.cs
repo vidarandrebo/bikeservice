@@ -74,40 +74,38 @@ public class BikeController : Controller
         return BadRequest();
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> EditBike(PutBikeRequest postBikeForm)
     {
         var userIdResult = HttpContext.GetUserId();
-        if (userIdResult.IsFailed)
+        if (userIdResult.IsSuccess)
         {
-            return Unauthorized();
-        }
-
-        var editBikeResult = await _mediator.Send(new EditBike.Request(postBikeForm, userIdResult.Value));
-        if (editBikeResult.IsSuccess)
-        {
-            return Ok();
+            var editBikeResult = await _mediator.Send(new EditBike.Request(postBikeForm, userIdResult.Value));
+            if (editBikeResult.IsSuccess)
+            {
+                return Ok();
+            }
         }
 
         return BadRequest();
     }
 
+    [Authorize]
     [HttpDelete]
     public async Task<IActionResult> DeleteBike(string id)
     {
         var bikeId = GuidHelper.GuidOrEmpty(id);
         var userIdResult = HttpContext.GetUserId();
-        if (userIdResult.IsFailed)
+        if (userIdResult.IsSuccess)
         {
-            return Unauthorized();
+            var result = await _mediator.Send(new DeleteBike.Request(bikeId, userIdResult.Value));
+            if (result.IsSuccess)
+            {
+                return Ok();
+            }
         }
 
-        var result = await _mediator.Send(new DeleteBike.Request(bikeId, userIdResult.Value));
-        if (result.IsFailed)
-        {
-            return BadRequest();
-        }
-
-        return Ok();
+        return BadRequest();
     }
 }

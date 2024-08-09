@@ -1,6 +1,5 @@
 import { HttpRequest } from "http-methods-ts";
-import { DataArrayResponse, FetchResponse, httpDelete, httpPost, httpPut } from "../HttpMethods.ts";
-import { loadUserFromLocalStorage } from "../Auth/User.ts";
+import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
 
 export class Bike {
     id: string;
@@ -28,16 +27,52 @@ export class Bike {
         return this.manufacturer + " " + this.model;
     }
 
-    async addBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpPost<Bike>("/api/bike", this);
+    async addBikeRequest(): Promise<number> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return -1;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute("api/bike")
+            .setMethod("POST")
+            .addHeader("Content-Type", "application/json")
+            .setBearerToken(bearerToken)
+            .setRequestData(this);
+        await httpRequest.send();
+        const result = httpRequest.getResponseData();
+        if (result) {
+            return result.status;
+        }
+        return -1;
     }
 
-    async deleteBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpDelete("/api/bike", this.id);
+    async deleteBikeRequest(): Promise<void> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute("api/bike")
+            .setMethod("DELETE")
+            .addHeader("Content-Type", "application/json")
+            .addUrlParam("id", this.id)
+            .setBearerToken(bearerToken);
+        await httpRequest.send();
     }
 
-    async putBikeRequest(): Promise<FetchResponse<null>> {
-        return await httpPut<Bike>("/api/bike", this);
+    async putBikeRequest(): Promise<number> {
+        const bearerToken = loadBearerTokenFromLocalStorage();
+        if (bearerToken === null) {
+            return -1;
+        }
+        const httpRequest = new HttpRequest()
+            .setRoute("api/bike")
+            .setMethod("PUT")
+            .addHeader("Content-Type", "application/json")
+            .setBearerToken(bearerToken)
+            .setRequestData(this);
+        await httpRequest.send();
+
     }
 
     clear(): void {
@@ -49,20 +84,14 @@ export class Bike {
 }
 
 export async function getBikesRequest(): Promise<Bike[]> {
-//    const result = await //httpGetWithBody<DataArrayResponse<Bike>>("/api/bike");
-//    if (result.status === 200) {
-//        return result.body.data.map(createBike);
-//    }
-    //return [];
-
-    const storedUser = loadUserFromLocalStorage();
-    if (storedUser === null) {
+    const bearerToken = loadBearerTokenFromLocalStorage();
+    if (bearerToken === null) {
         return [];
     }
     const httpRequest = new HttpRequest()
         .setRoute("/api/bike")
         .setMethod("GET")
-        .setBearerToken(storedUser.accessToken)
+        .setBearerToken(bearerToken)
         .addHeader("Content-Type", "application/json");
 
     await httpRequest.send();
@@ -70,8 +99,8 @@ export async function getBikesRequest(): Promise<Bike[]> {
     const httpResponse = httpRequest.getResponseData();
     if (httpResponse != null) {
         if (httpResponse.status == 200) {
-            const payload = httpResponse.body as FetchResponse<DataArrayResponse<Bike>>;
-            return payload.body.data.map(createBike);
+            const payload = httpResponse.body as Bike[];
+            return payload.map(createBike);
         }
     }
     return [];
