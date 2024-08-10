@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Security.Claims;
+using BikeService.Application;
 using BikeService.Application.Interfaces;
 using BikeService.Domain;
 using MediatR;

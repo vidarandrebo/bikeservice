@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using BikeService.Application;
 using BikeService.Application.Interfaces;
 using BikeService.Application.Types;
 using BikeService.Domain;
@@ -39,6 +40,7 @@ public class TypeController : Controller
         return BadRequest();
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> AddType(PostEquipmentTypeRequest typeForm)
     {
@@ -51,28 +53,26 @@ public class TypeController : Controller
             {
                 return Created(nameof(AddType), typeForm);
             }
-
-            return BadRequest();
         }
 
-        return Unauthorized();
+        return BadRequest();
     }
 
+    [Authorize]
     [HttpDelete]
     public async Task<ActionResult> DeleteType(string id)
     {
         var typeId = GuidHelper.GuidOrEmpty(id);
         var userIdResult = HttpContext.GetUserId();
-        if (userIdResult.IsFailed)
+        if (userIdResult.IsSuccess)
         {
-            return Unauthorized();
+            var result = await _mediator.Send(new DeleteType.Request(typeId, userIdResult.Value));
+            if (result.IsSuccess)
+            {
+                return Ok();
+            }
         }
 
-        var result = await _mediator.Send(new DeleteType.Request(typeId, userIdResult.Value));
-        if (result.IsSuccess)
-        {
-            return Ok();
-        }
 
         return BadRequest();
     }

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using BikeService.Application;
 using BikeService.Application.Parts.Commands;
 using BikeService.Domain;
 using BikeService.Domain.Parts.Contracts;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using BikeService.Application;
 using BikeService.Application.Bikes;
 using BikeService.Application.Interfaces;
 using BikeService.Domain;

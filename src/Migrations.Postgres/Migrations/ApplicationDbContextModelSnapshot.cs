@@ -107,7 +107,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                     b.ToTable("Parts");
                 });
 
-            modelBuilder.Entity("BikeService.Domain.Types.EquipmentType", b =>
+            modelBuilder.Entity("BikeService.Domain.Types.Entities.EquipmentType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                     b.ToTable("EquipmentTypes");
                 });
 
-            modelBuilder.Entity("Infrastructure.Identity.User", b =>
+            modelBuilder.Entity("BikeService.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,7 +341,7 @@ namespace BikeService.Migrations.Postgres.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Infrastructure.Identity.User", null)
+                    b.HasOne("BikeService.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -350,7 +350,7 @@ namespace BikeService.Migrations.Postgres.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Infrastructure.Identity.User", null)
+                    b.HasOne("BikeService.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -365,7 +365,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Identity.User", null)
+                    b.HasOne("BikeService.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -374,7 +374,7 @@ namespace BikeService.Migrations.Postgres.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Infrastructure.Identity.User", null)
+                    b.HasOne("BikeService.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

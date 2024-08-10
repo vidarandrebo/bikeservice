@@ -1,11 +1,10 @@
 using System;
-using System.Threading.Tasks;
 
-namespace BikeService.Domain;
+namespace BikeService.Application;
 
 public static class GuidHelper
 {
-    /// <summary>Non crashing constructor for Guid</summary>
+    /// <summary>Non-crashing constructor for Guid</summary>
     /// <param name="input">String representation of Guid</param>
     /// <returns>Guid from input or an empty Guid</returns>
     public static Guid GuidOrEmpty(string input)

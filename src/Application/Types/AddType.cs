@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Types;
+using BikeService.Domain.Types.Entities;
 using FluentResults;
 using MediatR;
 

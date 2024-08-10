@@ -1,7 +1,7 @@
 using System;
 using BikeService.Domain.Common;
 
-namespace BikeService.Domain.Types;
+namespace BikeService.Domain.Types.Entities;
 
 public class EquipmentType : BaseEntity
 {
