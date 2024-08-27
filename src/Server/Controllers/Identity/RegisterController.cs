@@ -38,7 +38,7 @@ public class RegisterController : ControllerBase
         var registerUserResult = await _identityService.RegisterUser(registerRequest.Email, registerRequest.Password);
         if (registerUserResult.IsFailed)
         {
-            var errs = registerUserResult.Errors.Select(x => x.ToString()).ToArray();
+            var errs = registerUserResult.Errors.Select(x => x.ToString() ?? "").ToArray();
             return BadRequest(new HttpValidationProblemDetails(
                 new Dictionary<string, string[]>()
                 {

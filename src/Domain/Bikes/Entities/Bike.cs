@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using BikeService.Domain.Bikes.Dtos;
 using BikeService.Domain.Bikes.Events;
 using BikeService.Domain.Common;
@@ -27,7 +26,7 @@ public class Bike : BaseEntity
 
     public DateTime Date { get; set; }
     public Guid TypeId { get; set; }
-    public List<ServiceEntry> Services { get; set; }
+    public Status Status { get; set; }
     public Guid UserId { get; set; }
 
     public BikeDto CreateDto()
@@ -43,7 +42,6 @@ public class Bike : BaseEntity
         _mileage = mileage;
         Date = date;
         TypeId = typeId;
-        Services = new List<ServiceEntry>();
         UserId = userId;
     }
 }

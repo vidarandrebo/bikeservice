@@ -9,6 +9,7 @@ public class Part : BaseEntity
     public string Manufacturer { get; set; }
     public string Model { get; set; }
     public double Mileage { get; set; }
+    public Status Status { get; set; }
     public Guid TypeId { get; set; }
     public Guid BikeId { get; set; }
     public Guid UserId { get; set; }
