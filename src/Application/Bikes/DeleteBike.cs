@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain;
+using BikeService.Application.Interfaces;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Bikes;
+namespace BikeService.Application.Bikes;
 
 public class DeleteBike
 {

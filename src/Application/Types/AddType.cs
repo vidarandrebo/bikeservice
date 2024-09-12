@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Types;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Types;
+using BikeService.Domain.Types.Entities;
 using FluentResults;
 using MediatR;
 
-namespace Application.Types;
+namespace BikeService.Application.Types;
 
 public class AddType
 {

@@ -1,14 +1,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Parts;
-using Application.Parts.Commands;
-using Application.Tests.TestHelpers;
-using Domain.Parts;
-using Infrastructure;
+using BikeService.Application.Parts.Commands;
+using BikeService.Application.Tests.TestHelpers;
+using BikeService.Domain.Parts.Contracts;
+using BikeService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Tests.Parts;
+namespace BikeService.Application.Tests.Parts;
 
 public class AddPartTest
 {
@@ -29,7 +28,7 @@ public class AddPartTest
         var manufacturer = "part";
         var mileage = 1234.56;
         var handler = new AddPart.Handler(_db);
-        var partFormDto = new PartFormDto("", mileage, manufacturer, model, bikeId.ToString(),
+        var partFormDto = new PostPartRequest("", mileage, manufacturer, model, bikeId.ToString(),
             typeId.ToString());
         var request = new AddPart.Request(partFormDto, userId);
         await handler.Handle(request, new CancellationToken());

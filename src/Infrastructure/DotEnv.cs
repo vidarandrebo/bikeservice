@@ -1,9 +1,9 @@
 using System;
-using System.IO;
 using System.Globalization;
+using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Infrastructure;
+namespace BikeService.Infrastructure;
 
 public static class DotEnv
 {

@@ -1,13 +1,9 @@
-using System;
-using System.IO;
-
-namespace Domain.Tests;
+namespace BikeService.Domain.Tests;
 
 public class UnitTest1
 {
     [Fact]
     public void Test1()
     {
-        Console.Write(Directory.GetCurrentDirectory());
     }
 }

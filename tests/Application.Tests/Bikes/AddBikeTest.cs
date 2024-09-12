@@ -1,13 +1,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Bikes;
-using Application.Tests.TestHelpers;
-using Domain.Bikes;
-using Infrastructure;
+using BikeService.Application.Bikes;
+using BikeService.Application.Tests.TestHelpers;
+using BikeService.Domain.Bikes.Contracts;
+using BikeService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Tests.Bikes;
+namespace BikeService.Application.Tests.Bikes;
 
 public class AddBikeTest
 {
@@ -27,7 +27,7 @@ public class AddBikeTest
         var manufacturer = "bike";
         var mileage = 1234.56;
         var handler = new AddBike.Handler(_db);
-        var bikeFormDto = new BikeFormDto("", mileage, model, manufacturer, DateTime.Now,
+        var bikeFormDto = new PostBikeRequest("", mileage, model, manufacturer, DateTime.Now,
             typeId.ToString());
         var request = new AddBike.Request(bikeFormDto, userId);
         await handler.Handle(request, new CancellationToken());

@@ -1,11 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Domain.Bikes;
-using Domain.Parts;
-using Domain.Types;
+using BikeService.Domain.Bikes.Entities;
+using BikeService.Domain.Parts;
+using BikeService.Domain.Parts.Entities;
+using BikeService.Domain.Types;
+using BikeService.Domain.Types.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Interfaces;
+namespace BikeService.Application.Interfaces;
 
 public interface IApplicationDbContext
 {

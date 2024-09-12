@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Types;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Types;
+using BikeService.Domain.Types.Entities;
 using FluentResults;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace Application.Types;
+namespace BikeService.Application.Types;
 
 public class AddDefaultTypes
 {

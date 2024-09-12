@@ -1,8 +1,8 @@
-using Infrastructure;
+using BikeService.Infrastructure;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Tests.TestHelpers;
+namespace BikeService.Application.Tests.TestHelpers;
 
 public static class DatabaseHelper
 {
@@ -11,11 +11,11 @@ public static class DatabaseHelper
         var conn = new SqliteConnection("Filename=:memory:");
         conn.Open();
 
-        var contextOptions = new DbContextOptionsBuilder<SqliteContext>()
+        var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlite(conn, x => x.MigrationsAssembly("BikeService.Migrations.Sqlite"))
             .Options;
 
-        var ctx = new SqliteContext(contextOptions);
+        var ctx = new ApplicationDbContext(contextOptions);
         ctx.Database.Migrate();
 
         return ctx;

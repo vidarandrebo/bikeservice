@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain.Bikes;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Bikes;
+using BikeService.Domain.Bikes.Dtos;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Bikes;
+namespace BikeService.Application.Bikes;
 
 public class GetBikes
 {

@@ -2,18 +2,18 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Interfaces;
-using Domain;
-using Domain.Parts;
+using BikeService.Application.Interfaces;
+using BikeService.Domain.Common;
+using BikeService.Domain.Parts.Contracts;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Parts.Commands;
+namespace BikeService.Application.Parts.Commands;
 
 public class EditPart
 {
-    public record Request(PartFormDto PartFormDto, Guid UserId) : IRequest<Result>;
+    public record Request(PutPartRequest PostPartRequest, Guid UserId) : IRequest<Result>;
 
     public class Handler : IRequestHandler<Request, Result>
     {
@@ -26,7 +26,7 @@ public class EditPart
 
         public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
-            var partId = GuidHelper.GuidOrEmpty(request.PartFormDto.Id);
+            var partId = GuidHelper.GuidOrEmpty(request.PostPartRequest.Id);
             var part = await _dbContext.Parts
                 .Where(p => p.UserId == request.UserId)
                 .FirstOrDefaultAsync(p => p.Id == partId, cancellationToken);
@@ -35,13 +35,22 @@ public class EditPart
                 return Result.Fail(new Error("Part not found"));
             }
 
-            var typeId = GuidHelper.GuidOrEmpty(request.PartFormDto.TypeId);
-            var bikeId = GuidHelper.GuidOrEmpty(request.PartFormDto.BikeId);
-            part.Manufacturer = request.PartFormDto.Manufacturer;
-            part.Model = request.PartFormDto.Model;
-            part.Mileage = request.PartFormDto.Mileage;
+            var typeId = GuidHelper.GuidOrEmpty(request.PostPartRequest.TypeId);
+            var bikeId = GuidHelper.GuidOrEmpty(request.PostPartRequest.BikeId);
+            part.Manufacturer = request.PostPartRequest.Manufacturer;
+            part.Model = request.PostPartRequest.Model;
+            part.Mileage = request.PostPartRequest.Mileage;
             part.BikeId = bikeId;
             part.TypeId = typeId;
+
+            if (part.BikeId != Guid.Empty)
+            {
+                part.Status = Status.Active;
+            }
+            else
+            {
+                part.Status = Status.Inactive;
+            }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Result.Ok();
