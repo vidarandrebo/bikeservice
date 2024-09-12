@@ -28,5 +28,13 @@ public class Part : BaseEntity
         TypeId = typeId;
         BikeId = bikeId;
         UserId = userId;
+        if (bikeId != Guid.Empty)
+        {
+            Status = Status.Active;
+        }
+        else
+        {
+            Status = Status.Inactive;
+        }
     }
 }

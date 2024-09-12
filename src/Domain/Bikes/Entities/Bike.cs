@@ -43,5 +43,6 @@ public class Bike : BaseEntity
         Date = date;
         TypeId = typeId;
         UserId = userId;
+        Status = Status.Active;
     }
 }

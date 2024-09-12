@@ -1,6 +1,6 @@
 services:
-  web-api:
-    container_name: "bikeservice-api"
+  server:
+    container_name: "bikeservice-server"
     networks:
       - bs-net
     build: .

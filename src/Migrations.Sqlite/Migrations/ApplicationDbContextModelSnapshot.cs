@@ -37,6 +37,9 @@ namespace BikeService.Migrations.Sqlite.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("TypeId")
                         .HasColumnType("TEXT");
 
@@ -46,29 +49,6 @@ namespace BikeService.Migrations.Sqlite.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bikes");
-                });
-
-            modelBuilder.Entity("BikeService.Domain.Bikes.ServiceEntry", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("BikeId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BikeId");
-
-                    b.ToTable("ServiceEntry");
                 });
 
             modelBuilder.Entity("BikeService.Domain.Parts.Entities.Part", b =>
@@ -90,6 +70,9 @@ namespace BikeService.Migrations.Sqlite.Migrations
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("TypeId")
                         .HasColumnType("TEXT");
@@ -314,13 +297,6 @@ namespace BikeService.Migrations.Sqlite.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BikeService.Domain.Bikes.ServiceEntry", b =>
-                {
-                    b.HasOne("BikeService.Domain.Bikes.Entities.Bike", null)
-                        .WithMany("Services")
-                        .HasForeignKey("BikeId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -370,11 +346,6 @@ namespace BikeService.Migrations.Sqlite.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BikeService.Domain.Bikes.Entities.Bike", b =>
-                {
-                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }

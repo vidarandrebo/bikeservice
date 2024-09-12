@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
-using BikeService.Domain;
+using BikeService.Domain.Common;
 using BikeService.Domain.Parts.Contracts;
 using FluentResults;
 using MediatR;
@@ -42,6 +42,15 @@ public class EditPart
             part.Mileage = request.PostPartRequest.Mileage;
             part.BikeId = bikeId;
             part.TypeId = typeId;
+
+            if (part.BikeId != Guid.Empty)
+            {
+                part.Status = Status.Active;
+            }
+            else
+            {
+                part.Status = Status.Inactive;
+            }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Result.Ok();

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BikeService.Migrations.Sqlite.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,6 +60,7 @@ namespace BikeService.Migrations.Sqlite.Migrations
                     Mileage = table.Column<double>(type: "REAL", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TypeId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -89,6 +90,7 @@ namespace BikeService.Migrations.Sqlite.Migrations
                     Manufacturer = table.Column<string>(type: "TEXT", nullable: false),
                     Model = table.Column<string>(type: "TEXT", nullable: false),
                     Mileage = table.Column<double>(type: "REAL", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
                     TypeId = table.Column<Guid>(type: "TEXT", nullable: false),
                     BikeId = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -204,25 +206,6 @@ namespace BikeService.Migrations.Sqlite.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ServiceEntry",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Text = table.Column<string>(type: "TEXT", nullable: false),
-                    BikeId = table.Column<Guid>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceEntry", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServiceEntry_Bikes_BikeId",
-                        column: x => x.BikeId,
-                        principalTable: "Bikes",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -259,11 +242,6 @@ namespace BikeService.Migrations.Sqlite.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceEntry_BikeId",
-                table: "ServiceEntry",
-                column: "BikeId");
         }
 
         /// <inheritdoc />
@@ -285,22 +263,19 @@ namespace BikeService.Migrations.Sqlite.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Bikes");
+
+            migrationBuilder.DropTable(
                 name: "EquipmentTypes");
 
             migrationBuilder.DropTable(
                 name: "Parts");
 
             migrationBuilder.DropTable(
-                name: "ServiceEntry");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Bikes");
         }
     }
 }

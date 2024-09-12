@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BikeService.Migrations.Postgres.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,6 +61,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                     Mileage = table.Column<double>(type: "double precision", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     TypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -90,6 +91,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                     Manufacturer = table.Column<string>(type: "text", nullable: false),
                     Model = table.Column<string>(type: "text", nullable: false),
                     Mileage = table.Column<double>(type: "double precision", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     TypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     BikeId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false)
@@ -205,25 +207,6 @@ namespace BikeService.Migrations.Postgres.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ServiceEntry",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Text = table.Column<string>(type: "text", nullable: false),
-                    BikeId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceEntry", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServiceEntry_Bikes_BikeId",
-                        column: x => x.BikeId,
-                        principalTable: "Bikes",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -260,11 +243,6 @@ namespace BikeService.Migrations.Postgres.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceEntry_BikeId",
-                table: "ServiceEntry",
-                column: "BikeId");
         }
 
         /// <inheritdoc />
@@ -286,22 +264,19 @@ namespace BikeService.Migrations.Postgres.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Bikes");
+
+            migrationBuilder.DropTable(
                 name: "EquipmentTypes");
 
             migrationBuilder.DropTable(
                 name: "Parts");
 
             migrationBuilder.DropTable(
-                name: "ServiceEntry");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Bikes");
         }
     }
 }

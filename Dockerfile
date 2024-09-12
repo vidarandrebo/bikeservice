@@ -1,9 +1,9 @@
-FROM node:20-alpine as node-build-env
+FROM node:22-alpine as node-build-env
 #ENV NODE_ENV=production
 
 WORKDIR /data
 
-COPY ./src/WebUI/ /data/
+COPY ./src/Client/ /data/
 
 RUN npm ci
 
@@ -14,10 +14,10 @@ WORKDIR /data
 
 # Copy everything
 COPY . .
-COPY --from=node-build-env /data/dist/ /data/src/WebAPI/wwwroot/
+COPY --from=node-build-env /data/dist/ /data/src/Server/wwwroot/
 # Build and publish a release
 
-RUN dotnet publish /data/src/WebAPI -c Release -o bin
+RUN dotnet publish /data/src/Server -c Release -o bin
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
@@ -27,4 +27,4 @@ COPY --from=dotnet-build-env /data/bin/ .
 RUN true
 COPY docker.env .env
 RUN true
-ENTRYPOINT ["dotnet","WebAPI.dll"]
+ENTRYPOINT ["dotnet","BikeService.Server.dll"]
