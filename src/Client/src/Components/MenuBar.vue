@@ -1,11 +1,9 @@
 <template>
     <header class="flex justify-between bg-blue-500 text-white">
-        <div class="px-1">
+        <div class="flex gap-4 px-4">
             <RouterLink to="/">
                 <MenuBarIcon icon="home" title="Home"></MenuBarIcon>
             </RouterLink>
-        </div>
-        <div class="flex gap-4 px-1">
             <RouterLink to="/bikes">
                 <MenuBarIcon icon="bicycle" title="Bikes"></MenuBarIcon>
             </RouterLink>
@@ -13,10 +11,9 @@
                 <MenuBarIcon icon="cog" title="Parts"></MenuBarIcon>
             </RouterLink>
         </div>
-        <div class="flex gap-4 px-1">
-            <p v-if="user.email" id="username" class="h-full flex flex-col justify-center">{{ user.email }}</p>
+        <div class="flex gap-4 px-4">
             <RouterLink v-if="user.email" to="/settings">
-                <MenuBarIcon icon="tools" title="Settings"></MenuBarIcon>
+                <MenuBarIcon icon="user" title="Settings"></MenuBarIcon>
             </RouterLink>
             <a v-if="user.email" href="#" @click="logout">
                 <MenuBarIcon icon="sign-out" title="Log out"></MenuBarIcon>
