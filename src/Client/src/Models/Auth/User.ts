@@ -4,7 +4,6 @@ import { HttpRequest } from "http-methods-ts";
 import { AccessTokenResponse } from "aspnetcore-ts/Authentication/BearerToken";
 import { ObjectAssignable } from "../ObjectAssignable.ts";
 
-
 export type UserDependency = {
     user: Ref<User>;
     setUser(user: User): void;
@@ -13,8 +12,7 @@ export type UserDependency = {
 export function DefaultUserDependency(): UserDependency {
     return {
         user: ref<User>(new User()),
-        setUser: () => {
-        }
+        setUser: () => {}
     };
 }
 

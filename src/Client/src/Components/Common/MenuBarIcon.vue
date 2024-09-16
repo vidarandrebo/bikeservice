@@ -1,5 +1,5 @@
 <template>
-    <div class="hover:bg-blue-700 p-1 rounded ">
+    <div class="hover:bg-blue-700 p-1 rounded">
         <FontAwesomeIcon :icon="icon" size="2x" v-bind="$attrs"></FontAwesomeIcon>
     </div>
 </template>
@@ -13,6 +13,3 @@ defineProps<{
     icon: string;
 }>();
 </script>
-
-<style>
-</style>

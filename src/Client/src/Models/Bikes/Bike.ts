@@ -77,7 +77,6 @@ export class Bike {
             return response.status;
         }
         return -1;
-
     }
 
     clear(): void {
