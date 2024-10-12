@@ -1,32 +1,29 @@
 <template>
     <header class="flex justify-between bg-blue-500 text-white">
-        <div class="px-1">
-            <RouterLink to="/">
+        <div class="flex gap-4 px-4">
+            <MenuBarRouterLink to="/">
                 <MenuBarIcon icon="home" title="Home"></MenuBarIcon>
-            </RouterLink>
-        </div>
-        <div class="flex gap-4 px-1">
-            <RouterLink to="/bikes">
+            </MenuBarRouterLink>
+            <MenuBarRouterLink to="/bikes">
                 <MenuBarIcon icon="bicycle" title="Bikes"></MenuBarIcon>
-            </RouterLink>
-            <RouterLink to="/parts">
+            </MenuBarRouterLink>
+            <MenuBarRouterLink to="/parts">
                 <MenuBarIcon icon="cog" title="Parts"></MenuBarIcon>
-            </RouterLink>
+            </MenuBarRouterLink>
         </div>
-        <div class="flex gap-4 px-1">
-            <p v-if="user.email" id="username" class="h-full flex flex-col justify-center">{{ user.email }}</p>
-            <RouterLink v-if="user.email" to="/settings">
-                <MenuBarIcon icon="tools" title="Settings"></MenuBarIcon>
-            </RouterLink>
+        <div class="flex gap-4 px-4">
+            <MenuBarRouterLink v-if="user.email" to="/settings">
+                <MenuBarIcon icon="user" title="Settings"></MenuBarIcon>
+            </MenuBarRouterLink>
             <a v-if="user.email" href="#" @click="logout">
                 <MenuBarIcon icon="sign-out" title="Log out"></MenuBarIcon>
             </a>
-            <RouterLink v-if="!user.email" to="/login">
+            <MenuBarRouterLink v-if="!user.email" to="/login">
                 <MenuBarIcon icon="sign-in" title="Login"></MenuBarIcon>
-            </RouterLink>
-            <RouterLink v-if="!user.email" to="/register">
+            </MenuBarRouterLink>
+            <MenuBarRouterLink v-if="!user.email" to="/register">
                 <MenuBarIcon icon="user-plus" title="Register"></MenuBarIcon>
-            </RouterLink>
+            </MenuBarRouterLink>
         </div>
     </header>
 </template>
@@ -35,6 +32,7 @@ import router from "../Router";
 import MenuBarIcon from "./Common/MenuBarIcon.vue";
 import { inject } from "vue";
 import { DefaultUserDependency, User } from "../Models/Auth/User.ts";
+import MenuBarRouterLink from "./Common/MenuBarRouterLink.vue";
 
 const { user, setUser } = inject("user", DefaultUserDependency, true);
 

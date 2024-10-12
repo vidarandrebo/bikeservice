@@ -1,6 +1,6 @@
 <template>
     <main>
-        <article class="flex max-w-prose flex-col">
+        <article class="flex w-full max-w-screen-lg flex-col p-4">
             <HeadingH1 class="">Parts</HeadingH1>
             <NewPartForm :bikes="bikes" :equipment-types="equipmentTypes" @updatePartsEvent="onUpdatePartsEvent">
             </NewPartForm>

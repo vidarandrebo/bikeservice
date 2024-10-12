@@ -29,7 +29,6 @@ function setBikes(value: Bike[]) {
     bikes.value = value;
 }
 
-
 function addBike(value: Bike) {
     bikes.value.push(value);
 }
