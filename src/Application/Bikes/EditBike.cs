@@ -38,7 +38,7 @@ public class EditBike
 
             bike.Manufacturer = request.PutBikeRequest.Manufacturer;
             bike.Model = request.PutBikeRequest.Model;
-            bike.Mileage = request.PutBikeRequest.Mileage;
+            bike.UpdateMileage(request.PutBikeRequest.Mileage);
             bike.Date = request.PutBikeRequest.Date;
             bike.TypeId = typeId;
 
