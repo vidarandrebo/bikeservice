@@ -8,6 +8,7 @@ import AccountSettings from "../Components/Settings/AccountSettings.vue";
 import BikeTypeSettings from "../Components/Settings/BikeTypeSettings.vue";
 import PartTypeSettings from "../Components/Settings/PartTypeSettings.vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import PartDetails from "../Components/Parts/PartDetailsPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -24,6 +25,12 @@ const routes: Array<RouteRecordRaw> = [
         path: "/parts",
         name: "Parts",
         component: PartsPage
+    },
+    {
+
+        path:"/parts/:id",
+        name: "Part Details",
+        component: PartDetails
     },
     {
         path: "/register",

@@ -31,7 +31,7 @@ public class Bike : BaseEntity
         {
             Mileage = newValue;
             AddDomainEvent(new BikeMileageUpdatedEvent(oldValue, newValue, Id));
-            ServiceNotes.AddServiceNote(DateOnly.FromDateTime(DateTime.Now), oldValue,
+            ServiceNotes.AddServiceNote(DateTime.Now, oldValue,
                 $"Bike mileage updated from {oldValue} to {newValue}");
         }
     }
