@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
-using BikeService.Domain;
 using BikeService.Domain.Bikes.Contracts;
 using FluentResults;
 using MediatR;
