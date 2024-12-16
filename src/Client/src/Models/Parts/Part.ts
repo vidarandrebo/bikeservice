@@ -59,7 +59,7 @@ export class Part {
             return;
         }
         const httpRequest = new HttpRequest()
-            .setRoute("api/part")
+            .setRoute(window.location.origin + "/" + "api/part")
             .setMethod("DELETE")
             .addHeader("Content-Type", "application/json")
             .addUrlParam("id", this.id)

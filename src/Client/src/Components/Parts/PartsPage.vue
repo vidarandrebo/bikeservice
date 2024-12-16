@@ -14,8 +14,10 @@
             </FormField>
             <ol class="space-y-2">
                 <li v-for="part in parts" :key="part.id">
-                    <RouterLink v-if="bikeFilter == part.bikeId || bikeFilter == '0'"
-                                :to="{path: '/parts/' +  part.id}">
+                    <RouterLink
+                        v-if="bikeFilter == part.bikeId || bikeFilter == '0'"
+                        :to="{ path: '/parts/' + part.id }"
+                    >
                         <div class="grid grid-cols-3 hover:bg-gray-400 hover:rounded">
                             <p>{{ part.fullName }}</p>
                             <p>{{ bikes.find((b) => b.id == part.bikeId)?.fullName ?? "No Bike assigned" }}</p>
@@ -40,7 +42,6 @@ import { DefaultPartCollection, PartCollection } from "../../Models/Parts/PartCo
 import SelectPrimary from "../Common/SelectPrimary.vue";
 import LabelPrimary from "../Common/LabelPrimary.vue";
 import FormField from "../Common/FormField.vue";
-
 
 function onUpdatePartsEvent() {
     fetchParts();
