@@ -17,7 +17,7 @@ namespace BikeService.Migrations.Postgres.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -54,6 +54,37 @@ namespace BikeService.Migrations.Postgres.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bikes");
+                });
+
+            modelBuilder.Entity("BikeService.Domain.Common.ServiceNote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BikeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("Mileage")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("PartId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BikeId");
+
+                    b.HasIndex("PartId");
+
+                    b.ToTable("ServiceNote");
                 });
 
             modelBuilder.Entity("BikeService.Domain.Parts.Entities.Part", b =>
@@ -306,6 +337,17 @@ namespace BikeService.Migrations.Postgres.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BikeService.Domain.Common.ServiceNote", b =>
+                {
+                    b.HasOne("BikeService.Domain.Bikes.Entities.Bike", null)
+                        .WithMany("ServiceNotes")
+                        .HasForeignKey("BikeId");
+
+                    b.HasOne("BikeService.Domain.Parts.Entities.Part", null)
+                        .WithMany("ServiceNotes")
+                        .HasForeignKey("PartId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -355,6 +397,16 @@ namespace BikeService.Migrations.Postgres.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BikeService.Domain.Bikes.Entities.Bike", b =>
+                {
+                    b.Navigation("ServiceNotes");
+                });
+
+            modelBuilder.Entity("BikeService.Domain.Parts.Entities.Part", b =>
+                {
+                    b.Navigation("ServiceNotes");
                 });
 #pragma warning restore 612, 618
         }
