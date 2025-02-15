@@ -59,7 +59,7 @@ export class Part {
             return;
         }
         const httpRequest = new HttpRequest()
-            .setRoute("api/part")
+            .setRoute(window.location.origin + "/" + "api/part")
             .setMethod("DELETE")
             .addHeader("Content-Type", "application/json")
             .addUrlParam("id", this.id)
@@ -73,7 +73,7 @@ export class Part {
             return -1;
         }
         const httpRequest = new HttpRequest()
-            .setRoute("api/part")
+            .setRoute(window.location.origin + "/" + "api/part")
             .setMethod("PUT")
             .addHeader("Content-Type", "application/json")
             .setBearerToken(bearerToken)

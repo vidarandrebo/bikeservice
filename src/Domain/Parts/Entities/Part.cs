@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BikeService.Domain.Common;
 using BikeService.Domain.Parts.Dtos;
 
@@ -13,6 +14,7 @@ public class Part : BaseEntity
     public Guid TypeId { get; set; }
     public Guid BikeId { get; set; }
     public Guid UserId { get; set; }
+    public List<ServiceNote> ServiceNotes { get; set; }
 
     public PartResponse CreateDto()
     {
@@ -36,5 +38,7 @@ public class Part : BaseEntity
         {
             Status = Status.Inactive;
         }
+
+        ServiceNotes = new List<ServiceNote>();
     }
 }

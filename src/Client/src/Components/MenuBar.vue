@@ -4,10 +4,10 @@
             <MenuBarRouterLink to="/">
                 <MenuBarIcon icon="home" title="Home"></MenuBarIcon>
             </MenuBarRouterLink>
-            <MenuBarRouterLink to="/bikes">
+            <MenuBarRouterLink v-if="user.email" to="/bikes">
                 <MenuBarIcon icon="bicycle" title="Bikes"></MenuBarIcon>
             </MenuBarRouterLink>
-            <MenuBarRouterLink to="/parts">
+            <MenuBarRouterLink v-if="user.email" to="/parts">
                 <MenuBarIcon icon="cog" title="Parts"></MenuBarIcon>
             </MenuBarRouterLink>
         </div>
