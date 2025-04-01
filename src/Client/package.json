@@ -8,8 +8,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "rimraf --glob ../Server/wwwroot/* && vue-tsc && vite build --mode development && cp -r dist/* ../Server/wwwroot/",
-        "buildRelease": "vue-tsc && vite build",
+        "buildDev": "rimraf --glob ../Server/wwwroot/* && vue-tsc && vite build --mode development && cp -r dist/* ../Server/wwwroot/",
+        "build": "vue-tsc && vite build",
         "preview": "vite preview",
         "lint": "eslint . --ext ts,vue --report-unused-disable-directives --max-warnings 0",
         "format": "prettier . --write"

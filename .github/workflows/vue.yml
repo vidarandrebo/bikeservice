@@ -23,13 +23,13 @@ jobs:
     - name: Build Vue
       uses: "./.github/actions/vue-build"
       with: 
-        working-directory: "./client"
+        working-directory: "./src/Client"
         
     - name: Store artifact
       if: inputs.upload-artifact
       uses: actions/upload-artifact@v4
       with:
         name: "client"
-        path: "./client/dist"
+        path: "./src/Client/dist"
 
 

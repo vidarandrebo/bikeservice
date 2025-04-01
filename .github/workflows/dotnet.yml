@@ -17,7 +17,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Tool
-      run: dotnet tool install --global dotnet-ef
+      run: dotnet tool restore
 
     - name: .NET Test
       uses: "./.github/actions/dotnet-test"
