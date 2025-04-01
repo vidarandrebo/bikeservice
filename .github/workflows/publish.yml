@@ -24,28 +24,28 @@ jobs:
         name: "client"
         path: "./static"
 
-    - name: Go artifact
+    - name: .NET artifact
       uses: actions/download-artifact@v4
       with:
-        name: "api"
+        name: "server"
         path: "./bin"
 
     - name: Make binary executable
-      run: chmod +x ./bin/nutrition-tracker
+      run: chmod +x ./bin/BikeService.Server
 
     - name: Copy frontend dist to output dir
-      run: cp -R ./static bin/static
+      run: cp -R ./static bin/wwwroot
 
     - name: Remove previous version
-      run: ssh ${{ secrets.SSH_HOST }} rm -r nutrition-tracker
+      run: ssh ${{ secrets.SSH_HOST }} rm -r bikeservice
 
     - name: Transfer
       run: |
-        rsync -r bin/ ${{ secrets.SSH_HOST }}:nutrition-tracker/
+        rsync -r bin/ ${{ secrets.SSH_HOST }}:bikeservice
       shell: bash
 
     - name: SHA
       run: |
         echo ${{ github.event.pull_request.head.sha }} > commit-hash.txt
-        rsync commit-hash.txt ${{ secrets.SSH_HOST }}:nt-commit-hash.txt
+        rsync commit-hash.txt ${{ secrets.SSH_HOST }}:bs-commit-hash.txt
       shell: bash

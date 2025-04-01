@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build Vue
+    - name: Vue Build
       uses: "./.github/actions/vue-build"
       with: 
         working-directory: "./src/Client"

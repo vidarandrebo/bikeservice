@@ -8,21 +8,20 @@ on:
       - main
 
 jobs:
-  go:
-    name: "Go"
-    uses: "./.github/workflows/go.yml"
-    with:
-      upload-artifact: true
-
   vue:
     name: "Vue"
     uses: "./.github/workflows/vue.yml"
     with:
       upload-artifact: true
 
+  dotnet:
+    name: ".NET"
+    uses: "./.github/workflows/dotnet.yml"
+    with:
+      upload-artifact: true
 
   publish:
-    needs: [go, vue]
+    needs: [dotnet, vue]
     name: "Publish"
     uses: "./.github/workflows/publish.yml"
     secrets: inherit
