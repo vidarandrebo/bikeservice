@@ -1,0 +1,51 @@
+name: Publish
+
+on: workflow_call
+
+jobs:
+  build-publish:
+    name: "Build and Publish"
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup SSH
+      uses: "./.github/actions/ssh"
+      with:
+        known-hosts: ${{secrets.KNOWN_HOSTS}}
+        ssh-key: ${{secrets.SSH_KEY}}
+        host: ${{secrets.SSH_HOST}}
+        user: ${{secrets.SSH_USERNAME}}
+
+    - name: Vue artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: "client"
+        path: "./static"
+
+    - name: Go artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: "api"
+        path: "./bin"
+
+    - name: Make binary executable
+      run: chmod +x ./bin/nutrition-tracker
+
+    - name: Copy frontend dist to output dir
+      run: cp -R ./static bin/static
+
+    - name: Remove previous version
+      run: ssh ${{ secrets.SSH_HOST }} rm -r nutrition-tracker
+
+    - name: Transfer
+      run: |
+        rsync -r bin/ ${{ secrets.SSH_HOST }}:nutrition-tracker/
+      shell: bash
+
+    - name: SHA
+      run: |
+        echo ${{ github.event.pull_request.head.sha }} > commit-hash.txt
+        rsync commit-hash.txt ${{ secrets.SSH_HOST }}:nt-commit-hash.txt
+      shell: bash

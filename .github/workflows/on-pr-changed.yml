@@ -1,0 +1,15 @@
+name: "On PR Changed"
+
+on: 
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dotnet:
+    name: ".NET"
+    uses: "./.github/workflows/dotnet.yml"
+
+  vue:
+    name: "Vue"
+    uses: "./.github/workflows/vue.yml"
