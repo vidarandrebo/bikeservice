@@ -1,11 +1,10 @@
 <template>
     <main>
+        <HeadingH1>BikeService</HeadingH1>
         <div v-if="!user.email">
-            <HeadingH1>BikeService</HeadingH1>
             <p>Welcome to BikeService</p>
         </div>
         <div v-if="user.email">
-            <h1>BikeService</h1>
             <p>Welcome {{ user.email }}</p>
         </div>
     </main>
