@@ -1,0 +1,35 @@
+name: Vue
+
+on: 
+  workflow_call:
+    inputs: 
+      upload-artifact:
+        default: false
+        type: boolean
+
+
+jobs:
+  build:
+    name: "Build"
+    defaults:
+      run:
+        working-directory: "./client/"
+
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Vue Build
+      uses: "./.github/actions/vue-build"
+      with: 
+        working-directory: "./src/Client"
+        
+    - name: Store artifact
+      if: inputs.upload-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: "client"
+        path: "./src/Client/dist"
+
+

@@ -1,27 +1,37 @@
 name: .NET
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: 
+  workflow_call:
+    inputs: 
+      upload-artifact:
+        default: false
+        type: boolean
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Tool
-      run: dotnet tool install --global dotnet-ef
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --verbosity normal
+    - name: .NET Tool
+      run: dotnet tool restore
+
+    - name: .NET Test
+      uses: "./.github/actions/dotnet-test"
+      with: 
+        working-directory: "./"
+
+    - name: .NET Build
+      uses: "./.github/actions/dotnet-build"
+      with: 
+        working-directory: "./"
+
+    - name: Store artifact
+      if: inputs.upload-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: "server"
+        path: "./bin"

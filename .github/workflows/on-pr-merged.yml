@@ -1,0 +1,27 @@
+name: "On PR Merged"
+
+on: 
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  vue:
+    name: "Vue"
+    uses: "./.github/workflows/vue.yml"
+    with:
+      upload-artifact: true
+
+  dotnet:
+    name: ".NET"
+    uses: "./.github/workflows/dotnet.yml"
+    with:
+      upload-artifact: true
+
+  publish:
+    needs: [dotnet, vue]
+    name: "Publish"
+    uses: "./.github/workflows/publish.yml"
+    secrets: inherit
