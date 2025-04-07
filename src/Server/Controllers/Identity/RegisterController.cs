@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Application.Types;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +16,12 @@ namespace BikeService.Server.Controllers.Identity;
 [Route("api/[controller]")]
 public class RegisterController : ControllerBase
 {
-    private readonly IMediator _mediator;
     private readonly IIdentityService _identityService;
     private readonly ILogger<LoginController> _logger;
     private readonly IConfiguration _cfg;
 
-    public RegisterController(IMediator mediator, ILogger<LoginController> logger, IIdentityService identityService, IConfiguration cfg)
+    public RegisterController(ILogger<LoginController> logger, IIdentityService identityService, IConfiguration cfg)
     {
-        _mediator = mediator;
         _logger = logger;
         _identityService = identityService;
         _cfg = cfg;
