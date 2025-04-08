@@ -50,6 +50,7 @@ public static class DependencyInjection
 
         services.AddSingleton<ITokenHandler, TokenHandler>();
         services.RegisterIdentity();
+        services.AddHostedService<EventBus.EventBus>();
         return services;
     }
 }

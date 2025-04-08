@@ -24,4 +24,8 @@
         <ProjectReference Include="..\Domain\BikeService.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Parts\Commands\" />
+    </ItemGroup>
+
 </Project>
