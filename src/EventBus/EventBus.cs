@@ -1,27 +1,40 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using System.Threading.Channels;
 using Microsoft.Extensions.Logging;
 
 namespace BikeService.EventBus;
 
-public class EventBus : BackgroundService
+public interface IEventBus
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly ILogger<EventBus> _logger;
+    internal ChannelReader<IEvent> GetChannelReader();
+}
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+public class EventBus : IEventBus
+{
+    private readonly ILogger<EventBus> _logger;
+    private readonly Channel<IEvent> _channel;
+
+    public EventBus(ILogger<EventBus> logger)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            Console.WriteLine("hello there");
-            await Task.Delay(1000);
-        }
+        _logger = logger;
+        _channel = Channel.CreateUnbounded<IEvent>();
+    }
+
+    public ChannelReader<IEvent> GetChannelReader()
+    {
+        return _channel.Reader;
+    }
+
+    public void Execute(IEvent e)
+    {
+        
+    }
+
+    public async Task Publish(IEvent e)
+    {
+        await _channel.Writer.WriteAsync(e);
     }
 }
 
-public static class Test
+public interface IEvent
 {
-    public static void Oi()
-    {
-        var test = new EventBus();
-    }
 }
