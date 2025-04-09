@@ -8,6 +8,7 @@ public static class ConfigureServices
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IBikeRepository, BikeRepository>();
+        services.AddScoped<IPartRepository, PartRepository>();
         services.AddScoped<ITypeRepository, TypeRepository>();
         return services;
     }

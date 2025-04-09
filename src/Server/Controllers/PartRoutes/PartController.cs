@@ -1,10 +1,8 @@
+using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application;
-using BikeService.Application.Parts.Commands;
-using BikeService.Domain;
 using BikeService.Domain.Parts.Contracts;
 using BikeService.Domain.Parts.Dtos;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,22 +12,22 @@ namespace BikeService.Server.Controllers.PartRoutes;
 [Route("api/[controller]")]
 public class PartController : Controller
 {
-    private readonly IMediator _mediator;
+    private readonly IPartRepository _partRepository;
 
-    public PartController(IMediator mediator)
+    public PartController(IPartRepository partRepository)
     {
-        _mediator = mediator;
+        _partRepository = partRepository;
     }
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<PartResponse[]>> GetParts()
+    public async Task<ActionResult<PartResponse[]>> GetParts(CancellationToken ct)
     {
         //var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new GetParts.Request(userIdResult.Value));
+            var result = await _partRepository.GetParts(userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Ok(result.Value);
@@ -41,12 +39,12 @@ public class PartController : Controller
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddPart(PostPartRequest postPartForm)
+    public async Task<IActionResult> AddPart(PostPartRequest postPartForm, CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new AddPart.Request(postPartForm, userIdResult.Value));
+            var result = await _partRepository.AddPart(postPartForm, userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Created(nameof(AddPart), postPartForm);
@@ -58,13 +56,13 @@ public class PartController : Controller
 
     [Authorize]
     [HttpDelete]
-    public async Task<ActionResult> DeletePart(string id)
+    public async Task<ActionResult> DeletePart(string id, CancellationToken ct)
     {
         var partId = GuidHelper.GuidOrEmpty(id);
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new DeletePart.Request(partId, userIdResult.Value));
+            var result = await _partRepository.DeletePart(partId, userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Ok();
@@ -76,12 +74,12 @@ public class PartController : Controller
 
     [Authorize]
     [HttpPut]
-    public async Task<IActionResult> EditPart(PutPartRequest putPartRequest)
+    public async Task<IActionResult> EditPart(PutPartRequest putPartRequest, CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var editPartResult = await _mediator.Send(new EditPart.Request(putPartRequest, userIdResult.Value));
+            var editPartResult = await _partRepository.EditPart(putPartRequest, userIdResult.Value, ct);
             if (editPartResult.IsSuccess)
             {
                 return Ok();

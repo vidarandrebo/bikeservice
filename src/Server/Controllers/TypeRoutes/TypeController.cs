@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using BikeService.Application;
 using BikeService.Application.Interfaces;
-using BikeService.Application.Types;
-using BikeService.Domain;
 using BikeService.Domain.Types;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,23 +12,23 @@ namespace BikeService.Server.Controllers.TypeRoutes;
 [Route("api/[controller]")]
 public class TypeController : Controller
 {
-    private readonly IMediator _mediator;
+    private readonly ITypeRepository _typeRepository;
     private readonly ITokenHandler _tokenHandler;
 
-    public TypeController(IMediator mediator, ITokenHandler tokenHandler)
+    public TypeController(ITokenHandler tokenHandler, ITypeRepository typeRepository)
     {
         _tokenHandler = tokenHandler;
-        _mediator = mediator;
+        _typeRepository = typeRepository;
     }
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<EquipmentTypeResponse[]>> GetTypes()
+    public async Task<ActionResult<EquipmentTypeResponse[]>> GetTypes(CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new GetTypes.Request(userIdResult.Value));
+            var result = await _typeRepository.GetTypes(userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Ok(result.Value);
@@ -42,13 +40,13 @@ public class TypeController : Controller
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddType(PostEquipmentTypeRequest typeForm)
+    public async Task<IActionResult> AddType(PostEquipmentTypeRequest typeForm, CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result =
-                await _mediator.Send(new AddType.Request(typeForm.Name, typeForm.Category, userIdResult.Value));
+            var result = await _typeRepository.AddType(typeForm.Name, typeForm.Category, userIdResult.Value, ct);
+
             if (result.IsSuccess)
             {
                 return Created(nameof(AddType), typeForm);
@@ -60,13 +58,13 @@ public class TypeController : Controller
 
     [Authorize]
     [HttpDelete]
-    public async Task<ActionResult> DeleteType(string id)
+    public async Task<ActionResult> DeleteType(string id, CancellationToken ct)
     {
         var typeId = GuidHelper.GuidOrEmpty(id);
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new DeleteType.Request(typeId, userIdResult.Value));
+            var result = await _typeRepository.DeleteType(typeId, userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Ok();

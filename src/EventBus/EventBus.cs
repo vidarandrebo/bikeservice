@@ -8,10 +8,16 @@ public interface IEventBus
     internal ChannelReader<IEvent> GetChannelReader();
 }
 
+public interface IEventHandler
+{
+    
+}
+
 public class EventBus : IEventBus
 {
     private readonly ILogger<EventBus> _logger;
     private readonly Channel<IEvent> _channel;
+    private Dictionary<Type, IEventHandler> _requestHandlers;
 
     public EventBus(ILogger<EventBus> logger)
     {
@@ -26,7 +32,15 @@ public class EventBus : IEventBus
 
     public void Execute(IEvent e)
     {
+
+        string s = "hello";
+        var t = s.GetType();
         
+    }
+
+    public void AddEventHandler<T>()
+    {
+        var t = typeof(T);
     }
 
     public async Task Publish(IEvent e)
