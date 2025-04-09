@@ -9,7 +9,7 @@ public class EventBusWorker : BackgroundService
     
     private readonly ILogger<EventBusWorker> _logger;
     private readonly IServiceProvider _serviceProvider;
-    private readonly ChannelReader<IEvent> _eventChan;
+    private readonly ChannelReader<object> _eventChan;
 
     public EventBusWorker(ILogger<EventBusWorker> logger, IServiceProvider serviceProvider, IEventBus eventBus)
     {
