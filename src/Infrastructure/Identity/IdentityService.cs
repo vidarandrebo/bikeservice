@@ -5,9 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BikeService.Application;
 using BikeService.Application.Interfaces;
-using BikeService.Domain;
 using FluentResults;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -68,12 +66,6 @@ public class IdentityService : IIdentityService
         
     }
 
-
-    public async Task<Unit> LogoutUser()
-    {
-        await _signInManager.SignOutAsync();
-        return Unit.Value;
-    }
 
     public async Task<Result<Guid>> RegisterUser(string email, string password)
     {

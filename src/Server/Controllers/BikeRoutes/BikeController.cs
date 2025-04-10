@@ -2,11 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application;
-using BikeService.Application.Bikes;
 using BikeService.Application.Interfaces;
-using BikeService.Domain;
 using BikeService.Domain.Bikes.Contracts;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,15 +14,15 @@ namespace BikeService.Server.Controllers.BikeRoutes;
 [Route("api/[controller]")]
 public class BikeController : Controller
 {
-    private readonly IMediator _mediator;
     private readonly ITokenHandler _tokenHandler;
     private readonly ILogger<BikeController> _logger;
+    private readonly IBikeRepository _bikeRepository;
 
-    public BikeController(IMediator mediator, ITokenHandler tokenHandler, ILogger<BikeController> logger)
+    public BikeController(ITokenHandler tokenHandler, ILogger<BikeController> logger, IBikeRepository bikeRepository)
     {
-        _mediator = mediator;
         _tokenHandler = tokenHandler;
         _logger = logger;
+        _bikeRepository = bikeRepository;
     }
 
     [HttpGet("{id}")]
@@ -44,13 +41,17 @@ public class BikeController : Controller
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<BikeResponse[]>> GetBikes()
+    public async Task<ActionResult<BikeResponse[]>> GetBikes(CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new GetBikes.Request(userIdResult.Value));
-            return Ok(BikeResponse.FromDtos(result.Value));
+            //var result = await _mediator.Send(new GetBikes.Request(userIdResult.Value));
+            var result = await _bikeRepository.GetBikes(userIdResult.Value, ct);
+            if (result.IsSuccess)
+            {
+                return Ok(BikeResponse.FromDtos(result.Value));
+            }
         }
 
         return BadRequest();
@@ -58,14 +59,13 @@ public class BikeController : Controller
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddBike(PostBikeRequest postBikeRequest)
+    public async Task<IActionResult> AddBike(PostBikeRequest postBikeRequest, CancellationToken ct)
     {
-        var ctSrc = new CancellationTokenSource();
         var userIdResult = HttpContext.GetUserId();
 
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new AddBike.Request(postBikeRequest, userIdResult.Value), ctSrc.Token);
+            var result = await _bikeRepository.AddBike(postBikeRequest, userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Created(nameof(AddBike), postBikeRequest);
@@ -77,12 +77,12 @@ public class BikeController : Controller
 
     [Authorize]
     [HttpPut]
-    public async Task<IActionResult> EditBike(PutBikeRequest postBikeForm)
+    public async Task<IActionResult> EditBike(PutBikeRequest putBikeRequest, CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var editBikeResult = await _mediator.Send(new EditBike.Request(postBikeForm, userIdResult.Value));
+            var editBikeResult = await _bikeRepository.EditBike(putBikeRequest, userIdResult.Value, ct);
             if (editBikeResult.IsSuccess)
             {
                 return Ok();
@@ -94,13 +94,13 @@ public class BikeController : Controller
 
     [Authorize]
     [HttpDelete]
-    public async Task<IActionResult> DeleteBike(string id)
+    public async Task<IActionResult> DeleteBike(string id, CancellationToken ct)
     {
         var bikeId = GuidHelper.GuidOrEmpty(id);
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
-            var result = await _mediator.Send(new DeleteBike.Request(bikeId, userIdResult.Value));
+            var result = await _bikeRepository.DeleteBike(bikeId, userIdResult.Value, ct);
             if (result.IsSuccess)
             {
                 return Ok();

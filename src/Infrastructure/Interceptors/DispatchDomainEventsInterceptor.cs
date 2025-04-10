@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Domain.Common;
-using MediatR;
+using BikeService.EventBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -10,11 +10,10 @@ namespace BikeService.Infrastructure.Interceptors;
 
 public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 {
-    private readonly IMediator _mediator;
-
-    public DispatchDomainEventsInterceptor(IMediator mediator)
+    private readonly IEventBusClient _eventBus;
+    public DispatchDomainEventsInterceptor(IEventBusClient eventBus)
     {
-        _mediator = mediator;
+        _eventBus = eventBus;
     }
 
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
@@ -48,6 +47,8 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
         entities.ToList().ForEach(e => e.ClearDomainEvents());
 
         foreach (var domainEvent in domainEvents)
-            await _mediator.Publish(domainEvent);
+        {
+            _eventBus.Execute(domainEvent);
+        }
     }
 }

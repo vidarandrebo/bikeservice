@@ -2,6 +2,9 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using BikeService.Application;
+using BikeService.Application.Parts.EventHandlers;
+using BikeService.Domain.Bikes.Events;
+using BikeService.EventBus;
 using BikeService.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +25,9 @@ public static class Program
 
         builder.Configuration.LoadEnvToConfiguration(".env");
 
+        builder.Services.AddEventBus(builder.Configuration);
+        
+        
         builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
         builder.Services.AddApplicationServices();
 
@@ -71,6 +77,12 @@ public static class Program
         });
 
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var eventBus = scope.ServiceProvider.GetRequiredService<IEventBusClient>();
+            eventBus.AddEventHandler<BikeMileageUpdatedEvent, BikeMileageUpdatedEventHandler>();
+        }
 
         await app.Services.ApplyMigrations(app.Environment);
 

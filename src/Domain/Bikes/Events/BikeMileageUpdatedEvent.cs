@@ -3,7 +3,7 @@ using BikeService.Domain.Common;
 
 namespace BikeService.Domain.Bikes.Events;
 
-public class BikeMileageUpdatedEvent : BaseEvent
+public class BikeMileageUpdatedEvent 
 {
     public double OldMileage;
     public double NewMileage;
