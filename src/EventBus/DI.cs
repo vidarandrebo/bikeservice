@@ -7,7 +7,7 @@ public static class DI
 {
     public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IEventBus, EventBus>();
+        services.AddSingleton<IEventBusClient, EventBusClient>();
         services.AddHostedService<EventBusWorker>();
         return services;
     }

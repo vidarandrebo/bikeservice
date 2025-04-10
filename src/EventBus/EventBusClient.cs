@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BikeService.EventBus;
 
-public interface IEventBus
+public interface IEventBusClient
 {
     internal ChannelReader<object> GetChannelReader();
     /// <summary>
@@ -12,7 +12,7 @@ public interface IEventBus
     /// </summary>
     /// <param name="e">Event</param>
     /// <typeparam name="T">Type of event</typeparam>
-    void Execute<T>(T e);
+    void Execute(BaseEvent e);
     /// <summary>
     /// Fire and forget
     /// </summary>
@@ -20,49 +20,37 @@ public interface IEventBus
     /// <typeparam name="T">Type of event</typeparam>
     /// <returns>Task representing the action of adding the event to the queue</returns>
     Task Publish<T>(T e);
+
+    void AddEventHandler<TEvent, THandler>();
 }
 
-public interface IEventHandler<TEvent>
+public interface IEventHandler
 {
-    void Run(TEvent e);
+    void Run(BaseEvent e);
 }
 
-public class SomeEventHandler<TEvent> : IEventHandler<TEvent>
+public abstract class BaseEvent
 {
-    public void Run(TEvent e)
-    {
-        var ev = e;
-    }
+    
 }
-public class EventBus : IEventBus
+public class EventBusClient : IEventBusClient
 {
-    private readonly ILogger<EventBus> _logger;
+    private readonly ILogger<EventBusClient> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly Channel<object> _channel;
-    private Dictionary<Type, object> _requestHandlers;
+    private Dictionary<Type, Type> _requestHandlers;
 
-    public EventBus(ILogger<EventBus> logger, IServiceProvider serviceProvider)
+    public EventBusClient(ILogger<EventBusClient> logger, IServiceProvider serviceProvider)
     {
         _logger = logger;
         _serviceProvider = serviceProvider;
-        _requestHandlers = new Dictionary<Type, object>();
+        _requestHandlers = new Dictionary<Type, Type>();
         _channel = Channel.CreateUnbounded<object>();
     }
     
-    public void AddEventHandler<T>(IEventHandler<T> handler)
-    {
-        var t = typeof(T);
-        _requestHandlers.Add(t, handler);
-    }
-
     public void AddEventHandler<TEvent, THandler>()
     {
-        var tEvent = typeof(TEvent);
-        var tHandler = typeof(THandler);
-
-        var handler = ActivatorUtilities.CreateInstance<THandler>(_serviceProvider);
-        
-        _requestHandlers.Add(tEvent, handler);
+        _requestHandlers.Add(typeof(TEvent),typeof(THandler) );
     }
 
     public ChannelReader<object> GetChannelReader()
@@ -70,10 +58,25 @@ public class EventBus : IEventBus
         return _channel.Reader;
     }
 
-    public void Execute<T>(T e)
+    public void Execute(BaseEvent e)
     {
-        var handler = (IEventHandler<T>)_requestHandlers[typeof(T)];
-        handler.Run(e);
+
+        Type handlerType;
+        try
+        {
+            handlerType = _requestHandlers[e.GetType()];
+        }
+        catch (KeyNotFoundException )
+        {
+            _logger.LogError("No handler type registered for event of type: {type}", e.GetType());
+            return;
+        }
+
+        var handler = _serviceProvider.GetRequiredService(handlerType);
+        
+        IEventHandler typedHandler = (IEventHandler)handler;
+        
+        typedHandler.Run(e);
     }
 
 

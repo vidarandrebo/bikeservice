@@ -11,11 +11,11 @@ public class EventBusWorker : BackgroundService
     private readonly IServiceProvider _serviceProvider;
     private readonly ChannelReader<object> _eventChan;
 
-    public EventBusWorker(ILogger<EventBusWorker> logger, IServiceProvider serviceProvider, IEventBus eventBus)
+    public EventBusWorker(ILogger<EventBusWorker> logger, IServiceProvider serviceProvider, IEventBusClient eventBusClient)
     {
         _logger = logger;
         _serviceProvider = serviceProvider;
-        _eventChan = eventBus.GetChannelReader();
+        _eventChan = eventBusClient.GetChannelReader();
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

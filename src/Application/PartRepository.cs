@@ -18,6 +18,12 @@ public class PartRepository : IPartRepository
     private readonly IApplicationDbContext _db;
     private readonly ILogger<PartRepository> _logger;
 
+    public PartRepository(IApplicationDbContext db, ILogger<PartRepository> logger)
+    {
+        _db = db;
+        _logger = logger;
+    }
+
     public async Task<Result> AddPart(PostPartRequest postPartRequest, Guid userId, CancellationToken ct)
     {
         var part = new Part(postPartRequest.Manufacturer, postPartRequest.Model,
