@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using BikeService.EventBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -46,19 +48,30 @@ public class EventBusClientTest
 
     public class ThrowingHandler : IEventHandler
     {
-        public void Run(BaseEvent e)
+        public void Run(BaseEvent baseEvent)
         {
-            SomeEvent someEvent = (SomeEvent)e;
+            SomeEvent someEvent = (SomeEvent)baseEvent;
             throw new Exception("This is not a drill" + someEvent.A);
+        }
+
+        public Task RunAsync(BaseEvent baseEvent, CancellationToken ct)
+        {
+            throw new NotImplementedException();
         }
     }
 
-    public class UpdateNumberHandler : IEventHandler<SomeOtherEvent>
+    public class UpdateNumberHandler : IEventHandler
     {
-        public void Run(SomeOtherEvent e)
+        public void Run(BaseEvent baseEvent)
         {
+            SomeOtherEvent e = (SomeOtherEvent)baseEvent;
             e.Values.A += 1;
             e.Values.B = "Updated";
+        }
+
+        public Task RunAsync(BaseEvent baseEvent, CancellationToken ct)
+        {
+            throw new NotImplementedException();
         }
     }
 

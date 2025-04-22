@@ -1,9 +1,10 @@
 using System;
 using BikeService.Domain.Common;
+using BaseEvent = BikeService.EventBus.BaseEvent;
 
 namespace BikeService.Domain.Bikes.Events;
 
-public class BikeMileageUpdatedEvent 
+public class BikeMileageUpdatedEvent : BaseEvent
 {
     public double OldMileage;
     public double NewMileage;

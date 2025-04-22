@@ -2,7 +2,6 @@
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Bikes.Entities;
 using BikeService.Domain.Parts.Entities;
-using BikeService.Domain.Types;
 using BikeService.Domain.Types.Entities;
 using BikeService.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;

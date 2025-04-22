@@ -16,4 +16,5 @@ public interface IApplicationDbContext
 
     public DbSet<EquipmentType> EquipmentTypes { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    int SaveChanges();
 }

@@ -13,6 +13,7 @@ public interface IEventBusClient
     /// <param name="e">Event</param>
     /// <typeparam name="T">Type of event</typeparam>
     void Execute(BaseEvent e);
+    Task ExecuteAsync(BaseEvent e, CancellationToken ct);
     /// <summary>
     /// Fire and forget
     /// </summary>
@@ -26,7 +27,8 @@ public interface IEventBusClient
 
 public interface IEventHandler
 {
-    void Run(BaseEvent e);
+    void Run(BaseEvent baseEvent);
+    Task RunAsync(BaseEvent baseEvent, CancellationToken ct);
 }
 
 public abstract class BaseEvent
@@ -72,11 +74,34 @@ public class EventBusClient : IEventBusClient
             return;
         }
 
-        var handler = _serviceProvider.GetRequiredService(handlerType);
+        using var scope = _serviceProvider.CreateScope();
+        var handler = scope.ServiceProvider.GetRequiredService(handlerType);
         
         IEventHandler typedHandler = (IEventHandler)handler;
         
         typedHandler.Run(e);
+    }
+    public async Task ExecuteAsync(BaseEvent e, CancellationToken ct)
+    {
+
+        Type handlerType;
+        try
+        {
+            handlerType = _requestHandlers[e.GetType()];
+        }
+        catch (KeyNotFoundException )
+        {
+            _logger.LogError("No handler type registered for event of type: {type}", e.GetType());
+            return;
+        }
+
+        using var scope = _serviceProvider.CreateScope();
+        var handler = scope.ServiceProvider.GetRequiredService(handlerType);
+        _logger.LogInformation("Handler of type {type}", handlerType);
+        
+        IEventHandler typedHandler = (IEventHandler)handler;
+        
+        await typedHandler.RunAsync(e, ct);
     }
 
 

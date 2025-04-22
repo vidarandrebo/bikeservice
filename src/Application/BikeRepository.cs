@@ -63,6 +63,7 @@ public class BikeRepository : IBikeRepository
         var bikeId = GuidHelper.GuidOrEmpty(request.Id);
         var typeId = GuidHelper.GuidOrEmpty(request.TypeId);
         var bike = await _db.Bikes
+            .Include(b => b.ServiceNotes)
             .Where(b => b.UserId == userId)
             .FirstOrDefaultAsync(b => b.Id == bikeId, ct);
         if (bike is null)
@@ -73,6 +74,7 @@ public class BikeRepository : IBikeRepository
         bike.Manufacturer = request.Manufacturer;
         bike.Model = request.Model;
         bike.UpdateMileage(request.Mileage);
+        bike.Mileage = request.Mileage;
         bike.Date = request.Date;
         bike.TypeId = typeId;
 
