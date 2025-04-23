@@ -14,7 +14,7 @@ public class Part : BaseEntity
     public Guid TypeId { get; set; }
     public Guid BikeId { get; set; }
     public Guid UserId { get; set; }
-    public List<ServiceNote> ServiceNotes { get; set; }
+    public ICollection<ServiceNote> ServiceNotes { get; set; }
 
     public PartResponse CreateDto()
     {

@@ -11,7 +11,7 @@ namespace BikeService.Application.Tests;
 public class Values
 {
     public int A { get; set; }
-    public string B { get; set; }
+    public required string B { get; set; }
 }
 public class EventBusClientTest
 {

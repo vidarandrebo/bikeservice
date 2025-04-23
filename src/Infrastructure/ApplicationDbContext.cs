@@ -1,6 +1,7 @@
 ﻿using System;
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Bikes.Entities;
+using BikeService.Domain.Common;
 using BikeService.Domain.Parts.Entities;
 using BikeService.Domain.Types.Entities;
 using BikeService.Infrastructure.Identity;
@@ -15,6 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<Bike> Bikes { get; set; } = null!;
     public DbSet<Part> Parts { get; set; } = null!;
     public DbSet<EquipmentType> EquipmentTypes { get; set; } = null!;
+    public DbSet<ServiceNote> ServiceNotes { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions conf) : base(conf)
     {

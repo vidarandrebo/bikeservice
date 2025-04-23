@@ -14,7 +14,8 @@ public class BikeMileageUpdatedEventHandler : IEventHandler
     private readonly IApplicationDbContext _dbContext;
     private readonly ILogger<BikeMileageUpdatedEventHandler> _logger;
 
-    public BikeMileageUpdatedEventHandler(IApplicationDbContext dbContext, ILogger<BikeMileageUpdatedEventHandler> logger)
+    public BikeMileageUpdatedEventHandler(IApplicationDbContext dbContext,
+        ILogger<BikeMileageUpdatedEventHandler> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
@@ -29,15 +30,16 @@ public class BikeMileageUpdatedEventHandler : IEventHandler
     {
         BikeMileageUpdatedEvent e = (BikeMileageUpdatedEvent)baseEvent;
         var mileageDifference = e.NewMileage - e.OldMileage;
-       // var partsToUpdate = _dbContext.Parts
-       //     .Where(p => p.BikeId == e.BikeId);
-       // foreach (var part in partsToUpdate)
-       // {
-       //     var oldMileage = part.Mileage;
-       //     part.Mileage += mileageDifference;
-       //     _logger.LogInformation("Update mileage of part {part} from {old}// to {new}", part.Manufacturer + " " + part.Model, oldMileage, part.Mileage);
-        //}
+        var partsToUpdate = _dbContext.Parts
+            .Where(p => p.BikeId == e.BikeId);
+        foreach (var part in partsToUpdate)
+        {
+            var oldMileage = part.Mileage;
+            part.Mileage += mileageDifference;
+            _logger.LogInformation("Update mileage of part {part} from {old}// to {new}",
+                part.Manufacturer + " " + part.Model, oldMileage, part.Mileage);
+        }
 
-        //await _dbContext.SaveChangesAsync(ct);
+        await _dbContext.SaveChangesAsync(ct);
     }
 }

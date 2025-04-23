@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace BikeService.Domain.Common;
 
@@ -15,14 +14,5 @@ public class ServiceNote : BaseEntity
         Mileage = mileage;
         Date = date;
         Note = note;
-    }
-}
-
-public static class ServiceNoteExtensions
-{
-    public static void AddServiceNote(this List<ServiceNote> notes, DateTime date, double mileage, string noteText)
-    {
-        var note = new ServiceNote(mileage, date, noteText);
-        notes.Add(note);
     }
 }

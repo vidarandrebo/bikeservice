@@ -7,6 +7,8 @@ using BikeService.Application.Interfaces;
 using BikeService.Domain.Bikes.Contracts;
 using BikeService.Domain.Bikes.Dtos;
 using BikeService.Domain.Bikes.Entities;
+using BikeService.Domain.Bikes.Events;
+using BikeService.Domain.Common;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -73,13 +75,30 @@ public class BikeRepository : IBikeRepository
 
         bike.Manufacturer = request.Manufacturer;
         bike.Model = request.Model;
-        bike.UpdateMileage(request.Mileage);
+        var oldValue = bike.Mileage;
+        UpdateBikeMileage(bike, request.Mileage);
+
         bike.Mileage = request.Mileage;
         bike.Date = request.Date;
         bike.TypeId = typeId;
 
         await _db.SaveChangesAsync(ct);
         return Result.Ok();
+    }
+    private void UpdateBikeMileage(Bike bike, double newMileage)
+    {
+        var oldMileage = bike.Mileage;
+        
+        if (Math.Abs(newMileage - oldMileage) > 1.0)
+        {
+            bike.Mileage = newMileage;
+            bike.AddDomainEvent(new BikeMileageUpdatedEvent(oldMileage, newMileage, bike.Id));
+            var note = new ServiceNote(oldMileage, DateTime.Now,
+                $"Bike mileage updated from {oldMileage} to {newMileage}");
+
+            bike.ServiceNotes.Add(note);
+            _db.ServiceNotes.Add(note);
+        }
     }
 
     public async Task<Result<BikeDto[]>> GetBikes(Guid userId, CancellationToken ct)
