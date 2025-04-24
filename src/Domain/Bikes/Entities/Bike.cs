@@ -17,24 +17,13 @@ public class Bike : BaseEntity
     public Guid TypeId { get; set; }
     public Status Status { get; set; }
     public Guid UserId { get; set; }
-    public List<ServiceNote> ServiceNotes { get; set; }
+    public ICollection<ServiceNote> ServiceNotes { get; set; }
 
     public BikeDto CreateDto()
     {
         return new BikeDto(Id, Manufacturer, Model, Mileage, Date, TypeId);
     }
 
-    public void UpdateMileage(double newValue)
-    {
-        var oldValue = Mileage;
-        if (Math.Abs(newValue - oldValue) > 1.0)
-        {
-            Mileage = newValue;
-            AddDomainEvent(new BikeMileageUpdatedEvent(oldValue, newValue, Id));
-            ServiceNotes.AddServiceNote(DateTime.Now, oldValue,
-                $"Bike mileage updated from {oldValue} to {newValue}");
-        }
-    }
 
     public Bike(string manufacturer, string model, double mileage, DateTime date, Guid typeId, Guid userId)
     {

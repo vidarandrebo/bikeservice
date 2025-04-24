@@ -1,6 +1,8 @@
 <template>
     <main>
-        <HeadingH1>BikeService</HeadingH1>
+        <div>
+            <HeadingH1>BikeService</HeadingH1>
+        </div>
         <div v-if="!user.email">
             <p>Welcome to BikeService</p>
         </div>

@@ -2,8 +2,6 @@ using System.Linq;
 using System.Security.Claims;
 using BikeService.Application;
 using BikeService.Application.Interfaces;
-using BikeService.Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +13,11 @@ namespace BikeService.Server.Controllers.Identity;
 [Route("api/[controller]")]
 public class RefreshController : ControllerBase
 {
-    private readonly IMediator _mediator;
     private readonly ITokenHandler _tokenHandler;
     private readonly ILogger<LoginController> _logger;
 
-    public RefreshController(IMediator mediator, ILogger<LoginController> logger, ITokenHandler tokenHandler)
+    public RefreshController(ILogger<LoginController> logger, ITokenHandler tokenHandler)
     {
-        _mediator = mediator;
         _logger = logger;
         _tokenHandler = tokenHandler;
     }

@@ -1,5 +1,6 @@
 using System;
 using BikeService.Domain.Common;
+using BaseEvent = BikeService.EventBus.BaseEvent;
 
 namespace BikeService.Domain.Bikes.Events;
 

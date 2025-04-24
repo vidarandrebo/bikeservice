@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeService.EventBus", "src\EventBus\BikeService.EventBus.csproj", "{202F2EEE-32FE-4A39-9A73-ACD4C1CE0FF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{E5B007DE-5498-4334-8EF1-D91FFE0C4A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5B007DE-5498-4334-8EF1-D91FFE0C4A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5B007DE-5498-4334-8EF1-D91FFE0C4A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{202F2EEE-32FE-4A39-9A73-ACD4C1CE0FF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{202F2EEE-32FE-4A39-9A73-ACD4C1CE0FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{202F2EEE-32FE-4A39-9A73-ACD4C1CE0FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{202F2EEE-32FE-4A39-9A73-ACD4C1CE0FF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,5 +89,6 @@ Global
 		{2D4C523E-E35E-4CB6-8BA3-4086CD08F55E} = {F7CE93FC-3B77-407E-867B-FBFCC00E0C47}
 		{EDEFB1C6-3E2C-4E86-BC3D-EA34D2B79287} = {B5A41C7A-255C-4794-A2A4-0505C7207852}
 		{E5B007DE-5498-4334-8EF1-D91FFE0C4A6B} = {B5A41C7A-255C-4794-A2A4-0505C7207852}
+		{202F2EEE-32FE-4A39-9A73-ACD4C1CE0FF5} = {F7CE93FC-3B77-407E-867B-FBFCC00E0C47}
 	EndGlobalSection
 EndGlobal

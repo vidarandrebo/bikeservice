@@ -15,7 +15,7 @@ namespace BikeService.Migrations.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
 
             modelBuilder.Entity("BikeService.Domain.Bikes.Entities.Bike", b =>
                 {
@@ -79,7 +79,7 @@ namespace BikeService.Migrations.Sqlite.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("ServiceNote");
+                    b.ToTable("ServiceNotes");
                 });
 
             modelBuilder.Entity("BikeService.Domain.Parts.Entities.Part", b =>
