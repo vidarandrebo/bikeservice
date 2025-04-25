@@ -26,8 +26,8 @@ public static class Program
         builder.Configuration.LoadEnvToConfiguration(".env");
 
         builder.Services.AddEventBus(builder.Configuration);
-        
-        
+
+
         builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
         builder.Services.AddApplicationServices();
 
