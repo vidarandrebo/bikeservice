@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BikeService.Migrations.Postgres.Migrations
+namespace BikeService.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -208,7 +208,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceNote",
+                name: "ServiceNotes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -220,14 +220,14 @@ namespace BikeService.Migrations.Postgres.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceNote", x => x.Id);
+                    table.PrimaryKey("PK_ServiceNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServiceNote_Bikes_BikeId",
+                        name: "FK_ServiceNotes_Bikes_BikeId",
                         column: x => x.BikeId,
                         principalTable: "Bikes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ServiceNote_Parts_PartId",
+                        name: "FK_ServiceNotes_Parts_PartId",
                         column: x => x.PartId,
                         principalTable: "Parts",
                         principalColumn: "Id");
@@ -271,13 +271,13 @@ namespace BikeService.Migrations.Postgres.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceNote_BikeId",
-                table: "ServiceNote",
+                name: "IX_ServiceNotes_BikeId",
+                table: "ServiceNotes",
                 column: "BikeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceNote_PartId",
-                table: "ServiceNote",
+                name: "IX_ServiceNotes_PartId",
+                table: "ServiceNotes",
                 column: "PartId");
         }
 
@@ -303,7 +303,7 @@ namespace BikeService.Migrations.Postgres.Migrations
                 name: "EquipmentTypes");
 
             migrationBuilder.DropTable(
-                name: "ServiceNote");
+                name: "ServiceNotes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

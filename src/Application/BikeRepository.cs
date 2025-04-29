@@ -29,7 +29,7 @@ public class BikeRepository : IBikeRepository
     public async Task<Result> AddBike(PostBikeRequest request, Guid userId, CancellationToken ct)
     {
         var bike = new Bike(request.Manufacturer, request.Model,
-            request.Mileage, request.Date,
+            request.Mileage, request.Date.ToUniversalTime(),
             GuidHelper.GuidOrEmpty(request.TypeId), userId);
         _db.Bikes.Add(bike);
         await _db.SaveChangesAsync(ct);
@@ -73,13 +73,14 @@ public class BikeRepository : IBikeRepository
             return Result.Fail(new Error("Bike not found"));
         }
 
+        var oldDate = bike.Date;
         bike.Manufacturer = request.Manufacturer;
         bike.Model = request.Model;
         var oldValue = bike.Mileage;
         UpdateBikeMileage(bike, request.Mileage);
 
         bike.Mileage = request.Mileage;
-        bike.Date = request.Date;
+        bike.Date = request.Date.ToUniversalTime();
         bike.TypeId = typeId;
 
         await _db.SaveChangesAsync(ct);
@@ -93,7 +94,7 @@ public class BikeRepository : IBikeRepository
         {
             bike.Mileage = newMileage;
             bike.AddDomainEvent(new BikeMileageUpdatedEvent(oldMileage, newMileage, bike.Id));
-            var note = new ServiceNote(oldMileage, DateTime.Now,
+            var note = new ServiceNote(oldMileage, DateTime.UtcNow,
                 $"Bike mileage updated from {oldMileage} to {newMileage}");
 
             bike.ServiceNotes.Add(note);

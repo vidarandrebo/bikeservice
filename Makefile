@@ -9,10 +9,4 @@ clean:
 	find ./src/Server -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
 
 migration:
-	dotnet ef migrations add $(name) --project src/Migrations.Postgres --startup-project src/Server -v -- --environment Production
-	dotnet ef migrations add $(name) --project src/Migrations.Sqlite --startup-project src/Server
-
-
-rm-migrations:
-	rm -rf ./src/Migrations.Sqlite/Migrations/*
-	rm -rf ./src/Migrations.Postgres/Migrations/*
+	dotnet ef migrations add $(name) --project src/Infrastructure --startup-project src/Server

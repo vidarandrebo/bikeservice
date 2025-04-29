@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BikeService.Migrations.Postgres.Migrations
+namespace BikeService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -29,6 +29,12 @@ namespace BikeService.Migrations.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModified")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Manufacturer")
@@ -68,6 +74,12 @@ namespace BikeService.Migrations.Postgres.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<double>("Mileage")
                         .HasColumnType("double precision");
 
@@ -95,6 +107,12 @@ namespace BikeService.Migrations.Postgres.Migrations
 
                     b.Property<Guid>("BikeId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()
@@ -129,6 +147,12 @@ namespace BikeService.Migrations.Postgres.Migrations
 
                     b.Property<int>("Category")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()

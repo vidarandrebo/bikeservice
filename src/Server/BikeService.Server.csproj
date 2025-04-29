@@ -29,8 +29,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Application\BikeService.Application.csproj" />
         <ProjectReference Include="..\Infrastructure\BikeService.Infrastructure.csproj" />
-        <ProjectReference Include="..\Migrations.Postgres\BikeService.Migrations.Postgres.csproj" />
-        <ProjectReference Include="..\Migrations.Sqlite\BikeService.Migrations.Sqlite.csproj" />
     </ItemGroup>
 
 </Project>
