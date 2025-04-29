@@ -23,14 +23,10 @@ public static class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Configuration.LoadEnvToConfiguration(".env");
-
         builder.Services.AddEventBus(builder.Configuration);
-
 
         builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
         builder.Services.AddApplicationServices();
-
 
         builder.Services.AddRouting();
         builder.Services.AddControllers();
@@ -86,7 +82,6 @@ public static class Program
 
         await app.Services.ApplyMigrations(app.Environment);
 
-// Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
