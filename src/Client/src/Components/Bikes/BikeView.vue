@@ -50,9 +50,9 @@
         <EditBikeForm
             v-show="showEditForm"
             :bike="bike"
-            :equipment-types="equipmentTypes"
-            @edit-done-event="editDoneHandler"
-            @update-bikes-event="updateBikesHandler"
+            :equipmentTypes="equipmentTypes"
+            @editDoneEvent="editDoneHandler"
+            @updateBikesEvent="updateBikesHandler"
         ></EditBikeForm>
     </article>
 </template>
@@ -77,7 +77,7 @@ const props = defineProps<{
 }>();
 
 const equipmentType = computed(() => {
-    let type = props.equipmentTypes.find((t) => t.id == props.bike.typeId);
+    const type = props.equipmentTypes.find((t) => t.id == props.bike.typeId);
     if (type != undefined) {
         return type;
     }

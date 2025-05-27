@@ -67,7 +67,7 @@ const bikeTypes = computed(() => {
 
 async function addBike() {
     bikeData.value.date = new Date(date.value);
-    let result = await bikeData.value.addBikeRequest();
+    const result = await bikeData.value.addBikeRequest();
     if (result === 201) {
         date.value = "";
         bikeData.value.clear();

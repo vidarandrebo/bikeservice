@@ -38,7 +38,7 @@ async function registerUser() {
     if (registerData.value.errors.length > 0) {
         return;
     }
-    let httpValidationProblemDetails = await registerData.value.registerUserRequest();
+    const httpValidationProblemDetails = await registerData.value.registerUserRequest();
     if (!httpValidationProblemDetails) {
         registerData.value = new Credentials();
         await router.push("/login");
