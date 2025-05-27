@@ -33,14 +33,14 @@ const showEditForm = ref(false);
 const showEditButton = ref(true);
 
 const bike = computed(() => {
-    let bike = bikes.value.find((b) => b.id == part.value?.bikeId);
+    const bike = bikes.value.find((b) => b.id == part.value?.bikeId);
     if (bike != undefined) {
         return bike;
     }
     return new Bike();
 });
 const equipmentType = computed(() => {
-    let type = equipmentTypes.value.find((t) => t.id == part.value?.typeId);
+    const type = equipmentTypes.value.find((t) => t.id == part.value?.typeId);
     if (type != undefined) {
         return type;
     }
@@ -122,10 +122,10 @@ function updatePartsHandler() {
         <EditPartForm
             v-show="showEditForm"
             :bikes="bikes"
-            :equipment-types="equipmentTypes"
+            :equipmentTypes="equipmentTypes"
             :part="part"
-            @edit-done-event="editDoneHandler"
-            @update-parts-event="updatePartsHandler"
+            @editDoneEvent="editDoneHandler"
+            @updatePartsEvent="updatePartsHandler"
         >
         </EditPartForm>
     </article>

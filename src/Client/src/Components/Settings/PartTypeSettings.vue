@@ -40,7 +40,7 @@ const partTypes = computed(() => {
 
 async function addType() {
     equipmentTypeSettings.value.category = Category.Part;
-    let result = await equipmentTypeSettings.value.addTypeRequest();
+    const result = await equipmentTypeSettings.value.addTypeRequest();
     if (result === 201) {
         equipmentTypeSettings.value.clear();
     }

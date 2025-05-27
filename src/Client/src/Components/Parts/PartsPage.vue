@@ -2,7 +2,7 @@
     <main>
         <article class="flex w-full max-w-screen-lg flex-col p-4">
             <HeadingH1 class="">Parts</HeadingH1>
-            <NewPartForm :bikes="bikes" :equipment-types="equipmentTypes" @updatePartsEvent="onUpdatePartsEvent">
+            <NewPartForm :bikes="bikes" :equipmentTypes="equipmentTypes" @updatePartsEvent="onUpdatePartsEvent">
             </NewPartForm>
             <FormField class="flex flex-row space-x-1">
                 <LabelPrimary for="selectBike">Bike</LabelPrimary>

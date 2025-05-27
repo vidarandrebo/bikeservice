@@ -39,7 +39,7 @@ const { fetchParts } = inject("parts", DefaultPartCollection, true);
 const { fetchEquipmentTypes } = inject("equipmentTypes", DefaultEquipmentTypeCollection, true);
 
 async function loginUser(): Promise<void> {
-    let user = await loginData.value.loginUserRequest();
+    const user = await loginData.value.loginUserRequest();
     if (user) {
         setUser(user);
         fetchBikes();
