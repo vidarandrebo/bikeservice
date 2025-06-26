@@ -12,19 +12,27 @@
         <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <UserSecretsId>d7ed69f2-a3f3-4bb6-9990-ac40215e60d5</UserSecretsId>
+        <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
+        <OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
+        <OpenApiGenerateDocumentsOnBuild>true</OpenApiGenerateDocumentsOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.ApiDescription.Server" Version="9.0.6">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
     </ItemGroup>
+
 
     <ItemGroup>
         <ProjectReference Include="..\Application\BikeService.Application.csproj" />

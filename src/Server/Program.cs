@@ -23,6 +23,8 @@ public static class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddOpenApi();
+
         builder.Services.AddEventBus(builder.Configuration);
 
         builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
@@ -30,8 +32,7 @@ public static class Program
 
         builder.Services.AddRouting();
         builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        //builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -84,8 +85,12 @@ public static class Program
 
         if (app.Environment.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            Console.WriteLine("error");
+            app.MapOpenApi();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/openapi/v1.json", "v1");
+            });
         }
 
         app.UseRouting();
@@ -110,10 +115,10 @@ public static class Program
 
         app.MapFallbackToFile("index.html");
 
-        foreach (var item in app.Configuration.AsEnumerable())
-        {
-            Console.WriteLine(item);
-        }
+//        foreach (var item in app.Configuration.AsEnumerable())
+//        {
+//            Console.WriteLine(item);
+//        }
 
         app.Run();
     }
