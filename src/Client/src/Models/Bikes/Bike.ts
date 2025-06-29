@@ -1,5 +1,8 @@
 import { HttpRequest } from "http-methods-ts";
 import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
+import { getClient } from "../ApiClient.ts";
+import { RequestConfiguration } from "@microsoft/kiota-abstractions";
+import { BikeRequestBuilderDeleteQueryParameters } from "../../../gen/api/bike";
 
 export class Bike {
     id: string;
@@ -47,34 +50,25 @@ export class Bike {
     }
 
     async deleteBikeRequest(): Promise<void> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/bike")
-            .setMethod("DELETE")
-            .addHeader("Content-Type", "application/json")
-            .addUrlParam("id", this.id)
-            .setBearerToken(bearerToken);
-        await httpRequest.send();
+        const client = getClient();
+
+        const cfg: RequestConfiguration<BikeRequestBuilderDeleteQueryParameters> = {
+            queryParameters: {
+                id: this.id
+            }
+        };
+
+        await client.api.bike.delete(cfg);
+
     }
 
     async putBikeRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/bike")
-            .setMethod("PUT")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const response = httpRequest.getResponseData();
+        const client = getClient();
+
+        const response = await client.api.bike.put(this);
+
         if (response) {
-            return response.status;
+            return 200;
         }
         return -1;
     }
@@ -88,24 +82,12 @@ export class Bike {
 }
 
 export async function getBikesRequest(): Promise<Bike[]> {
-    const bearerToken = loadBearerTokenFromLocalStorage();
-    if (bearerToken === null) {
-        return [];
-    }
-    const httpRequest = new HttpRequest()
-        .setRoute("/api/bike")
-        .setMethod("GET")
-        .setBearerToken(bearerToken)
-        .addHeader("Content-Type", "application/json");
+    const client = getClient();
 
-    await httpRequest.send();
-
-    const httpResponse = httpRequest.getResponseData();
-    if (httpResponse != null) {
-        if (httpResponse.status == 200) {
-            const payload = httpResponse.body as Bike[];
-            return payload.map(createBike);
-        }
+    const httpResponse = await client.api.bike.get();
+    if (httpResponse) {
+        const payload = httpResponse as Bike[];
+        return payload.map(createBike);
     }
     return [];
 }
