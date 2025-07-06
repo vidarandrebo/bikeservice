@@ -1,5 +1,5 @@
 import { User } from "./User.ts";
-import { getAuthApi } from "../Api.ts";
+import { getAuthClient } from "../Api.ts";
 import { HttpValidationProblemDetails, HttpValidationProblemDetailsFromJSON, ResponseError } from "../../Gen";
 
 export interface ICredentials {
@@ -39,7 +39,7 @@ export class Credentials implements ICredentials {
     }
 
     async registerUserRequest(): Promise<HttpValidationProblemDetails | null> {
-        const client = getAuthApi();
+        const client = getAuthClient();
         try {
             await client.apiAuthRegisterPost({
                 registerRequest: { email: this.email, password: this.password }
@@ -55,7 +55,7 @@ export class Credentials implements ICredentials {
     }
 
     async loginUserRequest(): Promise<User | null> {
-        const client = getAuthApi();
+        const client = getAuthClient();
 
         try {
             const response = await client.apiAuthLoginPost({

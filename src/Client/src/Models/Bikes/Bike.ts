@@ -1,4 +1,4 @@
-import { getBikeApi } from "../Api.ts";
+import { getBikeClient } from "../Api.ts";
 import { BikeResponse } from "../../Gen";
 
 export class Bike {
@@ -28,7 +28,7 @@ export class Bike {
     }
 
     async addBikeRequest(): Promise<number> {
-        const client = getBikeApi();
+        const client = getBikeClient();
         try {
             await client.apiBikePost({ postBikeRequest: this });
             return 201;
@@ -39,13 +39,13 @@ export class Bike {
     }
 
     async deleteBikeRequest(): Promise<void> {
-        const client = getBikeApi();
+        const client = getBikeClient();
 
         await client.apiBikeDelete({ id: this.id });
     }
 
     async putBikeRequest(): Promise<number> {
-        const client = getBikeApi();
+        const client = getBikeClient();
 
         try {
             await client.apiBikePut({ putBikeRequest: this });
@@ -76,7 +76,7 @@ export class Bike {
 }
 
 export async function getBikesRequest(): Promise<Bike[]> {
-    const client = getBikeApi();
+    const client = getBikeClient();
     try {
         const response = await client.apiBikeGet();
         return response.map(Bike.fromResponse);

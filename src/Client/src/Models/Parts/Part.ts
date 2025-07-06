@@ -1,4 +1,4 @@
-import { getPartApi } from "../Api.ts";
+import { getPartClient } from "../Api.ts";
 import { PartResponse } from "../../Gen";
 
 export class Part {
@@ -35,7 +35,7 @@ export class Part {
     }
 
     async addPartRequest(): Promise<Part | null> {
-        const client = getPartApi();
+        const client = getPartClient();
         try {
             const response = await client.apiPartPost({ postPartRequest: this });
             return Part.fromResponse(response);
@@ -46,7 +46,7 @@ export class Part {
     }
 
     async deletePartRequest(): Promise<void> {
-        const client = getPartApi();
+        const client = getPartClient();
         try {
             await client.apiPartDelete({ id: this.id });
         } catch {
@@ -55,7 +55,7 @@ export class Part {
     }
 
     async putPartRequest(): Promise<number> {
-        const client = getPartApi();
+        const client = getPartClient();
 
         try {
             await client.apiPartPut({ putPartRequest: this });
@@ -77,7 +77,7 @@ export class Part {
 }
 
 export async function getPartsRequest(): Promise<Part[]> {
-    const client = getPartApi();
+    const client = getPartClient();
     try {
         const response = await client.apiPartGet();
         return response.map(Part.fromResponse);

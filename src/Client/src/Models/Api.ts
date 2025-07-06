@@ -24,22 +24,22 @@ class CfgParams implements ConfigurationParameters {
     }
 }
 
-export function getBikeApi(): BikeApi {
+export function getBikeClient(): BikeApi {
     const cfg = new Configuration(new CfgParams());
     const api = new BikeApi(cfg);
     return api;
 }
-export function getPartApi(): PartApi {
+export function getPartClient(): PartApi {
     const cfg = new Configuration(new CfgParams());
     const api = new PartApi(cfg);
     return api;
 }
-export function getAuthApi(): AuthApi {
+export function getAuthClient(): AuthApi {
     const cfg = new Configuration(new CfgParams());
     const api = new AuthApi(cfg);
     return api;
 }
-export function getTypeApi(): TypeApi {
+export function getTypeClient(): TypeApi {
     const cfg = new Configuration(new CfgParams());
     const api = new TypeApi(cfg);
     return api;

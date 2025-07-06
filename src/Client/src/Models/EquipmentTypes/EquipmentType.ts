@@ -1,5 +1,5 @@
 import { Category } from "./Category.ts";
-import { getTypeApi } from "../Api.ts";
+import { getTypeClient } from "../Api.ts";
 import { EquipmentTypeResponse } from "../../Gen";
 
 export class EquipmentType {
@@ -17,7 +17,7 @@ export class EquipmentType {
     }
 
     async addTypeRequest(): Promise<number> {
-        const client = getTypeApi();
+        const client = getTypeClient();
 
         try {
             await client.apiTypePost({ postEquipmentTypeRequest: this });
@@ -46,7 +46,7 @@ export class EquipmentType {
  * Acquires all equipment-types and returns an array of object containing them.
  */
 export async function getTypeRequest(): Promise<EquipmentType[]> {
-    const client = getTypeApi();
+    const client = getTypeClient();
     try {
         const response = await client.apiTypeGet();
         return response.map(EquipmentType.fromResponse);
