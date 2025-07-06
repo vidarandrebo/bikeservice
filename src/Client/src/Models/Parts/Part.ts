@@ -1,5 +1,6 @@
 import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
-import { HttpRequest } from "http-methods-ts";
+import { getPartApi } from "../Api.ts";
+import { PartResponse } from "../../Gen";
 
 export class Part {
     id: string;
@@ -34,23 +35,15 @@ export class Part {
         return this.manufacturer + " " + this.model;
     }
 
-    async addPartRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
+    async addPartRequest(): Promise<Part | null> {
+        const client = getPartApi()
+        try {
+            const response = await client.apiPartPost({postPartRequest: this})
         }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/part")
-            .setMethod("POST")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const result = httpRequest.getResponseData();
-        if (result) {
-            return result.status;
+        catch {
+            console.log("failed to add part")
         }
-        return -1;
+        return null
     }
 
     async deletePartRequest(): Promise<void> {
@@ -84,6 +77,15 @@ export class Part {
             return response.status;
         }
         return -1;
+    }
+    static fromResponse(response: PartResponse) : Part {
+        const part = new Part();
+        part.id = response.id
+        part.bikeId = response.bikeId
+        part.manufacturer = response.manufacturer
+        part.model = response.model
+        part.mileage = response.mileage
+        return part
     }
 }
 

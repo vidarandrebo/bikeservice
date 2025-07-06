@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Common;
 using BikeService.Domain.Parts.Contracts;
-using BikeService.Domain.Parts.Dtos;
 using BikeService.Domain.Parts.Entities;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
@@ -24,14 +23,14 @@ public class PartRepository : IPartRepository
         _logger = logger;
     }
 
-    public async Task<Result> AddPart(PostPartRequest postPartRequest, Guid userId, CancellationToken ct)
+    public async Task<Result<Part>> AddPart(PostPartRequest postPartRequest, Guid userId, CancellationToken ct)
     {
         var part = new Part(postPartRequest.Manufacturer, postPartRequest.Model,
             postPartRequest.Mileage, GuidHelper.GuidOrEmpty(postPartRequest.TypeId),
             GuidHelper.GuidOrEmpty(postPartRequest.BikeId), userId);
         _db.Parts.Add(part);
         await _db.SaveChangesAsync(ct);
-        return Result.Ok();
+        return Result.Ok(part);
     }
 
     public async Task<Result> DeletePart(Guid id, Guid userId, CancellationToken ct)
@@ -85,7 +84,7 @@ public class PartRepository : IPartRepository
     {
         var parts = await _db.Parts
             .Where(p => p.UserId == userId)
-            .Select(p => p.CreateDto())
+            .Select(p => p.ToResponse())
             .ToArrayAsync(ct);
         return Result.Ok(parts);
     }

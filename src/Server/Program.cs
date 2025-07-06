@@ -115,11 +115,6 @@ public static class Program
 
         app.MapFallbackToFile("index.html");
 
-//        foreach (var item in app.Configuration.AsEnumerable())
-//        {
-//            Console.WriteLine(item);
-//        }
-
         app.Run();
     }
 }

@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application;
+using BikeService.Domain.Bikes.Contracts;
 using BikeService.Domain.Parts.Contracts;
-using BikeService.Domain.Parts.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +39,8 @@ public class PartController : Controller
 
     [Authorize]
     [HttpPost]
+    [ProducesResponseType<PartResponse>(201)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> AddPart(PostPartRequest postPartForm, CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
@@ -47,7 +49,7 @@ public class PartController : Controller
             var result = await _partRepository.AddPart(postPartForm, userIdResult.Value, ct);
             if (result.IsSuccess)
             {
-                return Created(nameof(AddPart), postPartForm);
+                return Created(nameof(AddPart), result.Value.ToResponse());
             }
         }
 

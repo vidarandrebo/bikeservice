@@ -1,8 +1,7 @@
 import { HttpRequest } from "http-methods-ts";
 import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
-import { getClient } from "../ApiClient.ts";
-import { RequestConfiguration } from "@microsoft/kiota-abstractions";
-import { BikeRequestBuilderDeleteQueryParameters } from "../../../gen/api/bike";
+import { getBikeApi } from "../Api.ts";
+import { BikeResponse } from "../../Gen";
 
 export class Bike {
     id: string;
@@ -50,25 +49,19 @@ export class Bike {
     }
 
     async deleteBikeRequest(): Promise<void> {
-        const client = getClient();
+        const client = getBikeApi();
 
-        const cfg: RequestConfiguration<BikeRequestBuilderDeleteQueryParameters> = {
-            queryParameters: {
-                id: this.id
-            }
-        };
-
-        await client.api.bike.delete(cfg);
-
+        await client.apiBikeDelete({ id: this.id });
     }
 
     async putBikeRequest(): Promise<number> {
-        const client = getClient();
+        const client = getBikeApi();
 
-        const response = await client.api.bike.put(this);
-
-        if (response) {
+        try {
+            await client.apiBikePut({ putBikeRequest: this });
             return 200;
+        } catch {
+            console.log("failed to delete bike");
         }
         return -1;
     }
@@ -79,19 +72,26 @@ export class Bike {
         this.mileage = 0.0;
         this.typeId = "";
     }
+
+    static fromResponse(response: BikeResponse) {
+        const bike = new Bike();
+        bike.id = response.id;
+        bike.manufacturer = response.manufacturer;
+        bike.model = response.model;
+        bike.mileage = response.mileage;
+        bike.typeId = response.typeId;
+        bike.date = response.date;
+        return bike;
+    }
 }
 
 export async function getBikesRequest(): Promise<Bike[]> {
-    const client = getClient();
-
-    const httpResponse = await client.api.bike.get();
-    if (httpResponse) {
-        const payload = httpResponse as Bike[];
-        return payload.map(createBike);
+    const client = getBikeApi();
+    try {
+        const response = await client.apiBikeGet();
+        return response.map(Bike.fromResponse);
+    } catch {
+        console.log("failed to load bikes");
     }
     return [];
-}
-
-function createBike(bike: Bike) {
-    return new Bike(bike);
 }

@@ -11,21 +11,22 @@
         "buildDev": "vue-tsc && vite build --mode development",
         "build": "vue-tsc && vite build",
         "preview": "vite preview",
-        "lint": "eslint . --ext ts,vue --report-unused-disable-directives --max-warnings 0",
-        "format": "prettier . --write"
+        "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+        "lint-fix": "eslint . --report-unused-disable-directives --max-warnings 0 --fix",
+        "format": "prettier . --write",
+        "open-api": "openapi-generator-cli generate -i ../Server/BikeService.Server.json -g typescript-fetch -o src/Gen/ --additional-properties=withInterfaces=true",
+        "test": "vitest run"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
         "@fortawesome/free-regular-svg-icons": "^6.7.2",
         "@fortawesome/free-solid-svg-icons": "^6.7.2",
         "@fortawesome/vue-fontawesome": "^3.0.8",
-        "@microsoft/kiota-bundle": "^1.0.0-preview.96",
-        "aspnetcore-ts": "github:vidarandrebo/aspnetcore-ts#v1.0.0",
-        "http-methods-ts": "github:vidarandrebo/http-methods-ts#v0.3.0",
         "vue": "^3.5.15",
         "vue-router": "^4.5.1"
     },
     "devDependencies": {
+        "@openapitools/openapi-generator-cli": "^2.21.0",
         "@typescript-eslint/eslint-plugin": "^8.32.1",
         "@typescript-eslint/parser": "^8.32.1",
         "@vitejs/plugin-vue": "^5.2.4",
@@ -40,6 +41,7 @@
         "typescript": "~5.8.3",
         "typescript-eslint": "^8.32.1",
         "vite": "^6.3.5",
+        "vitest": "^3.2.4",
         "vue-tsc": "^2.2.10"
     }
 }
