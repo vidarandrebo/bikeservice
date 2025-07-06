@@ -19,6 +19,9 @@
                     <ButtonPrimary type="submit">Register</ButtonPrimary>
                 </FormField>
             </form>
+            <template v-for="(errorCategory, key) in errs?.errors" :key="key">
+                <p v-for="(a, b) in errorCategory" :key="b">{{ a.replace("Error with Message=", "") }}</p>
+            </template>
         </article>
     </main>
 </template>
@@ -30,8 +33,10 @@ import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import LabelPrimary from "../Common/LabelPrimary.vue";
 import FormField from "../Common/FormField.vue";
 import router from "../../Router";
+import { HttpValidationProblemDetails } from "../../Gen";
 
 const registerData = ref<Credentials>(new Credentials());
+const errs = ref<HttpValidationProblemDetails | null>(null);
 
 async function registerUser() {
     registerData.value.passwordRequirementsCheck();
@@ -42,6 +47,8 @@ async function registerUser() {
     if (!httpValidationProblemDetails) {
         registerData.value = new Credentials();
         await router.push("/login");
+    } else {
+        errs.value = httpValidationProblemDetails;
     }
 }
 </script>

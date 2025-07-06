@@ -1,8 +1,6 @@
 import { ref, Ref } from "vue";
-import { RefreshRequest } from "aspnetcore-ts/Identity/Data";
-import { HttpRequest } from "http-methods-ts";
-import { AccessTokenResponse } from "aspnetcore-ts/Authentication/BearerToken";
 import { ObjectAssignable } from "../ObjectAssignable.ts";
+import { getAuthClient } from "../Api.ts";
 
 export type UserDependency = {
     user: Ref<User>;
@@ -37,26 +35,16 @@ export class User extends ObjectAssignable {
     }
 
     async refresh(): Promise<User | null> {
-        const refreshRequest = new RefreshRequest(this.refreshToken);
-        const httpRequest = new HttpRequest()
-            .setRoute("/api/refresh")
-            .setMethod("POST")
-            .addHeader("Content-Type", "application/json")
-            .setRequestData(refreshRequest);
-        await httpRequest.send();
-        const httpResponse = httpRequest.getResponseData();
-        const refreshResponse = new AccessTokenResponse();
+        const client = getAuthClient();
 
-        if (httpResponse) {
-            if (httpResponse.status == 200) {
-                refreshResponse.assignFromObject(httpResponse.body as Record<string, never>);
-                this.refreshToken = refreshResponse.refreshToken;
-                this.accessToken = refreshResponse.accessToken;
-                this.writeToLocalStorage();
-                return this;
-            } else {
-                this.removeFromLocalStorage();
-            }
+        try {
+            const response = await client.apiAuthRefreshPost({ refreshRequest: { refreshToken: this.refreshToken } });
+            this.refreshToken = response.refreshToken;
+            this.accessToken = response.accessToken;
+            this.writeToLocalStorage();
+            return this;
+        } catch {
+            this.removeFromLocalStorage();
         }
         return null;
     }

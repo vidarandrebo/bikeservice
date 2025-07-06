@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using BikeService.Application.Interfaces;
 using BikeService.Domain.Common;
 using BikeService.Domain.Parts.Contracts;
-using BikeService.Domain.Parts.Dtos;
 using BikeService.Domain.Parts.Entities;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
@@ -24,14 +23,14 @@ public class PartRepository : IPartRepository
         _logger = logger;
     }
 
-    public async Task<Result> AddPart(PostPartRequest postPartRequest, Guid userId, CancellationToken ct)
+    public async Task<Result<Part>> AddPart(PostPartRequest postPartRequest, Guid userId, CancellationToken ct)
     {
         var part = new Part(postPartRequest.Manufacturer, postPartRequest.Model,
             postPartRequest.Mileage, GuidHelper.GuidOrEmpty(postPartRequest.TypeId),
             GuidHelper.GuidOrEmpty(postPartRequest.BikeId), userId);
         _db.Parts.Add(part);
         await _db.SaveChangesAsync(ct);
-        return Result.Ok();
+        return Result.Ok(part);
     }
 
     public async Task<Result> DeletePart(Guid id, Guid userId, CancellationToken ct)
@@ -49,7 +48,7 @@ public class PartRepository : IPartRepository
         return Result.Fail(new Error("Part not found"));
     }
 
-    public async Task<Result> EditPart(PutPartRequest putPartRequest, Guid userId, CancellationToken ct)
+    public async Task<Result<Part>> EditPart(PutPartRequest putPartRequest, Guid userId, CancellationToken ct)
     {
         var partId = GuidHelper.GuidOrEmpty(putPartRequest.Id);
         var part = await _db.Parts
@@ -78,14 +77,13 @@ public class PartRepository : IPartRepository
         }
 
         await _db.SaveChangesAsync(ct);
-        return Result.Ok();
+        return Result.Ok(part);
     }
 
-    public async Task<Result<PartResponse[]>> GetParts(Guid userId, CancellationToken ct)
+    public async Task<Result<Part[]>> GetParts(Guid userId, CancellationToken ct)
     {
         var parts = await _db.Parts
             .Where(p => p.UserId == userId)
-            .Select(p => p.CreateDto())
             .ToArrayAsync(ct);
         return Result.Ok(parts);
     }

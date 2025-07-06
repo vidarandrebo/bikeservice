@@ -1,5 +1,5 @@
-import { HttpRequest } from "http-methods-ts";
-import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
+import { getBikeClient } from "../Api.ts";
+import { BikeResponse } from "../../Gen";
 
 export class Bike {
     id: string;
@@ -28,53 +28,30 @@ export class Bike {
     }
 
     async addBikeRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/bike")
-            .setMethod("POST")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const result = httpRequest.getResponseData();
-        if (result) {
-            return result.status;
+        const client = getBikeClient();
+        try {
+            await client.apiBikePost({ postBikeRequest: this });
+            return 201;
+        } catch {
+            console.log("failed to add bike");
         }
         return -1;
     }
 
     async deleteBikeRequest(): Promise<void> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/bike")
-            .setMethod("DELETE")
-            .addHeader("Content-Type", "application/json")
-            .addUrlParam("id", this.id)
-            .setBearerToken(bearerToken);
-        await httpRequest.send();
+        const client = getBikeClient();
+
+        await client.apiBikeDelete({ id: this.id });
     }
 
     async putBikeRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/bike")
-            .setMethod("PUT")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const response = httpRequest.getResponseData();
-        if (response) {
-            return response.status;
+        const client = getBikeClient();
+
+        try {
+            await client.apiBikePut({ putBikeRequest: this });
+            return 200;
+        } catch {
+            console.log("failed to delete bike");
         }
         return -1;
     }
@@ -85,31 +62,26 @@ export class Bike {
         this.mileage = 0.0;
         this.typeId = "";
     }
+
+    static fromResponse(response: BikeResponse) {
+        const bike = new Bike();
+        bike.id = response.id;
+        bike.manufacturer = response.manufacturer;
+        bike.model = response.model;
+        bike.mileage = response.mileage;
+        bike.typeId = response.typeId;
+        bike.date = response.date;
+        return bike;
+    }
 }
 
 export async function getBikesRequest(): Promise<Bike[]> {
-    const bearerToken = loadBearerTokenFromLocalStorage();
-    if (bearerToken === null) {
-        return [];
-    }
-    const httpRequest = new HttpRequest()
-        .setRoute("/api/bike")
-        .setMethod("GET")
-        .setBearerToken(bearerToken)
-        .addHeader("Content-Type", "application/json");
-
-    await httpRequest.send();
-
-    const httpResponse = httpRequest.getResponseData();
-    if (httpResponse != null) {
-        if (httpResponse.status == 200) {
-            const payload = httpResponse.body as Bike[];
-            return payload.map(createBike);
-        }
+    const client = getBikeClient();
+    try {
+        const response = await client.apiBikeGet();
+        return response.map(Bike.fromResponse);
+    } catch {
+        console.log("failed to load bikes");
     }
     return [];
-}
-
-function createBike(bike: Bike) {
-    return new Bike(bike);
 }

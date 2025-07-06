@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BikeService.Domain.Common;
-using BikeService.Domain.Parts.Dtos;
+using BikeService.Domain.Parts.Contracts;
 
 namespace BikeService.Domain.Parts.Entities;
 
@@ -16,7 +16,7 @@ public class Part : BaseEntity
     public Guid UserId { get; set; }
     public ICollection<ServiceNote> ServiceNotes { get; set; }
 
-    public PartResponse CreateDto()
+    public PartResponse ToResponse()
     {
         return new PartResponse(Id, Manufacturer, Model, Mileage, TypeId, BikeId);
     }
