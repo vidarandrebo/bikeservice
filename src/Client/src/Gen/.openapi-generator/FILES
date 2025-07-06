@@ -1,8 +1,6 @@
+apis/AuthApi.ts
 apis/BikeApi.ts
-apis/LoginApi.ts
 apis/PartApi.ts
-apis/RefreshApi.ts
-apis/RegisterApi.ts
 apis/TypeApi.ts
 apis/index.ts
 index.ts

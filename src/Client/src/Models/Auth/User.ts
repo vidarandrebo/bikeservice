@@ -1,6 +1,6 @@
 import { ref, Ref } from "vue";
 import { ObjectAssignable } from "../ObjectAssignable.ts";
-import { getRefreshApi } from "../Api.ts";
+import { getAuthApi } from "../Api.ts";
 
 export type UserDependency = {
     user: Ref<User>;
@@ -35,10 +35,10 @@ export class User extends ObjectAssignable {
     }
 
     async refresh(): Promise<User | null> {
-        const client = getRefreshApi();
+        const client = getAuthApi();
 
         try {
-            const response = await client.apiRefreshPost({ refreshRequest: { refreshToken: this.refreshToken } });
+            const response = await client.apiAuthRefreshPost({ refreshRequest: { refreshToken: this.refreshToken } });
             this.refreshToken = response.refreshToken;
             this.accessToken = response.accessToken;
             this.writeToLocalStorage();

@@ -1,6 +1,6 @@
 import { Category } from "./Category.ts";
-import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
-import { HttpRequest } from "http-methods-ts";
+import { getTypeApi } from "../Api.ts";
+import { EquipmentTypeResponse } from "../../Gen";
 
 export class EquipmentType {
     id: string;
@@ -17,20 +17,13 @@ export class EquipmentType {
     }
 
     async addTypeRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute(window.location.origin + "/" + "api/type")
-            .setMethod("POST")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const result = httpRequest.getResponseData();
-        if (result) {
-            return result.status;
+        const client = getTypeApi();
+
+        try {
+            await client.apiTypePost({ postEquipmentTypeRequest: this });
+            return 201;
+        } catch {
+            console.log("failed to add types");
         }
         return -1;
     }
@@ -40,38 +33,25 @@ export class EquipmentType {
         this.category = Category.Bike;
         this.id = "";
     }
+    static fromResponse(response: EquipmentTypeResponse): EquipmentType {
+        const t = new EquipmentType();
+        t.id = response.id;
+        t.name = response.name;
+        t.category = response.category;
+        return t;
+    }
 }
 
 /**
  * Acquires all equipment-types and returns an array of object containing them.
  */
 export async function getTypeRequest(): Promise<EquipmentType[]> {
-    const bearerToken = loadBearerTokenFromLocalStorage();
-    if (bearerToken === null) {
-        return [];
-    }
-    const httpRequest = new HttpRequest()
-        .setRoute("/api/type")
-        .setMethod("GET")
-        .setBearerToken(bearerToken)
-        .addHeader("Content-Type", "application/json");
-
-    await httpRequest.send();
-
-    const httpResponse = httpRequest.getResponseData();
-    if (httpResponse != null) {
-        if (httpResponse.status == 200) {
-            const payload = httpResponse.body as EquipmentType[];
-            return payload.map(createType);
-        }
+    const client = getTypeApi();
+    try {
+        const response = await client.apiTypeGet();
+        return response.map(EquipmentType.fromResponse);
+    } catch {
+        console.log("failed to get types");
     }
     return [];
-}
-
-/**
- * Mapper for the types received from api-call
- * @param type The received object
- */
-function createType(type: EquipmentType) {
-    return new EquipmentType(type);
 }

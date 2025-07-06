@@ -3,11 +3,9 @@ import {
     type ConfigurationParameters,
     type HTTPHeaders,
     BikeApi,
-    RefreshApi,
     PartApi,
     TypeApi,
-    RegisterApi,
-    LoginApi
+    AuthApi
 } from "../Gen";
 import { loadBearerTokenFromLocalStorage } from "./Auth/User.ts";
 
@@ -36,19 +34,9 @@ export function getPartApi(): PartApi {
     const api = new PartApi(cfg);
     return api;
 }
-export function getLoginApi(): LoginApi {
+export function getAuthApi(): AuthApi {
     const cfg = new Configuration(new CfgParams());
-    const api = new LoginApi(cfg);
-    return api;
-}
-export function getRegisterApi(): RegisterApi {
-    const cfg = new Configuration(new CfgParams());
-    const api = new RegisterApi(cfg);
-    return api;
-}
-export function getRefreshApi(): RefreshApi {
-    const cfg = new Configuration(new CfgParams());
-    const api = new RefreshApi(cfg);
+    const api = new AuthApi(cfg);
     return api;
 }
 export function getTypeApi(): TypeApi {
