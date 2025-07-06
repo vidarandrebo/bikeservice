@@ -95,11 +95,11 @@ export interface PartApiInterface {
      * @throws {RequiredError}
      * @memberof PartApiInterface
      */
-    apiPartPutRaw(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    apiPartPutRaw(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PartResponse>>;
 
     /**
      */
-    apiPartPut(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    apiPartPut(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PartResponse>;
 
 }
 
@@ -204,7 +204,7 @@ export class PartApi extends runtime.BaseAPI implements PartApiInterface {
 
     /**
      */
-    async apiPartPutRaw(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiPartPutRaw(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PartResponse>> {
         if (requestParameters['putPartRequest'] == null) {
             throw new runtime.RequiredError(
                 'putPartRequest',
@@ -229,13 +229,14 @@ export class PartApi extends runtime.BaseAPI implements PartApiInterface {
             body: PutPartRequestToJSON(requestParameters['putPartRequest']),
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => PartResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiPartPut(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiPartPutRaw(requestParameters, initOverrides);
+    async apiPartPut(requestParameters: ApiPartPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PartResponse> {
+        const response = await this.apiPartPutRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
 }

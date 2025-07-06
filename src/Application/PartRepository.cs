@@ -48,7 +48,7 @@ public class PartRepository : IPartRepository
         return Result.Fail(new Error("Part not found"));
     }
 
-    public async Task<Result> EditPart(PutPartRequest putPartRequest, Guid userId, CancellationToken ct)
+    public async Task<Result<Part>> EditPart(PutPartRequest putPartRequest, Guid userId, CancellationToken ct)
     {
         var partId = GuidHelper.GuidOrEmpty(putPartRequest.Id);
         var part = await _db.Parts
@@ -77,14 +77,13 @@ public class PartRepository : IPartRepository
         }
 
         await _db.SaveChangesAsync(ct);
-        return Result.Ok();
+        return Result.Ok(part);
     }
 
-    public async Task<Result<PartResponse[]>> GetParts(Guid userId, CancellationToken ct)
+    public async Task<Result<Part[]>> GetParts(Guid userId, CancellationToken ct)
     {
         var parts = await _db.Parts
             .Where(p => p.UserId == userId)
-            .Select(p => p.ToResponse())
             .ToArrayAsync(ct);
         return Result.Ok(parts);
     }

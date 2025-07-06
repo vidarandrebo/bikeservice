@@ -1,4 +1,3 @@
-import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
 import { getPartApi } from "../Api.ts";
 import { PartResponse } from "../../Gen";
 
@@ -36,87 +35,54 @@ export class Part {
     }
 
     async addPartRequest(): Promise<Part | null> {
-        const client = getPartApi()
+        const client = getPartApi();
         try {
-            const response = await client.apiPartPost({postPartRequest: this})
+            const response = await client.apiPartPost({ postPartRequest: this });
+            return Part.fromResponse(response);
+        } catch {
+            console.log("failed to add part");
         }
-        catch {
-            console.log("failed to add part")
-        }
-        return null
+        return null;
     }
 
     async deletePartRequest(): Promise<void> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return;
+        const client = getPartApi();
+        try {
+            await client.apiPartDelete({ id: this.id });
+        } catch {
+            console.log("failed to delete part");
         }
-        const httpRequest = new HttpRequest()
-            .setRoute(window.location.origin + "/" + "api/part")
-            .setMethod("DELETE")
-            .addHeader("Content-Type", "application/json")
-            .addUrlParam("id", this.id)
-            .setBearerToken(bearerToken);
-        await httpRequest.send();
     }
 
     async putPartRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute(window.location.origin + "/" + "api/part")
-            .setMethod("PUT")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const response = httpRequest.getResponseData();
-        if (response) {
-            return response.status;
+        const client = getPartApi();
+
+        try {
+            await client.apiPartPut({ putPartRequest: this });
+            return 200;
+        } catch {
+            console.log("failed to edit part");
         }
         return -1;
     }
-    static fromResponse(response: PartResponse) : Part {
+    static fromResponse(response: PartResponse): Part {
         const part = new Part();
-        part.id = response.id
-        part.bikeId = response.bikeId
-        part.manufacturer = response.manufacturer
-        part.model = response.model
-        part.mileage = response.mileage
-        return part
+        part.id = response.id;
+        part.bikeId = response.bikeId;
+        part.manufacturer = response.manufacturer;
+        part.model = response.model;
+        part.mileage = response.mileage;
+        return part;
     }
 }
 
 export async function getPartsRequest(): Promise<Part[]> {
-    const bearerToken = loadBearerTokenFromLocalStorage();
-    if (bearerToken === null) {
-        return [];
-    }
-    const httpRequest = new HttpRequest()
-        .setRoute("/api/part")
-        .setMethod("GET")
-        .setBearerToken(bearerToken)
-        .addHeader("Content-Type", "application/json");
-
-    await httpRequest.send();
-
-    const httpResponse = httpRequest.getResponseData();
-    if (httpResponse != null) {
-        if (httpResponse.status == 200) {
-            const payload = httpResponse.body as Part[];
-            return payload.map(createPart);
-        }
+    const client = getPartApi();
+    try {
+        const response = await client.apiPartGet();
+        return response.map(Part.fromResponse);
+    } catch {
+        console.log("failed to fetch parts");
     }
     return [];
-}
-
-/**
- * Creates a new object of the Part class from an object conforming to the IPart interface
- * @param part The object whose fields will be transferred to new object
- * @returns A new object of the Part class
- */
-function createPart(part: Part) {
-    return new Part(part);
 }

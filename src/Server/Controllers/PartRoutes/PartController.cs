@@ -1,7 +1,7 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BikeService.Application;
-using BikeService.Domain.Bikes.Contracts;
 using BikeService.Domain.Parts.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,16 +21,17 @@ public class PartController : Controller
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<PartResponse[]>> GetParts(CancellationToken ct)
+    [ProducesResponseType<PartResponse[]>(200)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> GetParts(CancellationToken ct)
     {
-        //var userIdResult = _tokenHandler.GetUserIdFromRequest(HttpContext);
         var userIdResult = HttpContext.GetUserId();
         if (userIdResult.IsSuccess)
         {
             var result = await _partRepository.GetParts(userIdResult.Value, ct);
             if (result.IsSuccess)
             {
-                return Ok(result.Value);
+                return Ok(result.Value.Select(p => p.ToResponse()).ToArray());
             }
         }
 
@@ -58,6 +59,8 @@ public class PartController : Controller
 
     [Authorize]
     [HttpDelete]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
     public async Task<ActionResult> DeletePart(string id, CancellationToken ct)
     {
         var partId = GuidHelper.GuidOrEmpty(id);
@@ -76,6 +79,8 @@ public class PartController : Controller
 
     [Authorize]
     [HttpPut]
+    [ProducesResponseType<PartResponse>(200)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> EditPart(PutPartRequest putPartRequest, CancellationToken ct)
     {
         var userIdResult = HttpContext.GetUserId();
@@ -84,7 +89,7 @@ public class PartController : Controller
             var editPartResult = await _partRepository.EditPart(putPartRequest, userIdResult.Value, ct);
             if (editPartResult.IsSuccess)
             {
-                return Ok();
+                return Ok(editPartResult.Value.ToResponse());
             }
         }
 

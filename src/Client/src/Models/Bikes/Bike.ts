@@ -1,5 +1,3 @@
-import { HttpRequest } from "http-methods-ts";
-import { loadBearerTokenFromLocalStorage } from "../Auth/User.ts";
 import { getBikeApi } from "../Api.ts";
 import { BikeResponse } from "../../Gen";
 
@@ -30,20 +28,12 @@ export class Bike {
     }
 
     async addBikeRequest(): Promise<number> {
-        const bearerToken = loadBearerTokenFromLocalStorage();
-        if (bearerToken === null) {
-            return -1;
-        }
-        const httpRequest = new HttpRequest()
-            .setRoute("api/bike")
-            .setMethod("POST")
-            .addHeader("Content-Type", "application/json")
-            .setBearerToken(bearerToken)
-            .setRequestData(this);
-        await httpRequest.send();
-        const result = httpRequest.getResponseData();
-        if (result) {
-            return result.status;
+        const client = getBikeApi();
+        try {
+            await client.apiBikePost({ postBikeRequest: this });
+            return 201;
+        } catch {
+            console.log("failed to add bike");
         }
         return -1;
     }
