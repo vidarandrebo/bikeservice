@@ -6,6 +6,10 @@ on:
       - main
 
 jobs:
+  zizmor:
+    name: "zizmor"
+    uses: "./.github/workflows/zizmor.yml"
+
   dotnet:
     name: ".NET"
     uses: "./.github/workflows/dotnet.yml"
