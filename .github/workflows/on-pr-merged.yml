@@ -6,6 +6,8 @@ on:
       - closed
     branches:
       - main
+        
+permissions: {}
 
 jobs:
   vue:
@@ -24,4 +26,8 @@ jobs:
     needs: [dotnet, vue]
     name: "Publish"
     uses: "./.github/workflows/publish.yml"
-    secrets: inherit
+    secrets:
+      KNOWN_HOSTS: ${{secrets.KNOWN_HOSTS}}
+      SSH_KEY: ${{secrets.SSH_KEY}}
+      SSH_HOST: ${{secrets.SSH_HOST}}
+      SSH_USERNAME: ${{secrets.SSH_USERNAME}}

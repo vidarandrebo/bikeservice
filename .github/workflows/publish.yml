@@ -1,6 +1,16 @@
 name: Publish
 
-on: workflow_call
+on: 
+  workflow_call:
+    secrets:
+      KNOWN_HOSTS:
+        required: true
+      SSH_KEY:
+        required: true
+      SSH_HOST:
+        required: true
+      SSH_USERNAME:
+        required: true
 
 jobs:
   build-publish:
