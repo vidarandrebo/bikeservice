@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="docker-compose.yml" />
+    <File Path="Dockerfile" />
+    <File Path="Makefile" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Application/BikeService.Application.csproj" />
+    <Project Path="src/Domain/BikeService.Domain.csproj" />
+    <Project Path="src/EventBus/BikeService.EventBus.csproj" />
+    <Project Path="src/Infrastructure/BikeService.Infrastructure.csproj" />
+    <Project Path="src/Server/BikeService.Server.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Application.Tests/BikeService.Application.Tests.csproj" />
+    <Project Path="tests/Domain.Tests/BikeService.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
