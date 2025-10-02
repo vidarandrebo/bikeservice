@@ -13,7 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EventBus\BikeService.EventBus.csproj" />
+        <ProjectReference Include="..\EventBus\BikeService.EventBus.csproj"/>
     </ItemGroup>
 
 </Project>

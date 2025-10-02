@@ -11,7 +11,6 @@ public interface IEventBusClient
     /// Execute synchronously
     /// </summary>
     /// <param name="e">Event</param>
-    /// <typeparam name="T">Type of event</typeparam>
     void Execute(BaseEvent e);
     Task ExecuteAsync(BaseEvent e, CancellationToken ct);
     /// <summary>
@@ -107,6 +106,9 @@ public class EventBusClient : IEventBusClient
 
     public async Task Publish<T>(T e)
     {
-        await _channel.Writer.WriteAsync(e);
+        if (e is not null)
+        {
+            await _channel.Writer.WriteAsync(e);
+        }
     }
 }
