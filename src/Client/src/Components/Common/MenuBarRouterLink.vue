@@ -1,5 +1,5 @@
 <template>
-    <RouterLink :to="to">
+    <RouterLink class="navbar-item has-text-black-bold" :to="to">
         <slot></slot>
     </RouterLink>
 </template>
@@ -12,6 +12,6 @@ defineProps<{
 
 <style scoped>
 .router-link-active {
-    @apply bg-blue-400 rounded;
+    @apply has-background-primary;
 }
 </style>
