@@ -4,13 +4,12 @@
             <div>
                 <HeadingH2>Add Part Type</HeadingH2>
                 <form id="addBikeType" method="POST" @submit.prevent="addType">
-                    <FormField>
-                        <LabelPrimary for="name">Name</LabelPrimary>
+                    <BField label="Name">
                         <InputText id="name" v-model="equipmentTypeSettings.name" name="name" required />
-                    </FormField>
-                    <FormField>
-                        <ButtonPrimary type="submit">Add Type</ButtonPrimary>
-                    </FormField>
+                    </BField>
+                    <BField>
+                        <BButton type="is-primary">Add Type</BButton>
+                    </BField>
                 </form>
                 <HeadingH3>Part Types</HeadingH3>
                 <p v-for="type in partTypes" :key="type.id">{{ type.name }}</p>
@@ -23,13 +22,11 @@
 import { computed, inject, ref } from "vue";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
-import LabelPrimary from "../Common/LabelPrimary.vue";
 import InputText from "../Common/InputText.vue";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 import HeadingH3 from "../Common/Headings/HeadingH3.vue";
-import FormField from "../Common/FormField.vue";
 import { DefaultEquipmentTypeCollection } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
+import { BButton, BField } from "buefy";
 
 const equipmentTypeSettings = ref(new EquipmentType());
 const { equipmentTypes, fetchEquipmentTypes } = inject("equipmentTypes", DefaultEquipmentTypeCollection, true);

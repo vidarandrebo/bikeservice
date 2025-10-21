@@ -1,51 +1,51 @@
 <template>
-    <article class="bg-gray-300 p-2 rounded">
-        <table>
-            <thead>
-                <tr>
-                    <th colspan="2" scope="row">
-                        <HeadingH2>{{ bike.manufacturer }} {{ bike.model }}</HeadingH2>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <p>Distance:</p>
-                    </th>
-                    <td>
-                        <p>{{ bike.mileage }} km</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <p>Guid</p>
-                    </th>
-                    <td>
-                        <p>{{ bike.id }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <p>Type</p>
-                    </th>
-                    <td>
-                        <p>{{ equipmentType.name }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <p>Date</p>
-                    </th>
-                    <td>
-                        <p>{{ bike.date }}</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="space-x-1">
-            <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
-            <ButtonSecondary v-show="showEditButton" @click="deleteBike">Delete</ButtonSecondary>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-header-title">{{ bike.manufacturer }} {{ bike.model }}</h2>
+        </div>
+        <div class="card-content">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <p>Distance:</p>
+                        </th>
+                        <td>
+                            <p>{{ bike.mileage }} km</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <p>Guid</p>
+                        </th>
+                        <td>
+                            <p>{{ bike.id }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <p>Type</p>
+                        </th>
+                        <td>
+                            <p>{{ equipmentType.name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <p>Date</p>
+                        </th>
+                        <td>
+                            <p>{{ bike.date }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <article class="article">
+        <div class="buttons">
+            <BButton v-show="showEditButton" type="is-primary" @click="showEdit">Edit</BButton>
+            <BButton v-show="showEditButton" type="is-danger" @click="deleteBike">Delete</BButton>
         </div>
         <EditBikeForm
             v-show="showEditForm"
@@ -62,9 +62,8 @@ import { computed, ref } from "vue";
 import EditBikeForm from "./EditBikeForm.vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
-import ButtonSecondary from "../Common/ButtonSecondary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
+import { BButton } from "buefy";
 
 const emit = defineEmits(["updateBikesEvent"]);
 

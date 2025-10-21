@@ -1,38 +1,33 @@
 <template>
     <article>
-        <FormField>
-            <ButtonPrimary v-show="!show" @click="showForm">New Bike</ButtonPrimary>
-        </FormField>
+        <BField>
+            <BButton v-show="!show" type="is-primary" @click="showForm">New Bike</BButton>
+        </BField>
         <form v-show="show" id="new-bike" method="POST" @submit.prevent="addBike">
-            <FormField>
-                <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
-                <TextInput id="manufacturer" v-model="bikeData.manufacturer" required />
-            </FormField>
-            <FormField>
-                <LabelPrimary for="model">Model</LabelPrimary>
-                <TextInput id="model" v-model="bikeData.model" required />
-            </FormField>
-            <FormField>
-                <LabelPrimary for="mileage">Mileage</LabelPrimary>
-                <NumberInput id="mileage" v-model="bikeData.mileage" required />
-            </FormField>
-            <FormField>
-                <LabelPrimary for="date">Date</LabelPrimary>
+            <BField label="Manufacturer">
+                <BInput id="manufacturer" v-model="bikeData.manufacturer" required />
+            </BField>
+            <BField label="Model">
+                <BInput id="model" v-model="bikeData.model" required />
+            </BField>
+            <BField label="Mileage">
+                <BNumberinput id="mileage" v-model="bikeData.mileage" required></BNumberinput>
+            </BField>
+            <BField label="Date">
                 <DateInput id="date" v-model="date" required />
-            </FormField>
-            <FormField>
-                <LabelPrimary for="type">Type</LabelPrimary>
+            </BField>
+            <BField label="Type">
                 <SelectPrimary id="type" v-model="bikeData.typeId" required>
                     <option value="0">No Type</option>
                     <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
                         {{ bikeType.name }}
                     </option>
                 </SelectPrimary>
-            </FormField>
-            <FormField class="space-x-1">
-                <ButtonPrimary type="submit">Add</ButtonPrimary>
-                <ButtonSecondary @click="hideForm">Cancel</ButtonSecondary>
-            </FormField>
+            </BField>
+            <BField>
+                <BButton type="is-primary" @click="addBike">Add</BButton>
+                <BButton type="is-primary is-outlined" @click="hideForm">Cancel</BButton>
+            </BField>
         </form>
     </article>
 </template>
@@ -42,14 +37,9 @@ import { computed, ref } from "vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
-import LabelPrimary from "../Common/LabelPrimary.vue";
-import TextInput from "../Common/InputText.vue";
-import NumberInput from "../Common/InputNumber.vue";
 import DateInput from "../Common/InputDate.vue";
 import SelectPrimary from "../Common/SelectPrimary.vue";
-import ButtonSecondary from "../Common/ButtonSecondary.vue";
-import FormField from "../Common/FormField.vue";
+import { BButton, BField, BInput, BNumberinput } from "buefy";
 
 const props = defineProps<{
     equipmentTypes: EquipmentType[];

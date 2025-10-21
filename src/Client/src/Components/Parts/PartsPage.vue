@@ -1,17 +1,16 @@
 <template>
     <main>
-        <article class="flex w-full max-w-screen-lg flex-col p-4">
+        <div class="container">
             <HeadingH1 class="">Parts</HeadingH1>
             <NewPartForm :bikes="bikes" :equipmentTypes="equipmentTypes" @updatePartsEvent="onUpdatePartsEvent">
             </NewPartForm>
-            <FormField class="flex flex-row space-x-1">
-                <LabelPrimary for="selectBike">Bike</LabelPrimary>
+            <BField label="Bike">
                 <SelectPrimary id="selectBike" v-model="bikeFilter">
                     <option value="0" selected>All Bikes</option>
                     <option v-for="bike in bikes" :key="bike.id" :value="bike.id">{{ bike.fullName }}</option>
                     /
                 </SelectPrimary>
-            </FormField>
+            </BField>
             <ol class="space-y-2">
                 <li v-for="part in parts" :key="part.id">
                     <RouterLink
@@ -26,7 +25,7 @@
                     </RouterLink>
                 </li>
             </ol>
-        </article>
+        </div>
     </main>
 </template>
 <script setup lang="ts">
@@ -40,8 +39,7 @@ import {
 import { BikeCollection, DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
 import { DefaultPartCollection, PartCollection } from "../../Models/Parts/PartCollection.ts";
 import SelectPrimary from "../Common/SelectPrimary.vue";
-import LabelPrimary from "../Common/LabelPrimary.vue";
-import FormField from "../Common/FormField.vue";
+import { BField } from "buefy";
 
 function onUpdatePartsEvent() {
     fetchParts();

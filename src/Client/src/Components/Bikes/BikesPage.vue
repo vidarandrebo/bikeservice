@@ -1,9 +1,9 @@
 <template>
     <main>
-        <article class="flex w-full max-w-screen-lg flex-col p-4">
-            <HeadingH1 class="">Bikes</HeadingH1>
+        <div class="container">
+            <HeadingH1>Bikes</HeadingH1>
             <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
-            <ol class="space-y-2">
+            <ul>
                 <li v-for="bike in bikes" :key="bike.id">
                     <BikeView
                         :equipmentTypes="equipmentTypes"
@@ -11,8 +11,8 @@
                         @updateBikesEvent="onUpdateBikesEvent"
                     ></BikeView>
                 </li>
-            </ol>
-        </article>
+            </ul>
+        </div>
     </main>
 </template>
 <script setup lang="ts">

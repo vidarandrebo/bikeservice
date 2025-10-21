@@ -1,41 +1,40 @@
 <template>
-    <header class="">
-        <BulmaNavbar>
+    <header>
+        <BNavbar shadow>
             <template #start>
-                <MenuBarRouterLink to="/">
-                    <MenuBarIcon icon="home" title="Home"></MenuBarIcon>
-                </MenuBarRouterLink>
-                <MenuBarRouterLink v-if="user.email" to="/bikes">
-                    <MenuBarIcon icon="bicycle" title="Bikes"></MenuBarIcon>
-                </MenuBarRouterLink>
-                <MenuBarRouterLink v-if="user.email" to="/parts">
-                    <MenuBarIcon icon="cog" title="Parts"></MenuBarIcon>
-                </MenuBarRouterLink>
+                <BNavbarItem tag="router-link" to="/">
+                    <FontAwesomeIcon icon="home" size="2x" title="Home"></FontAwesomeIcon>
+                </BNavbarItem>
+                <BNavbarItem v-if="user.email" tag="router-link" to="/bikes">
+                    <FontAwesomeIcon icon="bicycle" size="2x"></FontAwesomeIcon>
+                </BNavbarItem>
+                <BNavbarItem v-if="user.email" tag="router-link" to="/parts">
+                    <FontAwesomeIcon icon="cog" size="2x"></FontAwesomeIcon>
+                </BNavbarItem>
             </template>
             <template #end>
-                <MenuBarRouterLink v-if="user.email" to="/settings">
-                    <MenuBarIcon icon="user" title="Settings"></MenuBarIcon>
-                </MenuBarRouterLink>
-                <a v-if="user.email" href="#" class="navbar-item has-text-black-bold" @click="logout">
-                    <MenuBarIcon icon="sign-out" title="Log out"></MenuBarIcon>
-                </a>
-                <MenuBarRouterLink v-if="!user.email" to="/login">
-                    <MenuBarIcon icon="sign-in" title="Login"></MenuBarIcon>
-                </MenuBarRouterLink>
-                <MenuBarRouterLink v-if="!user.email" to="/register">
-                    <MenuBarIcon icon="user-plus" title="Register"></MenuBarIcon>
-                </MenuBarRouterLink>
+                <BNavbarItem v-if="user.email" tag="router-link" to="/settings">
+                    <FontAwesomeIcon icon="user" size="2x"></FontAwesomeIcon>
+                </BNavbarItem>
+                <BNavbarItem v-if="user.email" href="#" @click="logout">
+                    <FontAwesomeIcon icon="sign-out" size="2x"></FontAwesomeIcon>
+                </BNavbarItem>
+                <BNavbarItem v-if="!user.email" tag="router-link" to="/login">
+                    <FontAwesomeIcon icon="sign-in" size="2x"></FontAwesomeIcon>
+                </BNavbarItem>
+                <BNavbarItem v-if="!user.email" tag="router-link" to="/register">
+                    <FontAwesomeIcon icon="user-plus" size="2x"></FontAwesomeIcon>
+                </BNavbarItem>
             </template>
-        </BulmaNavbar>
+        </BNavbar>
     </header>
 </template>
 <script setup lang="ts">
 import router from "../Router";
-import MenuBarIcon from "./Common/MenuBarIcon.vue";
 import { inject } from "vue";
 import { DefaultUserDependency, User } from "../Models/Auth/User.ts";
-import MenuBarRouterLink from "./Common/MenuBarRouterLink.vue";
-import BulmaNavbar from "./Bulma/BulmaNavbar.vue";
+import { BNavbar, BNavbarItem } from "buefy";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const { user, setUser } = inject("user", DefaultUserDependency, true);
 
@@ -44,5 +43,4 @@ async function logout() {
     setUser(new User());
     await router.push("/login");
 }
-
 </script>

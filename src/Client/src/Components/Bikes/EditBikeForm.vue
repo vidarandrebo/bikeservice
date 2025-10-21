@@ -1,22 +1,22 @@
 <template>
     <form id="new-bike" method="POST" @submit.prevent="putBike">
-        <FormField>
+        <BField>
             <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
             <InputText id="manufacturer" v-model="bikeData.manufacturer" required />
-        </FormField>
-        <FormField>
+        </BField>
+        <BField>
             <LabelPrimary for="model">Model</LabelPrimary>
             <InputText id="model" v-model="bikeData.model" required />
-        </FormField>
-        <FormField>
+        </BField>
+        <BField>
             <LabelPrimary for="mileage">Mileage</LabelPrimary>
             <InputNumber id="mileage" v-model="bikeData.mileage" required />
-        </FormField>
-        <FormField>
+        </BField>
+        <BField>
             <LabelPrimary for="date">Date</LabelPrimary>
             <InputDate id="date" v-model="date" required />
-        </FormField>
-        <FormField>
+        </BField>
+        <BField>
             <LabelPrimary for="type">Type</LabelPrimary>
             <SelectPrimary id="type" v-model="bikeData.typeId" required>
                 <option value="0">No Type</option>
@@ -24,11 +24,11 @@
                     {{ bikeType.name }}
                 </option>
             </SelectPrimary>
-        </FormField>
-        <FormField class="space-x-1">
-            <ButtonPrimary type="submit">Save</ButtonPrimary>
-            <ButtonSecondary @click.prevent="hideForm">Cancel</ButtonSecondary>
-        </FormField>
+        </BField>
+        <BField>
+            <BButton type="is-primary">Save</BButton>
+            <BButton type="is-primary" inverted @click.prevent="hideForm">Cancel</BButton>
+        </BField>
     </form>
 </template>
 
@@ -38,14 +38,11 @@ import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
 import { getDateString } from "../../Models/DateFormatter.ts";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
-import ButtonSecondary from "../Common/ButtonSecondary.vue";
-import LabelPrimary from "../Common/LabelPrimary.vue";
 import SelectPrimary from "../Common/SelectPrimary.vue";
 import InputText from "../Common/InputText.vue";
 import InputNumber from "../Common/InputNumber.vue";
 import InputDate from "../Common/InputDate.vue";
-import FormField from "../Common/FormField.vue";
+import { BButton, BField } from "buefy";
 
 const props = defineProps<{
     equipmentTypes: EquipmentType[];

@@ -3,21 +3,18 @@
         <article class="max-w-prose">
             <form id="register" method="POST" @submit.prevent="registerUser">
                 <p v-for="(err, i) in registerData.errors" :key="i">{{ err }}</p>
-                <FormField>
-                    <LabelPrimary for="email">Email</LabelPrimary>
+                <BField label="Email">
                     <InputText id="email" v-model="registerData.email" required />
-                </FormField>
-                <FormField>
-                    <LabelPrimary for="password">Password</LabelPrimary>
+                </BField>
+                <BField label="Password">
                     <InputText id="password" v-model="registerData.password" required type="password" />
-                </FormField>
-                <FormField>
-                    <LabelPrimary for="repeat-password">Repeat password</LabelPrimary>
+                </BField>
+                <BField label="Repeat password">
                     <InputText id="repeat-password" v-model="registerData.repeatPassword" required type="password" />
-                </FormField>
-                <FormField>
-                    <ButtonPrimary type="submit">Register</ButtonPrimary>
-                </FormField>
+                </BField>
+                <BField>
+                    <BButton type="is-primary">Register</BButton>
+                </BField>
             </form>
             <template v-for="(errorCategory, key) in errs?.errors" :key="key">
                 <p v-for="(a, b) in errorCategory" :key="b">{{ a.replace("Error with Message=", "") }}</p>
@@ -29,11 +26,9 @@
 import { ref } from "vue";
 import { Credentials } from "../../Models/Auth/Credentials.ts";
 import InputText from "../Common/InputText.vue";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
-import LabelPrimary from "../Common/LabelPrimary.vue";
-import FormField from "../Common/FormField.vue";
 import router from "../../Router";
 import { HttpValidationProblemDetails } from "../../Gen";
+import { BButton, BField } from "buefy";
 
 const registerData = ref<Credentials>(new Credentials());
 const errs = ref<HttpValidationProblemDetails | null>(null);
