@@ -11,20 +11,23 @@
                     /
                 </SelectPrimary>
             </BField>
-            <ol class="space-y-2">
-                <li v-for="part in parts" :key="part.id">
-                    <RouterLink
-                        v-if="bikeFilter == part.bikeId || bikeFilter == '0'"
-                        :to="{ path: '/parts/' + part.id }"
-                    >
-                        <div class="grid grid-cols-3 hover:bg-gray-400 hover:rounded">
-                            <p>{{ part.fullName }}</p>
-                            <p>{{ bikes.find((b) => b.id == part.bikeId)?.fullName ?? "No Bike assigned" }}</p>
-                            <p>{{ part.mileage }} km</p>
-                        </div>
-                    </RouterLink>
-                </li>
-            </ol>
+            <BTable :data="parts" hoverable @dblclick="onRowDoubleClick">
+                <BTableColumn v-slot="slotProps" label="Manufacturer">
+                    {{ slotProps.row.manufacturer }}
+                </BTableColumn>
+                <BTableColumn v-slot="slotProps" label="Model">
+                    {{ slotProps.row.model }}
+                </BTableColumn>
+                <BTableColumn v-slot="slotProps" label="Type">
+                    {{ equipmentTypes.find((t) => t.id == slotProps.row.typeId)?.name ?? "No type assigned" }}
+                </BTableColumn>
+                <BTableColumn v-slot="slotProps" label="Mileage">
+                    {{ slotProps.row.mileage }}
+                </BTableColumn>
+                <BTableColumn v-slot="slotProps" label="Bike">
+                    {{ bikes.find((b) => b.id == slotProps.row.bikeId)?.fullName ?? "No Bike assigned" }}
+                </BTableColumn>
+            </BTable>
         </div>
     </main>
 </template>
@@ -39,10 +42,16 @@ import {
 import { BikeCollection, DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
 import { DefaultPartCollection, PartCollection } from "../../Models/Parts/PartCollection.ts";
 import SelectPrimary from "../Common/SelectPrimary.vue";
-import { BField } from "buefy";
+import { BField, BTable, BTableColumn } from "buefy";
+import { Part } from "../../Models/Parts/Part.ts";
+import router from "../../Router";
 
 function onUpdatePartsEvent() {
     fetchParts();
+}
+
+function onRowDoubleClick(part: Part) {
+    router.push(`/parts/${part.id}`);
 }
 
 const { bikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);

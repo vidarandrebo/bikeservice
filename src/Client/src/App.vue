@@ -29,4 +29,7 @@ import DependencyInjection from "./DependencyInjection.vue";
         "Inter, SF Pro, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif, IBM Plex",
     $family-code: "Inconsolata, Hack, SF Mono, Roboto Mono, Source Code Pro, Ubuntu Mono, monospace, IBM Plex"
 );
+table {
+    width: 100%;
+}
 </style>

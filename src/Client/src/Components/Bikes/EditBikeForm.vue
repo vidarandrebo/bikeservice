@@ -1,23 +1,18 @@
 <template>
     <form id="new-bike" method="POST" @submit.prevent="putBike">
-        <BField>
-            <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
-            <InputText id="manufacturer" v-model="bikeData.manufacturer" required />
+        <BField label="Manufacturer">
+            <BInput id="manufacturer" v-model="bikeData.manufacturer" required />
         </BField>
-        <BField>
-            <LabelPrimary for="model">Model</LabelPrimary>
-            <InputText id="model" v-model="bikeData.model" required />
+        <BField label="Model">
+            <BInput v-model="bikeData.model" required />
         </BField>
-        <BField>
-            <LabelPrimary for="mileage">Mileage</LabelPrimary>
-            <InputNumber id="mileage" v-model="bikeData.mileage" required />
+        <BField label="Mileage">
+            <BNumberinput v-model="bikeData.mileage" required />
         </BField>
-        <BField>
-            <LabelPrimary for="date">Date</LabelPrimary>
-            <InputDate id="date" v-model="date" required />
+        <BField label="Date">
+            <InputDate v-model="date" required />
         </BField>
-        <BField>
-            <LabelPrimary for="type">Type</LabelPrimary>
+        <BField label="Type">
             <SelectPrimary id="type" v-model="bikeData.typeId" required>
                 <option value="0">No Type</option>
                 <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
@@ -25,10 +20,10 @@
                 </option>
             </SelectPrimary>
         </BField>
-        <BField>
-            <BButton type="is-primary">Save</BButton>
-            <BButton type="is-primary" inverted @click.prevent="hideForm">Cancel</BButton>
-        </BField>
+        <div class="buttons">
+            <BButton type="is-primary" nativeType="submit">Save</BButton>
+            <BButton type="is-primary" outlined @click.prevent="hideForm">Cancel</BButton>
+        </div>
     </form>
 </template>
 
@@ -39,10 +34,8 @@ import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
 import { getDateString } from "../../Models/DateFormatter.ts";
 import SelectPrimary from "../Common/SelectPrimary.vue";
-import InputText from "../Common/InputText.vue";
-import InputNumber from "../Common/InputNumber.vue";
 import InputDate from "../Common/InputDate.vue";
-import { BButton, BField } from "buefy";
+import { BButton, BField, BInput, BNumberinput } from "buefy";
 
 const props = defineProps<{
     equipmentTypes: EquipmentType[];

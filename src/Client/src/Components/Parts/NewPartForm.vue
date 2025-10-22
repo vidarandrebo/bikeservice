@@ -31,7 +31,7 @@
                 </SelectPrimary>
             </BField>
             <BField>
-                <BButton type="is-primary">Add</BButton>
+                <BButton type="is-primary" nativeType="submit">Add</BButton>
                 <BButton type="is-primary is-outlined" @click="hideForm">Cancel</BButton>
             </BField>
         </form>
