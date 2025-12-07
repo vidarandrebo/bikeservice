@@ -1,18 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <Nullable>enable</Nullable>
-
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <PackageId>bikeservice-application-tests</PackageId>
         <Title>BikeService Application Tests</Title>
-        <Version>4.1.0</Version>
-        <Authors>Vidar André Bø</Authors>
-        <Product>BikeService</Product>
-        <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
