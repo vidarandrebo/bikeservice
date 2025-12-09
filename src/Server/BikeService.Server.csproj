@@ -1,16 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <ServerGarbageCollection>false</ServerGarbageCollection>
         <PackageId>bikeservice-server</PackageId>
         <Title>BikeService Server</Title>
-        <Version>4.1.0</Version>
-        <Authors>Vidar André Bø</Authors>
-        <Product>BikeService</Product>
-        <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
         <UserSecretsId>d7ed69f2-a3f3-4bb6-9990-ac40215e60d5</UserSecretsId>
     </PropertyGroup>
     <PropertyGroup>
