@@ -5,8 +5,7 @@
                 <HeadingH2>Change Password</HeadingH2>
                 <form id="changePasswd" method="POST" @submit.prevent="changePassword">
                     <p v-for="(err, i) in accountSettings.errors" :key="i">{{ err }}</p>
-                    <FormField>
-                        <LabelPrimary for="oldpasswd">Old Password</LabelPrimary>
+                    <BField label="Old Password">
                         <InputText
                             id="oldpasswd"
                             v-model="accountSettings.oldPassword"
@@ -14,9 +13,8 @@
                             required
                             type="password"
                         />
-                    </FormField>
-                    <FormField>
-                        <LabelPrimary for="newpasswd">New Password</LabelPrimary>
+                    </BField>
+                    <BField label="New Password">
                         <InputText
                             id="newpasswd"
                             v-model="accountSettings.newPassword"
@@ -24,9 +22,8 @@
                             required
                             type="password"
                         />
-                    </FormField>
-                    <FormField>
-                        <LabelPrimary for="renewpasswd">Repeat New Password</LabelPrimary>
+                    </BField>
+                    <BField label="Repeat New Password">
                         <InputText
                             id="renewpasswd"
                             v-model="accountSettings.reNewPassword"
@@ -34,10 +31,10 @@
                             required
                             type="password"
                         />
-                    </FormField>
-                    <FormField>
-                        <ButtonPrimary type="submit">Change Password</ButtonPrimary>
-                    </FormField>
+                    </BField>
+                    <BField>
+                        <BButton type="is-primary">Change Password</BButton>
+                    </BField>
                 </form>
             </div>
         </div>
@@ -47,11 +44,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { AccountSettings } from "../../Models/Settings/AccountSettings.ts";
-import LabelPrimary from "../Common/LabelPrimary.vue";
 import InputText from "../Common/InputText.vue";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
-import FormField from "../Common/FormField.vue";
+import { BButton, BField } from "buefy";
 
 const accountSettings = ref(new AccountSettings());
 

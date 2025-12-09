@@ -1,35 +1,32 @@
 <template>
     <main>
-        <article class="max-w-prose">
-            <form id="login" method="POST" @submit.prevent="loginUser">
-                <p v-for="(err, i) in loginData.errors" :key="i">{{ err }}</p>
-                <FormField>
-                    <LabelPrimary for="email">Email</LabelPrimary>
-                    <InputText id="email" v-model="loginData.email" name="username" required />
-                </FormField>
-                <FormField>
-                    <LabelPrimary for="passwd">Password</LabelPrimary>
-                    <InputText id="passwd" v-model="loginData.password" name="passwd" required type="password" />
-                </FormField>
-                <FormField>
-                    <ButtonPrimary type="submit">Login</ButtonPrimary>
-                </FormField>
-            </form>
-        </article>
+        <section class="section">
+            <div class="container">
+                <form id="login" method="POST" @submit.prevent="loginUser">
+                    <p v-for="(err, i) in loginData.errors" :key="i">{{ err }}</p>
+                    <BField label="Email">
+                        <BInput v-model="loginData.email" type="email" required></BInput>
+                    </BField>
+                    <BField label="Password">
+                        <BInput id="passwd" v-model="loginData.password" name="passwd" required type="password" />
+                    </BField>
+                    <BField>
+                        <BButton type="is-primary" @click="loginUser">Login</BButton>
+                    </BField>
+                </form>
+            </div>
+        </section>
     </main>
 </template>
 <script setup lang="ts">
 import { inject, ref } from "vue";
 import { Credentials } from "../../Models/Auth/Credentials.ts";
 import router from "../../Router";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
-import LabelPrimary from "../Common/LabelPrimary.vue";
-import InputText from "../Common/InputText.vue";
-import FormField from "../Common/FormField.vue";
 import { DefaultUserDependency } from "../../Models/Auth/User.ts";
 import { DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
 import { DefaultPartCollection } from "../../Models/Parts/PartCollection.ts";
 import { DefaultEquipmentTypeCollection } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
+import { BButton, BField, BInput } from "buefy";
 
 const loginData = ref<Credentials>(new Credentials());
 

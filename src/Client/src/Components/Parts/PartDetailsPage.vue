@@ -8,12 +8,11 @@ import {
 } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
 import { useRoute } from "vue-router";
 import EditPartForm from "./EditPartForm.vue";
-import ButtonSecondary from "../Common/ButtonSecondary.vue";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
 import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import router from "../../Router";
+import { BButton } from "buefy";
 
 const { bikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
 const { parts, fetchParts } = inject<PartCollection>("parts", DefaultPartCollection, true);
@@ -116,8 +115,8 @@ function updatePartsHandler() {
             </tbody>
         </table>
         <div class="space-x-1">
-            <ButtonPrimary v-show="showEditButton" @click="showEdit">Edit</ButtonPrimary>
-            <ButtonSecondary v-show="showEditButton" @click="deletePart">Delete</ButtonSecondary>
+            <BButton v-show="showEditButton" type="is-primary" @click="showEdit">Edit</BButton>
+            <BButton v-show="showEditButton" type="is-danger" @click="deletePart">Delete</BButton>
         </div>
         <EditPartForm
             v-show="showEditForm"

@@ -1,12 +1,16 @@
 <template>
     <main>
-        <article class="flex flex-row justify-between max-w-screen-lg w-full p-4">
-            <div>
-                <HeadingH1 class="">Settings</HeadingH1>
+        <div class="columns">
+            <aside class="column is-one-fifth">
                 <SettingsMenu></SettingsMenu>
+            </aside>
+            <div class="column">
+                <div class="container">
+                    <HeadingH1>Settings</HeadingH1>
+                    <RouterView class="flex flex-row grow"></RouterView>
+                </div>
             </div>
-            <RouterView class="flex flex-row grow"></RouterView>
-        </article>
+        </div>
     </main>
 </template>
 <script setup lang="ts">

@@ -1,34 +1,29 @@
 <template>
     <form id="new-bike" method="POST" @submit.prevent="putBike">
-        <FormField>
-            <LabelPrimary for="manufacturer">Manufacturer</LabelPrimary>
-            <InputText id="manufacturer" v-model="bikeData.manufacturer" required />
-        </FormField>
-        <FormField>
-            <LabelPrimary for="model">Model</LabelPrimary>
-            <InputText id="model" v-model="bikeData.model" required />
-        </FormField>
-        <FormField>
-            <LabelPrimary for="mileage">Mileage</LabelPrimary>
-            <InputNumber id="mileage" v-model="bikeData.mileage" required />
-        </FormField>
-        <FormField>
-            <LabelPrimary for="date">Date</LabelPrimary>
-            <InputDate id="date" v-model="date" required />
-        </FormField>
-        <FormField>
-            <LabelPrimary for="type">Type</LabelPrimary>
+        <BField label="Manufacturer">
+            <BInput id="manufacturer" v-model="bikeData.manufacturer" required />
+        </BField>
+        <BField label="Model">
+            <BInput v-model="bikeData.model" required />
+        </BField>
+        <BField label="Mileage">
+            <BNumberinput v-model="bikeData.mileage" required />
+        </BField>
+        <BField label="Date">
+            <InputDate v-model="date" required />
+        </BField>
+        <BField label="Type">
             <SelectPrimary id="type" v-model="bikeData.typeId" required>
                 <option value="0">No Type</option>
                 <option v-for="bikeType in bikeTypes" :key="bikeType.id" :value="bikeType.id">
                     {{ bikeType.name }}
                 </option>
             </SelectPrimary>
-        </FormField>
-        <FormField class="space-x-1">
-            <ButtonPrimary type="submit">Save</ButtonPrimary>
-            <ButtonSecondary @click.prevent="hideForm">Cancel</ButtonSecondary>
-        </FormField>
+        </BField>
+        <div class="buttons">
+            <BButton type="is-primary" nativeType="submit">Save</BButton>
+            <BButton type="is-primary" outlined @click.prevent="hideForm">Cancel</BButton>
+        </div>
     </form>
 </template>
 
@@ -38,14 +33,9 @@ import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
 import { Category } from "../../Models/EquipmentTypes/Category.ts";
 import { getDateString } from "../../Models/DateFormatter.ts";
-import ButtonPrimary from "../Common/ButtonPrimary.vue";
-import ButtonSecondary from "../Common/ButtonSecondary.vue";
-import LabelPrimary from "../Common/LabelPrimary.vue";
 import SelectPrimary from "../Common/SelectPrimary.vue";
-import InputText from "../Common/InputText.vue";
-import InputNumber from "../Common/InputNumber.vue";
 import InputDate from "../Common/InputDate.vue";
-import FormField from "../Common/FormField.vue";
+import { BButton, BField, BInput, BNumberinput } from "buefy";
 
 const props = defineProps<{
     equipmentTypes: EquipmentType[];

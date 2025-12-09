@@ -1,23 +1,25 @@
 <template>
-    <div class="flex flex-col">
-        <SettingsMenuRouterLink to="/settings/account">
-            <p class="p-1">Account</p>
-        </SettingsMenuRouterLink>
-        <SettingsMenuRouterLink to="/settings/bike-types">
-            <p class="p-1">Bike Types</p>
-        </SettingsMenuRouterLink>
-        <SettingsMenuRouterLink to="/settings/part-types">
-            <p class="p-1">Part Types</p>
-        </SettingsMenuRouterLink>
-    </div>
+    <BMenu>
+        <BMenuList>
+            <BMenuItem>
+                <template #label>
+                    <RouterLink to="/settings/account">Account</RouterLink>
+                </template>
+            </BMenuItem>
+            <BMenuItem>
+                <template #label>
+                    <RouterLink to="/settings/bike-types">Bike Types</RouterLink>
+                </template>
+            </BMenuItem>
+            <BMenuItem>
+                <template #label>
+                    <RouterLink to="/settings/part-types">Part Types</RouterLink>
+                </template>
+            </BMenuItem>
+        </BMenuList>
+    </BMenu>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import SettingsMenuRouterLink from "../Common/SettingsMenuRouterLink.vue";
-
-export default defineComponent({
-    name: "SettingsMenu",
-    components: { SettingsMenuRouterLink }
-});
+<script lang="ts" setup>
+import { BMenu, BMenuItem, BMenuList } from "buefy";
 </script>
