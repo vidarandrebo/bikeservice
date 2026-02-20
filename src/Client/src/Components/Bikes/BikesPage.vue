@@ -1,18 +1,20 @@
 <template>
     <main>
-        <article class="flex w-full max-w-screen-lg flex-col p-4">
-            <HeadingH1 class="">Bikes</HeadingH1>
-            <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
-            <ol class="space-y-2">
-                <li v-for="bike in bikes" :key="bike.id">
-                    <BikeView
-                        :equipmentTypes="equipmentTypes"
-                        :bike="bike"
-                        @updateBikesEvent="onUpdateBikesEvent"
-                    ></BikeView>
-                </li>
-            </ol>
-        </article>
+        <section class="section">
+            <div class="container">
+                <HeadingH1>Bikes</HeadingH1>
+                <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
+                <ul>
+                    <li v-for="bike in bikes" :key="bike.id">
+                        <BikeView
+                            :equipmentTypes="equipmentTypes"
+                            :bike="bike"
+                            @updateBikesEvent="onUpdateBikesEvent"
+                        ></BikeView>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </main>
 </template>
 <script setup lang="ts">

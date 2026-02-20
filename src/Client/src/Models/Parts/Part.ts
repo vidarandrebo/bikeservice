@@ -69,6 +69,7 @@ export class Part {
         const part = new Part();
         part.id = response.id;
         part.bikeId = response.bikeId;
+        part.typeId = response.typeId;
         part.manufacturer = response.manufacturer;
         part.model = response.model;
         part.mileage = response.mileage;

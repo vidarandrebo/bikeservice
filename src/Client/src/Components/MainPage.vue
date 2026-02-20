@@ -1,14 +1,18 @@
 <template>
     <main>
-        <div>
-            <HeadingH1>BikeService</HeadingH1>
-        </div>
-        <div v-if="!user.email">
-            <p>Welcome to BikeService</p>
-        </div>
-        <div v-if="user.email">
-            <p>Welcome {{ user.email }}</p>
-        </div>
+        <section class="section">
+            <div class="container">
+                <div>
+                    <HeadingH1>BikeService</HeadingH1>
+                </div>
+                <div v-if="!user.email">
+                    <p>Welcome to BikeService</p>
+                </div>
+                <div v-if="user.email">
+                    <p>Welcome {{ user.email }}</p>
+                </div>
+            </div>
+        </section>
     </main>
 </template>
 <script setup lang="ts">

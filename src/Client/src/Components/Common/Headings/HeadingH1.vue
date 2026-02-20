@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-    <h1 class="text-4xl font-bold">
+    <h1 class="title is-1">
         <slot></slot>
     </h1>
 </template>
