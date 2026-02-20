@@ -1,16 +1,14 @@
 <template>
     <DependencyInjection>
-        <div class="flex flex-col h-screen">
+        <div class="">
             <MenuBar></MenuBar>
-            <RouterView class="grow flex flex-row justify-center"></RouterView>
-            <PageFooter></PageFooter>
+            <RouterView class=""></RouterView>
         </div>
     </DependencyInjection>
 </template>
 
 <script setup lang="ts">
 import MenuBar from "./Components/MenuBar.vue";
-import PageFooter from "./Components/PageFooter.vue";
 import DependencyInjection from "./DependencyInjection.vue";
 </script>
 

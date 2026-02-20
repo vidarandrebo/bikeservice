@@ -5,10 +5,12 @@
                 <SettingsMenu></SettingsMenu>
             </aside>
             <div class="column">
-                <div class="container">
-                    <HeadingH1>Settings</HeadingH1>
-                    <RouterView class="flex flex-row grow"></RouterView>
-                </div>
+                <section class="section">
+                    <div class="container">
+                        <HeadingH1>Settings</HeadingH1>
+                        <RouterView class=""></RouterView>
+                    </div>
+                </section>
             </div>
         </div>
     </main>

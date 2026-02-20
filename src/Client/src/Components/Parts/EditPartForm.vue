@@ -27,7 +27,7 @@
             </SelectPrimary>
         </BField>
         <BField>
-            <BButton type="is-primary">Save</BButton>
+            <BButton type="is-primary" nativeType="submit">Save</BButton>
             <BButton type="is-primary" inverted @click.prevent="hideForm">Cancel</BButton>
         </BField>
     </form>

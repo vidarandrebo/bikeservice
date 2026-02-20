@@ -1,5 +1,6 @@
 <template>
     <main>
+        <section class="section">
         <div class="container">
             <HeadingH1>Bikes</HeadingH1>
             <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
@@ -13,6 +14,7 @@
                 </li>
             </ul>
         </div>
+        </section>
     </main>
 </template>
 <script setup lang="ts">

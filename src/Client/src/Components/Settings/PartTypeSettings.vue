@@ -1,6 +1,6 @@
 <template>
     <article>
-        <div class="flex flex-col items-center grow">
+        <div class="">
             <div>
                 <HeadingH2>Add Part Type</HeadingH2>
                 <form id="addBikeType" method="POST" @submit.prevent="addType">
@@ -8,11 +8,13 @@
                         <InputText id="name" v-model="equipmentTypeSettings.name" name="name" required />
                     </BField>
                     <BField>
-                        <BButton type="is-primary">Add Type</BButton>
+                        <BButton type="is-primary" nativeType="submit">Add Type</BButton>
                     </BField>
                 </form>
                 <HeadingH3>Part Types</HeadingH3>
-                <p v-for="type in partTypes" :key="type.id">{{ type.name }}</p>
+                <ul>
+                    <li v-for="type in partTypes" :key="type.id">{{ type.name }}</li>
+                </ul>
             </div>
         </div>
     </article>

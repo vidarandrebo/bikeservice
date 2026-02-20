@@ -1,6 +1,6 @@
 <template>
     <article>
-        <div class="flex flex-col items-center grow">
+        <div class="">
             <div>
                 <HeadingH2>Change Password</HeadingH2>
                 <form id="changePasswd" method="POST" @submit.prevent="changePassword">
@@ -33,7 +33,7 @@
                         />
                     </BField>
                     <BField>
-                        <BButton type="is-primary">Change Password</BButton>
+                        <BButton type="is-primary" nativeType="submit">Change Password</BButton>
                     </BField>
                 </form>
             </div>

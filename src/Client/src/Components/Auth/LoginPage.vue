@@ -2,6 +2,7 @@
     <main>
         <section class="section">
             <div class="container">
+                <HeadingH1>Login</HeadingH1>
                 <form id="login" method="POST" @submit.prevent="loginUser">
                     <p v-for="(err, i) in loginData.errors" :key="i">{{ err }}</p>
                     <BField label="Email">
@@ -11,7 +12,7 @@
                         <BInput id="passwd" v-model="loginData.password" name="passwd" required type="password" />
                     </BField>
                     <BField>
-                        <BButton type="is-primary" @click="loginUser">Login</BButton>
+                        <BButton type="is-primary" nativeType="submit">Login</BButton>
                     </BField>
                 </form>
             </div>
@@ -27,6 +28,7 @@ import { DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
 import { DefaultPartCollection } from "../../Models/Parts/PartCollection.ts";
 import { DefaultEquipmentTypeCollection } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
 import { BButton, BField, BInput } from "buefy";
+import HeadingH1 from "../Common/Headings/HeadingH1.vue";
 
 const loginData = ref<Credentials>(new Credentials());
 

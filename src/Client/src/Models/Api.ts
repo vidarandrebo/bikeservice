@@ -1,13 +1,13 @@
 import {
+    AuthApi,
+    BikeApi,
     Configuration,
     type ConfigurationParameters,
     type HTTPHeaders,
-    BikeApi,
     PartApi,
-    TypeApi,
-    AuthApi
+    TypeApi
 } from "../Gen";
-import { loadBearerTokenFromLocalStorage } from "./Auth/User.ts";
+import {loadBearerTokenFromLocalStorage} from "./Auth/User.ts";
 
 class CfgParams implements ConfigurationParameters {
     basePath?: string | undefined;
@@ -26,21 +26,20 @@ class CfgParams implements ConfigurationParameters {
 
 export function getBikeClient(): BikeApi {
     const cfg = new Configuration(new CfgParams());
-    const api = new BikeApi(cfg);
-    return api;
+    return new BikeApi(cfg);
 }
+
 export function getPartClient(): PartApi {
     const cfg = new Configuration(new CfgParams());
-    const api = new PartApi(cfg);
-    return api;
+    return new PartApi(cfg);
 }
+
 export function getAuthClient(): AuthApi {
     const cfg = new Configuration(new CfgParams());
-    const api = new AuthApi(cfg);
-    return api;
+    return new AuthApi(cfg);
 }
+
 export function getTypeClient(): TypeApi {
     const cfg = new Configuration(new CfgParams());
-    const api = new TypeApi(cfg);
-    return api;
+    return new TypeApi(cfg);
 }
