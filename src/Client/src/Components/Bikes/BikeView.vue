@@ -62,7 +62,6 @@ import { computed, ref } from "vue";
 import EditBikeForm from "./EditBikeForm.vue";
 import { Bike } from "../../Models/Bikes/Bike.ts";
 import { EquipmentType } from "../../Models/EquipmentTypes/EquipmentType.ts";
-import HeadingH2 from "../Common/Headings/HeadingH2.vue";
 import { BButton } from "buefy";
 
 const emit = defineEmits(["updateBikesEvent"]);

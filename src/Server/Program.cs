@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BikeService.Application;
 using BikeService.Application.Parts.EventHandlers;
@@ -71,6 +72,11 @@ public static class Program
                     .AllowAnyMethod()
                     .AllowAnyOrigin();
             });
+        });
+
+        builder.Services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
         });
 
         var app = builder.Build();
