@@ -36,16 +36,16 @@
 <script setup lang="ts">
 import NewPartForm from "./NewPartForm.vue";
 import HeadingH1 from "../Common/Headings/HeadingH1.vue";
-import {inject, ref} from "vue";
+import { inject, ref } from "vue";
 import {
     DefaultEquipmentTypeCollection,
     EquipmentTypeCollection
 } from "../../Models/EquipmentTypes/EquipmentTypeCollection.ts";
-import {BikeCollection, DefaultBikeCollection} from "../../Models/Bikes/BikeCollection.ts";
-import {DefaultPartCollection, PartCollection} from "../../Models/Parts/PartCollection.ts";
+import { BikeCollection, DefaultBikeCollection } from "../../Models/Bikes/BikeCollection.ts";
+import { DefaultPartCollection, PartCollection } from "../../Models/Parts/PartCollection.ts";
 import SelectPrimary from "../Common/SelectPrimary.vue";
-import {BField, BTable, BTableColumn} from "buefy";
-import {Part} from "../../Models/Parts/Part.ts";
+import { BField, BTable, BTableColumn } from "buefy";
+import { Part } from "../../Models/Parts/Part.ts";
 import router from "../../Router";
 
 function onUpdatePartsEvent() {
@@ -56,9 +56,9 @@ function onRowDoubleClick(part: Part) {
     router.push(`/parts/${part.id}`);
 }
 
-const {bikes} = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
-const {parts, fetchParts} = inject<PartCollection>("parts", DefaultPartCollection, true);
-const {equipmentTypes} = inject<EquipmentTypeCollection>("equipmentTypes", DefaultEquipmentTypeCollection, true);
+const { bikes } = inject<BikeCollection>("bikes", DefaultBikeCollection, true);
+const { parts, fetchParts } = inject<PartCollection>("parts", DefaultPartCollection, true);
+const { equipmentTypes } = inject<EquipmentTypeCollection>("equipmentTypes", DefaultEquipmentTypeCollection, true);
 
 const bikeFilter = ref("0");
 </script>

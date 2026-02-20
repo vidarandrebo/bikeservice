@@ -12,7 +12,12 @@
                         <InputText id="password" v-model="registerData.password" required type="password" />
                     </BField>
                     <BField label="Repeat password">
-                        <InputText id="repeat-password" v-model="registerData.repeatPassword" required type="password" />
+                        <InputText
+                            id="repeat-password"
+                            v-model="registerData.repeatPassword"
+                            required
+                            type="password"
+                        />
                     </BField>
                     <BField>
                         <BButton type="is-primary" nativeType="submit">Register</BButton>

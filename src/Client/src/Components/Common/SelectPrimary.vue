@@ -1,10 +1,6 @@
 <template>
     <div class="select">
-        <select
-            :value="modelValue"
-            v-bind="$attrs"
-            @input="handleInput"
-        >
+        <select :value="modelValue" v-bind="$attrs" @input="handleInput">
             <slot></slot>
         </select>
     </div>

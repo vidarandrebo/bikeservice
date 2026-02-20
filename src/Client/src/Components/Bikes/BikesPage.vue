@@ -1,19 +1,19 @@
 <template>
     <main>
         <section class="section">
-        <div class="container">
-            <HeadingH1>Bikes</HeadingH1>
-            <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
-            <ul>
-                <li v-for="bike in bikes" :key="bike.id">
-                    <BikeView
-                        :equipmentTypes="equipmentTypes"
-                        :bike="bike"
-                        @updateBikesEvent="onUpdateBikesEvent"
-                    ></BikeView>
-                </li>
-            </ul>
-        </div>
+            <div class="container">
+                <HeadingH1>Bikes</HeadingH1>
+                <NewBikeForm :equipmentTypes="equipmentTypes" @updateBikesEvent="onUpdateBikesEvent"></NewBikeForm>
+                <ul>
+                    <li v-for="bike in bikes" :key="bike.id">
+                        <BikeView
+                            :equipmentTypes="equipmentTypes"
+                            :bike="bike"
+                            @updateBikesEvent="onUpdateBikesEvent"
+                        ></BikeView>
+                    </li>
+                </ul>
+            </div>
         </section>
     </main>
 </template>

@@ -1,10 +1,5 @@
 <template>
-    <input
-        :value="modelValue"
-        class="input"
-        type="number"
-        @input="handleInput"
-    />
+    <input :value="modelValue" class="input" type="number" @input="handleInput" />
 </template>
 
 <script setup lang="ts">

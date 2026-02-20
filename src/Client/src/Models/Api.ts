@@ -7,7 +7,7 @@ import {
     PartApi,
     TypeApi
 } from "../Gen";
-import {loadBearerTokenFromLocalStorage} from "./Auth/User.ts";
+import { loadBearerTokenFromLocalStorage } from "./Auth/User.ts";
 
 class CfgParams implements ConfigurationParameters {
     basePath?: string | undefined;

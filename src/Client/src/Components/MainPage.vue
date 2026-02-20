@@ -16,9 +16,9 @@
     </main>
 </template>
 <script setup lang="ts">
-import {DefaultUserDependency} from "../Models/Auth/User.ts";
-import {inject} from "vue";
+import { DefaultUserDependency } from "../Models/Auth/User.ts";
+import { inject } from "vue";
 import HeadingH1 from "./Common/Headings/HeadingH1.vue";
 
-const {user} = inject("user", DefaultUserDependency, true);
+const { user } = inject("user", DefaultUserDependency, true);
 </script>
