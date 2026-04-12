@@ -5,12 +5,12 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
     plugins: [vue()],
     css: {
-    preprocessorOptions: {
-      scss: {
-        // Dart Sass options
-          api: 'modern-compiler'
+        preprocessorOptions: {
+            scss: {
+                // Dart Sass options
+                api: "modern-compiler"
+            }
         }
-      }
     },
     server: {
         proxy: {
