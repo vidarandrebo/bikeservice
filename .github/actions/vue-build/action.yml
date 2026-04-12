@@ -12,14 +12,14 @@ runs:
     - name: Install
       working-directory: ${{ inputs.working-directory }}
       shell: bash
-      run: npm ci
+      run: pnpm install --frozen-lockfile
 
     - name: Test
       working-directory: ${{ inputs.working-directory }}
       shell: bash
-      run: npm run test
+      run: pnpm test
 
     - name: Build
       working-directory: ${{ inputs.working-directory }}
       shell: bash
-      run: npm run build
+      run: pnpm build
