@@ -31,13 +31,13 @@ jobs:
         user: ${{secrets.SSH_USERNAME}}
 
     - name: Vue artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: "client"
         path: "./static"
 
     - name: .NET artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: "server"
         path: "./bin"
