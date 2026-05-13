@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
+      with:
+        persist-credentials: true
 
     - name: Grep
       run: grep '<Version>' Directory.Build.props | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/'
@@ -23,3 +25,14 @@ jobs:
     - name: Print
       run: echo ${{steps.version.outputs.version-tag }}
 
+    - name: Configure Git
+      shell: bash
+      run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+    - name: Create and push tag
+      shell: bash
+      run: |
+          git tag ${{ steps.version.outputs.version-tag }}
+          git push origin ${{ steps.version.outputs.version-tag }}
