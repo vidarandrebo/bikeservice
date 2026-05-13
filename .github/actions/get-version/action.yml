@@ -47,3 +47,11 @@ runs:
       run: |
         echo "Building version ${{ steps.three.outputs.version-tag }}"
           # You can now use ${{ steps.three.outputs.version-tag }} in subsequent steps
+
+    - name: Create and Push Tag
+      shell: bash
+      run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git tag -a v1.0.0 -m "Automated release v1.0.0"
+          git push origin v1.0.0
