@@ -1,0 +1,41 @@
+name: Get Version
+description: Get version for project
+
+inputs: 
+  directory-build-props-file:
+    required: true
+    description: "Location of Directory.Build.Props file"
+
+outputs:
+  version: 
+    description: "The semver version + timestamp"
+    value: ${{ steps.two.outputs.version }}
+
+runs: 
+  using: composite
+  steps:
+    - name: Extract Version from Directory.Build.props
+      id: two
+      shell: bash
+      run: |
+          # Extract the value between <Version> and </Version>
+          # We use grep to find the line, then sed to strip tags
+          VERSION=$(grep '<Version>' Directory.Build.props | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
+        
+          # Output the version to a GitHub Environment Variable for later steps
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        
+          # Optional: Print it to verify
+          echo "Extracted version: $VERSION"
+
+    - name: Use the Version
+      shell: bash
+      id: three
+      run: |
+        echo "Building version ${{ steps.get_version.outputs.VERSION }}"
+          # You can now use ${{ steps.get_version.outputs.VERSION }} in subsequent steps
+
+    - name: Date
+      shell: bash
+      id: four
+      run: date +%Y%m%d%H%M%S
