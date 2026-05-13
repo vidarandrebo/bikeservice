@@ -9,7 +9,7 @@ inputs:
 outputs:
   version: 
     description: "The semver version + timestamp"
-    value: ${{ steps.two.outputs.version }}
+    value: ${{ steps.three.outputs.version }}
 
 runs: 
   using: composite
@@ -30,14 +30,18 @@ runs:
       run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
 
+    - name: Test 
+      shell: bash
+      run: echo $TIMESTAMP
+
     - name: Output
       shell: bash
       id: three
-      run: echo "version=$VERSION+TIMESTAMP" >> $GITHUB_OUTPUT
+      run: echo "version=$VERSION+$TIMESTAMP" >> $GITHUB_OUTPUT
 
     - name: Use the Version
       shell: bash
       id: four
       run: |
-        echo "Building version ${{ steps.get_version.outputs.VERSION }}"
-          # You can now use ${{ steps.get_version.outputs.VERSION }} in subsequent steps
+        echo "Building version ${{ steps.three.outputs.version }}"
+          # You can now use ${{ steps.three.outputs.version }} in subsequent steps
