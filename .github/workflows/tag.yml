@@ -13,5 +13,8 @@ jobs:
       with:
         persist-credentials: false
 
+    - name: Grep
+      run: grep '<Version>' Directory.Build.props | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/'
+
     - name: version
       run: date +%Y%m%d%H%M%S
