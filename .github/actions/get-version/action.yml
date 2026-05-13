@@ -1,0 +1,39 @@
+name: Get Version
+description: Get version for project
+
+inputs: 
+  directory-build-props-file:
+    required: true
+    default: "Directory.Build.props"
+    description: "Location of Directory.Build.props file"
+
+outputs:
+  version-tag: 
+    description: "The semver version + timestamp"
+    value: ${{ steps.three.outputs.version-tag }}
+
+runs: 
+  using: composite
+  steps:
+    - name: Extract Version from file
+      id: one
+      shell: bash
+      run: |
+          # Extract the value between <Version> and </Version>
+          # We use grep to find the line, then sed to strip tags
+          VERSION=$(grep '<Version>' ${{ inputs.directory-build-props-file }} | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
+          # Optional: Print it to verify
+          echo "Extracted version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Generate timestamp
+      shell: bash
+      id: two
+      run: |
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+
+    - name: Output
+      shell: bash
+      id: three
+      run: echo "version-tag=${{ steps.one.outputs.version }}+${{ steps.two.outputs.timestamp }}" >> $GITHUB_OUTPUT
