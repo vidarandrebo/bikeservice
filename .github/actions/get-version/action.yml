@@ -4,7 +4,8 @@ description: Get version for project
 inputs: 
   directory-build-props-file:
     required: true
-    description: "Location of Directory.Build.Props file"
+    default: "Directory.Build.props"
+    description: "Location of Directory.Build.props file"
 
 outputs:
   version-tag: 
@@ -20,7 +21,7 @@ runs:
       run: |
           # Extract the value between <Version> and </Version>
           # We use grep to find the line, then sed to strip tags
-          VERSION=$(grep '<Version>' Directory.Build.props | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
+          VERSION=$(grep '<Version>' ${{ inputs.directory-build-props-file }} | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
           # Optional: Print it to verify
           echo "Extracted version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -40,11 +41,3 @@ runs:
       shell: bash
       id: three
       run: echo "version-tag=${{ steps.one.outputs.version }}+${{ steps.two.outputs.timestamp }}" >> $GITHUB_OUTPUT
-
-    - name: Use the Version
-      shell: bash
-      id: four
-      run: |
-        echo "Building version ${{ steps.three.outputs.version-tag }}"
-          # You can now use ${{ steps.three.outputs.version-tag }} in subsequent steps
-
