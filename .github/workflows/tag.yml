@@ -5,13 +5,8 @@ on:
 
 
 jobs:
-  build:
-    name: "Build"
-    defaults:
-      run:
-        working-directory: "./client/"
-
-
+  tag-api:
+    name: "Tag"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
