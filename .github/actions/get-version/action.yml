@@ -7,9 +7,9 @@ inputs:
     description: "Location of Directory.Build.Props file"
 
 outputs:
-  version: 
+  version-tag: 
     description: "The semver version + timestamp"
-    value: ${{ steps.three.outputs.version }}
+    value: ${{ steps.three.outputs.version-tag }}
 
 runs: 
   using: composite
@@ -23,12 +23,14 @@ runs:
           VERSION=$(grep '<Version>' Directory.Build.props | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
           # Optional: Print it to verify
           echo "Extracted version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
     - name: Generate timestamp
       shell: bash
       id: two
       run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
 
     - name: Test 
       shell: bash
@@ -37,7 +39,7 @@ runs:
     - name: Output
       shell: bash
       id: three
-      run: echo "version=$VERSION+$TIMESTAMP" >> $GITHUB_OUTPUT
+      run: echo "version-tag=${{ steps.one.outputs.version }}+${{ steps.two.outputs.timestamp }}" >> $GITHUB_OUTPUT
 
     - name: Use the Version
       shell: bash
