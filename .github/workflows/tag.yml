@@ -34,5 +34,5 @@ jobs:
     - name: Create and push tag
       shell: bash
       run: |
-          git tag ${{ steps.version.outputs.version-tag }}
+          git tag ${{ steps.version.outputs.version-tag }} -m "BikeService version ${{ steps.version.outputs.version-tag }}"
           git push origin ${{ steps.version.outputs.version-tag }}
