@@ -45,5 +45,5 @@ runs:
       shell: bash
       id: four
       run: |
-        echo "Building version ${{ steps.three.outputs.version }}"
-          # You can now use ${{ steps.three.outputs.version }} in subsequent steps
+        echo "Building version ${{ steps.three.outputs.version-tag }}"
+          # You can now use ${{ steps.three.outputs.version-tag }} in subsequent steps
