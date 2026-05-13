@@ -2,8 +2,6 @@ name: Tag
 
 on: 
   push:
-    branches:
-        - '*'
 
 
 jobs:
