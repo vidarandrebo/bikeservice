@@ -15,7 +15,7 @@ outputs:
 runs: 
   using: composite
   steps:
-    - name: Extract Version from Directory.Build.props
+    - name: Extract Version from file
       id: one
       shell: bash
       run: |
@@ -32,10 +32,6 @@ runs:
       run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
-
-    - name: Test 
-      shell: bash
-      run: echo $TIMESTAMP
 
     - name: Output
       shell: bash
