@@ -5,12 +5,15 @@ on:
     branches: 
       - main
 
+permissions:
+  contents: write
+
 jobs:
   tag-api:
     name: "Tag"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         persist-credentials: true
 
@@ -21,7 +24,9 @@ jobs:
         directory-build-props-file: "./Directory.Build.props"
     
     - name: Print version
-      run: echo ${{steps.version.outputs.version-tag }}
+      run: echo ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
+      env:
+        STEPS_VERSION_OUTPUTS_VERSION_TAG: ${{steps.version.outputs.version-tag }}
 
     - name: Configure Git
       shell: bash
@@ -32,5 +37,7 @@ jobs:
     - name: Create and push tag
       shell: bash
       run: |
-          git tag ${{ steps.version.outputs.version-tag }} -m "BikeService version ${{ steps.version.outputs.version-tag }}"
-          git push origin ${{ steps.version.outputs.version-tag }}
+          git tag ${STEPS_VERSION_OUTPUTS_VERSION_TAG} -m "BikeService version ${STEPS_VERSION_OUTPUTS_VERSION_TAG}"
+          git push origin ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
+      env:
+        STEPS_VERSION_OUTPUTS_VERSION_TAG: ${{ steps.version.outputs.version-tag }}

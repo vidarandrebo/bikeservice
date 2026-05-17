@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <Version>4.1.1</Version>
+        <Version>4.1.2</Version>
         <Authors>Vidar André Bø</Authors>
         <Product>BikeService</Product>
         <RepositoryUrl>https://github.com/vidarandrebo/bikeservice</RepositoryUrl>
