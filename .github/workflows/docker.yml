@@ -17,6 +17,7 @@ jobs:
         uses: "./.github/actions/get-version"
         with:
           directory-build-props-file: "./Directory.Build.props"
+          metadata-separator: "-"
 
       - name: Print version
         run: echo ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
