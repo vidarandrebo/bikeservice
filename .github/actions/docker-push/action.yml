@@ -24,3 +24,6 @@ runs:
       shell: bash
       run: docker images
       
+    - name: Push
+      shell: bash
+      run: docker push ${{ inputs.image }}:${{ inputs.version-tag }}
