@@ -24,11 +24,10 @@ runs:
     - name: Build
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-      run: docker images
+      run: docker build . -t ${{ inputs.image-tag }}
       
     - name: Build
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-      run: docker build . -t ${{ inputs.image-tag }}
-      
+      run: docker images
       
