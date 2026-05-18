@@ -1,6 +1,6 @@
 name: Publish
 
-on: 
+on:
   workflow_call:
     secrets:
       KNOWN_HOSTS:
@@ -18,46 +18,46 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      with:
-        persist-credentials: false
-    
-    - name: Setup SSH
-      uses: "./.github/actions/ssh"
-      with:
-        known-hosts: ${{secrets.KNOWN_HOSTS}}
-        ssh-key: ${{secrets.SSH_KEY}}
-        host: ${{secrets.SSH_HOST}}
-        user: ${{secrets.SSH_USERNAME}}
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
-    - name: Vue artifact
-      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-      with:
-        name: "client"
-        path: "./static"
+      - name: Setup SSH
+        uses: "./.github/actions/ssh"
+        with:
+          known-hosts: ${{secrets.KNOWN_HOSTS}}
+          ssh-key: ${{secrets.SSH_KEY}}
+          host: ${{secrets.SSH_HOST}}
+          user: ${{secrets.SSH_USERNAME}}
 
-    - name: .NET artifact
-      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-      with:
-        name: "server"
-        path: "./bin"
+      - name: Vue artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: "client"
+          path: "./static"
 
-    - name: Make binary executable
-      run: chmod +x ./bin/BikeService.Server
+      - name: .NET artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: "server"
+          path: "./bin"
 
-    - name: Copy frontend dist to output dir
-      run: cp -R ./static bin/wwwroot
+      - name: Make binary executable
+        run: chmod +x ./bin/BikeService.Server
 
-    - name: Remove previous version
-      run: ssh ${{ secrets.SSH_HOST }} rm -r bikeservice
+      - name: Copy frontend dist to output dir
+        run: cp -R ./static bin/wwwroot
 
-    - name: Transfer
-      run: |
-        rsync -r bin/ ${{ secrets.SSH_HOST }}:bikeservice
-      shell: bash
+      - name: Remove previous version
+        run: ssh ${{ secrets.SSH_HOST }} rm -r bikeservice
 
-    - name: SHA
-      run: |
-        echo ${{ github.event.pull_request.head.sha }} > commit-hash.txt
-        rsync commit-hash.txt ${{ secrets.SSH_HOST }}:bs-commit-hash.txt
-      shell: bash
+      - name: Transfer
+        run: |
+          rsync -r bin/ ${{ secrets.SSH_HOST }}:bikeservice
+        shell: bash
+
+      - name: SHA
+        run: |
+          echo ${{ github.event.pull_request.head.sha }} > commit-hash.txt
+          rsync commit-hash.txt ${{ secrets.SSH_HOST }}:bs-commit-hash.txt
+        shell: bash

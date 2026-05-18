@@ -1,12 +1,12 @@
 name: .NET Test
 description: Build .NET project
 
-inputs: 
+inputs:
   working-directory:
     required: true
     description: "Location of .sln file"
 
-runs: 
+runs:
   using: composite
   steps:
     - name: Restore dependencies

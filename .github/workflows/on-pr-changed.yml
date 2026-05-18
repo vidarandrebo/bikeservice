@@ -1,11 +1,11 @@
 name: "On PR Changed"
 
-on: 
+on:
   pull_request:
     branches:
       - main
 
-permissions: {}
+permissions: { }
 
 jobs:
   zizmor:
@@ -20,11 +20,3 @@ jobs:
     name: "Vue"
     uses: "./.github/workflows/vue.yml"
     
-  docker:
-    permissions:
-      contents: write
-      packages: write
-      attestations: write
-      id-token: write
-    name: "Docker"
-    uses: "./.github/workflows/docker.yml"

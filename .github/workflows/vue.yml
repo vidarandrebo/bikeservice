@@ -1,8 +1,8 @@
 name: Vue
 
-on: 
+on:
   workflow_call:
-    inputs: 
+    inputs:
       upload-artifact:
         default: false
         type: boolean
@@ -17,25 +17,25 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      with:
-        persist-credentials: false
-        
-    - name: Install pnpm
-      uses: pnpm/action-setup@739bfe42ca9233c5e6aca07c1a25a9d34aca49b0 # v6.0.7
-      with:
-        version: 10
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
-    - name: Vue Build
-      uses: "./.github/actions/vue-build"
-      with: 
-        working-directory: "./src/Client"
-        
-    - name: Store artifact
-      if: inputs.upload-artifact
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      with:
-        name: "client"
-        path: "./src/Client/dist"
+      - name: Install pnpm
+        uses: pnpm/action-setup@739bfe42ca9233c5e6aca07c1a25a9d34aca49b0 # v6.0.7
+        with:
+          version: 10
+
+      - name: Vue Build
+        uses: "./.github/actions/vue-build"
+        with:
+          working-directory: "./src/Client"
+
+      - name: Store artifact
+        if: inputs.upload-artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: "client"
+          path: "./src/Client/dist"
 
 
