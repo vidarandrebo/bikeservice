@@ -13,6 +13,10 @@ jobs:
     uses: "./.github/workflows/zizmor.yml"
 
   dotnet:
+    name: "Docker"
+    uses: "./.github/workflows/dotnet.yml"
+    
+  dotnet:
     name: ".NET"
     uses: "./.github/workflows/dotnet.yml"
 
