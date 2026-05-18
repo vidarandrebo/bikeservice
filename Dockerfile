@@ -23,8 +23,4 @@ RUN dotnet publish /data/src/Server -c Release -o bin
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /data
 COPY --from=dotnet-build-env /data/bin/ .
-#COPY --from=dotnet-build-env /data/bin/appsettings.json .
-RUN true
-COPY docker.env .env
-RUN true
 ENTRYPOINT ["dotnet","BikeService.Server.dll"]
