@@ -27,3 +27,7 @@ runs:
     - name: Push
       shell: bash
       run: docker push ${{ inputs.image }}:${{ inputs.version-tag }}
+      
+    - name: Push latest
+      shell: bash
+      run: docker push ${{ inputs.image }}:latest
