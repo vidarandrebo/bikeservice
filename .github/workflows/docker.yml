@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          persist-credentials: true
+          persist-credentials: false
 
       - name: Get version
         id: version
@@ -35,28 +35,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
           push: true
-          tags: ["ghcr.io/vidarandrebo/bikeservice:${{ steps.version.outputs.version-tag }}", "ghcr.io/vidarandrebo/bikeservice:latest"]
-          labels: ${{ steps.meta.outputs.labels }}
-
-#      - name: Docker push
-#        uses: "./.github/actions/docker-push"
-#        with:
-#          image: ghcr.io/vidarandrebo/bikeservice
-#          version-tag: ${{steps.version.outputs.version-tag }}
-          
-      - name: Print version
-        run: echo ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
-        env:
-          STEPS_VERSION_OUTPUTS_VERSION_TAG: ${{steps.version.outputs.version-tag }}
+          tags: |
+            ghcr.io/vidarandrebo/bikeservice:${{ steps.version.outputs.version-tag }}
+            ghcr.io/vidarandrebo/bikeservice:latest
+          labels: |
+            org.opencontainers.image.url=https://github.com/vidarandrebo/bikeservice
+            org.opencontainers.image.title=bikeservice
+            org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.version=${{ steps.version.outputs.version-tag }}
+            org.opencontainers.image.description=Bike service history web-app written with .NET and Vue
+            org.opencontainers.image.source=https://github.com/vidarandrebo/bikeservice
