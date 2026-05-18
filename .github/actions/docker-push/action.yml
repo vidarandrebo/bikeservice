@@ -1,33 +1,26 @@
 name: Docker push
-description: Push docker image 
+description: Push docker image
 
-inputs: 
-  working-directory:
+inputs:
+  image:
     required: true
-    description: "Location of Dockerfile"
-  image-tag:
+    description: "Image to push"
+  version-tag:
     required: true
-    description: "Tag to push the new image to"
+    description: "Version to push"
 
-runs: 
+runs:
   using: composite
   steps:
-    - name: Test
+    - name: Build image
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
-      run: echo "hello"
-    - name: Help
+      run: docker build . -t ${{ inputs.image }}:${{ inputs.version-tag }}
+
+    - name: Tag latest
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
-      run: docker --help
-      
-    - name: Build
+      run: docker image tag ${{ inputs.image }}:${{ inputs.version-tag }} ${{ inputs.image }}:latest
+
+    - name: Image
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
-      run: docker build . -t ${{ inputs.image-tag }}
-      
-    - name: Build
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: docker images
       
