@@ -5,13 +5,14 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
 
-      - name: Get version 
+      - name: Get version
         id: version
         uses: "./.github/actions/get-version"
         with:
@@ -21,7 +22,7 @@ jobs:
         run: echo ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
         env:
           STEPS_VERSION_OUTPUTS_VERSION_TAG: ${{steps.version.outputs.version-tag }}
-          
+
       - name: Docker push
         uses: "./.github/actions/docker-push"
         with:
