@@ -23,3 +23,8 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: docker build . -t testing
       
+    - name: Build
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: docker images
+      
