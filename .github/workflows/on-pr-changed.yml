@@ -12,9 +12,9 @@ jobs:
     name: "zizmor"
     uses: "./.github/workflows/zizmor.yml"
 
-  dotnet:
+  docker:
     name: "Docker"
-    uses: "./.github/workflows/dotnet.yml"
+    uses: "./.github/workflows/docker.yml"
     
   dotnet:
     name: ".NET"
