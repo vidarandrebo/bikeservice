@@ -17,7 +17,8 @@ jobs:
       with:
         persist-credentials: true
 
-    - name: Get version id: version
+    - name: Get version
+      id: version
       uses: "./.github/actions/get-version"
       with: 
         directory-build-props-file: "./Directory.Build.props"
