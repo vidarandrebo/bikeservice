@@ -5,16 +5,13 @@ on:
     branches:
       - main
 
+permissions: {}
 
 jobs:
   zizmor:
     name: "zizmor"
     uses: "./.github/workflows/zizmor.yml"
 
-  docker:
-    name: "Docker"
-    uses: "./.github/workflows/docker.yml"
-    
   dotnet:
     name: ".NET"
     uses: "./.github/workflows/dotnet.yml"
@@ -22,3 +19,12 @@ jobs:
   vue:
     name: "Vue"
     uses: "./.github/workflows/vue.yml"
+    
+  docker:
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+      id-token: write
+    name: "Docker"
+    uses: "./.github/workflows/docker.yml"

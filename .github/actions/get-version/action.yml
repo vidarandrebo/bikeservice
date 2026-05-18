@@ -42,7 +42,8 @@ runs:
     - name: Output
       shell: bash
       id: three
-      run: echo "version-tag=${STEPS_ONE_OUTPUTS_VERSION}${{inputs.metadata-separator}}${STEPS_TWO_OUTPUTS_TIMESTAMP}" >> $GITHUB_OUTPUT
+      run: echo "version-tag=${STEPS_ONE_OUTPUTS_VERSION}${INPUTS_METADATA_SEPARATOR}${STEPS_TWO_OUTPUTS_TIMESTAMP}" >> $GITHUB_OUTPUT
       env:
         STEPS_ONE_OUTPUTS_VERSION: ${{ steps.one.outputs.version }}
         STEPS_TWO_OUTPUTS_TIMESTAMP: ${{ steps.two.outputs.timestamp }}
+        INPUTS_METADATA_SEPARATOR: ${{inputs.metadata-separator}}
