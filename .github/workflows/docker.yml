@@ -19,14 +19,13 @@ jobs:
           directory-build-props-file: "./Directory.Build.props"
           metadata-separator: "-"
 
-      - name: Print version
-        run: echo ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
-        env:
-          STEPS_VERSION_OUTPUTS_VERSION_TAG: ${{steps.version.outputs.version-tag }}
-
       - name: Docker push
         uses: "./.github/actions/docker-push"
         with:
           working-directory: "./"
-          image-tag: ghcr.io/vidarandrebo/bikeservice/${{steps.version.outputs.version-tag }}
+          image-tag: ghcr.io/vidarandrebo/bikeservice:${{steps.version.outputs.version-tag }}
           
+      - name: Print version
+        run: echo ${STEPS_VERSION_OUTPUTS_VERSION_TAG}
+        env:
+          STEPS_VERSION_OUTPUTS_VERSION_TAG: ${{steps.version.outputs.version-tag }}
