@@ -32,7 +32,7 @@ jobs:
       upload-artifact: true
 
   publish:
-    needs: [ dotnet, vue ]
+    needs: [ dotnet, vue, docker ]
     name: "Publish"
     uses: "./.github/workflows/publish.yml"
     secrets:
