@@ -11,9 +11,11 @@ on:
         required: true
       SSH_USERNAME:
         required: true
+        
 
 jobs:
   build-publish:
+    environment: production
     name: "Build and Publish"
 
     runs-on: ubuntu-latest
