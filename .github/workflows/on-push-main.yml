@@ -1,13 +1,11 @@
-name: "On PR Merged"
+name: "On Push Main"
 
-on: 
-  pull_request:
-    types:
-      - closed
+on:
+  push:
     branches:
       - main
-        
-permissions: {}
+
+permissions: { }
 
 jobs:
   vue:
@@ -21,9 +19,16 @@ jobs:
     uses: "./.github/workflows/dotnet.yml"
     with:
       upload-artifact: true
+      
+  docker:
+    permissions:
+      contents: write
+      packages: write
+    name: "Docker"
+    uses: "./.github/workflows/docker.yml"
 
   publish:
-    needs: [dotnet, vue]
+    needs: [ dotnet, vue, docker ]
     name: "Publish"
     uses: "./.github/workflows/publish.yml"
     secrets:

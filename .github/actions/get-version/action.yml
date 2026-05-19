@@ -1,30 +1,34 @@
 name: Get Version
 description: Get version for project
 
-inputs: 
+inputs:
   directory-build-props-file:
-    required: true
+    required: false
     default: "Directory.Build.props"
     description: "Location of Directory.Build.props file"
+  metadata-separator:
+    required: false
+    description: "Character to split metadata fields on"
+    default: "+"
 
 outputs:
-  version-tag: 
+  version-tag:
     description: "The semver version + timestamp"
     value: ${{ steps.three.outputs.version-tag }}
 
-runs: 
+runs:
   using: composite
   steps:
     - name: Extract Version from file
       id: one
       shell: bash
       run: |
-          # Extract the value between <Version> and </Version>
-          # We use grep to find the line, then sed to strip tags
-          VERSION=$(grep '<Version>' ${INPUTS_DIRECTORY_BUILD_PROPS_FILE} | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
-          # Optional: Print it to verify
-          echo "Extracted version: $VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        # Extract the value between <Version> and </Version>
+        # We use grep to find the line, then sed to strip tags
+        VERSION=$(grep '<Version>' ${INPUTS_DIRECTORY_BUILD_PROPS_FILE} | sed -E 's/.*<Version>([^<]+)<\/Version>.*/\1/')
+        # Optional: Print it to verify
+        echo "Extracted version: $VERSION"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
       env:
         INPUTS_DIRECTORY_BUILD_PROPS_FILE: ${{ inputs.directory-build-props-file }}
 
@@ -32,13 +36,14 @@ runs:
       shell: bash
       id: two
       run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+        TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
 
     - name: Output
       shell: bash
       id: three
-      run: echo "version-tag=${STEPS_ONE_OUTPUTS_VERSION}+${STEPS_TWO_OUTPUTS_TIMESTAMP}" >> $GITHUB_OUTPUT
+      run: echo "version-tag=${STEPS_ONE_OUTPUTS_VERSION}${INPUTS_METADATA_SEPARATOR}${STEPS_TWO_OUTPUTS_TIMESTAMP}" >> $GITHUB_OUTPUT
       env:
         STEPS_ONE_OUTPUTS_VERSION: ${{ steps.one.outputs.version }}
         STEPS_TWO_OUTPUTS_TIMESTAMP: ${{ steps.two.outputs.timestamp }}
+        INPUTS_METADATA_SEPARATOR: ${{inputs.metadata-separator}}
