@@ -20,3 +20,11 @@ jobs:
     name: "Vue"
     uses: "./.github/workflows/vue.yml"
     
+  docker:
+    permissions:
+      contents: write
+      packages: write
+      # attestations: write
+      # id-token: write
+    name: "Docker"
+    uses: "./.github/workflows/docker.yml"
