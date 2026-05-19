@@ -37,8 +37,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/vidarandrebo/bikeservice:${{ steps.version.outputs.version-tag }}
-            ghcr.io/vidarandrebo/bikeservice:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version-tag }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: |
             org.opencontainers.image.url=https://github.com/vidarandrebo/bikeservice
             org.opencontainers.image.title=bikeservice
