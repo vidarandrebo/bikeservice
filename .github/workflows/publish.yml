@@ -11,7 +11,6 @@ on:
         required: true
       SSH_USERNAME:
         required: true
-        
 
 jobs:
   build-publish:
