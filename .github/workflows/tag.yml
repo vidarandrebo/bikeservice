@@ -1,13 +1,8 @@
 name: Tag
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
-
+  workflow_call: 
+    
 jobs:
   tag-api:
     name: "Tag"
