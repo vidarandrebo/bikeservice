@@ -19,7 +19,13 @@ jobs:
     uses: "./.github/workflows/dotnet.yml"
     with:
       upload-artifact: true
-      
+  
+  tag:
+    permissions:
+      contents: write
+    name: "Tag"
+    uses: "./.github/workflows/tag.yml"
+       
   docker:
     permissions:
       contents: write
@@ -28,7 +34,7 @@ jobs:
     uses: "./.github/workflows/docker.yml"
 
   publish:
-    needs: [ dotnet, vue, docker ]
+    needs: [ dotnet, vue, docker, tag ]
     name: "Publish"
     uses: "./.github/workflows/publish.yml"
     secrets:
