@@ -17,7 +17,7 @@ jobs:
 
       - name: Get version
         id: version
-        uses: "./.github/actions/get-version"
+        uses: "./.github/actions/git-tag-version"
         with:
           directory-build-props-file: "./Directory.Build.props"
 
