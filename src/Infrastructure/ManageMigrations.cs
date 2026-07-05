@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +13,14 @@ public static class ManageMigrations
 {
     public static async Task ApplyMigrations(this IServiceProvider serviceProvider, IWebHostEnvironment environment)
     {
-        using (var scope = serviceProvider.CreateScope())
+        if (Assembly.GetEntryAssembly()?.GetName().Name != "GetDocument.Insider")
         {
-            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            Log.Logger.Information("Running migration on database");
-            await db.Database.MigrateAsync();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                Log.Logger.Information("Running migration on database");
+                await db.Database.MigrateAsync();
+            }
         }
     }
 }
