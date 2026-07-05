@@ -14,12 +14,9 @@ public static class ManageMigrations
     {
         using (var scope = serviceProvider.CreateScope())
         {
-            if (environment.IsDevelopment())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                Log.Logger.Information("Running migration on database");
-                await db.Database.MigrateAsync();
-            }
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            Log.Logger.Information("Running migration on database");
+            await db.Database.MigrateAsync();
         }
     }
 }
