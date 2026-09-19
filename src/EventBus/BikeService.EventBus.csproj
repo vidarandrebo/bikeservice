@@ -5,9 +5,8 @@
         <Title>BikeService EventBus</Title>
     </PropertyGroup>
 
-
     <ItemGroup>
-        <PackageReference Include="Serilog.Extensions.Hosting"/>
+        <PackageReference Include="Serilog.Extensions.Hosting" />
     </ItemGroup>
 
 </Project>
