@@ -18,7 +18,7 @@ jobs:
 
       - name: Get version
         id: version
-        uses: "./.github/actions/docker-tag-version"
+        uses: "$/.github/actions/docker-tag-version"
         with:
           directory-build-props-file: "./Directory.Build.props"
 

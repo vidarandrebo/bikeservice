@@ -27,7 +27,7 @@ jobs:
           package_json_file: "./src/Client/package.json"
 
       - name: Vue Build
-        uses: "./.github/actions/vue-build"
+        uses: "$/.github/actions/vue-build"
         with:
           working-directory: "./src/Client"
 
