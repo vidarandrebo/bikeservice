@@ -19,7 +19,15 @@ public static class ManageMigrations
             {
                 var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 Log.Logger.Information("Running migration on database");
-                await db.Database.MigrateAsync();
+                try
+                {
+                    await db.Database.MigrateAsync();
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "Error running migrations");
+                    throw;
+                }
             }
         }
     }
