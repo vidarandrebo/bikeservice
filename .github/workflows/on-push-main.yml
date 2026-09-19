@@ -10,13 +10,13 @@ permissions: { }
 jobs:
   vue:
     name: "Vue"
-    uses: "./.github/workflows/vue.yml"
+    uses: "$/.github/workflows/vue.yml"
     with:
       upload-artifact: true
 
   dotnet:
     name: ".NET"
-    uses: "./.github/workflows/dotnet.yml"
+    uses: "$/.github/workflows/dotnet.yml"
     with:
       upload-artifact: true
   
@@ -24,19 +24,19 @@ jobs:
     permissions:
       contents: write
     name: "Tag"
-    uses: "./.github/workflows/tag.yml"
+    uses: "$/.github/workflows/tag.yml"
        
   docker:
     permissions:
       contents: write
       packages: write
     name: "Docker"
-    uses: "./.github/workflows/docker.yml"
+    uses: "$/.github/workflows/docker.yml"
 
   publish:
     needs: [ dotnet, vue, docker, tag ]
     name: "Publish"
-    uses: "./.github/workflows/publish.yml"
+    uses: "$/.github/workflows/publish.yml"
     secrets:
       KNOWN_HOSTS: ${{secrets.KNOWN_HOSTS}}
       SSH_KEY: ${{secrets.SSH_KEY}}

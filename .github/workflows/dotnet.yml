@@ -23,12 +23,12 @@ jobs:
         run: dotnet tool restore
 
       - name: .NET Test
-        uses: "./.github/actions/dotnet-test"
+        uses: "$/.github/actions/dotnet-test"
         with:
           working-directory: "./"
 
       - name: .NET Build
-        uses: "./.github/actions/dotnet-build"
+        uses: "$/.github/actions/dotnet-build"
         with:
           working-directory: "./"
 
