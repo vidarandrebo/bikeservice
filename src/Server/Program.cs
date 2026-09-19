@@ -33,6 +33,7 @@ public static class Program
 
         builder.Services.AddRouting();
         builder.Services.AddControllers();
+        builder.Services.AddHealthChecks();
         //builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddAuthentication(options =>
             {
@@ -118,6 +119,8 @@ public static class Program
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.MapHealthChecks("/healthz");
 
         app.MapFallbackToFile("index.html");
 
