@@ -5,10 +5,8 @@
         <Title>BikeService EventBus</Title>
     </PropertyGroup>
 
-
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" VersionOverride="10.0.12" />
-        <PackageReference Include="Serilog.Extensions.Hosting"/>
+        <PackageReference Include="Serilog.Extensions.Hosting" />
     </ItemGroup>
 
 </Project>
