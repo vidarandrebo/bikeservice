@@ -1,5 +1,5 @@
 # Basic `dependabot.yml` file with
-# minimum configuration for three package managers
+# minimum configuration for four package managers
 
 version: 2
 updates:
@@ -10,6 +10,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "friday"
+      time: "12:00"
+      
     cooldown:
       default-days: 7
     # Group ALL GitHub Actions updates together
@@ -23,6 +26,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "friday"
+      time: "12:00"
     cooldown:
       default-days: 7
     groups:
@@ -35,9 +40,25 @@ updates:
     directory: "/src/Client"
     schedule:
       interval: "weekly"
+      day: "friday"
+      time: "12:00"
     cooldown:
       default-days: 7
     groups:
       npm:
+        patterns:
+          - "*"
+
+  # Enable version updates for Docker images
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "12:00"
+    cooldown:
+      default-days: 7
+    groups:
+      docker:
         patterns:
           - "*"
