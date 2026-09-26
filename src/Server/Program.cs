@@ -33,7 +33,8 @@ public static class Program
 
         builder.Services.AddRouting();
         builder.Services.AddControllers();
-        builder.Services.AddHealthChecks();
+        builder.Services.AddHealthChecks()
+            .AddDbContextCheck<ApplicationDbContext>();
         //builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddAuthentication(options =>
             {
